@@ -3,7 +3,7 @@ import configureViews from './lib/configureViews';
 
 const app = express();
 
-app.use(express.static('./dist/assets'));
+app.use(express.static('./dist'));
 
 configureViews(app);
 
