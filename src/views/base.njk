@@ -1,0 +1,53 @@
+{% extends "govuk/template.njk" %}
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
+
+{% block head %}
+    <!--[if !IE 8]><!-->
+    <link rel="stylesheet" type="text/css" href="app.css">
+    <!--<![endif]-->
+{% endblock %}
+
+{% block header %}
+    {{ govukHeader({
+        homepageUrl: "#",
+        serviceName: "GOV.UK Sign In",
+        serviceUrl: "#"
+    }) }}
+{% endblock %}
+
+{% block main %}
+    <div class="govuk-width-container {{ containerClasses }}">
+        {{ govukPhaseBanner({
+            tag: {
+                text: "beta"
+            },
+            html: 'Bla Bla'
+        }) }}
+        {% block beforeContent %}{% endblock %}
+        <main class="govuk-main-wrapper {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+            {% block content %}
+                <h1 class="govuk-heading-xl">Default page template</h1>
+            {% endblock %}
+        </main>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {{ govukFooter({
+        meta: {
+            items: [
+                {
+                    href: "/accessibility-statement",
+                    text: "Accessibility statement "
+                }
+            ]
+        }
+    }) }}
+{% endblock %}
+
+{% block bodyEnd %}
+    {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
+    <script>window.GOVUKFrontend.initAll()</script>
+{% endblock %}
