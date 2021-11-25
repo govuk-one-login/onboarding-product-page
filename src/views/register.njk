@@ -1,0 +1,699 @@
+{% extends "base.njk" %}
+
+{% block pageTitle %}GOV.UK Sign In Home{% endblock %}
+
+{% block content %}
+
+<div class="govuk-width-container ">
+    <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list">
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK
+                    services</a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+            </li>
+            <li class="govuk-breadcrumbs__list-item">
+                <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Register your interest</a>
+            </li>
+        </ol>
+    </div>
+
+    <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing" id="main-content" role="main">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-xl">
+                    Register your interest
+                </h1>
+
+                <p class="govuk-body">This form should take 10 minutes to complete.</p>
+
+                <p class="govuk-body"><a class="govuk-link" href="/find-out-more">Find out more</a> to make sure GOV.UK
+                    Sign In is right for you.</p>
+                <br/>
+
+                {% if errorMessages.size != 0 %}
+                    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"
+                         data-module="govuk-error-summary">
+                        <h2 class="govuk-error-summary__title" id="error-summary-title">
+                            There is a problem
+                        </h2>
+                        <div class="govuk-error-summary__body">
+                            <ul class="govuk-list govuk-error-summary__list">
+                                {% for field in fieldOrder %}
+                                {% if errorMessages.get(field) %}
+                                    <li>
+                                        <a href="#{{ field }}">{{ errorMessages.get(field) }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <form class="form" method="post" novalidate="novalidate">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h2 class="govuk-fieldset__heading">
+                                About you
+                            </h2>
+                        </legend>
+
+                        <div class="govuk-form-group {% if errorMessages.get('name') %}govuk-form-group--error{% endif %}">
+                            <label class="govuk-label" for="name">
+                                Name
+                            </label>
+                            {% if errorMessages.get('name') %}
+                                <span class="govuk-error-message" id="name-error">
+                                        <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('name') }}
+                                    </span>
+                            {% endif %}
+                            <input
+                                    class="govuk-input govuk-input--width-9"
+                                    id="name" name="name"
+                                    type="text"
+                                    spellcheck="false"
+                                    value="{{ values.get('name') }}"
+                                    {% if errorMessages.get('name') %}aria-describedby="name-error"{% endif %}
+                            >
+                        </div>
+
+                        <div class="govuk-form-group {% if errorMessages.get('role') %}govuk-form-group--error{% endif %}">
+                            <label class="govuk-label" for="role">
+                                Role
+                            </label>
+                            {% if errorMessages.get('role') %}
+                                <span class="govuk-error-message" id="role-error">
+                                        <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('role') }}
+                                    </span>
+                            {% endif %}
+                            <input
+                                    class="govuk-input govuk-input--width-9"
+                                    id="role"
+                                    name="role"
+                                    type="text"
+                                    spellcheck="false"
+                                    value="{{ values.get('role') }}"
+                                    {% if errorMessages.get('name') %}aria-describedby="role-error"{% endif %}
+                            >
+                        </div>
+
+                        <div class="govuk-form-group {% if errorMessages.get('email') %}govuk-form-group--error{% endif %}">
+                            <label class="govuk-label" for="email">
+                                Email address
+                            </label>
+                            <div id="email-hint" class="govuk-hint">
+                                You must enter a government email address
+                            </div>
+                            {% if errorMessages.get('email') %}
+                                <span class="govuk-error-message" id="email-error">
+                                            <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('email') }}
+                                        </span>
+                            {% endif %}
+                            <input
+                                    class="govuk-input"
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    spellcheck="false"
+                                    aria-describedby="email-hint"
+                                    autocomplete="email"
+                                    value="{{ values.get('email') }}"
+                                    aria-describedby="email-hint {% if errorMessages.get('email') %}email-error{% endif %}">
+                        </div>
+
+                    </fieldset>
+
+                    <br/>
+
+                    <hr>
+
+                    <br/>
+
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h2 class="govuk-fieldset__heading">
+                                About your service
+                            </h2>
+                        </legend>
+
+                        <div class="govuk-form-group {% if errorMessages.get('service-name') %}govuk-form-group--error{% endif %}">
+                            <label class="govuk-label" for="service-name">
+                                Service name
+                            </label>
+                            {% if errorMessages.get('service-name') %}
+                                <span class="govuk-error-message" id="service-name-error">
+                                            <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('service-name') }}
+                                        </span>
+                            {% endif %}
+
+                            <input
+                                    class="govuk-input govuk-input--width-9"
+                                    id="service-name"
+                                    name="service-name"
+                                    type="text"
+                                    spellcheck="false"
+                                    value="{{ values.get('service-name') }}"
+                                    {% if errorMessages.get('service-name') %}aria-describedby="service-name-error"{% endif %}
+                            >
+                        </div>
+
+                        <div class="govuk-form-group {% if errorMessages.get('department-name') %}govuk-form-group--error{% endif %}">
+                            <label class="govuk-label" for="department-name">
+                                Organisation name
+                            </label>
+                            {% if errorMessages.get('department-name') %}
+                                <span class="govuk-error-message" id="department-name-error">
+                                            <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('department-name') }}
+                                        </span>
+                            {% endif %}
+
+                            <input
+                                    class="govuk-input govuk-input--width-9"
+                                    id="department-name"
+                                    name="department-name"
+                                    type="text"
+                                    spellcheck="false"
+                                    value="{{ values.get('department-name') }}"
+                                    {% if errorMessages.get('department-name') %}aria-describedby="department-name-error"{% endif %}
+                            >
+                        </div>
+
+                        <div class="govuk-form-group {% if errorMessages.get('phase') %}govuk-form-group--error{% endif %}">
+                            <fieldset class="govuk-fieldset"
+                                      {% if errorMessages.get('phase') %}aria-describedby="phase-error"{% endif %}>
+                                <legend class="govuk-fieldset__legend">
+                                    What phase are you in?
+                                </legend>
+                                {% if errorMessages.get('phase') %}
+                                    <span class="govuk-error-message" id="phase-error">
+                                                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('phase') }}
+                                            </span>
+                                {% endif %}
+
+                                <br/>
+                                <div class="govuk-radios">
+                                    <div class="govuk-radios__item">
+                                        <input
+                                                class="govuk-radios__input" id="phase" name="phase" type="radio"
+                                                value="discovery" {% if
+                                                    (values.get('phase')) == "discovery" %}checked="checked"{% endif %}>
+                                        <label class="govuk-label govuk-radios__label" for="phase">
+                                            Discovery
+                                        </label>
+                                    </div>
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="phase-alpha" name="phase" type="radio"
+                                               value="alpha" {% if
+                                                   (values.get('phase')) == "alpha" %}checked="checked"{% endif %}>
+                                        <label class="govuk-label govuk-radios__label" for="phase-alpha">
+                                            Alpha
+                                        </label>
+                                    </div>
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="phase-beta" name="phase" type="radio"
+                                               value="beta" {% if
+                                                   (values.get('phase')) == "beta" %}checked="checked"{% endif %}>
+                                        <label class="govuk-label govuk-radios__label" for="phase-beta">
+                                            Beta
+                                        </label>
+                                    </div>
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="phase-live" name="phase" type="radio"
+                                               value="live" {% if
+                                                   (values.get('phase')) == "live" %}checked="checked"{% endif %}>
+                                        <label class="govuk-label govuk-radios__label" for="phase-live">
+                                            Live
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </fieldset>
+
+
+                    <br/>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="user-number">
+                            How many users does your service have each month?
+                        </label>
+
+                        <input
+                                class="govuk-input govuk-input--width-5"
+                                id="user-number"
+                                name="user-number"
+                                type="text"
+                                value="{{ values.get('user-number') }}"
+                        >
+                    </div>
+
+                    <br/>
+
+                    <div class="govuk-form-group {% if errorMessages.get('assessment') %}govuk-form-group--error{% endif %}">
+                        <fieldset class="govuk-fieldset"
+                                  {% if errorMessages.get('assessment') %}aria-describedby="assessment-error"{% endif %}>
+                            <legend class="govuk-fieldset__legend">
+                                Have you passed the relevant GDS service assessment?
+                            </legend>
+                            {% if errorMessages.get('assessment') %}
+                                <span class="govuk-error-message" id="assessment-error">
+                                                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('assessment') }}
+                                            </span>
+                            {% endif %}
+
+                            <br/>
+                            <div class="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="assessment" name="assessment" type="radio"
+                                           value="yes" {% if
+                                               (values.get('assessment')) == "yes" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="assessment">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="assessment-no" name="assessment" type="radio"
+                                           value="no" {% if
+                                               (values.get('assessment')) == "no" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="assessment-no">
+                                        No
+                                    </label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="assessment-na" name="assessment" type="radio"
+                                           value="n/a" {% if
+                                               (values.get('assessment')) == "n/a" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="assessment-na">
+                                        N/A
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <br/>
+
+                    <div class="govuk-form-group {% if errorMessages.get('host') %}govuk-form-group--error{% endif %}">
+                        <fieldset class="govuk-fieldset"
+                                  {% if errorMessages.get('host') %}aria-describedby="host-error"{% endif %}>
+                            <legend class="govuk-fieldset__legend">
+                                Is your service on GOV.UK?
+                            </legend>
+                            {% if errorMessages.get('host') %}
+                                <span class="govuk-error-message" id="host-error">
+                                                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('host') }}
+                                            </span>
+                            {% endif %}
+
+                            <br/>
+                            <div class="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="host" name="host" type="radio" value="yes"
+                                           {% if (values.get('host')) ==
+                                               "yes" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="host">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="host-no" name="host" type="radio" value="no"
+                                           {% if (values.get('host')) ==
+                                               "no" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="host-no">
+                                        No
+                                    </label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="host-na" name="host" type="radio" value="n/a"
+                                           {% if (values.get('host')) ==
+                                               "n/a" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="host-na">
+                                        N/A
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <br/>
+
+                    <div class="govuk-form-group {% if errorMessages.get('development') %}govuk-form-group--error{% endif %}">
+                        <fieldset class="govuk-fieldset"
+                                  {% if errorMessages.get('development') %}aria-describedby="development-error"{% endif %}>
+                            <legend class="govuk-fieldset__legend">
+                                Do you have a development team?
+                            </legend>
+                            {% if errorMessages.get('development') %}
+                                <span class="govuk-error-message" id="development-error">
+                                                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('development') }}
+                                            </span>
+                            {% endif %}
+
+                            <br/>
+                            <div class="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="development" name="development" type="radio"
+                                           value="yes" {% if
+                                               (values.get('development')) == "yes" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="development">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="development-no" name="development"
+                                           type="radio"
+                                           value="no" {% if
+                                               (values.get('development')) == "no" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="development-no">
+                                        No
+                                    </label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="development-na" name="development"
+                                           type="radio"
+                                           value="n/a" {% if
+                                               (values.get('development')) == "n/a" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="development-na">
+                                        N/A
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    </fieldset>
+
+                    <br/>
+
+                    <hr>
+
+                    <br/>
+
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h2 class="govuk-fieldset__heading">
+                                Authentication needs
+                            </h2>
+                        </legend>
+
+                        <div class="govuk-form-group {% if errorMessages.get('auth-need') %}govuk-form-group--error{% endif %}">
+                            <fieldset class="govuk-fieldset"
+                                      {% if errorMessages.get('auth-need') %}aria-describedby="auth-need-error"{% endif %}>
+                                <legend class="govuk-fieldset__legend">
+                                    Does your service need authentication?
+                                </legend>
+                                {% if errorMessages.get('auth-need') %}
+                                    <span class="govuk-error-message" id="auth-need-error">
+                                                <span class="govuk-visually-hidden">Error:</span> {{errorMessages.get('auth-need')}}
+                                            </span>
+                                {% endif %}
+
+                                <br/>
+                                <div class="govuk-radios">
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="auth-need" name="auth-need" type="radio"
+                                               value="yes"
+                                               {% if
+                                                   (values.get('auth-need')) == "yes" %}checked="checked"{% endif %}>
+                                        <label class="govuk-label govuk-radios__label" for="auth-need">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="auth-need-no" name="auth-need"
+                                               type="radio" value="no"
+                                               {% if
+                                                   (values.get('auth-need')) == "no" %}checked="checked"{% endif %}>
+                                        <label class="govuk-label govuk-radios__label" for="auth-need-no">
+                                            No
+                                        </label>
+                                    </div>
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="auth-need-unknown" name="auth-need"
+                                               type="radio"
+                                               value="unknown"
+                                               {% if
+                                                   (values.get('auth-need')) == "unknown" %}checked="checked"{% endif %}>
+                                        <label class="govuk-label govuk-radios__label" for="auth-need-unknown">
+                                            Don&apos;t know
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="govuk-form-group {% if errorMessages.get('auth-exist') %}govuk-form-group--error{% endif %}">
+                            <fieldset class="govuk-fieldset"
+                                      {% if errorMessages.get('auth-exist') %}aria-describedby="auth-exist-error"{% endif %}>
+                                <legend class="govuk-fieldset__legend">
+                                    Do you have an authentication solution already?
+                                </legend>
+                                {% if errorMessages.get('auth-exist') %}
+                                    <span class="govuk-error-message" id="auth-exist-error">
+                                                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('auth-exist') }}
+                                            </span>
+                                {% endif %}
+
+                                <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="auth-exist" name="auth-exist"
+                                               type="radio" value="yes"
+                                               data-aria-controls="conditional-auth-exist"
+                                               {% if (values.get('auth-exist')) ==
+                                                   "yes" %}checked="checked"{% endif %}>
+                                        <label class="govuk-label govuk-radios__label" for="auth-exist">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                                         id="conditional-auth-exist">
+                                        <div class="govuk-form-group {% if errorMessages.get('auth-existing') %}govuk-form-group--error{% endif %}">
+                                            <label class="govuk-label" for="auth-existing">
+                                                What’s the name of your authentication solution?
+                                            </label>
+                                            {% if errorMessages.get('auth-existing') %}
+                                                <span class="govuk-error-message" id="auth-existing-error">
+                                                            <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('auth-existing') }}
+                                                        </span>
+                                            {% endif %}
+                                            <input
+                                                    class="govuk-input govuk-!-width-full"
+                                                    id="auth-existing"
+                                                    name="auth-existing"
+                                                    type="text"
+                                                    spellcheck="false"
+                                                    value="{{ values.get('auth-existing') }}"
+                                                    {% if errorMessages.get('auth-existing') %}aria-describedby="auth-existing-error"{% endif %}
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="auth-exist-no" name="auth-exist"
+                                               type="radio" value="no"
+                                               {% if
+                                                   (values.get('auth-exist')) == "no" %}checked="checked"{% endif %}>
+                                        <label class="govuk-label govuk-radios__label" for="auth-exist-no">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="govuk-form-group {% if errorMessages.get('id-need') %}govuk-form-group--error{% endif %}">
+                            <fieldset class="govuk-fieldset"
+                                      {% if errorMessages.get('id-need') %}aria-describedby="id-need-error"{% endif %}>
+                                <legend class="govuk-fieldset__legend">
+                                    Do you check users&apos; identity to provide your service - or do you plan to?
+                                </legend>
+                                {% if errorMessages.get('id-need') %}
+                                    <span class="govuk-error-message" id="id-need-error">
+                                                <span class="govuk-visually-hidden">Error:</span> {{errorMessages.get('id-need')}}
+                                            </span>
+                                {% endif %}
+
+                                <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="id-need" name="id-need" type="radio"
+                                               value="yes"
+                                               data-aria-controls="conditional-id-need" {% if (values.get('id-need')) ==
+                                                   "yes" %}checked="checked"{% endif %}>
+                                        <label class="govuk-label govuk-radios__label" for="id-need">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                                         id="conditional-id-need">
+                                        <div class="govuk-form-group {% if errorMessages.get('id-needs') %}govuk-form-group--error{% endif %}">
+                                            <label class="govuk-label" for="id-needs">
+                                                Briefly describe your identity needs
+                                            </label>
+                                            {% if errorMessages.get('id-needs') %}
+                                                <span class="govuk-error-message" id="id-needs-error">
+                                                            <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('id-needs') }}
+                                                        </span>
+                                            {% endif %}
+                                            <textarea
+                                                    class="govuk-textarea"
+                                                    id="id-needs"
+                                                    name="id-needs"
+                                                    type="textarea"
+                                                    rows="5"
+                                                    spellcheck="false"
+                                                    {% if errorMessages.get('id-needs') %}aria-describedby="id-needs-error"{% endif %}
+        >{{ values.get('id-needs') }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="id-need-no" name="id-need" type="radio"
+                                               value="no" {% if
+                                                   (values.get('id-need')) == "no" %}checked="checked"{% endif %}>
+                                        <label class="govuk-label govuk-radios__label" for="id-need-no">
+                                            No
+                                        </label>
+                                    </div>
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="id-need-unknown" name="id-need"
+                                               type="radio"
+                                               value="unknown" {% if
+                                                   (values.get('id-need')) == "unknown" %}checked="checked"{% endif %}>
+                                        <label class="govuk-label govuk-radios__label" for="id-need-unknown">
+                                            Don&apos;t know
+                                        </label>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </fieldset>
+
+                    <br/>
+
+                    <hr>
+
+                    <br/>
+
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h2 class="govuk-fieldset__heading">
+                                Keep in touch
+                            </h2>
+                        </legend>
+
+                        <div class="govuk-form-group {% if errorMessages.get('updates') %}govuk-form-group--error{% endif %}
+        <fieldset class=" govuk-fieldset
+                        ">
+                        <legend class="govuk-fieldset__legend">
+                            Would you like us to keep in touch with updates about GOV.UK Sign In? (optional)
+                        </legend>
+                        {% if errorMessages.get('updates') %}
+                            <span class="govuk-error-message">
+                                                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('updates') }}
+                                            </span>
+                        {% endif %}
+
+                        <br/>
+                        <div class="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="updates" name="updates" type="radio" value="yes"
+                                       {% if
+                                           (values.get('updates')) == "yes" %}checked="checked"{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="updates">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="updates-no" name="updates" type="radio"
+                                       value="no" {% if
+                                           (values.get('updates')) == "no" %}checked="checked"{% endif %}>
+                                <label class="govuk-label govuk-radios__label" for="updates-no">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <div class="govuk-form-group {% if errorMessages.get('show-and-tell') %}govuk-form-group--error{% endif %}">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend">
+                                Would you like to be invited to our cross-government show and tells? (optional)
+                            </legend>
+                            {% if errorMessages.get('show-and-tell') %}
+                                <span class="govuk-error-message">
+                                                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('show-and-tell') }}
+                                            </span>
+                            {% endif %}
+
+                            <br/>
+                            <div class="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="show-and-tell" name="show-and-tell"
+                                           type="radio" value="yes"
+                                           {% if
+                                               (values.get('show-and-tell')) == "yes" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="show-and-tell">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="show-and-tell-no" name="show-and-tell"
+                                           type="radio" value="no"
+                                           {% if
+                                               (values.get('show-and-tell')) == "no" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="show-and-tell-no">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="govuk-form-group {% if errorMessages.get('user-research') %}govuk-form-group--error{% endif %}">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend">
+                                Would you be interested in helping us with our user research? (optional)
+                            </legend>
+                            {% if errorMessages.get('user-research') %}
+                                <span class="govuk-error-message">
+                                                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('user-research') }}
+                                            </span>
+                            {% endif %}
+
+                            <br/>
+                            <div class="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="user-research" name="user-research"
+                                           type="radio" value="yes"
+                                           {% if
+                                               (values.get('user-research')) == "yes" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="user-research">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input class="govuk-radios__input" id="user-research-no" name="user-research"
+                                           type="radio" value="no"
+                                           {% if
+                                               (values.get('user-research')) == "no" %}checked="checked"{% endif %}>
+                                    <label class="govuk-label govuk-radios__label" for="user-research-no">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    </fieldset>
+
+                    <button class="govuk-button" data-module="govuk-button">
+                        Register your interest
+                    </button>
+
+                </form>
+            </div>
+
+        </div>
+    </main>
+</div>
+{% endblock %}
