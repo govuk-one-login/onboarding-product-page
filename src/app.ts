@@ -1,7 +1,13 @@
+const result = require('dotenv').config(); // node -r dotenv/config your_script.js is preferred over this for importing apps
+
+import SheetsService from "./sheets/SheetsService";
 import express from 'express';
 import configureViews from './lib/configureViews';
 import Validation from './validation'
 
+import uuid from "./lib/uuid";
+import getTimestamp from "./lib/timestamp";
+import S3Service from "./s3/S3Service";
 const app = express();
 const bodyParser = require('body-parser')
 
@@ -59,11 +65,26 @@ app.get('/register', (req, res) => {
     res.render('register.njk', {errorMessages: errorMessages, values: values});
 });
 
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
     const values = new Map(Object.entries(req.body));
 
     const validator = new Validation(req.body);
     const errorMessages = validator.validate();
+
+    if(errorMessages.size == 0) {
+        let form = req.body
+        form['id'] = uuid();
+        form['submission-date'] = getTimestamp();
+
+        let s3service: S3Service = new S3Service(process.env.BUCKET_NAME as string);
+        await s3service.init();
+        s3service.saveToS3(form);
+
+        let sheetsService: SheetsService = new SheetsService(process.env.SPREADSHEET_ID as string);
+        await sheetsService.init();
+        sheetsService.appendValues(form, process.env.REGISTER_SHEET_HEADER_RANGE as string);
+
+    }
 
     res.render('register.njk',
         {
@@ -98,6 +119,11 @@ app.post('/register', (req, res) => {
         });
 });
 
+if(result.error) {
+    console.error(`Could not load .env file:\n${result.error}`)
+} else {
+    console.log(result);
+    app.listen(3000, () => console.log('Server running'));
+}
 
-app.listen(3000, () => console.log('Server running'));
 
