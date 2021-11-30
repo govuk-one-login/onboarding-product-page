@@ -1,0 +1,66 @@
+{% extends "base.njk" %}
+
+{% block pageTitle %}Confirmation – GOV.UK Product Pages{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing" %}
+
+{% block beforeContent %}
+  <div class="govuk-width-container">
+    <div class="govuk-breadcrumbs">
+      <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="/register">Register your Interest</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item" aria-current="page">
+          <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Confirmation</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-panel govuk-panel--confirmation">
+          <h1 class="govuk-panel__title">
+            You have successfully registered your interest
+          </h1>
+        </div>
+
+        <div class="govuk-body">
+          Thank you for registering your interest in GOV.UK Sign In.
+        </div>
+
+        <h2 class="govuk-heading-m">What next</h2>
+
+        <p class="govuk-body">
+          We will get in touch to find out more about your service.
+          We plan to start connecting our chosen beta partner services in late 2021.
+        </p>
+
+        <p class="govuk-body">
+          We’ll update you on our progress:
+        <ul class="govuk-list govuk-list--bullet">
+          <li>in our cross-government show and tells</li>
+          <li>on our <a href="/">product page</a></li>
+        </ul>
+        </p>
+
+        <p class="govuk-body">
+          In the meantime, ask us any questions at
+          <a class="govuk-link" href="mailto:govuk-sign-in@digital.cabinet-office.gov.uk">
+            govuk-sign-in@digital.cabinet-office.gov.uk
+          </a>.
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

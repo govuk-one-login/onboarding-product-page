@@ -1,0 +1,171 @@
+{% extends "base.njk" %}
+
+{% block pageTitle %}About GOV.UK Sign In – GOV.UK Product Pages{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing" %}
+
+{% block beforeContent %}
+  <div class="govuk-width-container">
+    <div class="govuk-breadcrumbs">
+      <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Find out more</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Find out more about GOV.UK Sign In</h1>
+
+        <p class="govuk-body">GOV.UK Sign In lets your users sign in to your service quickly and easily.</p>
+
+        <p class="govuk-body">It’s easy to implement, secure and fully supported by the GDS team.</p>
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-m">What GOV.UK Sign In does</h2>
+
+        <p class="govuk-body">GOV.UK Sign In makes it easy for users to sign in and access government services securely.</p>
+
+        <p class="govuk-body">
+          This means:
+        <ul class="govuk-list govuk-list--bullet">
+          <li>
+            users can save their progress while filling in a form and return to it later
+          </li>
+          <li>
+            you know it’s always the same person accessing an account
+          </li>
+          <li>
+            user data is protected
+          </li>
+        </ul>
+        </p>
+
+        <h2 class="govuk-heading-m">How this helps your users</h2>
+
+        <p class="govuk-body">
+          GOV.UK Sign In will become the only way to sign in to government services. For users that means they’ll:
+        <ul class="govuk-list govuk-list--bullet">
+          <li>
+            be able to access all information about the services they’ve used in one place
+          </li>
+          <li>
+            only have to remember one set of sign in details
+          </li>
+        </ul>
+        </p>
+        <p class="govuk-body">
+          GOV.UK Sign In is only for individuals, and not business users, at the moment.
+        </p>
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-m">Who can use GOV.UK Sign In</h2>
+
+        <p class="govuk-body">
+          For now, you can use GOV.UK Sign In if you run a central government service
+          that needs authentication. At the moment, this doesn&apos;t include the police, NHS or local authorities.
+        </p>
+
+        <p class="govuk-body">
+          You will also need dedicated technical expertise in your own team to connect to GOV.UK Sign In.
+        </p>
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-m">What registering your interest means</h2>
+
+        <p class="govuk-body">
+          We want to find some services to join us in our private beta.
+          We plan to connect these services in late 2021.
+        </p>
+
+        <p class="govuk-body">
+          We will get in touch to find out more about your service.
+          Our private beta partner services will be the ones we can learn the most from.
+        </p>
+
+        <p class="govuk-body">
+          We want everyone that registers their interest to have a say in how GOV.UK Sign In develops.
+        </p>
+
+        <p class="govuk-body">
+          When you register your interest you can:
+        <ul class="govuk-list govuk-list--bullet">
+          <li>sign up for our cross-government show and tells</li>
+          <li>agree to help us with our user research</li>
+          <li>sign up for updates on our progress</li>
+        </ul>
+        </p>
+
+        <p class="govuk-body">
+          <a href="/register" class="govuk-link">Register your interest</a> in using GOV.UK Sign In.
+        </p>
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-m">Identity checks</h2>
+
+        <p class="govuk-body">
+          In future, GOV.UK Sign In will offer identity checks as well as authentication.
+        </p>
+
+        <p class="govuk-body">
+          <a href="/identity-checks" class="govuk-link">Find out more about our identity checks work.</a>
+        </p>
+
+        <br>
+
+        <hr class="govuk-border-colour">
+
+        <br>
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-heading-m">Contact us</h2>
+
+        <p class="govuk-body">
+          We’d like to hear from you if:
+        <ul class="govuk-list govuk-list--bullet">
+          <li>
+            you have any questions about GOV.UK Sign In
+          </li>
+          <li>
+            anything is unclear in these pages
+          </li>
+          <li>
+            you think something is missing from these pages
+          </li>
+        </ul>
+        </p>
+
+        <p class="govuk-body">
+          Contact us at <a class="govuk-link" href="mailto:govuk-sign-in@digital.cabinet-office.gov.uk">govuk-sign-in@digital.cabinet-office.gov.uk</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

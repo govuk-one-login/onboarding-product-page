@@ -12,6 +12,39 @@ app.get('/', (req,res) => {
     res.render('index.njk');
 });
 
+app.get('/identity-checks', (req,res) => {
+  res.render('identity-checks.njk');
+});
+
+app.get('/find-out-more', (req,res) => {
+  res.render('find-out-more.njk');
+});
+
+app.get('/getting-started', (req,res) => {
+  res.render('getting-started.njk');
+});
+
+app.get('/accessibility', (req,res) => {
+  res.render('accessibility.njk');
+});
+
+app.get('/privacy-policy', (req,res) => {
+  res.render('privacy-policy.njk');
+});
+
+app.get('/cookies', (req,res) => {
+  res.render('cookies.njk');
+});
+
+app.get('/register-confirm', (req,res) => {
+  res.render('register-confirm.njk');
+});
+
+app.get('/register-error', (req,res) => {
+  res.render('register-error.njk');
+});
+
+
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 
