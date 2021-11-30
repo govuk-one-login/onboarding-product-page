@@ -9,13 +9,13 @@ export default class SheetsService implements SheetsInterface {
     }
 
     async init() {
-        if (process.env.ENVIRONMENT == 'development') {
-            console.log("Using Stub Sheets Service as we're in a development environment")
+        if (process.env.USE_STUB_SHEETS == 'true') {
+            console.log("Using Stub Sheets Service")
             let module = await import('./stubSheets/stubSheetsService');
             let service = module.default;
             this.implementation = new service(this.spreadsheetId);
         } else {
-            console.log("Using the actual implemntation of the Sheets Service as we're in a non-dev environment")
+            console.log("Using the actual implemntation of the Sheets Service")
             let module = await import('./realSheets/realSheetsService');
             let service = module.default;
             this.implementation = new service(this.spreadsheetId);

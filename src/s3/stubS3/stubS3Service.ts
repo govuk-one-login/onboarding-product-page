@@ -8,9 +8,9 @@ export default class StubS3Service implements S3Interface {
     }
     async saveToS3(form: any) : Promise<any> {
 
-        return new Promise((resolve) => {
+        return new Promise<void>((resolve) => {
                 console.log(`Pretending to save to S3 bucket "${this.bucket}"`);
-                resolve;
+                resolve();
             }
         )
     }

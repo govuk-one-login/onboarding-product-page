@@ -12,10 +12,9 @@ export default class StubSheetsService implements SheetsService {
     }
 
     async appendValues(form: any, headerRange: string): Promise<void> {
-        return new Promise((resolve) => {
+        return new Promise<void>((resolve) => {
                 console.log(`Pretending to save data to sheet "${this.spreadsheetId}"`);
-                console.log(JSON.stringify(form));
-                resolve;
+                resolve();
             }
         )
     }

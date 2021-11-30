@@ -9,13 +9,13 @@ export default class S3Service implements S3Interface {
     }
 
     async init() {
-        if (process.env.ENVIRONMENT == 'development') {
-            console.log("Using Stub S3 Service as we're in a development environment")
+        if (process.env.USE_STUB_S3 == 'true') {
+            console.log("Using Stub S3 Service")
             let module = await import('./stubS3/stubS3Service');
             let service = module.default;
             this.implementation = new service(this.bucket);
         } else {
-            console.log("Using the actual implemntation of the S3 Service as we're in a non-dev environment")
+            console.log("Using the actual implemntation of the S3 Service")
             let module = await import('./realS3/realS3Service');
             let service = module.default;
             this.implementation = new service(this.bucket);
@@ -23,7 +23,6 @@ export default class S3Service implements S3Interface {
     }
 
     async saveToS3(form: any): Promise<any> {
-        console.log("About to use implementation");
         return this.implementation.saveToS3(form);
     }
 }
