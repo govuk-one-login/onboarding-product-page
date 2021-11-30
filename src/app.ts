@@ -68,6 +68,7 @@ app.post('/register', async (req, res) => {
     const values = new Map(Object.entries(req.body));
 
     const validator = new Validation(req.body);
+    await validator.loadExtendedEmailDomains();
     const errorMessages = validator.validate();
 
     if (errorMessages.size == 0) {
