@@ -1,0 +1,97 @@
+{% extends "base.njk" %}
+
+{% block pageTitle %}Getting Started with GOV.UK Sign In – GOV.UK Product Pages{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing" %}
+
+{% block beforeContent %}
+  <div class="govuk-width-container">
+    <div class="govuk-breadcrumbs">
+      <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link"  href="#main-content" aria-current="page">Get started</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-l">Get started with GOV.UK Sign In</h1>
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-m">1. Check if GOV.UK Sign In is right for you</h2>
+
+        <p class="govuk-body">We plan to start connecting some services in late 2021.</p>
+
+        <p class="govuk-body">
+          GOV.UK Sign In is for central government services that need authentication.
+        </p>
+
+        <p class="govuk-body">You will also need to have development expertise in your team.</p>
+
+        <p class="govuk-body"><a class="govuk-link" href="/find-out-more">Find out more about GOV.UK Sign In.</a></p>
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-m">2. Register your interest</h2>
+
+        <p class="govuk-body">
+          <a class="govuk-link" href="/register">Register your interest</a> by giving us some information about your
+          organisation and your service. It will take 10 minutes to complete this form.
+        </p>
+
+        <p class="govuk-body">
+          We will contact you to find out more about your service.
+          We plan to start connecting our beta partner services in late 2021.
+        </p>
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-m">3. Go live</h2>
+
+        <p class="govuk-body">
+          If GOV.UK Sign In is right for you, you’ll need to:
+        <ul class="govuk-list govuk-list--bullet">
+          <li>
+            integrate your service with GOV.UK Sign In
+          </li>
+          <li>
+            sign our memorandum of understanding
+          </li>
+        </ul>
+        </p>
+
+        <p class="govuk-body">
+          You can then go live with support from our technical team, who will be available 24/7 for urgent incidents.
+        </p>
+      </div>
+    </div>
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-full">
+        <h2 class="govuk-heading-m">Contact us</h2>
+
+        <p class="govuk-body">
+          If you have any questions, contact us at <a class="govuk-link" href="mailto:govuk-sign-in@digital.cabinet-office.gov.uk">govuk-sign-in@digital.cabinet-office.gov.uk</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
