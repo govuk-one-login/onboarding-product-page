@@ -94,8 +94,8 @@ export default class Validation {
     }
 
     notGovernmentEmail(): boolean {
-        let match = this.validEmailDomains.find(suffix => this.form['email'].trim().endsWith(suffix));
-        console.log(match);
+        // "" will match anything and we get that if there's an empty line at the end of valid-email-domains.txt
+        let match = this.validEmailDomains.find(suffix => this.form['email'].trim().endsWith(suffix) && suffix != "");
         return match == undefined;
     }
 }
