@@ -2,7 +2,7 @@
 
 1. Copy `.env.example` to `.env`
 2. Run `npm install`
-3. Run `./run-local.sh`
+3. Run `npm run local`
 
 # To run the application using the actual S3 or Google Sheets services:
 
@@ -12,4 +12,4 @@
    - ### Sheets
       - Make sure a `credentials.json` file is in the root of the project.  These are the credentials for a service account which has been granted access to the spreadsheet identified by `SPREADSHEET_ID`
 2. Run `npm install`
-3. Run `./run-local.sh`
+3. Run `npm run local`

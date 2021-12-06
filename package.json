@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "local": "npm run build && npm run buildsass && npm run buildjs && npm run buildgovuk && npm run buildlocalimages && node -r 'dotenv/config' dist/app.js",
     "start": "node dist/app.js",
     "dev1": "nodemon src/app.ts",
     "build": "tsc -p .",
