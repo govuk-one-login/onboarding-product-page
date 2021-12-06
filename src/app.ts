@@ -98,8 +98,8 @@ app.post('/register', async (req, res) => {
         let redirectTo = '/register-confirm'
 
         let s3service: S3Service = new S3Service(process.env.REGISTER_BUCKET_NAME as string);
-        await s3service.init().catch(() => redirectTo = '/resgister-error');
-        await s3service.saveToS3(form).catch(() => redirectTo = '/resgister-error');
+        await s3service.init().catch(() => redirectTo = '/register-error');
+        await s3service.saveToS3(form).catch(() => redirectTo = '/register-error');
         console.log("saved to S3");
 
         let sheetsService: SheetsService = new SheetsService(process.env.SPREADSHEET_ID as string);
@@ -172,11 +172,11 @@ app.post('/decide/private-beta/request-form', async (req, res) => {
         form['id'] = uuid();
         form['submission-date'] = getTimestamp();
 
-        let redirectTo = '/register-confirm'
+        let redirectTo = '/decide/private-beta/request-submitted'
 
         let s3service: S3Service = new S3Service(process.env.REQUEST_BETA_BUCKET_NAME as string);
-        await s3service.init().catch(() => redirectTo = '/resgister-error');
-        await s3service.saveToS3(form).catch(() => redirectTo = '/resgister-error');
+        await s3service.init().catch(() => redirectTo = '/register-error');
+        await s3service.saveToS3(form).catch(() => redirectTo = '/register-error');
         console.log("saved to S3");
 
         let sheetsService: SheetsService = new SheetsService(process.env.SPREADSHEET_ID as string);
