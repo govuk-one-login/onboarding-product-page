@@ -1,4 +1,5 @@
 const emailValidator = require('../email-validator');
+import {promises as fs} from 'fs';
 
 export default class Validation {
     form: any;
@@ -43,6 +44,18 @@ export default class Validation {
             ]
     }
 
+    async loadExtendedEmailDomains(): Promise<void> {
+        let extendedDomains: string[] = [];
+        await fs.readFile("./valid-email-domains.txt", "utf-8")
+            .then((emails) => {
+                    extendedDomains = emails.split("\n");
+                    this.validEmailDomains = this.validEmailDomains.concat(extendedDomains);
+                    console.log(this.validEmailDomains);
+                }
+            )
+            .catch(() => console.error("No extended email domains provided"))
+    }
+
     validate(): Map<string, string> {
         const errors = new Map();
 
@@ -61,11 +74,10 @@ export default class Validation {
             }
         });
 
-        if(!errors.has('email')) {
-            if(this.invalidEmailAddress()) {
+        if (!errors.has('email')) {
+            if (this.invalidEmailAddress()) {
                 errors.set('email', 'Enter an email address in the correct format, like name@gov.uk');
-            }
-            else if(this.notGovernmentEmail()) {
+            } else if (this.notGovernmentEmail()) {
                 errors.set('email', 'You must enter a government email address');
             }
         }
@@ -82,7 +94,9 @@ export default class Validation {
     }
 
     notGovernmentEmail(): boolean {
-        return this.validEmailDomains.filter(suffix => this.form['email'].trim().endsWith(suffix)).length == 0;
+        // "" will match anything and we get that if there's an empty line at the end of valid-email-domains.txt
+        let match = this.validEmailDomains.find(suffix => this.form['email'].trim().endsWith(suffix) && suffix != "");
+        return match == undefined;
     }
 }
 

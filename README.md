@@ -1,4 +1,15 @@
-To run the application locally:
+# To run the application locally with stub services for S3 and Google Sheets:
 
-1. npm install
-2. npm run dev
+1. Copy `.env.example` to `.env`
+2. Run `npm install`
+3. Run `npm run local`
+
+# To run the application using the actual S3 or Google Sheets services:
+
+1. Replace the placeholder values in `.env` with appropriate values. 
+    - ### S3
+      - run `eval $(gds aws <your-aws-account> -e)`
+   - ### Sheets
+      - Make sure a `credentials.json` file is in the root of the project.  These are the credentials for a service account which has been granted access to the spreadsheet identified by `SPREADSHEET_ID`
+2. Run `npm install`
+3. Run `npm run local`
