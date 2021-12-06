@@ -4,29 +4,14 @@ import {promises as fs} from 'fs';
 export default class Validation {
     form: any;
     requiredFields: Map<string, string>;
-    requiredConditionalFields: Map<string, Map<string, string>>;
+    requiredConditionalFields: Map<string, Map<string, string>> | undefined;
     validEmailDomains: string[];
 
-    constructor(form: any) {
+    constructor(form: any, requiredFields: Map<string, string>, requiredConditionalFields?: Map<string, Map<string, string>>) {
         this.form = form;
 
-        this.requiredFields = new Map<string, string>();
-        this.requiredFields.set("email", "Enter your government email address");
-        this.requiredFields.set("name", "Enter your name");
-        this.requiredFields.set("role", "Enter your role");
-        this.requiredFields.set("service-name", "Enter the name of your service");
-        this.requiredFields.set("department-name", "Enter your organisation");
-        this.requiredFields.set("phase", "Select the phase you are in");
-        this.requiredFields.set("assessment", "Select yes if you have passed the relevant GDS service assessment");
-        this.requiredFields.set("host", "Select yes if your service is on GOV.UK");
-        this.requiredFields.set("development", "Select yes if you have a development team");
-        this.requiredFields.set("auth-need", "Select yes if your service needs authentication");
-        this.requiredFields.set("auth-exist", "Select yes if you already have an authentication solution");
-        this.requiredFields.set("id-need", "Select yes if you have identity needs");
-
-        this.requiredConditionalFields = new Map<string, Map<string, string>>();
-        this.requiredConditionalFields.set("auth-exist", new Map([["auth-existing", "Enter the name of your authentication solution"]]));
-        this.requiredConditionalFields.set("id-need", new Map([["id-needs", "You must describe your identity needs"]]));
+        this.requiredFields = requiredFields;
+        this.requiredConditionalFields = requiredConditionalFields;
 
         this.validEmailDomains = // get this from config eventually
             [
@@ -65,14 +50,16 @@ export default class Validation {
             }
         });
 
-        this.requiredConditionalFields.forEach((conditionalFieldAndErrorMessage, field) => {
-            if (this.form[field] == "yes") {
-                let entry = conditionalFieldAndErrorMessage.entries().next().value
-                if (this.fieldHasNoValue(entry[0])) {
-                    errors.set(entry[0], entry[1]);
+        if (this.requiredConditionalFields) {
+            this.requiredConditionalFields.forEach((conditionalFieldAndErrorMessage, field) => {
+                if (this.form[field] == "yes") {
+                    let entry = conditionalFieldAndErrorMessage.entries().next().value
+                    if (this.fieldHasNoValue(entry[0])) {
+                        errors.set(entry[0], entry[1]);
+                    }
                 }
-            }
-        });
+            });
+        }
 
         if (!errors.has('email')) {
             if (this.invalidEmailAddress()) {

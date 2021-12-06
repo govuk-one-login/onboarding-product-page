@@ -22,7 +22,7 @@ export default class SheetsService implements SheetsInterface {
         }
     }
 
-    async appendValues(form: any, headerRange: string): Promise<void> {
-        return this.implementation.appendValues(form, headerRange);
+    async appendValues(form: any, dataRange: string, headerRange: string): Promise<void> {
+        return this.implementation.appendValues(form, dataRange, headerRange);
     }
 }
