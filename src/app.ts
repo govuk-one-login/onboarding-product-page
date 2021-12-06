@@ -50,7 +50,13 @@ app.get('/register-error', (req, res) => {
 });
 
 app.get('/decide', (req,res) => {
-  res.render('decide.njk');
+    res.render('decide.njk');
+});
+
+app.get('/contact-us', (req, res) => {
+    const errorMessages = new Map();
+    const values = new Map();
+    res.render('contact-us.njk', {errorMessages: errorMessages, values: values});
 });
 
 app.get('/decide/timescales', (req,res) => {
@@ -207,6 +213,41 @@ app.post('/decide/private-beta/request-form', async (req, res) => {
                         "email",
                         "department-name",
                         "service-name"
+                    ]
+            });
+    }
+});
+
+app.post('/contact-us', async (req, res) => {
+    const values = new Map(Object.entries(req.body));
+
+    let requiredFields = new Map<string, string>();
+    requiredFields.set("email", "Enter your government email address");
+    requiredFields.set("name", "Enter your name");
+    requiredFields.set("role", "Enter your role");
+    requiredFields.set("service-name", "Enter the name of your service");
+    requiredFields.set("department-name", "Enter your organisation");
+    requiredFields.set("how-can-we-help", "Tell us how we can help");
+
+    const validator = new Validation(req.body, requiredFields);
+    await validator.loadExtendedEmailDomains();
+    const errorMessages = validator.validate();
+
+    if (errorMessages.size == 0) {
+        res.send("sending to Zendesk right now pal")
+    } else {
+        res.render('contact-us.njk',
+            {
+                errorMessages: errorMessages,
+                values: values,
+                fieldOrder:
+                    [
+                        "name",
+                        "email",
+                        "role",
+                        "department-name",
+                        "service-name",
+                        "how-can-we-help"
                     ]
             });
     }
