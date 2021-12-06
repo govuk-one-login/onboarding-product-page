@@ -1,0 +1,41 @@
+{% extends "base.njk" %}
+
+{% block pageTitle %}Confirmation – GOV.UK Product Pages{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing" %}
+
+{% block content %}
+    <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-panel govuk-panel--confirmation">
+                    <h1 class="govuk-panel__title">
+                        Request submitted
+                    </h1>
+                </div>
+
+                <p class="govuk-body">
+                    Thank you for requesting to join our private beta. We'll be in touch within five working days.
+                </p>
+
+                <p class="govuk-body">
+                    We'll arrange a phone call to talk more about your service and what the private beta involves.
+                </p>
+
+                <p class="govuk-body">
+                    If you have any problems in the meantime, contact us on
+                    <a class="govuk-link" href="mailto:govuk-sign-in@digital.cabinet-office.gov.uk">
+                        govuk-sign-in@digital.cabinet-office.gov.uk
+                    </a>
+                    or via our <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a>.
+                </p>
+
+                <p class="govuk-body">
+                    <a class="govuk-link" href="https://www.sign-in.service.gov.uk/decide/">
+                        Return to the homepage
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
