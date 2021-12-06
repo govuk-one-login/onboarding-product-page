@@ -50,8 +50,14 @@ app.get('/register-error', (req, res) => {
     res.render('register-error.njk');
 });
 
-app.get('/decide', (req, res) => {
+app.get('/decide', (req,res) => {
     res.render('decide.njk');
+});
+
+app.get('/contact-us', (req, res) => {
+    const errorMessages = new Map();
+    const values = new Map();
+    res.render('contact-us.njk', {errorMessages: errorMessages, values: values});
 });
 
 app.get('/contact-us', (req, res) => {
