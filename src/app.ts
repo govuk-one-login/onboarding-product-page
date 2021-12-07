@@ -49,6 +49,9 @@ app.get('/register-error', (req, res) => {
     res.render('register-error.njk');
 });
 
+app.get('/decide', (req,res) => {
+  res.render('decide.njk');
+});
 
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies

@@ -106,3 +106,41 @@ div.feature-panel {
 .hero-breadcrumb-banner {
   background-color: $govuk-brand-colour;
 }
+
+#main-content.govuk-main-wrapper-evaluate {
+
+  padding-top: 60px;
+  margin-bottom: 10px;
+
+  .sub-navigation__item {
+    font-size: 16px;
+    line-height: 1.25;
+    padding-bottom: 5px;
+  }
+
+  .sub-navigation__item:last-child {
+    border-bottom: 1px $govuk-border-colour solid;
+  }
+
+  .sub_navigation_list_1 .sub-navigation__item {
+    padding: 4px 0 7px 20px;
+  }
+
+  .govuk-grid-column-one-third {
+    padding: 0 65px 0 15px;
+  }
+
+  .govuk-list-decide {
+    padding-left: 32px;
+  }
+
+  .evaluate-contact-us-decide {
+    border-top: 1px $govuk-border-colour solid;
+    padding-top: 40px;
+  }
+
+  .evaluate-last-paragraph-decide {
+    padding-bottom: 30px;
+  }
+
+}
