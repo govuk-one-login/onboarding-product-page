@@ -81,11 +81,11 @@ export default class RealSheetsService implements SheetsService{
         console.log(JSON.stringify(response, null, 2));
     }
 
-    async appendValues(form: any, headerRange: string): Promise<void> {
+    async appendValues(form: any, dataRange: string, headerRange: string): Promise<void> {
         let creds: string = await this.readCreds();
         let token: JWT = await this.createToken(creds);
         let headings: any[] = await this.readRange(token, headerRange, this.spreadsheetId)
         let dataToInsert: any[] = await this.createRow(token, form, headings);
-        await this.appendRow(token, 'Register!A1', dataToInsert);
+        await this.appendRow(token, dataRange, dataToInsert);
     }
 }

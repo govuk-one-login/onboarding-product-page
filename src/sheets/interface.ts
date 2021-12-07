@@ -1,3 +1,3 @@
 export default interface SheetsInterface {
-    appendValues(form: any, headerRange: string): Promise<void>
+    appendValues(form: any, dataRange: string, headerRange: string): Promise<void>
 }
