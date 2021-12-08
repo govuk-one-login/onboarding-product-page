@@ -19,3 +19,5 @@ Feature: Simple maths
       |  99 |      1234 |   1333 |
       |  12 |         5 |     17 |
 
+  Scenario: A visit to a website
+    Given a url of "https://google.com"
