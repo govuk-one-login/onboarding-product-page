@@ -6,6 +6,7 @@ import Validation from './validation'
 import uuid from "./lib/uuid";
 import getTimestamp from "./lib/timestamp";
 import S3Service from "./s3/S3Service";
+import ZendeskService from "./zendesk/ZendeskService";
 
 const app = express();
 const bodyParser = require('body-parser')
@@ -234,7 +235,18 @@ app.post('/contact-us', async (req, res) => {
     const errorMessages = validator.validate();
 
     if (errorMessages.size == 0) {
-        res.send("sending to Zendesk right now pal")
+        const zendesk = new ZendeskService(
+            process.env.ZENDESK_EMAIL as string,
+            process.env.ZENDESK_API_TOKEN as string,
+            process.env.ZENDESK_TAG as string
+        );
+        await zendesk.init();
+
+        if ( await zendesk.submit(req.body) ) {
+            res.render('contact-us-confirm.njk')
+        } else {
+            res.render('contact-us-error.njk')
+        }
     } else {
         res.render('contact-us.njk',
             {
@@ -253,6 +265,9 @@ app.post('/contact-us', async (req, res) => {
     }
 });
 
+app.get('/contact-us-confirm', (req, res) => {
+    res.render('contact-us-confirm.njk');
+});
 
 app.listen(3000, () => console.log('Server running'));
 
