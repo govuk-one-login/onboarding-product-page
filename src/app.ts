@@ -53,6 +53,11 @@ app.get('/decide', (req,res) => {
   res.render('decide.njk');
 });
 
+app.get('/decide/timescales', (req,res) => {
+  res.render('decide-timescales.njk');
+});
+
+
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 

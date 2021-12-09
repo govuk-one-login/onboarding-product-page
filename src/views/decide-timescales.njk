@@ -1,0 +1,110 @@
+{% extends "base-evaluate.njk" %}
+
+{% block pageTitle %}Timescales for GOV.UK Sign In - GOV.UK Product Pages{% endblock %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-one-third">
+        <nav class="sub-navigation">
+          <ul class="govuk-list">
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="/decide">Home</a>
+            </li>
+          </ul>
+          <ul class="govuk-list sub_navigation_list_1">
+            <li class="sub-navigation__item sub-navigation__item--active">
+              <a class="govuk-link govuk-link--no-visited-state" href="/decide/timescales">Timescales</a>
+            </li>
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="/decide/user-journeys">User journeys</a>
+            </li>
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="/decide/design-patterns">Design patterns</a>
+            </li>
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="https://auth-tech-docs.london.cloudapps.digital/#gov-uk-sign-in">Technical documentation</a>
+            </li>
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="/decide/private-beta">Request to join private beta</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Timescales</h1>
+
+        <p class="govuk-body">
+          This page explains how and when we expect to roll out the two parts of GOV.UK Sign In to service teams. We’re rolling them out separately.
+        </p>
+
+        <div class="govuk-inset-text">
+          These timescales are only a guide and may change.
+        </div>
+
+        <h2 class="govuk-heading-m">Authentication timescales</h2>
+
+        <p class="govuk-body">
+          By ‘authentication’, we mean the part of GOV.UK Sign In that lets users sign in to a service with a ‘GOV.UK Account’, secured by a username, password and potentially multi-factor authentication.
+        </p>
+
+        <h3 class="govuk-heading-s">Private beta</h3>
+
+        <p class="govuk-body">
+          Private beta will start at the end of October 2021 with one service. We’ll add more services throughout the private beta.
+        </p>
+
+        <h3 class="govuk-heading-s">Public beta</h3>
+
+        <p class="govuk-body evaluate-border-bottom-paragraph-decide">
+          Public beta will start when we’ve done a beta assessment. No date has been set for the beta assessment but we hope it will be in 2022.
+        </p>
+
+        <h2 class="govuk-heading-m">Identity timescales</h2>
+
+        <p class="govuk-body">
+          By ‘identity’, we mean the part of GOV.UK Sign In that checks users’ identity so your service can be sure they are who they say they are.
+        </p>
+
+        <p class="govuk-body">
+          This will involve checking their identity documents. The identity checks will always happen when a user is already signed in to their account.
+        </p>
+
+        <h3 class="govuk-heading-s">Where we are now</h3>
+
+        <p class="govuk-body">
+          We’re currently working on the identity checks journey.
+        </p>
+
+        <p class="govuk-body">
+          We’re building on the findings from our <a class="govuk-link" href="https://www.gov.uk/service-standard-reports/gov-dot-uk-sign-in-end-user-digital-identity-checks">alpha</a>, where we learnt that we’ll need to:
+        </p>
+
+        <ul class="govuk-list govuk-list--bullet govuk-list-decide">
+          <li>let users prove their identity using whatever proof they have available and not just rely on passports and driving licences</li>
+          <li>let you choose the most appropriate point in your users’ journey for GOV.UK Sign In</li>
+          <li>use different identity strengths, meaning you can choose the right level for your service</li>
+          <li>work across multiple channels, meaning no user should be excluded</li>
+          <li>use the government standard for identity checks (<a class="govuk-link" href="https://www.gov.uk/government/publications/identity-proofing-and-verification-of-an-individual">Good Practice Guide 45</a>)</li>
+        </ul>
+
+        <h3 class="govuk-heading-s">Private beta</h3>
+
+        <p class="govuk-body">
+          Private beta will start at the end of March 2022 with one service. We’ll add more services throughout the private beta.
+        </p>
+
+        <h3 class="govuk-heading-s">Public beta</h3>
+
+        <p class="govuk-body">
+          Public beta will start when we’ve done a beta assessment. No date has been set for the beta assessment but we hope it will be in 2023.
+        </p>
+        
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}
