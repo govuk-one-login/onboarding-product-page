@@ -197,10 +197,10 @@ app.post('/decide/private-beta/request-form', async (req, res) => {
     const values = new Map(Object.entries(req.body));
 
     let requiredFields = new Map<string, string>();
-    requiredFields.set("email", "Enter your government email address");
-    requiredFields.set("name", "Enter your name");
-    requiredFields.set("service-name", "Enter the name of your service");
-    requiredFields.set("department-name", "Enter your organisation");
+        requiredFields.set("email", "Enter your government email address");
+        requiredFields.set("name", "Enter your name");
+        requiredFields.set("service-name", "Enter the name of your service");
+        requiredFields.set("department-name", "Enter your organisation");
 
     const validator = new Validation(req.body, requiredFields);
     await validator.loadExtendedEmailDomains();

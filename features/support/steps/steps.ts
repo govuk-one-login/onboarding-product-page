@@ -20,7 +20,7 @@ Given(/^a url of "([^"]*)"$/, function (url) {
         const page = await browser.newPage();
         await page.goto(url);
         //await page.pdf({path: 'google.pdf'});
-        console.log(await page.content())
+        //console.log(await page.content())
         await browser.close();
     })();
 })
