@@ -64,6 +64,9 @@ app.get('/decide/timescales', (req,res) => {
   res.render('decide-timescales.njk');
 });
 
+app.get('/decide/private-beta/request-submitted', (req, res) => {
+    res.render('request-submitted.njk');
+});
 
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
