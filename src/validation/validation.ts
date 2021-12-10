@@ -35,7 +35,6 @@ export default class Validation {
             .then((emails) => {
                     extendedDomains = emails.split("\n");
                     this.validEmailDomains = this.validEmailDomains.concat(extendedDomains);
-                    console.log(this.validEmailDomains);
                 }
             )
             .catch(() => console.error("No extended email domains provided"))
