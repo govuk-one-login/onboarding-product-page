@@ -64,6 +64,10 @@ app.get('/decide/timescales', (req,res) => {
   res.render('decide-timescales.njk');
 });
 
+app.get('/decide/user-journeys', (req,res) => {
+  res.render('decide-user-journeys.njk');
+});
+
 app.get('/decide/private-beta/request-submitted', (req, res) => {
     res.render('request-submitted.njk');
 });
