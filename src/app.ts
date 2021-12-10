@@ -6,6 +6,7 @@ import Validation from './validation'
 import uuid from "./lib/uuid";
 import getTimestamp from "./lib/timestamp";
 import S3Service from "./s3/S3Service";
+import ZendeskService from "./zendesk/ZendeskService";
 
 const app = express();
 const bodyParser = require('body-parser')
@@ -50,7 +51,13 @@ app.get('/register-error', (req, res) => {
 });
 
 app.get('/decide', (req,res) => {
-  res.render('decide.njk');
+    res.render('decide.njk');
+});
+
+app.get('/contact-us', (req, res) => {
+    const errorMessages = new Map();
+    const values = new Map();
+    res.render('contact-us.njk', {errorMessages: errorMessages, values: values});
 });
 
 app.get('/decide/timescales', (req,res) => {
@@ -61,6 +68,9 @@ app.get('/decide/user-journeys', (req,res) => {
   res.render('decide-user-journeys.njk');
 });
 
+app.get('/decide/private-beta/request-submitted', (req, res) => {
+    res.render('request-submitted.njk');
+});
 
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
@@ -216,6 +226,55 @@ app.post('/decide/private-beta/request-form', async (req, res) => {
     }
 });
 
+app.post('/contact-us', async (req, res) => {
+    const values = new Map(Object.entries(req.body));
+
+    let requiredFields = new Map<string, string>();
+    requiredFields.set("email", "Enter your government email address");
+    requiredFields.set("name", "Enter your name");
+    requiredFields.set("role", "Enter your role");
+    requiredFields.set("service-name", "Enter the name of your service");
+    requiredFields.set("department-name", "Enter your organisation");
+    requiredFields.set("how-can-we-help", "Tell us how we can help");
+
+    const validator = new Validation(req.body, requiredFields);
+    await validator.loadExtendedEmailDomains();
+    const errorMessages = validator.validate();
+
+    if (errorMessages.size == 0) {
+        const zendesk = new ZendeskService(
+            process.env.ZENDESK_EMAIL as string,
+            process.env.ZENDESK_API_TOKEN as string,
+            process.env.ZENDESK_TAG as string
+        );
+        await zendesk.init();
+
+        if ( await zendesk.submit(req.body) ) {
+            res.render('contact-us-confirm.njk')
+        } else {
+            res.render('contact-us-error.njk')
+        }
+    } else {
+        res.render('contact-us.njk',
+            {
+                errorMessages: errorMessages,
+                values: values,
+                fieldOrder:
+                    [
+                        "name",
+                        "email",
+                        "role",
+                        "department-name",
+                        "service-name",
+                        "how-can-we-help"
+                    ]
+            });
+    }
+});
+
+app.get('/contact-us-confirm', (req, res) => {
+    res.render('contact-us-confirm.njk');
+});
 
 app.listen(3000, () => console.log('Server running'));
 
