@@ -214,8 +214,10 @@ app.post('/decide/private-beta/request-form', async (req, res) => {
             form,
             process.env.REQUEST_SHEET_DATA_RANGE as string,
             process.env.REQUEST_SHEET_HEADER_RANGE as string)
-            .catch(() => redirectTo = '/register-error');
-        console.log("Saved to sheets");
+            .then(() => console.log("Saved to sheets"))
+            .catch(reason => {
+                console.log(reason)
+                redirectTo = '/register-error'});
         res.redirect(redirectTo);
     } else {
         res.render('request.njk',
