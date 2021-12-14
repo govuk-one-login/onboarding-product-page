@@ -3,17 +3,30 @@ import {JWT} from 'googleapis-common';
 import {google} from 'googleapis';
 import SheetsService from "../interface";
 
-export default class RealSheetsService implements SheetsService{
+export default class RealSheetsService implements SheetsService {
+    private readonly SCOPES: string[] = ['https://www.googleapis.com/auth/spreadsheets'];
+    private readonly SPREADSHEET_ID: string;
+
     private jwt: JWT | undefined = undefined;
-    private SCOPES: string[] = ['https://www.googleapis.com/auth/spreadsheets'];
-    private spreadsheetId: string;
 
     constructor(spreadsheetId: string) {
-        this.spreadsheetId = spreadsheetId;
+        this.SPREADSHEET_ID = spreadsheetId;
     }
 
-    private async readCreds(): Promise<string> {
-        return await fs.readFile('./credentials.json', 'utf-8');
+    private static async readCreds(): Promise<string> {
+        const serviceCredentials: { [index: string]: any[] } = JSON.parse(process.env.VCAP_SERVICES || 'null')
+
+        if (serviceCredentials) {
+            const googleCreds = serviceCredentials['user-provided'].find(creds => creds.name == 'google-service-account')?.credentials
+
+            if (!googleCreds) {
+                throw "Google Service account credentials are missing from the environment"
+            }
+
+            return JSON.stringify(googleCreds)
+        } else {
+            return await fs.readFile('./googleCredentials.json', 'utf-8');
+        }
     }
 
     private async createToken(data: any): Promise<JWT> {
@@ -67,7 +80,7 @@ export default class RealSheetsService implements SheetsService{
     private async appendRow(token: JWT, range: string, row: any[]) {
         let request: any = {
             auth: token,
-            spreadsheetId: this.spreadsheetId,
+            spreadsheetId: this.SPREADSHEET_ID,
             range: range,
             valueInputOption: 'USER_ENTERED',
             insertDataOption: 'INSERT_ROWS',
@@ -82,9 +95,9 @@ export default class RealSheetsService implements SheetsService{
     }
 
     async appendValues(form: any, dataRange: string, headerRange: string): Promise<void> {
-        let creds: string = await this.readCreds();
+        let creds: string = await RealSheetsService.readCreds();
         let token: JWT = await this.createToken(creds);
-        let headings: any[] = await this.readRange(token, headerRange, this.spreadsheetId)
+        let headings: any[] = await this.readRange(token, headerRange, this.SPREADSHEET_ID)
         let dataToInsert: any[] = await this.createRow(token, form, headings);
         await this.appendRow(token, dataRange, dataToInsert);
     }

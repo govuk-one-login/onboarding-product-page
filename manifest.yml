@@ -1,0 +1,10 @@
+---
+applications:
+  - name: onboarding-product-pages
+    memory: 512M
+    disk_quota: 512M
+    env:
+      USE_STUB_S3: true
+      USE_STUB_SHEETS: false
+      REGISTER_SHEET_DATA_RANGE: Register!A1
+      REGISTER_SHEET_HEADER_RANGE: Register!A1:Y1

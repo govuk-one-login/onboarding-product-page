@@ -72,6 +72,9 @@ typings/
 .env
 .env.test
 
+# Google service account credentials
+googleCredentials.json
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 
@@ -81,6 +84,7 @@ typings/
 # Nuxt.js build / generate output
 .nuxt
 dist
+deploy
 
 # Gatsby files
 .cache/
@@ -124,4 +128,3 @@ keys/
 .vscode/
 
 ci/terraform/.terraform
-/credentials.json
