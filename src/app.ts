@@ -260,7 +260,8 @@ app.post('/contact-us', async (req, res) => {
         const zendesk = new ZendeskService(
             process.env.ZENDESK_EMAIL as string,
             process.env.ZENDESK_API_TOKEN as string,
-            process.env.ZENDESK_TAG as string
+            process.env.ZENDESK_TAG as string,
+            process.env.ZENDESK_GROUP_ID as string
         );
         await zendesk.init();
 

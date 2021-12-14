@@ -5,11 +5,13 @@ export default class SheetsService implements ZendeskInterface {
     private email: string;
     private apiToken: string;
     private tag: string;
+    private groupId: string;
 
-    constructor(email: string, apiToken: string, tag: string) {
+    constructor(email: string, apiToken: string, tag: string, groupId: string) {
         this.email = email;
         this.apiToken = apiToken;
         this.tag = tag;
+        this.groupId = groupId;
     }
 
     async init() {
@@ -23,7 +25,7 @@ export default class SheetsService implements ZendeskInterface {
         }
         let module = await import(implementation);
         let service = module.default;
-        this.implementation = new service(this.email, this.apiToken, this.tag);
+        this.implementation = new service(this.email, this.apiToken, this.tag, this.groupId);
     }
 
     async submit(form: boolean): Promise<any> {
