@@ -50,7 +50,7 @@ app.get('/register-error', (req, res) => {
     res.render('register-error.njk');
 });
 
-app.get('/decide', (req,res) => {
+app.get('/decide', (req, res) => {
     res.render('decide.njk');
 });
 
@@ -60,20 +60,20 @@ app.get('/contact-us', (req, res) => {
     res.render('contact-us.njk', {errorMessages: errorMessages, values: values});
 });
 
-app.get('/decide/timescales', (req,res) => {
-  res.render('decide-timescales.njk');
+app.get('/decide/timescales', (req, res) => {
+    res.render('decide-timescales.njk');
 });
 
-app.get('/decide/user-journeys', (req,res) => {
-  res.render('decide-user-journeys.njk');
+app.get('/decide/user-journeys', (req, res) => {
+    res.render('decide-user-journeys.njk');
 });
 
 app.get('/decide/private-beta/request-submitted', (req, res) => {
     res.render('request-submitted.njk');
 });
 
-app.get('/decide/design-patterns', (req,res) => {
-  res.render('decide-design-patterns.njk');
+app.get('/decide/design-patterns', (req, res) => {
+    res.render('decide-design-patterns.njk');
 });
 
 app.use(express.json());       // to support JSON-encoded bodies
@@ -134,7 +134,10 @@ app.post('/register', async (req, res) => {
             form,
             process.env.REGISTER_SHEET_DATA_RANGE as string,
             process.env.REGISTER_SHEET_HEADER_RANGE as string)
-            .catch(() => redirectTo = '/register-error');
+            .catch(reason => {
+                console.log(reason);
+                redirectTo = '/register-error'
+            });
         console.log("Saved to sheets");
         res.redirect(redirectTo);
     } else {
@@ -253,7 +256,7 @@ app.post('/contact-us', async (req, res) => {
         );
         await zendesk.init();
 
-        if ( await zendesk.submit(req.body) ) {
+        if (await zendesk.submit(req.body)) {
             res.render('contact-us-confirm.njk')
         } else {
             res.render('contact-us-error.njk')
@@ -280,6 +283,5 @@ app.get('/contact-us-confirm', (req, res) => {
     res.render('contact-us-confirm.njk');
 });
 
-app.listen(3000, () => console.log('Server running'));
-
-
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log(`Server running; listening on port ${port}`));

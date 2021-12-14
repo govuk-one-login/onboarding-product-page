@@ -1,0 +1,53 @@
+name: Deploy to PaaS
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy-test:
+    runs-on: ubuntu-latest
+    environment: test
+    steps:
+      - name: Pull repository
+        uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v2
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Install Cloud Foundry client
+        env:
+          CF_CLI_DOWNLOAD_URL: https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github&version=v7
+        run: |
+          curl -sL ${CF_CLI_DOWNLOAD_URL} | sudo tar -zx -C /usr/local/bin
+          cf version
+
+      - name: Build app
+        run: npm run build
+
+      - name: Prepare deployment directory
+        run: |
+          mkdir deploy && mkdir deploy/src/
+          cp -r dist/ deploy/dist/
+          cp -r src/views/ deploy/src/views
+          cp package*.json manifest.yml valid-email-domains.txt deploy/
+
+      - name: PaaS login
+        env:
+          CF_API_URL: https://api.london.cloud.service.gov.uk
+          CF_ORG_NAME: gds-digital-identity-onboarding
+          CF_SPACE_NAME: product-pages-test
+          CF_USERNAME: ${{ secrets.CF_USERNAME }}
+          CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
+        run: |
+          cf api ${CF_API_URL}
+          cf auth
+          cf target -o ${CF_ORG_NAME} -s ${CF_SPACE_NAME}
+
+      - name: Push to PaaS
+        run: |
+          cd deploy
+          cf push --var "REGISTER_SPREADSHEET_ID=${{ secrets.REGISTER_SPREADSHEET_ID }}"
