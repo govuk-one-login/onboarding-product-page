@@ -58,13 +58,14 @@ export default class RealSheetsService implements SheetsService {
                             range: range
                         })
                     const data = response.data;
-                    console.log("Values: " + data.values)
+                    console.debug("Values: " + data.values)
                     if (data.values) {
                         resolve(data.values)
                     } else {
                         reject(new Error(`No values returned for range ${range} from sheet with ID ${sheetId}`))
                     }
                 } catch (error) {
+                    console.log(error)
                     reject(new Error(`Could not read range ${range} from sheet with ID ${sheetId}`))
                 }
             })
