@@ -8,3 +8,5 @@ applications:
       USE_STUB_SHEETS: false
       REGISTER_SHEET_DATA_RANGE: Register!A1
       REGISTER_SHEET_HEADER_RANGE: Register!A1:Y1
+      REQUEST_SHEET_DATA_RANGE: 'Request to join private beta '!A1
+      REQUEST_SHEET_HEADER_RANGE: 'Request to join private beta '!A1:F1
