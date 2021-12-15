@@ -1,19 +1,26 @@
 {% extends "base-evaluate.njk" %}
 
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
 {% block pageTitle %}Request to join the GOV.UK Sign In private beta - GOV.UK Product Pages{% endblock %}
+
+{% set mainClasses = "govuk-!-padding-top-6" %}
 
 {% block beforeContent %}
     <div class="govuk-width-container ">
-        <a href="/decide/private-beta" class="govuk-back-link">Back</a>
+      {{ govukBackLink({
+        text: "Back",
+        href: "/decide/private-beta"
+      }) }}
     </div>
 {% endblock %}
 
 {% block content %}
-    <div class="govuk-width-container ">
+    <div class="govuk-width-container">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-xl">
-                    Request access to private beta
+                <h1 class="govuk-heading-l govuk-!-margin-bottom-7">
+                  Request to join private beta
                 </h1>
 
                 {% if errorMessages.size != 0 %}
@@ -49,7 +56,7 @@
                 </span>
                             {% endif %}
                             <input
-                                    class="govuk-input govuk-input--width-9"
+                                    class="govuk-input govuk-!-width-one-half"
                                     id="name" name="name"
                                     type="text"
                                     spellcheck="false"
@@ -63,7 +70,7 @@
                                 Email address
                             </label>
                             <div id="email-hint" class="govuk-hint">
-                                You must enter a government email address
+                              Must be a government email address
                             </div>
                             {% if errorMessages.get('email') %}
                                 <span class="govuk-error-message" id="email-error">
@@ -71,7 +78,7 @@
                   </span>
                             {% endif %}
                             <input
-                                    class="govuk-input"
+                                    class="govuk-input govuk-!-width-two-thirds"
                                     id="email"
                                     name="email"
                                     type="email"
@@ -84,7 +91,7 @@
 
                         <div class="govuk-form-group {% if errorMessages.get('department-name') %}govuk-form-group--error{% endif %}">
                             <label class="govuk-label" for="department-name">
-                                Organisation name
+                              Department
                             </label>
                             {% if errorMessages.get('department-name') %}
                                 <span class="govuk-error-message" id="department-name-error">
@@ -93,7 +100,7 @@
                             {% endif %}
 
                             <input
-                                    class="govuk-input govuk-input--width-9"
+                                    class="govuk-input govuk-!-width-one-half"
                                     id="department-name"
                                     name="department-name"
                                     type="text"
@@ -113,7 +120,7 @@
                             {% endif %}
 
                             <input
-                                    class="govuk-input govuk-input--width-9"
+                                    class="govuk-input govuk-!-width-one-half"
                                     id="service-name"
                                     name="service-name"
                                     type="text"
