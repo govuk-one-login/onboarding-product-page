@@ -50,5 +50,5 @@ jobs:
       - name: Push to PaaS
         run: |
           cd deploy
-          cf push --var "REGISTER_SPREADSHEET_ID=${{ secrets.REGISTER_SPREADSHEET_ID }}" \
-                  --var "REQUEST_SPREADSHEET_ID=${{ secrets.REQUEST_SPREADSHEET_ID }}"
+          cf push --var "register_spreadsheet_id=${{ secrets.REGISTER_SPREADSHEET_ID }}" \
+                  --var "request_spreadsheet_id=${{ secrets.REQUEST_SPREADSHEET_ID }}"
