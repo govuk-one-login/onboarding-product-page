@@ -41,6 +41,7 @@ export default class RealZendeskService implements ZendeskInterface {
 
         await instance.post('/api/v2/tickets.json', data)
             .then(function (response) {
+                console.log(response)
                 sent = true;
             })
             .catch(function (response) {

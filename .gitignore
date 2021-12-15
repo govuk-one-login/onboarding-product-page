@@ -128,5 +128,4 @@ keys/
 .vscode/
 
 ci/terraform/.terraform
-/credentials.json
 /zendeskCredentials.txt

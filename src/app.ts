@@ -50,7 +50,7 @@ app.get('/register-error', (req, res) => {
     res.render('register-error.njk');
 });
 
-app.get('/decide', (req,res) => {
+app.get('/decide', (req, res) => {
     res.render('decide.njk');
 });
 
@@ -258,13 +258,12 @@ app.post('/contact-us', async (req, res) => {
 
     if (errorMessages.size == 0) {
         const zendesk = new ZendeskService(
-            process.env.ZENDESK_EMAIL as string,
+            process.env.ZENDESK_USERNAME as string,
             process.env.ZENDESK_API_TOKEN as string,
             process.env.ZENDESK_TAG as string,
             process.env.ZENDESK_GROUP_ID as string
         );
         await zendesk.init();
-
         if (await zendesk.submit(req.body)) {
             res.render('contact-us-confirm.njk')
         } else {
