@@ -173,14 +173,14 @@
               </span>
                             {% endif %}
                             <textarea class="govuk-textarea" id="how-can-we-help" name="how-can-we-help" rows="5"
-                                      aria-describedby="how-can-we-help-error"></textarea>
+                                      aria-describedby="how-can-we-help-error">{{ values.get('how-can-we-help') }}</textarea>
                         </div>
 
                     </fieldset>
 
 
                     <button class="govuk-button" data-module="govuk-button">
-                        Submit
+                        Submit form
                     </button>
 
                 </form>
