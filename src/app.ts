@@ -60,6 +60,12 @@ app.get('/contact-us', (req, res) => {
     res.render('contact-us.njk', {errorMessages: errorMessages, values: values});
 });
 
+app.get('/contact-us', (req, res) => {
+    const errorMessages = new Map();
+    const values = new Map();
+    res.render('contact-us.njk', {errorMessages: errorMessages, values: values});
+});
+
 app.get('/decide/timescales', (req, res) => {
     res.render('decide-timescales.njk');
 });
@@ -252,12 +258,12 @@ app.post('/contact-us', async (req, res) => {
 
     if (errorMessages.size == 0) {
         const zendesk = new ZendeskService(
-            process.env.ZENDESK_EMAIL as string,
+            process.env.ZENDESK_USERNAME as string,
             process.env.ZENDESK_API_TOKEN as string,
-            process.env.ZENDESK_TAG as string
+            process.env.ZENDESK_TAG as string,
+            process.env.ZENDESK_GROUP_ID as string
         );
         await zendesk.init();
-
         if (await zendesk.submit(req.body)) {
             res.render('contact-us-confirm.njk')
         } else {

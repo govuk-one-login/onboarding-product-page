@@ -5,11 +5,13 @@ export default class RealZendeskService implements ZendeskInterface {
     private email: string;
     private apiToken: string;
     private tag: string;
+    private groupId: string;
 
-    constructor(email: string, apiToken: string, tag: string) {
+    constructor(email: string, apiToken: string, tag: string, groupId: string) {
         this.email = email;
         this.apiToken = apiToken;
         this.tag = tag;
+        this.groupId = groupId;
     }
 
     async submit(form: any): Promise<boolean> {
@@ -17,6 +19,7 @@ export default class RealZendeskService implements ZendeskInterface {
 
         let data = {
             "ticket": {
+                "group_id": this.groupId,
                 "tags": [this.tag],
                 "subject": `${form['department-name']} | ${form['service-name']} | ${form.name}`,
                 "requester": {"name": form.name, "email": form.email},
@@ -38,6 +41,7 @@ export default class RealZendeskService implements ZendeskInterface {
 
         await instance.post('/api/v2/tickets.json', data)
             .then(function (response) {
+                console.log(response)
                 sent = true;
             })
             .catch(function (response) {
