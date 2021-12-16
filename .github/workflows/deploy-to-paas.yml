@@ -53,6 +53,6 @@ jobs:
           cf push --var "register_spreadsheet_id=${{ secrets.REGISTER_SPREADSHEET_ID }}" \
                   --var "request_spreadsheet_id=${{ secrets.REQUEST_SPREADSHEET_ID }}" \
                   --var "use_stub_zendesk=${{ secrets.USE_STUB_ZENDESK }}" \
-                  --var "zendesk_api_token=${{ secrets.ZENDESK_API_TOKEN }}"
-                  --var "zendesk_group_id=''"
+                  --var "zendesk_api_token=${{ secrets.ZENDESK_API_TOKEN }}" \
+                  --var "zendesk_group_id=''" \
                   --var "zendesk_username=''"
