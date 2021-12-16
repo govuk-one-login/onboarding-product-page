@@ -1,26 +1,29 @@
-import puppeteer, {Browser} from "puppeteer";
+import puppeteer, {Browser, Page} from "puppeteer";
+import {After, Before} from "@cucumber/cucumber";
+import {IWorldOptions} from "@cucumber/cucumber/lib/support_code_library_builder/world";
 
-const { setWorldConstructor } = require("@cucumber/cucumber");
+const {setWorldConstructor, World} = require("@cucumber/cucumber");
 
-export default class CustomWorld {
-    private variable: number;
-    private browser: Browser | undefined;
-    constructor() {
-        this.variable = 0;
-        this.initBrowser().then(browser => this.browser = browser);
-    }
+class OnboardingWorld extends World {
+    private host: string | undefined;
+    constructor(options: IWorldOptions) {
+        super(options)
 
-    async initBrowser(): Promise<Browser> {
-        return await puppeteer.launch({headless: false});
-    }
-
-    setTo(number: number) {
-        this.variable = number;
-    }
-
-    incrementBy(number: number) {
-        this.variable += number;
+        if(process.env.HOST as string != undefined) {
+            this.host = process.env.HOST
+        } else {
+            this.host = 'http://localhost:3000'
+        }
     }
 }
 
-setWorldConstructor(CustomWorld);
+Before(async function () {
+    this.puppeteer = await puppeteer.launch({headless: true});
+})
+
+After(async function () {
+    this.puppeteer.close();
+})
+
+setWorldConstructor(OnboardingWorld);
+

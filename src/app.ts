@@ -269,9 +269,9 @@ app.post('/contact-us', async (req, res) => {
         );
         await zendesk.init();
         if (await zendesk.submit(req.body)) {
-            res.render('contact-us-confirm.njk')
+            res.redirect('contact-us-submitted')
         } else {
-            res.render('contact-us-error.njk')
+            res.redirect('contact-us-error')
         }
     } else {
         res.render('contact-us.njk',
@@ -291,8 +291,8 @@ app.post('/contact-us', async (req, res) => {
     }
 });
 
-app.get('/contact-us-confirm', (req, res) => {
-    res.render('contact-us-confirm.njk');
+app.get('/contact-us-submitted', (req, res) => {
+    res.render('under-construction.njk');
 });
 
 app.get('/contact-us-details', (req, res) => {

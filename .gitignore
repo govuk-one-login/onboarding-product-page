@@ -129,3 +129,5 @@ keys/
 .vscode/
 
 ci/terraform/.terraform
+/zendeskCredentials.txt
+features/reports/*.html
