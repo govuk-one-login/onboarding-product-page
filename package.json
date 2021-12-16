@@ -14,7 +14,9 @@
     "buildlocalimages": "cp -v -r assets/images/* ./dist/assets/images",
     "build": "npm run buildts && npm run buildsass && npm run buildjs && npm run buildgovuk && npm run buildlocalimages",
     "test": "mocha --require ts-node/register --ui bdd src/**/*.spec.ts",
-    "cucumber": "node ./node_modules/@cucumber/cucumber/bin/cucumber-js features/**/*.feature --require features/support/worlds/**/*.ts --require features/support/steps/**/*.ts --require-module ts-node/register --format-options \"{\\\"snippetInterface\\\": \\\"async-await\\\"}\"  --format html:reports/report.html --format summary --publish-quiet"
+    "cucumber": "node ./node_modules/@cucumber/cucumber/bin/cucumber-js features/**/*.feature --require features/support/worlds/**/*.ts --require features/support/steps/**/*.ts --require-module ts-node/register --format-options \"{\\\"snippetInterface\\\": \\\"async-await\\\"}\"  --format html:reports/report.html --format summary --publish-quiet",
+    "cucumber": "node ./node_modules/@cucumber/cucumber/bin/cucumber-js --require features/support/worlds/**/*.ts --require features/support/steps/**/*.ts --require-module ts-node/register --format-options \"{\\\"snippetInterface\\\": \\\"async-await\\\"}\"  --format html:features/reports/report.html --format summary --format progress --publish-quiet",
+    "cucumbers": "node ./node_modules/@cucumber/cucumber/bin/cucumber-js features/**/*.feature --require features/support/worlds/**/*.ts --require features/support/steps/**/*.ts --require-module ts-node/register --format-options \"{\\\"snippetInterface\\\": \\\"async-await\\\"}\"  --format html:features/reports/report.html --format summary --format progress --publish-quiet"
   },
   "author": "",
   "license": "ISC",
