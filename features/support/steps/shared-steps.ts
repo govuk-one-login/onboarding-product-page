@@ -1,9 +1,39 @@
-import {Then, When} from "@cucumber/cucumber";
+import {Given, When, Then} from "@cucumber/cucumber";
 import {strict as assert} from "assert";
+
+Given('that the user is on the {string} page', async function (route) {
+    this.page = await this.puppeteer.newPage();
+    await this.page.goto(this.host + route);
+});
+
+When('they click on the {string} link', async function (text: string) {
+    let links = await this.page.$x(`//a[contains(., '${text}')]`);
+    await Promise.all([
+        this.page.waitForNavigation({timeout: 10000}),
+        links[0].click()
+    ]);
+});
+
+When('they select the Submit button', async function () {
+    await Promise.all([
+        this.page.waitForNavigation(),
+        this.page.click("#submit")
+    ])
+});
 
 Then('they should be directed to the following page: {string}', async function (url) {
     assert.equal(this.page.url(), this.host + url)
 });
+
+Then('they should be directed to the following URL: {string}', async function (url) {
+    assert.equal(this.page.url(), url)
+});
+
+Then('they should be directed to a page with the title {string}', async function (title: string) {
+    let actualTitle = await this.page.title();
+    assert.equal(actualTitle, title, `Page title was ${actualTitle}`)
+});
+
 
 Then('their data is saved in the spreadsheet', async function () {
     // we can't reliably test this but if we're on the above page, we should be okay
@@ -22,9 +52,3 @@ Then('the error message {string} must be displayed for the {string} field', asyn
     assert.equal(actualMessageAboveSummary.trim(), "Error: " + errorMessage, `Expected the message above the ${field} field to be ${errorMessage}`)
 });
 
-When('they select the Submit button', async function () {
-    await Promise.all([
-        this.page.waitForNavigation(),
-        this.page.click("#submit")
-    ])
-});

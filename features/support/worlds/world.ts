@@ -6,10 +6,11 @@ const {setWorldConstructor, World} = require("@cucumber/cucumber");
 
 class OnboardingWorld extends World {
     private host: string | undefined;
+
     constructor(options: IWorldOptions) {
         super(options)
 
-        if(process.env.HOST as string != undefined) {
+        if (process.env.HOST as string != undefined) {
             this.host = process.env.HOST
         } else {
             this.host = 'http://localhost:3000'
