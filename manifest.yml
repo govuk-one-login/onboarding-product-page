@@ -17,3 +17,4 @@ applications:
       ZENDESK_USERNAME: ((zendesk_username))
       ZENDESK_API_URL: https://govuk.zendesk.com/api/v2
       ZENDESK_API_TOKEN: ((zendesk_api_token))
+      ZENDESK_TAG: govuk-sign-in-service
