@@ -1,0 +1,86 @@
+{% extends "base-evaluate.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}Find out more about the GOV.UK Sign In private beta - GOV.UK Product Pages{% endblock %}
+
+{% block content %}
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-one-third">
+        <nav class="sub-navigation">
+          <ul class="govuk-list">
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="/decide">Home</a>
+            </li>
+          </ul>
+          <ul class="govuk-list sub_navigation_list_1">
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="/decide/timescales">Timescales</a>
+            </li>
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="/decide/user-journeys">User journeys</a>
+            </li>
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="/decide/design-patterns">Design patterns</a>
+            </li>
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="https://auth-tech-docs.london.cloudapps.digital/#gov-uk-sign-in">Technical documentation</a>
+            </li>
+            <li class="sub-navigation__item sub-navigation__item--active">
+              <a class="govuk-link govuk-link--no-visited-state" href="/decide/private-beta">Request to join private beta</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Find out more about private beta</h1>
+
+        <p class="govuk-body">
+          For private beta, we‘ll choose which services to onboard on a case-by-case basis.
+        </p>
+
+        <p class="govuk-body">
+          We’ll invite services to partner with us that help us learn about the features we’ll need as we scale up. These services will go live with GOV.UK Sign In so we can learn how it works at scale.
+        </p>
+
+        <p class="govuk-body">
+          This private beta is for authentication only. It does not include identity checks.
+        </p>
+
+        <h2 class="govuk-heading-m">Who can join</h2>
+
+        <p class="govuk-body">
+          There are some criteria about who can join private beta. You need to:
+        </p>
+
+        <ul class="govuk-list govuk-list--bullet">
+          <li>work in a central government department </li>
+          <li>have a service in beta or live</li>
+          <li>need authentication only, not identity</li>
+          <li>have development expertise in your team</li>
+        </ul>
+
+        <h2 class="govuk-heading-m">Request to join private beta</h2>
+
+        <p class="govuk-body">
+          If you meet the criteria and would like to take part, let us know.
+        </p>
+
+        <div class="govuk-inset-text">
+          Please be aware that even if you meet the criteria, this does not guarantee that you’ll be able to take part. We need to choose services that we can learn the most from.
+        </div>
+
+        {{ govukButton({
+          text: "Request to join private beta",
+          href: "/decide/private-beta/request-form",
+          isStartButton: true
+        }) }}
+
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}
