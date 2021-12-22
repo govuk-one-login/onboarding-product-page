@@ -82,6 +82,10 @@ app.get('/decide/design-patterns', (req, res) => {
     res.render('decide-design-patterns.njk');
 });
 
+app.get('/decide/private-beta', (req, res) => {
+  res.render('decide-private-beta.njk');
+});
+
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 
