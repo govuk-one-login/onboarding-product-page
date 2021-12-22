@@ -1,25 +1,31 @@
-name: Deploy to PaaS
+name: Deploy
 
 on:
-  push:
-    branches: [ main ]
+  workflow_call:
+    inputs:
+      environment: { required: true, type: string }
+      url: { required: false, type: string }
+      app_name: { required: false, type: string }
+      use_stub_zendesk: { required: true, type: boolean }
+    secrets:
+      CF_USERNAME: { required: true }
+      CF_PASSWORD: { required: true }
+      ZENDESK_API_TOKEN: { required: true }
+      REGISTER_SPREADSHEET_ID: { required: true }
+      REQUEST_SPREADSHEET_ID: { required: true }
 
 jobs:
-  deploy-test:
-    name: Deploy / Test
+  deploy:
+    name: Deploy to PaaS
     runs-on: ubuntu-latest
-    environment: test
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ inputs.url }}
     steps:
-      - name: Pull repository
-        uses: actions/checkout@v2
-
-      - name: Install Node
-        uses: actions/setup-node@v2
+      - name: Get distribution artifact
+        uses: actions/download-artifact@v2
         with:
-          cache: 'npm'
-
-      - name: Install Node dependencies
-        run: npm install
+          name: product-pages
 
       - name: Install Cloud Foundry client
         env:
@@ -28,21 +34,11 @@ jobs:
           curl -sL ${CF_CLI_DOWNLOAD_URL} | sudo tar -zx -C /usr/local/bin
           cf version
 
-      - name: Build app
-        run: npm run build
-
-      - name: Prepare deployment directory
-        run: |
-          mkdir deploy && mkdir deploy/src/
-          cp -r dist/ deploy/dist/
-          cp -r src/views/ deploy/src/views
-          cp package*.json manifest.yml valid-email-domains.txt deploy/
-
       - name: PaaS login
         env:
           CF_API_URL: https://api.london.cloud.service.gov.uk
           CF_ORG_NAME: gds-digital-identity-onboarding
-          CF_SPACE_NAME: product-pages-test
+          CF_SPACE_NAME: product-pages-preview
           CF_USERNAME: ${{ secrets.CF_USERNAME }}
           CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
         run: |
@@ -52,10 +48,10 @@ jobs:
 
       - name: Push to PaaS
         run: |
-          cd deploy
-          cf push --var "register_spreadsheet_id=${{ secrets.REGISTER_SPREADSHEET_ID }}" \
+          cf push ${{ inputs.app_name }} \
+                  --var "register_spreadsheet_id=${{ secrets.REGISTER_SPREADSHEET_ID }}" \
                   --var "request_spreadsheet_id=${{ secrets.REQUEST_SPREADSHEET_ID }}" \
-                  --var "use_stub_zendesk=${{ secrets.USE_STUB_ZENDESK }}" \
+                  --var "use_stub_zendesk=${{ inputs.USE_STUB_ZENDESK }}" \
                   --var "zendesk_api_token=${{ secrets.ZENDESK_API_TOKEN }}" \
                   --var "zendesk_group_id=''" \
                   --var "zendesk_username=''"

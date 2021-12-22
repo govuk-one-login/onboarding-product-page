@@ -13,7 +13,7 @@
     "buildgovuk": "cp -v -r node_modules/govuk-frontend/govuk/assets/* ./dist/assets && echo \"Done!\"",
     "buildlocalimages": "cp -v -r assets/images/* ./dist/assets/images",
     "build": "npm run buildts && npm run buildsass && npm run buildjs && npm run buildgovuk && npm run buildlocalimages",
-    "test": "mocha"
+    "test": "mocha --require ts-node/register --ui bdd src/**/*.spec.ts"
   },
   "author": "",
   "license": "ISC",
