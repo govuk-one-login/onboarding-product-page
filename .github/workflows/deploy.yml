@@ -10,9 +10,11 @@ on:
     secrets:
       CF_USERNAME: { required: true }
       CF_PASSWORD: { required: true }
-      ZENDESK_API_TOKEN: { required: true }
       REGISTER_SPREADSHEET_ID: { required: true }
       REQUEST_SPREADSHEET_ID: { required: true }
+      ZENDESK_API_TOKEN: { required: false }
+      ZENDESK_GROUP_ID: { required: false }
+      ZENDESK_USERNAME: { required: false }
 
 jobs:
   deploy:
@@ -47,11 +49,15 @@ jobs:
           cf target -o ${CF_ORG_NAME} -s ${CF_SPACE_NAME}
 
       - name: Push to PaaS
+        env:
+          ZENDESK_API_TOKEN: ${{ secrets.ZENDESK_API_TOKEN }}
+          ZENDESK_GROUP_ID: ${{ secrets.ZENDESK_GROUP_ID }}
+          ZENDESK_USERNAME: ${{ secrets.ZENDESK_USERNAME }}
         run: |
           cf push ${{ inputs.app_name }} \
-                  --var "register_spreadsheet_id=${{ secrets.REGISTER_SPREADSHEET_ID }}" \
-                  --var "request_spreadsheet_id=${{ secrets.REQUEST_SPREADSHEET_ID }}" \
-                  --var "use_stub_zendesk=${{ inputs.USE_STUB_ZENDESK }}" \
-                  --var "zendesk_api_token=${{ secrets.ZENDESK_API_TOKEN }}" \
-                  --var "zendesk_group_id=''" \
-                  --var "zendesk_username=''"
+            --var register_spreadsheet_id=${{ secrets.REGISTER_SPREADSHEET_ID }} \
+            --var request_spreadsheet_id=${{ secrets.REQUEST_SPREADSHEET_ID }} \
+            --var use_stub_zendesk=${{ inputs.USE_STUB_ZENDESK }} \
+            --var zendesk_api_token="${ZENDESK_API_TOKEN:- }" \
+            --var zendesk_group_id="${ZENDESK_GROUP_ID:- }" \
+            --var zendesk_username="${ZENDESK_USERNAME:- }"

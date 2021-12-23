@@ -10,13 +10,13 @@ applications:
       USE_STUB_SHEETS: false
       REGISTER_SHEET_DATA_RANGE: Register!A1
       REGISTER_SHEET_HEADER_RANGE: Register!A1:Y1
+      REGISTER_SPREADSHEET_ID: ((register_spreadsheet_id))
       REQUEST_SHEET_DATA_RANGE: "'Request to join private beta'!A1"
       REQUEST_SHEET_HEADER_RANGE: "'Request to join private beta'!A1:F1"
-      REGISTER_SPREADSHEET_ID: ((register_spreadsheet_id))
       REQUEST_SPREADSHEET_ID: ((request_spreadsheet_id))
+      ZENDESK_API_URL: https://govuk.zendesk.com/api/v2
+      ZENDESK_TAG: govuk-sign-in-service
       USE_STUB_ZENDESK: ((use_stub_zendesk))
       ZENDESK_GROUP_ID: ((zendesk_group_id))
       ZENDESK_USERNAME: ((zendesk_username))
-      ZENDESK_API_URL: https://govuk.zendesk.com/api/v2
       ZENDESK_API_TOKEN: ((zendesk_api_token))
-      ZENDESK_TAG: govuk-sign-in-service
