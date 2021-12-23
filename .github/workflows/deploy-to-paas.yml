@@ -4,17 +4,18 @@ on:
   workflow_call:
     inputs:
       environment: { required: true, type: string }
-      url: { required: false, type: string }
-      app_name: { required: false, type: string }
+      cf_space_name: { required: true, type: string }
       use_stub_zendesk: { required: true, type: boolean }
+      app_name: { required: false, type: string }
+      url: { required: false, type: string }
     secrets:
-      CF_USERNAME: { required: true }
-      CF_PASSWORD: { required: true }
-      REGISTER_SPREADSHEET_ID: { required: true }
-      REQUEST_SPREADSHEET_ID: { required: true }
-      ZENDESK_API_TOKEN: { required: false }
-      ZENDESK_GROUP_ID: { required: false }
-      ZENDESK_USERNAME: { required: false }
+      cf_username: { required: true }
+      cf_password: { required: true }
+      register_spreadsheet_id: { required: true }
+      request_spreadsheet_id: { required: true }
+      zendesk_api_token: { required: false }
+      zendesk_group_id: { required: false }
+      zendesk_username: { required: false }
 
 jobs:
   deploy:
@@ -40,9 +41,9 @@ jobs:
         env:
           CF_API_URL: https://api.london.cloud.service.gov.uk
           CF_ORG_NAME: gds-digital-identity-onboarding
-          CF_SPACE_NAME: product-pages-preview
-          CF_USERNAME: ${{ secrets.CF_USERNAME }}
-          CF_PASSWORD: ${{ secrets.CF_PASSWORD }}
+          CF_SPACE_NAME: ${{ inputs.cf_space_name }}
+          CF_USERNAME: ${{ secrets.cf_username }}
+          CF_PASSWORD: ${{ secrets.cf_password }}
         run: |
           cf api ${CF_API_URL}
           cf auth
@@ -50,14 +51,14 @@ jobs:
 
       - name: Push to PaaS
         env:
-          ZENDESK_API_TOKEN: ${{ secrets.ZENDESK_API_TOKEN }}
-          ZENDESK_GROUP_ID: ${{ secrets.ZENDESK_GROUP_ID }}
-          ZENDESK_USERNAME: ${{ secrets.ZENDESK_USERNAME }}
+          ZENDESK_API_TOKEN: ${{ secrets.zendesk_api_token }}
+          ZENDESK_GROUP_ID: ${{ secrets.zendesk_group_id }}
+          ZENDESK_USERNAME: ${{ secrets.zendesk_username }}
         run: |
           cf push ${{ inputs.app_name }} \
-            --var register_spreadsheet_id=${{ secrets.REGISTER_SPREADSHEET_ID }} \
-            --var request_spreadsheet_id=${{ secrets.REQUEST_SPREADSHEET_ID }} \
-            --var use_stub_zendesk=${{ inputs.USE_STUB_ZENDESK }} \
+            --var register_spreadsheet_id=${{ secrets.register_spreadsheet_id }} \
+            --var request_spreadsheet_id=${{ secrets.request_spreadsheet_id }} \
+            --var use_stub_zendesk=${{ inputs.use_stub_zendesk }} \
             --var zendesk_api_token="${ZENDESK_API_TOKEN:- }" \
             --var zendesk_group_id="${ZENDESK_GROUP_ID:- }" \
             --var zendesk_username="${ZENDESK_USERNAME:- }"
