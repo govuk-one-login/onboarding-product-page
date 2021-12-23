@@ -4,7 +4,7 @@ on: workflow_call
 
 jobs:
   build:
-    name: Build pages
+    name: Product pages
     runs-on: ubuntu-latest
     steps:
       - name: Pull repository

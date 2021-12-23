@@ -1,0 +1,10 @@
+name: Acceptance tests
+
+on: workflow_call
+
+jobs:
+  run-acceptance-tests:
+    name: Acceptance
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Ask John"
