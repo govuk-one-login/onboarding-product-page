@@ -72,8 +72,9 @@ typings/
 .env
 .env.test
 
-# Google service account credentials
+# Credentials
 googleCredentials.json
+zendeskCredentials.txt
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -128,4 +129,3 @@ keys/
 .vscode/
 
 ci/terraform/.terraform
-/zendeskCredentials.txt

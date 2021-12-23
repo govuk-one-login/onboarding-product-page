@@ -3,6 +3,8 @@ applications:
   - name: onboarding-product-pages
     memory: 512M
     disk_quota: 512M
+    services:
+      - google-service-account
     env:
       USE_STUB_S3: true
       USE_STUB_SHEETS: false

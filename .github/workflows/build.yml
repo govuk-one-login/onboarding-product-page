@@ -1,0 +1,34 @@
+name: Build
+
+on: workflow_call
+
+jobs:
+  build:
+    name: Build pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull repository
+        uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Build app
+        run: npm run build
+
+      - name: Archive distribution artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: product-pages
+          retention-days: 7
+          path: |
+            dist
+            src/views
+            package*.json
+            manifest.yml
+            valid-email-domains.txt
