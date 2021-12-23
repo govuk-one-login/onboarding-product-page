@@ -1,4 +1,4 @@
-name: Test PR
+name: Check PR
 
 on: pull_request
 
@@ -14,7 +14,7 @@ jobs:
   deploy-preview:
     name: Preview
     needs: build
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy.yml@f750c28d35c2dce51c78ad36b6e112e8cf0ec62b
+    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@f750c28d35c2dce51c78ad36b6e112e8cf0ec62b
     with:
       environment: preview
       app_name: di-product-page-preview-${{ github.head_ref }}
