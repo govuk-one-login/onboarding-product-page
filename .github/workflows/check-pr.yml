@@ -5,16 +5,16 @@ on: pull_request
 jobs:
   build:
     name: Build
-    uses: alphagov/di-onboarding-product-page/.github/workflows/build.yml@f750c28d35c2dce51c78ad36b6e112e8cf0ec62b
+    uses: alphagov/di-onboarding-product-page/.github/workflows/build.yml@0fc71869649811ea52287bc833949a78730c653e
 
   run-unit-tests:
     name: Run tests
-    uses: alphagov/di-onboarding-product-page/.github/workflows/run-unit-tests.yml@f750c28d35c2dce51c78ad36b6e112e8cf0ec62b
+    uses: alphagov/di-onboarding-product-page/.github/workflows/run-unit-tests.yml@0fc71869649811ea52287bc833949a78730c653e
 
   deploy-preview:
     name: Preview
     needs: build
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@f750c28d35c2dce51c78ad36b6e112e8cf0ec62b
+    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@0fc71869649811ea52287bc833949a78730c653e
     with:
       environment: preview
       cf_space_name: product-pages-preview
@@ -30,4 +30,4 @@ jobs:
   run-acceptance-tests:
     name: Run tests
     needs: deploy-preview
-    uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@f750c28d35c2dce51c78ad36b6e112e8cf0ec62b
+    uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@0fc71869649811ea52287bc833949a78730c653e
