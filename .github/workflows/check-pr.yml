@@ -7,21 +7,9 @@ jobs:
     name: Build
     uses: alphagov/di-onboarding-product-page/.github/workflows/build.yml@f750c28d35c2dce51c78ad36b6e112e8cf0ec62b
 
-  unit-test:
-    name: Run unit tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Pull repository
-        uses: actions/checkout@v2
-      - name: Install Node
-        uses: actions/setup-node@v2
-        with:
-          cache: 'npm'
-      - name: Install Node dependencies
-        run: npm install
-
-      - name: Run mocha tests
-        run: npm run test
+  run-unit-tests:
+    name: Run tests
+    uses: alphagov/di-onboarding-product-page/.github/workflows/run-unit-tests.yml@f750c28d35c2dce51c78ad36b6e112e8cf0ec62b
 
   deploy-preview:
     name: Preview
@@ -39,8 +27,6 @@ jobs:
       REQUEST_SPREADSHEET_ID: ${{ secrets.REQUEST_SPREADSHEET_ID }}
 
   run-acceptance-tests:
-    name: Run acceptance tests
-    runs-on: ubuntu-latest
+    name: Run tests
     needs: deploy-preview
-    steps:
-      - run: echo "Ask John"
+    uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@f750c28d35c2dce51c78ad36b6e112e8cf0ec62b
