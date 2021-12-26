@@ -295,5 +295,30 @@ app.get('/contact-us-confirm', (req, res) => {
     res.render('contact-us-confirm.njk');
 });
 
+app.get('/support', (req, res) => {
+  res.render('support.njk');
+});
+
+app.post('/support', async (req, res) => {
+
+  if (req.body && Object.keys(req.body).length === 0) {
+    res.render('support.njk',
+      {
+        valueNotSelected: true,
+      });
+  } else {
+    if (req.body.support === 'gov-service-start-using-sign-in'){
+      res.redirect('/contact-us-details');
+    }
+    if(req.body.support === 'gov-service-uses-sign-in') {
+      res.redirect('/service-team-support-form');
+    }
+    if(req.body.support === 'gov-service-is-public') {
+      res.redirect('/public-support-form');
+    }
+  }
+
+});
+
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Server running; listening on port ${port}`));
