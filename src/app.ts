@@ -295,5 +295,9 @@ app.get('/contact-us-confirm', (req, res) => {
     res.render('contact-us-confirm.njk');
 });
 
+app.get('/contact-us-details', (req, res) => {
+  res.render('contact-us-details.njk');
+});
+
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Server running; listening on port ${port}`));
