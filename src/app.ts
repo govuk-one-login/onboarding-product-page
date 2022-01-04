@@ -314,7 +314,7 @@ app.post('/support', async (req, res) => {
       res.redirect('/service-team-support-form');
     }
     if(req.body.support === 'gov-service-is-public') {
-      res.redirect('/public-support-form');
+      res.redirect('/contact-us?supportType=PUBLIC');
     }
   }
 
