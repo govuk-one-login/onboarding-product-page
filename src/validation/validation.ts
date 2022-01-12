@@ -2,12 +2,12 @@ const emailValidator = require('../email-validator');
 import {promises as fs} from 'fs';
 
 export default class Validation {
-    form: any;
+    form: Map<string, string>;
     requiredFields: Map<string, string>;
     requiredConditionalFields: Map<string, Map<string, string>> | undefined;
     validEmailDomains: string[];
 
-    constructor(form: any, requiredFields: Map<string, string>, requiredConditionalFields?: Map<string, Map<string, string>>) {
+    constructor(form: Map<string, string>, requiredFields: Map<string, string>, requiredConditionalFields?: Map<string, Map<string, string>>) {
         this.form = form;
 
         this.requiredFields = requiredFields;
@@ -51,7 +51,7 @@ export default class Validation {
 
         if (this.requiredConditionalFields) {
             this.requiredConditionalFields.forEach((conditionalFieldAndErrorMessage, field) => {
-                if (this.form[field] == "yes") {
+                if (this.form.get(field) == "yes") {
                     let entry = conditionalFieldAndErrorMessage.entries().next().value
                     if (this.fieldHasNoValue(entry[0])) {
                         errors.set(entry[0], entry[1]);
@@ -72,16 +72,19 @@ export default class Validation {
     }
 
     fieldHasNoValue(field: string): boolean {
-        return this.form[field] == '' || this.form[field] == undefined;
+        return this.form.get(field) == '' || this.form.get(field) == undefined;
     }
 
     invalidEmailAddress(): boolean {
-        return !emailValidator(this.form['email'])
+        return !emailValidator(this.form.get('email'))
     }
 
     notGovernmentEmail(): boolean {
         // "" will match anything and we get that if there's an empty line at the end of valid-email-domains.txt
-        let match = this.validEmailDomains.find(suffix => this.form['email'].trim().endsWith(suffix) && suffix != "");
+        let match = this.validEmailDomains.find(suffix => {
+            // @ts-ignore
+            return this.form.get('email').trim().endsWith(suffix) && suffix != "";
+        });
         return match == undefined;
     }
 }

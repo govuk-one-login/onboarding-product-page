@@ -28,7 +28,7 @@ export default class SheetsService implements ZendeskInterface {
         this.implementation = new service(this.username, this.apiToken, this.tag, this.groupId);
     }
 
-    async submit(form: boolean): Promise<any> {
+    async submit(form: any): Promise<any> {
         return this.implementation.submit(form);
     }
 }

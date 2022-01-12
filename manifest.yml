@@ -6,7 +6,6 @@ applications:
     services:
       - google-service-account
     env:
-      USE_STUB_S3: true
       USE_STUB_SHEETS: false
       REGISTER_SHEET_DATA_RANGE: Register!A1
       REGISTER_SHEET_HEADER_RANGE: Register!A1:Y1

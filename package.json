@@ -18,7 +18,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.42.0",
     "@googleapis/sheets": "^0.3.0",
     "axios": "^0.24.0",
     "dotenv": "^10.0.0",
