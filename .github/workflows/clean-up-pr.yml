@@ -1,0 +1,34 @@
+name: Clean up PR
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  remove-pr-preview:
+    name: Remove PR preview
+    runs-on: ubuntu-latest
+    environment: preview
+    steps:
+      - name: Install Cloud Foundry client
+        env:
+          CF_CLI_DOWNLOAD_URL: https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github&version=v7
+        run: |
+          curl -sL ${CF_CLI_DOWNLOAD_URL} | sudo tar -zx -C /usr/local/bin
+          cf version
+
+      - name: PaaS login
+        env:
+          CF_API_URL: https://api.london.cloud.service.gov.uk
+          CF_ORG_NAME: gds-digital-identity-onboarding
+          CF_SPACE_NAME: product-pages-preview
+          CF_USERNAME: ${{ secrets.cf_username }}
+          CF_PASSWORD: ${{ secrets.cf_password }}
+        run: |
+          cf api ${CF_API_URL}
+          cf auth
+          cf target -o ${CF_ORG_NAME} -s ${CF_SPACE_NAME}
+
+      - name: Delete app
+        run: |
+          cf delete di-product-page-preview-${{ github.head_ref }} -rf
