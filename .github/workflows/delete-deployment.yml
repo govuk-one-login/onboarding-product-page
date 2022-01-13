@@ -1,12 +1,14 @@
-name: Clean up PR
+name: Delete deployment
 
 on:
+  workflow_dispatch:
+  delete:
   pull_request:
     types: [closed]
 
 jobs:
-  remove-pr-preview:
-    name: Remove PR preview
+  delete-deployment:
+    name: Delete product page preview
     runs-on: ubuntu-latest
     environment: preview
     steps:
@@ -31,4 +33,4 @@ jobs:
 
       - name: Delete app
         run: |
-          cf delete di-product-page-preview-${{ github.head_ref }} -rf
+          cf delete di-pp-prev-${{ github.head_ref }} -rf
