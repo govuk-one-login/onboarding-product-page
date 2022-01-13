@@ -5,9 +5,9 @@ on:
     inputs:
       environment: { required: true, type: string }
       cf_space_name: { required: true, type: string }
-      use_stub_zendesk: { required: true, type: boolean }
       app_name: { required: false, type: string }
       url: { required: false, type: string }
+      use_stub_zendesk: { required: false, type: boolean, default: true }
     secrets:
       cf_username: { required: true }
       cf_password: { required: true }
