@@ -32,4 +32,4 @@ jobs:
     needs: deploy-preview
     uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@258ec49ae4bfe0c5d126f6b625d22304cf905d7d
     with:
-      host: di-pp-prev-${{ github.head_ref }}
+      host: https://di-pp-prev-${{ github.head_ref }}.london.cloudapps.digital
