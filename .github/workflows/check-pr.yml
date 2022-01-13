@@ -30,6 +30,6 @@ jobs:
   run-acceptance-tests:
     name: Run tests
     needs: deploy-preview
-    uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@0fc71869649811ea52287bc833949a78730c653e
+    uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@258ec49ae4bfe0c5d126f6b625d22304cf905d7d
     with:
       host: di-pp-prev-${{ github.head_ref }}
