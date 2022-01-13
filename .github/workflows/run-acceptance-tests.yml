@@ -6,5 +6,17 @@ jobs:
   run-acceptance-tests:
     name: Acceptance
     runs-on: ubuntu-latest
+    env:
+      HOST: https://di-ppp-${{ github.head_ref }}.london.cloudapps.digital
     steps:
-      - run: echo "Ask John"
+      - name: Pull repository
+        uses: actions/checkout@v2
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'npm'
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Run cucumber acceptance tests
+        run: npm run cucumbers
