@@ -18,8 +18,8 @@ jobs:
     with:
       environment: preview
       cf_space_name: product-pages-preview
-      app_name: di-product-page-preview-${{ github.head_ref }}
-      url: https://di-product-page-preview-${{ github.head_ref }}.london.cloudapps.digital
+      app_name: di-pp-prev-${{ github.head_ref }}
+      url: https://di-pp-prev-${{ github.head_ref }}.london.cloudapps.digital
       use_stub_zendesk: true
     secrets:
       cf_username: ${{ secrets.CF_USERNAME }}
