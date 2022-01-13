@@ -1,13 +1,16 @@
 name: Acceptance tests
 
-on: workflow_call
+on:
+  workflow_call:
+    inputs:
+      host: { required: false, type: string }
 
 jobs:
   run-acceptance-tests:
     name: Acceptance
     runs-on: ubuntu-latest
     env:
-      HOST: https://di-ppp-${{ github.head_ref }}.london.cloudapps.digital
+      HOST: ${{ inputs.host }}
     steps:
       - name: Pull repository
         uses: actions/checkout@v2
