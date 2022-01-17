@@ -295,6 +295,10 @@ app.get('/contact-us-confirm', (req, res) => {
     res.render('contact-us-confirm.njk');
 });
 
+app.get('/contact-us-details', (req, res) => {
+  res.render('contact-us-details.njk');
+});
+
 app.get('/support', (req, res) => {
   res.render('support.njk');
 });
