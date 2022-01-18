@@ -5,7 +5,6 @@ import Validation from './validation'
 
 import uuid from "./lib/uuid";
 import getTimestamp from "./lib/timestamp";
-import S3Service from "./s3/S3Service";
 import ZendeskService from "./zendesk/ZendeskService";
 
 const app = express();
@@ -101,7 +100,8 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-    const values = new Map(Object.entries(req.body));
+    const values = new Map<string, string>(Object.entries(req.body));
+    values.forEach((value, key) => values.set(key, value.trim()));
 
     let requiredFields = new Map<string, string>();
     requiredFields.set("email", "Enter your government email address");
@@ -122,26 +122,20 @@ app.post('/register', async (req, res) => {
     requiredConditionalFields.set("id-need", new Map([["id-needs", "You must describe your identity needs"]]));
 
 
-    const validator = new Validation(req.body, requiredFields, requiredConditionalFields);
+    const validator = new Validation(values, requiredFields, requiredConditionalFields);
     await validator.loadExtendedEmailDomains();
     const errorMessages = validator.validate();
 
     if (errorMessages.size == 0) {
-        let form = req.body
-        form['id'] = uuid();
-        form['submission-date'] = getTimestamp();
+        values.set('id', uuid());
+        values.set('submission-date', getTimestamp());
 
         let redirectTo = '/register-confirm'
-
-        let s3service: S3Service = new S3Service(process.env.REGISTER_BUCKET_NAME as string);
-        await s3service.init().catch(() => redirectTo = '/register-error');
-        await s3service.saveToS3(form).catch(() => redirectTo = '/register-error');
-        console.log("saved to S3");
 
         let sheetsService: SheetsService = new SheetsService(process.env.REGISTER_SPREADSHEET_ID as string);
         await sheetsService.init().catch(() => redirectTo = '/register-error');
         await sheetsService.appendValues(
-            form,
+            values,
             process.env.REGISTER_SHEET_DATA_RANGE as string,
             process.env.REGISTER_SHEET_HEADER_RANGE as string)
             .catch(reason => {
@@ -194,7 +188,8 @@ app.get('/decide/private-beta/request-form', (req, res) => {
 
 
 app.post('/decide/private-beta/request-form', async (req, res) => {
-    const values = new Map(Object.entries(req.body));
+    const values = new Map<string, string>(Object.entries(req.body));
+    values.forEach((value, key) => values.set(key, value.trim()));
 
     let requiredFields = new Map<string, string>();
     requiredFields.set("email", "Enter your government email address");
@@ -202,26 +197,20 @@ app.post('/decide/private-beta/request-form', async (req, res) => {
     requiredFields.set("service-name", "Enter the name of your service");
     requiredFields.set("department-name", "Enter your organisation");
 
-    const validator = new Validation(req.body, requiredFields);
+    const validator = new Validation(values, requiredFields);
     await validator.loadExtendedEmailDomains();
     const errorMessages = validator.validate();
 
     if (errorMessages.size == 0) {
-        let form = req.body
-        form['id'] = uuid();
-        form['submission-date'] = getTimestamp();
+        values.set('id', uuid());
+        values.set('submission-date', getTimestamp());
 
         let redirectTo = '/decide/private-beta/request-submitted'
-
-        let s3service: S3Service = new S3Service(process.env.REQUEST_BETA_BUCKET_NAME as string);
-        await s3service.init().catch(() => redirectTo = '/register-error');
-        await s3service.saveToS3(form).catch(() => redirectTo = '/register-error');
-        console.log("saved to S3");
 
         let sheetsService: SheetsService = new SheetsService(process.env.REQUEST_SPREADSHEET_ID as string);
         await sheetsService.init().catch(() => redirectTo = '/register-error');
         await sheetsService.appendValues(
-            form,
+            values,
             process.env.REQUEST_SHEET_DATA_RANGE as string,
             process.env.REQUEST_SHEET_HEADER_RANGE as string)
             .then(() => console.log("Saved to sheets"))
@@ -246,7 +235,8 @@ app.post('/decide/private-beta/request-form', async (req, res) => {
 });
 
 app.post('/contact-us', async (req, res) => {
-    const values = new Map(Object.entries(req.body));
+    const values = new Map<string, string>(Object.entries(req.body));
+    values.forEach((value, key) => values.set(key, value.trim()));
 
     let requiredFields = new Map<string, string>();
     requiredFields.set("email", "Enter your government email address");
@@ -256,7 +246,7 @@ app.post('/contact-us', async (req, res) => {
     requiredFields.set("department-name", "Enter your organisation");
     requiredFields.set("how-can-we-help", "Tell us how we can help");
 
-    const validator = new Validation(req.body, requiredFields);
+    const validator = new Validation(values, requiredFields);
     await validator.loadExtendedEmailDomains();
     const errorMessages = validator.validate();
 
@@ -268,7 +258,7 @@ app.post('/contact-us', async (req, res) => {
             process.env.ZENDESK_GROUP_ID as string
         );
         await zendesk.init();
-        if (await zendesk.submit(req.body)) {
+        if (await zendesk.submit(values)) {
             res.render('contact-us-confirm.njk')
         } else {
             res.render('contact-us-error.njk')

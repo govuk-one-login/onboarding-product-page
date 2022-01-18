@@ -71,14 +71,15 @@ export default class RealSheetsService implements SheetsService {
             })
     }
 
-    private async createRow(token: JWT, form: any, headings: any[][]): Promise<any[][]> {
+    private async createRow(token: JWT, form: Map<string, string>, headings: any[][]): Promise<any[][]> {
         let row: any[] = [];
-        headings[0].forEach(heading => row.push(form[heading]));
+        headings[0].forEach(heading => {console.log(form.get(heading)) ; row.push(form.get(heading))});
         return row;
     }
 
 
     private async appendRow(token: JWT, range: string, row: any[]) {
+        console.log("Insert range: " + range)
         let request: any = {
             auth: token,
             spreadsheetId: this.SPREADSHEET_ID,
@@ -95,7 +96,7 @@ export default class RealSheetsService implements SheetsService {
         console.log(JSON.stringify(response, null, 2));
     }
 
-    async appendValues(form: any, dataRange: string, headerRange: string): Promise<void> {
+    async appendValues(form: Map<string, string>, dataRange: string, headerRange: string): Promise<void> {
         let creds: string = await RealSheetsService.readCreds();
         let token: JWT = await this.createToken(creds);
         let headings: any[] = await this.readRange(token, headerRange, this.SPREADSHEET_ID)
