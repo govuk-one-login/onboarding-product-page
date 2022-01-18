@@ -1,15 +1,11 @@
-name: Check PR
+name: Deploy branch
 
-on: pull_request
+on: workflow_dispatch
 
 jobs:
   build:
     name: Build
     uses: alphagov/di-onboarding-product-page/.github/workflows/build.yml@0fc71869649811ea52287bc833949a78730c653e
-
-  run-unit-tests:
-    name: Run tests
-    uses: alphagov/di-onboarding-product-page/.github/workflows/run-unit-tests.yml@0fc71869649811ea52287bc833949a78730c653e
 
   deploy-preview:
     name: Preview
@@ -25,8 +21,3 @@ jobs:
       cf_password: ${{ secrets.CF_PASSWORD }}
       register_spreadsheet_id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
       request_spreadsheet_id: ${{ secrets.REQUEST_SPREADSHEET_ID }}
-
-  run-acceptance-tests:
-    name: Run tests
-    needs: deploy-preview
-    uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@0fc71869649811ea52287bc833949a78730c653e
