@@ -3,16 +3,11 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
 
+{% set assetPath = "/dist" %}
+
 {% block head %}
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-PFTQ6G2');</script>
-  <!-- End Google Tag Manager -->
   <!--[if !IE 8]><!-->
-  <link rel="stylesheet" type="text/css" href="/assets/app.css">
+  <link rel="stylesheet" type="text/css" href="/dist/app.css">
   <!--<![endif]-->
 {% endblock %}
 
@@ -155,12 +150,10 @@
 
 
 {% block bodyEnd %}
-  <input type="hidden" value="UA-000000000-0" id="ga-tracking">
+  <input type="hidden" value="GTM-PFTQ6G2" id="ga-tracking">
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
-  <script src="assets/gaap-analytics.min.js"></script>
-  <script src="assets/govuk-all.js"></script>
-  <script src="assets/cookies.js"></script>
+  <script src="/dist/govuk-all.js"></script>
+  <script src="/dist/cookies.js"></script>
   <script>window.GOVUKFrontend.initAll()</script>
-  <script>window.GAAP.analytics.init()</script>
   <script>window.GOVSignin.CookieBanner.init()</script>
 {% endblock %}
