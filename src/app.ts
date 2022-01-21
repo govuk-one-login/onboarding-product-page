@@ -10,6 +10,7 @@ import ZendeskService from "./zendesk/ZendeskService";
 const app = express();
 const bodyParser = require('body-parser')
 
+app.use('/dist', express.static('./dist/assets'));
 app.use(express.static('./dist'));
 
 configureViews(app);
