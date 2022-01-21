@@ -10,6 +10,7 @@ import ZendeskService from "./zendesk/ZendeskService";
 const app = express();
 const bodyParser = require('body-parser')
 
+app.use('/dist', express.static('./dist/assets'));
 app.use(express.static('./dist'));
 
 configureViews(app);
@@ -108,7 +109,7 @@ app.post('/register', async (req, res) => {
     requiredFields.set("name", "Enter your name");
     requiredFields.set("role", "Enter your role");
     requiredFields.set("service-name", "Enter the name of your service");
-    requiredFields.set("department-name", "Enter your organisation");
+    requiredFields.set("department-name", "Enter your department");
     requiredFields.set("phase", "Select the phase you are in");
     requiredFields.set("assessment", "Select yes if you have passed the relevant GDS service assessment");
     requiredFields.set("host", "Select yes if your service is on GOV.UK");
@@ -195,7 +196,7 @@ app.post('/decide/private-beta/request-form', async (req, res) => {
     requiredFields.set("email", "Enter your government email address");
     requiredFields.set("name", "Enter your name");
     requiredFields.set("service-name", "Enter the name of your service");
-    requiredFields.set("department-name", "Enter your organisation");
+    requiredFields.set("department-name", "Enter your department");
 
     const validator = new Validation(values, requiredFields);
     await validator.loadExtendedEmailDomains();
@@ -243,7 +244,7 @@ app.post('/contact-us', async (req, res) => {
     requiredFields.set("name", "Enter your name");
     requiredFields.set("role", "Enter your role");
     requiredFields.set("service-name", "Enter the name of your service");
-    requiredFields.set("department-name", "Enter your organisation");
+    requiredFields.set("department-name", "Enter your department");
     requiredFields.set("how-can-we-help", "Tell us how we can help");
 
     const validator = new Validation(values, requiredFields);

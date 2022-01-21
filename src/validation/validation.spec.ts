@@ -9,7 +9,7 @@ describe('Validation tests', function () {
     requiredFields.set("name", "Enter your name");
     requiredFields.set("role", "Enter your role");
     requiredFields.set("service-name", "Enter the name of your service");
-    requiredFields.set("department-name", "Enter your organisation");
+    requiredFields.set("department-name", "Enter your department");
     requiredFields.set("phase", "Select the phase you are in");
     requiredFields.set("assessment", "Select yes if you have passed the relevant GDS service assessment");
     requiredFields.set("host", "Select yes if your service is on GOV.UK");
