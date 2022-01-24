@@ -32,4 +32,6 @@ jobs:
 
       - name: Delete app
         run: |
-          cf delete di-pp-prev-${{ github.head_ref }} -rf
+          branch_name=$([[ ${{ github.event_name }} == 'pull_request' ]] && echo ${{ github.head_ref }} || echo ${{ github.ref_name }})
+          app_name=$(echo di-pp-prev-${branch_name} | tr '[:upper:]' '[:lower:]' | tr '_' '-' | cut -c1-63)
+          cf delete $app_name -rf
