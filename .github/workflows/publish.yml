@@ -16,7 +16,7 @@ jobs:
   deploy-test:
     name: Test
     needs: [build, run-unit-tests]
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@cbfc731a34387358e72744eac13b2a6b52fc2813
+    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@f4bcebd6ce722d586f634bfb64c15d4e54db0eec
     with:
       environment: test
       cf_space_name: product-pages-test
@@ -35,11 +35,13 @@ jobs:
   deploy-production:
     name: Publish
     needs: run-acceptance-tests
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@cbfc731a34387358e72744eac13b2a6b52fc2813
+    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@f4bcebd6ce722d586f634bfb64c15d4e54db0eec
     with:
       environment: production
       cf_space_name: product-pages-production
       url: https://di-product-page.london.cloudapps.digital
+      rolling_deployment: true
+      instances: 3
     secrets:
       cf_username: ${{ secrets.CF_USERNAME }}
       cf_password: ${{ secrets.CF_PASSWORD }}
