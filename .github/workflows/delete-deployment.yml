@@ -45,7 +45,7 @@ jobs:
         run: |
           cut_off_date=$(date -d "30 days ago")
           
-          for app in $(cf apps | awk 'NR>4 {print $1}')
+          for app in $(cf apps | awk 'NR>3 {print $1}')
           do
             last_deploy_date=$(date -d $(cf events $app | grep audit.app.package.upload | awk 'NR==1 {print $1}'))
             if [[ $last_deploy_date < $cut_off_date ]]; then
