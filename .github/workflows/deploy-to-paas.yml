@@ -48,7 +48,7 @@ jobs:
         if: ${{ inputs.app_name != null }}
         run: |
           # Downcase the hostname and limit length to 63 characters as per PaaS requirements
-          hostname=$(echo ${{ inputs.app_name }} | tr '[:upper:]' '[:lower:]' | cut -c1-63)
+          hostname=$(echo ${{ inputs.app_name }} | tr '[:upper:]' '[:lower:]' | tr '_' '-' | cut -c1-63)
           echo "::set-output name=hostname::${hostname}"
 
       - name: Set deployment URL
