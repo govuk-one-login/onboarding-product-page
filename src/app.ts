@@ -108,7 +108,7 @@ app.post('/register', async (req, res) => {
     requiredFields.set("email", "Enter your government email address");
     requiredFields.set("name", "Enter your name");
     requiredFields.set("service-name", "Enter the name of your service");
-    requiredFields.set("department-name", "Enter your department");
+    requiredFields.set("organisation-name", "Enter your organisation name");
 
     const validator = new Validation(values, requiredFields);
     await validator.loadExtendedEmailDomains();
@@ -140,7 +140,7 @@ app.post('/register', async (req, res) => {
                 fieldOrder:
                     [
                         "name",
-                        "department-name",
+                        "organisation-name",
                         "email",
                         "service-name"
                     ]
