@@ -10,12 +10,11 @@ jobs:
   deploy-preview:
     name: Preview
     needs: build
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@734f5c1128c60afb4063e1cd68a3f2da95e269f2
+    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@cbfc731a34387358e72744eac13b2a6b52fc2813
     with:
       environment: preview
       cf_space_name: product-pages-preview
-      app_name: di-pp-prev-${{ github.head_ref }}
-      url: https://di-pp-prev-${{ github.head_ref }}.london.cloudapps.digital
+      app_name: di-pp-prev-${{ github.ref_name }}
     secrets:
       cf_username: ${{ secrets.CF_USERNAME }}
       cf_password: ${{ secrets.CF_PASSWORD }}

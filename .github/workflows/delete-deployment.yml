@@ -2,7 +2,9 @@ name: Delete deployment
 
 on:
   workflow_dispatch:
-  delete:
+  schedule:
+    # Every weekday at 10am
+    - cron: '0 10 * * 1-5'
   pull_request:
     types: [closed]
 
@@ -32,5 +34,21 @@ jobs:
           cf target -o ${CF_ORG_NAME} -s ${CF_SPACE_NAME}
 
       - name: Delete app
+        if: ${{ github.event_name != 'schedule' }}
         run: |
-          cf delete di-pp-prev-${{ github.head_ref }} -rf
+          branch_name=$([[ ${{ github.event_name }} == 'pull_request' ]] && echo ${{ github.head_ref }} || echo ${{ github.ref_name }})
+          app_name=$(echo di-pp-prev-${branch_name} | tr '[:upper:]' '[:lower:]' | tr '_' '-' | cut -c1-63)
+          cf delete $app_name -rf
+
+      - name: Clean up stale deployments
+        if: ${{ github.event_name == 'schedule' }}
+        run: |
+          cut_off_date=$(date -d "30 days ago")
+          
+          for app in $(cf apps | awk 'NR>4 {print $1}')
+          do
+            last_deploy_date=$(date -d $(cf events $app | grep audit.app.package.upload | awk 'NR==1 {print $1}'))
+            if [[ $last_deploy_date < $cut_off_date ]]; then
+              cf delete $app -rf
+            fi
+          done
