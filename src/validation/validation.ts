@@ -4,14 +4,12 @@ import {promises as fs} from 'fs';
 export default class Validation {
     form: Map<string, string>;
     requiredFields: Map<string, string>;
-    requiredConditionalFields: Map<string, Map<string, string>> | undefined;
     validEmailDomains: string[];
 
-    constructor(form: Map<string, string>, requiredFields: Map<string, string>, requiredConditionalFields?: Map<string, Map<string, string>>) {
+    constructor(form: Map<string, string>, requiredFields: Map<string, string>) {
         this.form = form;
 
         this.requiredFields = requiredFields;
-        this.requiredConditionalFields = requiredConditionalFields;
 
         this.validEmailDomains = // get this from config eventually
             [
@@ -49,22 +47,11 @@ export default class Validation {
             }
         });
 
-        if (this.requiredConditionalFields) {
-            this.requiredConditionalFields.forEach((conditionalFieldAndErrorMessage, field) => {
-                if (this.form.get(field) == "yes") {
-                    let entry = conditionalFieldAndErrorMessage.entries().next().value
-                    if (this.fieldHasNoValue(entry[0])) {
-                        errors.set(entry[0], entry[1]);
-                    }
-                }
-            });
-        }
-
         if (!errors.has('email')) {
             if (this.invalidEmailAddress()) {
                 errors.set('email', 'Enter an email address in the correct format, like name@gov.uk');
             } else if (this.notGovernmentEmail()) {
-                errors.set('email', 'You must enter a government email address');
+                errors.set('email', 'Enter a government email address');
             }
         }
 

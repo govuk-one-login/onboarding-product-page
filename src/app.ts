@@ -107,23 +107,10 @@ app.post('/register', async (req, res) => {
     let requiredFields = new Map<string, string>();
     requiredFields.set("email", "Enter your government email address");
     requiredFields.set("name", "Enter your name");
-    requiredFields.set("role", "Enter your role");
     requiredFields.set("service-name", "Enter the name of your service");
-    requiredFields.set("department-name", "Enter your department");
-    requiredFields.set("phase", "Select the phase you are in");
-    requiredFields.set("assessment", "Select yes if you have passed the relevant GDS service assessment");
-    requiredFields.set("host", "Select yes if your service is on GOV.UK");
-    requiredFields.set("development", "Select yes if you have a development team");
-    requiredFields.set("auth-need", "Select yes if your service needs authentication");
-    requiredFields.set("auth-exist", "Select yes if you already have an authentication solution");
-    requiredFields.set("id-need", "Select yes if you have identity needs");
+    requiredFields.set("organisation-name", "Enter your organisation name");
 
-    let requiredConditionalFields = new Map<string, Map<string, string>>();
-    requiredConditionalFields.set("auth-exist", new Map([["auth-existing", "Enter the name of your authentication solution"]]));
-    requiredConditionalFields.set("id-need", new Map([["id-needs", "You must describe your identity needs"]]));
-
-
-    const validator = new Validation(values, requiredFields, requiredConditionalFields);
+    const validator = new Validation(values, requiredFields);
     await validator.loadExtendedEmailDomains();
     const errorMessages = validator.validate();
 
@@ -153,28 +140,9 @@ app.post('/register', async (req, res) => {
                 fieldOrder:
                     [
                         "name",
-                        "role",
+                        "organisation-name",
                         "email",
-                        "additional-contact",
-                        "additional-name",
-                        "additional-role",
-                        "additional-email",
-                        "service-name",
-                        "department-name",
-                        "phase",
-                        "user-number",
-                        "assessment",
-                        "host",
-                        "funding",
-                        "development",
-                        "auth-need",
-                        "auth-exist",
-                        "auth-existing",
-                        "id-need",
-                        "id-needs",
-                        "updates",
-                        "show-and-tell",
-                        "user-research"
+                        "service-name"
                     ]
             });
     }
