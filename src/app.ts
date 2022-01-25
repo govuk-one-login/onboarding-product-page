@@ -274,10 +274,10 @@ app.post('/support', async (req, res) => {
       res.redirect('/contact-us-details');
     }
     if(req.body.support === 'gov-service-uses-sign-in') {
-      res.redirect('/service-team-support-form');
+      res.redirect('/contact-us');
     }
     if(req.body.support === 'gov-service-is-public') {
-      res.redirect('/contact-us?supportType=PUBLIC');
+      res.redirect('https://signin.account.gov.uk/contact-us?supportType=PUBLIC');
     }
   }
 
