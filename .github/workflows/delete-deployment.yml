@@ -6,7 +6,7 @@ on:
     # Every weekday at 10am
     - cron: '0 10 * * 1-5'
   pull_request:
-    types: [closed]
+    types: [ closed ]
 
 jobs:
   delete-deployment:
@@ -43,12 +43,15 @@ jobs:
       - name: Clean up stale deployments
         if: ${{ github.event_name == 'schedule' }}
         run: |
-          cut_off_date=$(date -d "30 days ago")
+          cut_off_date=$(date -d "30 days ago" +%Y-%m-%d)
+          echo "Cut off date: $cut_off_date"
           
           for app in $(cf apps | awk 'NR>3 {print $1}')
           do
-            last_deploy_date=$(date -d $(cf events $app | grep audit.app.package.upload | awk 'NR==1 {print $1}'))
-            if [[ $last_deploy_date < $cut_off_date ]]; then
+            last_upload_date=$(cf events $app | grep audit.app.package.upload | awk 'NR==1 {print $1}')
+            echo "$app | last uploaded: $last_upload_date"
+          
+            if [[ -z $last_upload_date || $(date -d $last_upload_date +%Y-%m-%d) < $cut_off_date ]]; then
               cf delete $app -rf
             fi
           done
