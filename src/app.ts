@@ -83,7 +83,7 @@ app.get('/decide/design-patterns', (req, res) => {
 });
 
 app.get('/decide/private-beta', (req, res) => {
-  res.render('decide-private-beta.njk');
+    res.render('decide-private-beta.njk');
 });
 
 app.use(express.json());       // to support JSON-encoded bodies
@@ -185,7 +185,8 @@ app.post('/decide/private-beta/request-form', async (req, res) => {
             .then(() => console.log("Saved to sheets"))
             .catch(reason => {
                 console.log(reason)
-                redirectTo = '/register-error'});
+                redirectTo = '/register-error'
+            });
         res.redirect(redirectTo);
     } else {
         res.render('request.njk',
@@ -212,7 +213,7 @@ app.post('/contact-us', async (req, res) => {
     requiredFields.set("name", "Enter your name");
     requiredFields.set("role", "Enter your role");
     requiredFields.set("service-name", "Enter the name of your service");
-    requiredFields.set("department-name", "Enter your department");
+    requiredFields.set("organisation-name", "Enter the name of your organisation");
     requiredFields.set("how-can-we-help", "Tell us how we can help");
 
     const validator = new Validation(values, requiredFields);
@@ -228,9 +229,9 @@ app.post('/contact-us', async (req, res) => {
         );
         await zendesk.init();
         if (await zendesk.submit(values)) {
-            res.render('contact-us-confirm.njk')
+            res.redirect('contact-us-submitted')
         } else {
-            res.render('contact-us-error.njk')
+            res.redirect('contact-us-error')
         }
     } else {
         res.render('contact-us.njk',
@@ -242,7 +243,7 @@ app.post('/contact-us', async (req, res) => {
                         "name",
                         "email",
                         "role",
-                        "department-name",
+                        "organisation-name",
                         "service-name",
                         "how-can-we-help"
                     ]
@@ -250,37 +251,32 @@ app.post('/contact-us', async (req, res) => {
     }
 });
 
-app.get('/contact-us-confirm', (req, res) => {
-    res.render('contact-us-confirm.njk');
+app.get('/contact-us-submitted', (req, res) => {
+    res.render('under-construction.njk');
 });
 
 app.get('/contact-us-details', (req, res) => {
-  res.render('contact-us-details.njk');
+    res.render('contact-us-details.njk');
 });
 
 app.get('/support', (req, res) => {
-  res.render('support.njk');
+    res.render('support.njk');
 });
 
 app.post('/support', async (req, res) => {
-
-  if (req.body && Object.keys(req.body).length === 0) {
-    res.render('support.njk',
-      {
-        valueNotSelected: true,
-      });
-  } else {
-    if (req.body.support === 'gov-service-start-using-sign-in'){
-      res.redirect('/contact-us-details');
+    if (req.body && Object.keys(req.body).length === 0) {
+        res.render('support.njk', {valueNotSelected: true});
+    } else {
+        if (req.body.support === 'gov-service-start-using-sign-in') {
+            res.redirect('/contact-us-details');
+        }
+        if (req.body.support === 'gov-service-uses-sign-in') {
+            res.redirect('/contact-us');
+        }
+        if (req.body.support === 'gov-service-is-public') {
+            res.redirect('https://signin.account.gov.uk/contact-us?supportType=PUBLIC');
+        }
     }
-    if(req.body.support === 'gov-service-uses-sign-in') {
-      res.redirect('/contact-us');
-    }
-    if(req.body.support === 'gov-service-is-public') {
-      res.redirect('https://signin.account.gov.uk/contact-us?supportType=PUBLIC');
-    }
-  }
-
 });
 
 const port = process.env.PORT || 3000
