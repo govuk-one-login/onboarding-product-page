@@ -33,9 +33,9 @@ Feature: A contact us form so users can contact us
 
   Scenario: The user doesn't complete the organisation field
 
-    Given that the users enter alphanumeric characters into all of the fields in the contact us form except the department-name field
+    Given that the users enter alphanumeric characters into all of the fields in the contact us form except the organisation-name field
     When they select the Submit button
-    Then the error message "Enter your organisation" must be displayed for the "department-name" field
+    Then the error message "Enter the name of your organisation" must be displayed for the "organisation-name" field
 
   Scenario: The user doesn't complete the service field
 
@@ -59,4 +59,4 @@ Feature: A contact us form so users can contact us
 
     Given that the user enters a non-government email address into the email field of the contact us form
     When they select the Submit button
-    Then the error message "You must enter a government email address" must be displayed for the "email" field
+    Then the error message "Enter a government email address" must be displayed for the "email" field

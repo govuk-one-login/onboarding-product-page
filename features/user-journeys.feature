@@ -11,7 +11,7 @@ Feature: User journeys page
   Scenario: The user wants to view  the Save and Resume journey
 
     When they click on the "save their progress and come back later" link
-    Then they should be directed to a page with the title "GOV.UK Sign In: Save progress and come back later - Figma"
+    Then they should be directed to a page with the title "GOV.UK Sign In: Save progress and come back later – Figma"
 
   Scenario: User wants to contact the service via slack
 

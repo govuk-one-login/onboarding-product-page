@@ -212,7 +212,7 @@ app.post('/contact-us', async (req, res) => {
     requiredFields.set("name", "Enter your name");
     requiredFields.set("role", "Enter your role");
     requiredFields.set("service-name", "Enter the name of your service");
-    requiredFields.set("department-name", "Enter your department");
+    requiredFields.set("organisation-name", "Enter the name of your organisation");
     requiredFields.set("how-can-we-help", "Tell us how we can help");
 
     const validator = new Validation(values, requiredFields);
@@ -242,7 +242,7 @@ app.post('/contact-us', async (req, res) => {
                         "name",
                         "email",
                         "role",
-                        "department-name",
+                        "organisation-name",
                         "service-name",
                         "how-can-we-help"
                     ]

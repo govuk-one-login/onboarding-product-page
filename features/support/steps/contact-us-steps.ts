@@ -7,7 +7,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
     await this.page.type("#name", 'Tessa Ting')
     await this.page.type("#role", 'Chief Unicorn Tester')
     await this.page.type("#service-name", "Unicorn Testing")
-    await this.page.type("#department-name", "Department of Sorcery")
+    await this.page.type("#organisation-name", "Department of Sorcery")
     await this.page.type("#how-can-we-help", "We'd like fairies to be able to sign up to get their unicorns tested.")
 });
 
@@ -17,7 +17,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
     await this.page.type("#role", 'Chief Unicorn Tester')
     await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk')
     await this.page.type("#service-name", "Unicorn Testing")
-    await this.page.type("#department-name", "Department of Sorcery")
+    await this.page.type("#organisation-name", "Department of Sorcery")
     await this.page.type("#how-can-we-help", "We'd like fairies to be able to sign up to get their unicorns tested.")
 });
 
@@ -27,7 +27,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
     await this.page.type("#name", 'Tessa Ting')
     await this.page.type("#role", 'Chief Unicorn Tester')
     await this.page.type("#service-name", "Unicorn Testing")
-    await this.page.type("#department-name", "Department of Sorcery")
+    await this.page.type("#organisation-name", "Department of Sorcery")
     await this.page.type("#how-can-we-help", "We'd like fairies to be able to sign up to get their unicorns tested.")
 });
 
@@ -36,11 +36,11 @@ Given('that the users enter alphanumeric characters into all of the fields in th
     await this.page.goto(this.host + "/contact-us");
     await this.page.type("#name", 'Tessa Ting')
     await this.page.type("#service-name", "Unicorn Testing")
-    await this.page.type("#department-name", "Department of Sorcery")
+    await this.page.type("#organisation-name", "Department of Sorcery")
     await this.page.type("#how-can-we-help", "We'd like fairies to be able to sign up to get their unicorns tested.")
 });
 
-Given('that the users enter alphanumeric characters into all of the fields in the contact us form except the department-name field', async function () {
+Given('that the users enter alphanumeric characters into all of the fields in the contact us form except the organisation-name field', async function () {
     this.page = await this.puppeteer.newPage();
     await this.page.goto(this.host + "/contact-us");
     await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk')
@@ -56,7 +56,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
     await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk')
     await this.page.type("#name", 'Tessa Ting')
     await this.page.type("#role", 'Chief Unicorn Tester')
-    await this.page.type("#department-name", "Department of Sorcery")
+    await this.page.type("#organisation-name", "Department of Sorcery")
     await this.page.type("#how-can-we-help", "We'd like fairies to be able to sign up to get their unicorns tested.")
 });
 
@@ -67,7 +67,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
     await this.page.type("#name", 'Tessa Ting')
     await this.page.type("#role", 'Chief Unicorn Tester')
     await this.page.type("#service-name", "Unicorn Testing")
-    await this.page.type("#department-name", "Department of Sorcery")
+    await this.page.type("#organisation-name", "Department of Sorcery")
 });
 
 
