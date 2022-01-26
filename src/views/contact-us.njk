@@ -115,24 +115,24 @@
                             >
                         </div>
 
-                        <div class="govuk-form-group {% if errorMessages.get('department-name') %}govuk-form-group--error{% endif %}">
-                            <label class="govuk-label" for="department-name">
-                                Organisation name
+                        <div class="govuk-form-group {% if errorMessages.get('organisation-name') %}govuk-form-group--error{% endif %}">
+                            <label class="govuk-label" for="organisation-name">
+                                Organisation
                             </label>
-                            {% if errorMessages.get('department-name') %}
-                                <span class="govuk-error-message" id="department-name-error">
-                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('department-name') }}
+                            {% if errorMessages.get('organisation-name') %}
+                                <span class="govuk-error-message" id="organisation-name-error">
+                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('organisation-name') }}
               </span>
                             {% endif %}
 
                             <input
-                                    class="govuk-input govuk-!-width-one-half{% if errorMessages.get('department-name') %} govuk-input--error{% endif %}"
-                                    id="department-name"
-                                    name="department-name"
+                                    class="govuk-input govuk-!-width-one-half{% if errorMessages.get('organisation-name') %} govuk-input--error{% endif %}"
+                                    id="organisation-name"
+                                    name="organisation-name"
                                     type="text"
                                     spellcheck="false"
-                                    value="{{ values.get('department-name') }}"
-                                    {% if errorMessages.get('department-name') %}aria-describedby="department-name-error"{% endif %}
+                                    value="{{ values.get('organisation-name') }}"
+                                    {% if errorMessages.get('organisation-name') %}aria-describedby="organisation-name-error"{% endif %}
                             >
                         </div>
 
@@ -176,7 +176,7 @@
                     </fieldset>
 
 
-                    <button class="govuk-button" data-module="govuk-button">
+                    <button class="govuk-button" data-module="govuk-button" name="submit" id="submit">
                         Submit form
                     </button>
 
