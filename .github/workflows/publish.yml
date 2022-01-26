@@ -30,7 +30,9 @@ jobs:
   run-acceptance-tests:
     name: Run tests
     needs: deploy-test
-    uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@0fc71869649811ea52287bc833949a78730c653e
+    uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@afc46a2e0f0bf612dbfd3171af1c4ce322e608e4
+    with:
+      host: ${{ needs.deploy-test.outputs.deployment_url }}
 
   deploy-production:
     name: Publish
