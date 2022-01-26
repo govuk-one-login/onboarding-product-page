@@ -1,10 +1,27 @@
 name: Acceptance tests
 
-on: workflow_call
+on:
+  workflow_call:
+    inputs:
+      host: { required: true, type: string }
 
 jobs:
   run-acceptance-tests:
     name: Acceptance
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Ask John"
+      - name: Pull repository
+        uses: actions/checkout@v2
+
+      - name: Install Node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Run cucumber tests
+        env:
+          HOST: ${{ inputs.host }}
+        run: npm run cucumber

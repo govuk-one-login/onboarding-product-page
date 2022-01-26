@@ -127,5 +127,4 @@ logs*.json
 
 keys/
 .vscode/
-
-ci/terraform/.terraform
+test-report.html
