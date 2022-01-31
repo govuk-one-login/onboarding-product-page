@@ -3,7 +3,6 @@ Feature: A support page which directs users to the correct type of support
   Background:
     Given that the user is on the "/support" page
 
-  @wip
   Scenario: the user is an end-user
     When the user selects the "I’m a member of the public" radio button
     And they select the "continue" button

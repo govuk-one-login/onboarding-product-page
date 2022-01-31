@@ -1,11 +1,9 @@
 Feature: A contact us form so users can contact us
 
-  @wip
   Scenario: Check if there are unknown incidents
 
     Given that the user is on the "/contact-us" page
-    When they click on the "status page" link
-    Then they should be directed to the following URL: "https://verifystatus.digital.cabinet-office.gov.uk/"
+    Then the "status page" link will point to the following URL: "https://verifystatus.digital.cabinet-office.gov.uk/"
 
   Scenario: User contacts us and fills in the form correctly
 
