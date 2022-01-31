@@ -32,14 +32,3 @@ Feature: Decide page
     When they click on the "find out more about joining the private beta" link
     Then they should be directed to the following page: "/decide/private-beta"
 
-  @wip
-  Scenario: User wants to contact the service via slack
-
-    And the user wants to contact the service
-    When they click on the "Slack channel" link
-    Then they should be directed to the following URL: "https://ukgovernmentdigital.slack.com/?redir=%2Farchives%2FC02AQUJ6WTC"
-
-  Scenario: User wants to contact the service via email
-
-    And the user wants to contact the service
-    Then they would be able to send an email to the service if they selected the "govuk-sign-in@digital.cabinet-office.gov.uk" link
