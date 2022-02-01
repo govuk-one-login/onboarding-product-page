@@ -41,10 +41,10 @@ jobs:
     with:
       environment: production
       cf_space_name: product-pages-production
-      url: https://www.sign-in.service.gov.uk/
+      url: https://www.sign-in.service.gov.uk
+      use_stub_zendesk: false
       rolling_deployment: true
       instances: 3
-      use_stub_zendesk: false
     secrets:
       cf_username: ${{ secrets.CF_USERNAME }}
       cf_password: ${{ secrets.CF_PASSWORD }}
