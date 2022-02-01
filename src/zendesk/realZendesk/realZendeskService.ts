@@ -14,17 +14,17 @@ export default class RealZendeskService implements ZendeskInterface {
         this.groupId = groupId;
     }
 
-    async submit(form: any): Promise<boolean> {
+    async submit(form:  Map<string, string>): Promise<boolean> {
         const URL = 'https://govuk.zendesk.com'
 
         let data = {
             "ticket": {
                 "group_id": this.groupId,
                 "tags": [this.tag],
-                "subject": `${form['department-name']} | ${form['service-name']} | ${form.name}`,
-                "requester": {"name": form.name, "email": form.email},
+                "subject": `${form.get('organisation-name')} | ${form.get('service-name')} | ${form.get('name')}`,
+                "requester": {"name": form.get('name'), "email": form.get('email')},
                 "comment": {
-                    "value": `Organisation: ${form['department-name']}\nService: ${form['service-name']}\n${form.name} (${form.role})\n\n${form['how-can-we-help']}`
+                    "value": `Organisation: ${form.get('organisation-name')}\nService: ${form.get('service-name')}\n${form.get('name')} (${form.get('role')})\n\n${form.get('how-can-we-help')}`
                 }
             }
         }
