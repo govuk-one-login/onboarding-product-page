@@ -1,4 +1,4 @@
-import {Given, When} from "@cucumber/cucumber";
+import {When} from "@cucumber/cucumber";
 
 When('they select the {string} button', async function (id) {
     await Promise.all([
