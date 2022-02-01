@@ -1,7 +1,7 @@
 import {Then} from "@cucumber/cucumber";
 import {getLink, checkUrl} from './shared-functions';
 
-Then('the slack link will contain the correct URL', async function () {
+Then('the Slack link will contain the correct URL', async function () {
   let slackLinkText: string = "Slack channel"
   let slackLinkUrl: string = "https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC"
 
