@@ -44,6 +44,7 @@ jobs:
       url: https://di-product-page.london.cloudapps.digital
       rolling_deployment: true
       instances: 3
+      use_stub_zendesk: false
     secrets:
       cf_username: ${{ secrets.CF_USERNAME }}
       cf_password: ${{ secrets.CF_PASSWORD }}
