@@ -41,7 +41,7 @@ jobs:
     with:
       environment: production
       cf_space_name: product-pages-production
-      url: https://di-product-page.london.cloudapps.digital
+      url: https://www.sign-in.service.gov.uk/
       rolling_deployment: true
       instances: 3
       use_stub_zendesk: false
