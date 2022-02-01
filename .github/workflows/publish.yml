@@ -49,5 +49,7 @@ jobs:
       cf_username: ${{ secrets.CF_USERNAME }}
       cf_password: ${{ secrets.CF_PASSWORD }}
       zendesk_group_id: ${{ secrets.ZENDESK_GROUP_ID }}
+      zendesk_username: ${{ secrets.ZENDESK_USERNAME }}
+      zendesk_api_token: ${{ secrets.ZENDESK_API_TOKEN }}
       register_spreadsheet_id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
       request_spreadsheet_id: ${{ secrets.REQUEST_SPREADSHEET_ID }}
