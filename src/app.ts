@@ -252,7 +252,7 @@ app.post('/contact-us', async (req, res) => {
 });
 
 app.get('/contact-us-submitted', (req, res) => {
-    res.render('under-construction.njk');
+    res.render('contact-us-confirm.njk');
 });
 
 app.get('/contact-us-details', (req, res) => {
