@@ -9,8 +9,9 @@ Feature: A contact us form so users can contact us
 
     Given that the users enter alphanumeric characters into all of the fields in the contact us form
     When they select the Submit button
-    Then they should be directed to the following page: "/contact-us-submitted"
-    And their data is sent to Zendesk
+    Then their data is sent to Zendesk
+    And they should be directed to the following page: "/contact-us-submitted"
+    And they should see the text "Your message has been submitted"
 
   Scenario: The user doesn't complete the name field
 

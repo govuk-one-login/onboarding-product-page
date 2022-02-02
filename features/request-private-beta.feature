@@ -4,8 +4,9 @@ Feature: A request private beta form so service teams can request access to the 
 
     Given that the users enter alphanumeric characters into all of the fields in the request access to private beta form
     When they select the Submit button
-    Then they should be directed to the following page: "/decide/private-beta/request-submitted"
-    And their data is saved in the spreadsheet
+    Then their data is saved in the spreadsheet
+    And they should be directed to the following page: "/decide/private-beta/request-submitted"
+    And they should see the text "Thank you for requesting to join our private beta. We'll be in touch within five working days."
 
   Scenario: The user doesn't complete the name field
 

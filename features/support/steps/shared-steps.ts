@@ -43,8 +43,7 @@ Then('they should be directed to a page with the title {string}', async function
 });
 
 Then('their data is saved in the spreadsheet', async function () {
-    // we can't reliably test this but if we're on the above page, we should be okay
-    return true;
+    // we can't check the sheet but if we're on the right page and can find some content then that's good enough
 });
 
 Then('the error message {string} must be displayed for the {string} field', async function (errorMessage, field) {
@@ -69,6 +68,11 @@ Then('the error message {string} must be displayed for the {string} radios', asy
     assert.notEqual(messageAboveElement.length, 0, `Expected to find the message ${errorMessage} above the ${field} field.`);
     const actualMessageAboveSummary = await this.page.evaluate((el: { textContent: any; }) => el.textContent, messageAboveElement[0]);
     assert.equal(actualMessageAboveSummary.trim(), "Error: " + errorMessage, `Expected the message above the ${field} field to be ${errorMessage}`);
+});
+
+Then('they should see the text {string}', async function (text) {
+    let bodyText: string = await this.page.$eval('body', (element: any) => element.textContent)
+    assert.equal(bodyText.includes(text), true, `Body text does not contain "${text}"`)
 });
 
 Then('the {string} link will point to the following URL: {string}', async function (linkText, expectedUrl) {
