@@ -8,13 +8,11 @@ Feature:
 
     Given that the user is on the "/decide/timescales/" page
 
-  @wip
+
   Scenario: The user wants to view GPG45
 
-    When they click on the "Good Practice Guide 45" link
-    Then they should be directed to the following URL: "https://www.gov.uk/government/publications/identity-proofing-and-verification-of-an-individual"
+    Then the "Good Practice Guide 45" link will point to the following URL: "https://www.gov.uk/government/publications/identity-proofing-and-verification-of-an-individual"
 
   Scenario: User wants to view the Alpha report
 
-    When they click on the "alpha" link
-    Then they should be directed to the following URL: "https://www.gov.uk/service-standard-reports/gov-dot-uk-sign-in-end-user-digital-identity-checks"
+    Then the "alpha" link will point to the following URL: "https://www.gov.uk/service-standard-reports/gov-dot-uk-sign-in-end-user-digital-identity-checks"

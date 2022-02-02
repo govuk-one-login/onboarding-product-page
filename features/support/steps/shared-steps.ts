@@ -1,5 +1,6 @@
 import {Given, When, Then} from "@cucumber/cucumber";
 import {strict as assert} from "assert";
+import {getLink, checkUrl} from './shared-functions';
 
 Given('that the user is on the {string} page', async function (route: string) {
     await this.goToPath(route);
@@ -68,4 +69,9 @@ Then('the error message {string} must be displayed for the {string} radios', asy
     assert.notEqual(messageAboveElement.length, 0, `Expected to find the message ${errorMessage} above the ${field} field.`);
     const actualMessageAboveSummary = await this.page.evaluate((el: { textContent: any; }) => el.textContent, messageAboveElement[0]);
     assert.equal(actualMessageAboveSummary.trim(), "Error: " + errorMessage, `Expected the message above the ${field} field to be ${errorMessage}`);
+});
+
+Then('the {string} link will point to the following URL: {string}', async function (linkText, expectedUrl) {
+    let link = await getLink(this.page, linkText);
+    await checkUrl(this.page, link, expectedUrl);
 });
