@@ -7,7 +7,6 @@ Feature: Common links users can click to contact the service
 
     Examples:
       | page                                     |
-      | "/decide"                                |
       | "/decide/user-journeys"                  |
       | "/decide/design-patterns"                |
       | "/decide/private-beta/request-submitted" |
