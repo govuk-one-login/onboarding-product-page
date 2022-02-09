@@ -9,10 +9,12 @@ Then('the Slack link will contain the correct URL', async function () {
   await checkUrl(this.page, link, slackLinkUrl);
 });
 
-Then('the email link will contain the correct URL', async function () {
-  let emailLinkText: string = "govuk-sign-in@digital.cabinet-office.gov.uk"
+Then('the online form link on the main decide page will contain the correct URL', async function () {
+  let contactUsText: string = "online form"
+  let contactUsUrl: string = "/contact-us"
 
-  let link = await getLink(this.page, emailLinkText);
-  await checkUrl(this.page, link, `mailto:${emailLinkText}`);
+  let link = await getLink(this.page,  contactUsText);
+  await checkUrl(this.page, link, contactUsUrl);
 });
+
 
