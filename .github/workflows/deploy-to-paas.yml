@@ -5,9 +5,11 @@ on:
     inputs:
       environment: { required: true, type: string }
       cf_space_name: { required: true, type: string }
-      use_stub_zendesk: { required: true, type: boolean }
       app_name: { required: false, type: string }
       url: { required: false, type: string }
+      instances: { required: false, type: number, default: 1 }
+      rolling_deployment: { required: false, type: boolean, default: false }
+      use_stub_zendesk: { required: false, type: boolean, default: true }
     secrets:
       cf_username: { required: true }
       cf_password: { required: true }
@@ -16,6 +18,10 @@ on:
       zendesk_api_token: { required: false }
       zendesk_group_id: { required: false }
       zendesk_username: { required: false }
+    outputs:
+      deployment_url:
+        description: "The PaaS deployment URL"
+        value: ${{ jobs.deploy.outputs.deployment_url }}
 
 jobs:
   deploy:
@@ -23,7 +29,9 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment }}
-      url: ${{ inputs.url }}
+      url: ${{ steps.set_deployment_url.outputs.deployment_url }}
+    outputs:
+      deployment_url: ${{ steps.set_deployment_url.outputs.deployment_url }}
     steps:
       - name: Get distribution artifact
         uses: actions/download-artifact@v2
@@ -36,6 +44,22 @@ jobs:
         run: |
           curl -sL ${CF_CLI_DOWNLOAD_URL} | sudo tar -zx -C /usr/local/bin
           cf version
+
+      - name: Set deployment hostname
+        id: set_deployment_hostname
+        if: ${{ inputs.app_name != null }}
+        run: |
+          # Downcase the hostname and limit length to 63 characters as per PaaS requirements
+          hostname=$(echo ${{ inputs.app_name }} | tr '[:upper:]' '[:lower:]' | tr '_' '-' | cut -c1-63)
+          echo "::set-output name=hostname::${hostname}"
+
+      - name: Set deployment URL
+        id: set_deployment_url
+        run: |
+          url=${{ inputs.url }}
+          hostname=${{ steps.set_deployment_hostname.outputs.hostname }}
+          deployment_url=$([[ $url ]] && echo $url || echo "https://${hostname}.london.cloudapps.digital")
+          echo "::set-output name=deployment_url::${deployment_url}"
 
       - name: PaaS login
         env:
@@ -51,11 +75,13 @@ jobs:
 
       - name: Push to PaaS
         env:
+          ROLLING_DEPLOYMENT: ${{ inputs.rolling_deployment }}
           ZENDESK_API_TOKEN: ${{ secrets.zendesk_api_token }}
           ZENDESK_GROUP_ID: ${{ secrets.zendesk_group_id }}
           ZENDESK_USERNAME: ${{ secrets.zendesk_username }}
         run: |
-          cf push ${{ inputs.app_name }} \
+          cf push ${{ steps.set_deployment_hostname.outputs.hostname }} \
+            --instances ${{ inputs.instances }} $([[ $ROLLING_DEPLOYMENT == "true" ]] && echo --strategy rolling) \
             --var register_spreadsheet_id=${{ secrets.register_spreadsheet_id }} \
             --var request_spreadsheet_id=${{ secrets.request_spreadsheet_id }} \
             --var use_stub_zendesk=${{ inputs.use_stub_zendesk }} \

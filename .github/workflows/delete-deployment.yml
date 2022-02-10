@@ -1,0 +1,57 @@
+name: Delete deployment
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every weekday at 10am
+    - cron: '0 10 * * 1-5'
+  pull_request:
+    types: [ closed ]
+
+jobs:
+  delete-deployment:
+    name: Delete app preview
+    runs-on: ubuntu-latest
+    environment: preview
+    steps:
+      - name: Install Cloud Foundry client
+        env:
+          CF_CLI_DOWNLOAD_URL: https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github&version=v7
+        run: |
+          curl -sL ${CF_CLI_DOWNLOAD_URL} | sudo tar -zx -C /usr/local/bin
+          cf version
+
+      - name: PaaS login
+        env:
+          CF_API_URL: https://api.london.cloud.service.gov.uk
+          CF_ORG_NAME: gds-digital-identity-onboarding
+          CF_SPACE_NAME: product-pages-preview
+          CF_USERNAME: ${{ secrets.cf_username }}
+          CF_PASSWORD: ${{ secrets.cf_password }}
+        run: |
+          cf api ${CF_API_URL}
+          cf auth
+          cf target -o ${CF_ORG_NAME} -s ${CF_SPACE_NAME}
+
+      - name: Delete app
+        if: ${{ github.event_name != 'schedule' }}
+        run: |
+          branch_name=$([[ ${{ github.event_name }} == 'pull_request' ]] && echo ${{ github.head_ref }} || echo ${{ github.ref_name }})
+          app_name=$(echo di-pp-prev-${branch_name} | tr '[:upper:]' '[:lower:]' | tr '_' '-' | cut -c1-63)
+          cf delete $app_name -rf
+
+      - name: Clean up stale deployments
+        if: ${{ github.event_name == 'schedule' }}
+        run: |
+          cut_off_date=$(date -d "30 days ago" +%Y-%m-%d)
+          echo "Cut off date: $cut_off_date"
+          
+          for app in $(cf apps | awk 'NR>3 {print $1}')
+          do
+            last_upload_date=$(cf events $app | grep audit.app.package.upload | awk 'NR==1 {print $1}')
+            echo "$app | last uploaded: $last_upload_date"
+          
+            if [[ -z $last_upload_date || $(date -d $last_upload_date +%Y-%m-%d) < $cut_off_date ]]; then
+              cf delete $app -rf
+            fi
+          done

@@ -1,4 +1,4 @@
-name: Deploy
+name: Publish
 
 on:
   push:
@@ -16,12 +16,11 @@ jobs:
   deploy-test:
     name: Test
     needs: [build, run-unit-tests]
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@0fc71869649811ea52287bc833949a78730c653e
+    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@f4bcebd6ce722d586f634bfb64c15d4e54db0eec
     with:
       environment: test
       cf_space_name: product-pages-test
       url: https://di-product-page-test.london.cloudapps.digital
-      use_stub_zendesk: true
     secrets:
       cf_username: ${{ secrets.CF_USERNAME }}
       cf_password: ${{ secrets.CF_PASSWORD }}
@@ -31,19 +30,26 @@ jobs:
   run-acceptance-tests:
     name: Run tests
     needs: deploy-test
-    uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@0fc71869649811ea52287bc833949a78730c653e
+    uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@afc46a2e0f0bf612dbfd3171af1c4ce322e608e4
+    with:
+      host: ${{ needs.deploy-test.outputs.deployment_url }}
 
   deploy-production:
     name: Publish
     needs: run-acceptance-tests
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@0fc71869649811ea52287bc833949a78730c653e
+    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@f4bcebd6ce722d586f634bfb64c15d4e54db0eec
     with:
       environment: production
       cf_space_name: product-pages-production
-      url: https://di-product-page.london.cloudapps.digital
-      use_stub_zendesk: true
+      url: https://www.sign-in.service.gov.uk
+      use_stub_zendesk: false
+      rolling_deployment: true
+      instances: 3
     secrets:
       cf_username: ${{ secrets.CF_USERNAME }}
       cf_password: ${{ secrets.CF_PASSWORD }}
+      zendesk_group_id: ${{ secrets.ZENDESK_GROUP_ID }}
+      zendesk_username: ${{ secrets.ZENDESK_USERNAME }}
+      zendesk_api_token: ${{ secrets.ZENDESK_API_TOKEN }}
       register_spreadsheet_id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
       request_spreadsheet_id: ${{ secrets.REQUEST_SPREADSHEET_ID }}

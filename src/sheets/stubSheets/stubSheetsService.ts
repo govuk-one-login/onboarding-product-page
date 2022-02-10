@@ -11,7 +11,7 @@ export default class StubSheetsService implements SheetsService {
         this.spreadsheetId = spreadsheetId;
     }
 
-    async appendValues(form: any, dataRange: string, headerRange: string): Promise<void> {
+    async appendValues(form: Map<string, string>, dataRange: string, headerRange: string): Promise<void> {
         return new Promise<void>((resolve) => {
                 console.log(`Pretending to save data to sheet "${this.spreadsheetId}"`);
                 resolve();

@@ -1,3 +1,3 @@
 export default interface ZendeskInterface {
-    submit(form: any): Promise<boolean>
+    submit(form:  Map<string, string>): Promise<boolean>
 }

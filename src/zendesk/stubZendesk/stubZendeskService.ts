@@ -12,7 +12,7 @@ export default class StubZendeskService implements ZendeskInterface {
     }
 
 
-    submit(form: any): Promise<boolean> {
+    submit(form:  Map<string, string>): Promise<boolean> {
         return Promise.resolve(true);
     }
 }
