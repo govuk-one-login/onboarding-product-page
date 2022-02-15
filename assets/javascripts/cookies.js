@@ -89,9 +89,7 @@ var cookieBanner = function () {
         const cookie = getCookieValue(COOKIES_PREFERENCES_SET);
         var analyticsValue = false;
 
-        if (!cookie) {
-            setCookie(COOKIES_PREFERENCES_SET, {"analytics": false});
-        } else {
+        if (cookie) {
             analyticsValue = JSON.parse(cookie).analytics;
             initGATagManager(analyticsValue);
         }
