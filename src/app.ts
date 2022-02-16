@@ -279,5 +279,10 @@ app.post('/support', async (req, res) => {
     }
 });
 
+//This middleware function should always be at the very bottom of the stack (below all other functions related to routing).
+app.use((req, res, next) => {
+    res.status(404).render('404.njk');
+});
+
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Server running; listening on port ${port}`));
