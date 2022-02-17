@@ -84,3 +84,8 @@ Then('the {string} link will point to the following page: {string}', async funct
     let link = await getLink(this.page, linkText);
     await checkUrl(this.page, link, expectedPage);
 });
+
+Then('the {string} link will point to the following page: {string} with the parameter string {string}', async function (linkText: string, page: string, parameterString: string) {
+    let link = await getLink(this.page, linkText);
+    await checkUrl(this.page, link, page + parameterString);
+});

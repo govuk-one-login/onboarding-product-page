@@ -16,7 +16,7 @@ Feature: A support page which directs users to the correct type of support
   Scenario: the user is from a service team having issues
     When the user selects the "I work in a government service team that is setting up or already using GOV.UK Sign In" radio button
     And they select the "continue" button
-    Then they should be directed to the following page: "/contact-us"
+    Then they should be directed to the following page: "/contact-us?source=support"
 
   Scenario: the user doesn't pick an option
     When they select the "continue" button

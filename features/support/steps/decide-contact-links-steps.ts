@@ -16,5 +16,3 @@ Then('the online form link on the main decide page will contain the correct URL'
   let link = await getLink(this.page,  contactUsText);
   await checkUrl(this.page, link, contactUsUrl);
 });
-
-

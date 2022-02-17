@@ -6,7 +6,7 @@
 
 {% block beforeContent %}
     <div class="govuk-width-container">
-        <a href="/support" class="govuk-back-link">Back</a>
+        <a href="{{backLinkDetails.backLink}}" class="govuk-back-link">Back</a>
     </div>
 {% endblock %}
 
@@ -51,7 +51,7 @@
                     <li>suggest improvements</li>
                 </ul>
 
-                <form class="form" method="post" novalidate="novalidate">
+                <form class="form" method="post" novalidate="novalidate" action="/contact-us?source={{backLinkDetails.source}}">
                     <fieldset class="govuk-fieldset">
                         <div class="govuk-form-group {% if errorMessages.get('name') %}govuk-form-group--error{% endif %}">
                             <label class="govuk-label" for="name">

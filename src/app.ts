@@ -54,18 +54,6 @@ app.get('/decide', (req, res) => {
     res.render('decide.njk');
 });
 
-app.get('/contact-us', (req, res) => {
-    const errorMessages = new Map();
-    const values = new Map();
-    res.render('contact-us.njk', {errorMessages: errorMessages, values: values});
-});
-
-app.get('/contact-us', (req, res) => {
-    const errorMessages = new Map();
-    const values = new Map();
-    res.render('contact-us.njk', {errorMessages: errorMessages, values: values});
-});
-
 app.get('/decide/timescales', (req, res) => {
     res.render('decide-timescales.njk');
 });
@@ -204,6 +192,17 @@ app.post('/decide/private-beta/request-form', async (req, res) => {
     }
 });
 
+app.get('/contact-us', (req, res) => {
+    const errorMessages = new Map();
+    const values = new Map();
+
+    res.render('contact-us.njk', {
+        errorMessages: errorMessages,
+        values: values,
+        backLinkDetails: getBackLinkDetails(req.query.source as string)
+    });
+});
+
 app.post('/contact-us', async (req, res) => {
     const values = new Map<string, string>(Object.entries(req.body));
     values.forEach((value, key) => values.set(key, value.trim()));
@@ -246,10 +245,41 @@ app.post('/contact-us', async (req, res) => {
                         "organisation-name",
                         "service-name",
                         "how-can-we-help"
-                    ]
+                    ],
+                backLinkDetails: getBackLinkDetails(req.query.source as string)
             });
     }
 });
+
+function getBackLinkDetails(source: string | undefined): Object {
+    let backLink: string | undefined;
+
+    switch (source) {
+        case "support":
+            backLink = "/support"
+            break;
+        case "contact-us-details":
+            backLink = "/contact-us-details"
+            break;
+        case "decide":
+            backLink = "/decide"
+            break;
+        case "decide-user-journeys":
+            backLink = "/decide/user-journeys"
+            break;
+        case "decide-design-patterns":
+            backLink = "/decide/design-patterns"
+            break;
+        case "decide-private-beta-request-submitted":
+            backLink = "/decide/private-beta/request-submitted"
+            break;
+        default:
+            backLink = "/support"
+            source = "support";
+    }
+
+    return {source: source, backLink: backLink};
+}
 
 app.get('/contact-us-submitted', (req, res) => {
     res.render('contact-us-confirm.njk');
@@ -271,7 +301,7 @@ app.post('/support', async (req, res) => {
             res.redirect('/contact-us-details');
         }
         if (req.body.support === 'gov-service-uses-sign-in') {
-            res.redirect('/contact-us');
+            res.redirect('/contact-us?source=support');
         }
         if (req.body.support === 'gov-service-is-public') {
             res.redirect('https://signin.account.gov.uk/contact-us?supportType=PUBLIC');
