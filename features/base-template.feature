@@ -13,8 +13,9 @@ Feature: A base template that is used for pages that are not part of the evaluat
 
     Examples:
 
-      | menu item         | page               |
-      | "Identity checks" | "/identity-checks" |
-      | "Find out more"   | "/find-out-more"   |
-      | "Support"         | "/support"         |
-      | "Get started"     | "/getting-started" |
+      | menu item         | page                                              |
+      | "Identity checks" | "/identity-checks"                                |
+      | "Find out more"   | "/find-out-more"                                  |
+      | "Documentation"   | "https://auth-tech-docs.london.cloudapps.digital" |
+      | "Support"         | "/support"                                        |
+      | "Get started"     | "/getting-started"                                |
