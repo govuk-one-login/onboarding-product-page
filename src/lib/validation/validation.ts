@@ -1,4 +1,4 @@
-const emailValidator = require('../email-validator');
+const emailValidator = require('./email-validator');
 import {promises as fs} from 'fs';
 
 export default class Validation {
