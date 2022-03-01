@@ -1,0 +1,51 @@
+name: Smoke tests
+
+on:
+  push:
+    branches: [ DFA-551_smoke_tests ]
+    paths: [ 'monitoring/**' ]
+
+jobs:
+  deploy-canary-stack:
+    name: Deploy Canaries
+    environment: integration
+    runs-on: ubuntu-latest
+    env:
+      AWS_REGION: eu-west-2
+      STACK_NAME: di-onboarding-monitoring
+      ROLLBACK_ACTION: "--disable-rollback"
+      ACCOUNT: int
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup SAM
+        uses: aws-actions/setup-sam@v1
+
+      - name: Assume temporary AWS role
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: ${{ secrets.AWS_ROLE_SESSION }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: SAM build
+        run: sam build -t monitoring/template.yaml
+
+      - name: SAM Validate
+        run: sam validate --region ${{ env.AWS_REGION }} -t monitoring/template.yaml
+
+      - name: SAM deploy
+        run: |
+          sam deploy -t monitoring/template.yaml \
+            --no-fail-on-empty-changeset --no-confirm-changeset ${{ env.ROLLBACK_ACTION }} \
+            --stack-name ${{ env.STACK_NAME }} \
+            --capabilities CAPABILITY_IAM \
+            --s3-bucket ${{ secrets.AWS_DEPLOYMENT_BUCKET }} \
+            --s3-prefix smoke-tests \
+            --parameter-overrides "Account=${{ env.ACCOUNT }}"
