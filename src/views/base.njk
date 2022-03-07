@@ -5,6 +5,8 @@
 
 {% set assetPath = "/dist" %}
 
+{% set documentationUrl = "https://docs.sign-in.service.gov.uk" %}
+
 {% block head %}
   <!--[if !IE 8]><!-->
   <link rel="stylesheet" type="text/css" href="/dist/app.css">
@@ -112,7 +114,7 @@
                 </a>
               </li>
               <li class="govuk-header__navigation-item">
-                <a class="govuk-header__link" href="https://auth-tech-docs.london.cloudapps.digital">
+                <a class="govuk-header__link" href="{{ documentationUrl }}">
                   Documentation
                 </a>
               </li>

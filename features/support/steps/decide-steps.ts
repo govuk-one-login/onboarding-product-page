@@ -11,7 +11,7 @@ Then('the left-hand navigation menu is displayed', async function () {
     assertElementFound(userJourneys, "User journeys");
     let designPatterns = await this.page.$x(`//nav[@class="sub-navigation"]/ul[contains(@class, "govuk-list")]//a[@href="/decide/design-patterns" and contains(text(), "Design patterns")]`);
     assertElementFound(designPatterns, "Design patterns");
-    let techDocs = await this.page.$x(`//nav[@class="sub-navigation"]/ul[contains(@class, "govuk-list")]//a[@href="https://auth-tech-docs.london.cloudapps.digital/#gov-uk-sign-in" and contains(text(), "Technical documentation")]`);
+    let techDocs = await this.page.$x(`//nav[@class="sub-navigation"]/ul[contains(@class, "govuk-list")]//a[@href="https://docs.sign-in.service.gov.uk/#gov-uk-sign-in" and contains(text(), "Technical documentation")]`);
     assertElementFound(techDocs, "Technical documentation");
     let requestToJoin = await this.page.$x(`//nav[@class="sub-navigation"]/ul[contains(@class, "govuk-list")]//a[@href="/decide/private-beta" and contains(text(), "Request to join private beta")]`);
     assertElementFound(requestToJoin, "Request to join private beta");
