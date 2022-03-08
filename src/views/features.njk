@@ -1,0 +1,89 @@
+{% extends "base.njk" %}
+
+{% block pageTitle %}Features of GOV.UK Sign In - GOV.UK Product pages{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing govuk-main-wrapper-evaluate govuk-!-padding-6" %}
+{% set headerNavigationItemActiveFeatures = "govuk-header__navigation-item--active" %}
+
+{% block beforeContent %}
+  <div class="govuk-width-container">
+    <div class="govuk-breadcrumbs">
+      <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link"  href="#main-content" aria-current="page">Features</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-one-third">
+        <nav class="sub-navigation">
+          <ul class="govuk-list sub_navigation_list_2">
+            <li class="sub-navigation__item sub-navigation__item--active">
+              <a class="govuk-link govuk-link--no-visited-state" href="/features">Current features</a>
+            </li>
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="/features/roadmap">Roadmap</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Current features</h1>
+        <p class="govuk-body">GOV.UK Sign In is the new way for central government services to sign in their users.</p>
+        <p class="govuk-body">It will ultimately allow users to access any government service using the same email address and password.</p>
+        <div class="govuk-inset-text">
+          These features of GOV.UK Sign In are now available for services that join private beta. <a class="govuk-link" href="/getting-started">See how to get started.</a>
+        </div>
+        <h2 class="govuk-heading-m">Account creation and sign in</h2>
+        <p class="govuk-body">Users can create an account and sign in to your service with their email address and password. </p>
+        <p class="govuk-body">This means you know it’s always the same person accessing the service.</p>
+        <p class="govuk-body">You can let users create their account or sign in at:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>the start of your service, if you need them all to have accounts</li>
+          <li>the point where they want to save their progress and come back later, if you want to add this option to a complex journey</li>
+        </ul>
+        <h2 class="govuk-heading-m">Two-factor authentication</h2>
+        <p class="govuk-body">You can request that your users use two-factor authentication when they sign in to your service. GOV.UK Sign In sends text messages that contain security codes to UK phone numbers.</p>
+        <h2 class="govuk-heading-m">Users can manage their data in their GOV.UK account</h2>
+        <p class="govuk-body">Users will know the account as their ‘GOV.UK account’. Once they’ve created it, they can navigate to an ‘account home’ section where they can change their:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>email address</li>
+          <li>password</li>
+          <li>phone number</li>
+        </ul>
+        <h2 class="govuk-heading-m">Password reset</h2>
+        <p class="govuk-body">Users can reset their password via an email link if they forget it.</p>
+        <h2 class="govuk-heading-m">Documentation</h2>
+        <p class="govuk-body">You can follow our <a class="govuk-link" href="{{ documentationUrl }}">documentation</a> to:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>understand the OpenID Connect (OIDC) authentication protocol we’re using</li>
+          <li>see how user data is shared</li>
+          <li>integrate GOV.UK Sign In with your service in a test environment</li>
+        </ul>
+        <h2 class="govuk-heading-m">Support for your users</h2>
+        <p class="govuk-body">Support for your users is available during office hours via a <a class="govuk-link" href="/support">support form</a>. We aim to reply within 2 working days.</p>
+        <h2 class="govuk-heading-m">Support for your service</h2>
+        <p class="govuk-body">Support for your service is available during office hours via a <a class="govuk-link" href="/support">support form</a> and <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a>. We aim to reply within 2 working days.</p>
+        <p class="govuk-body">If you go live with GOV.UK Sign In, our technical team is available 24/7 for urgent incidents.</p>
+        <h2 class="govuk-heading-m">Future features</h2>
+        <p class="govuk-body">See our <a class="govuk-link" href="/features/roadmap">roadmap</a> for features that we’re working on now, and in future.</p>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
