@@ -6,14 +6,6 @@ router.get('/', (req, res) => {
     res.render('index.njk');
 });
 
-router.get('/identity-checks', (req, res) => {
-    res.render('identity-checks.njk');
-});
-
-router.get('/find-out-more', (req, res) => {
-    res.render('find-out-more.njk');
-});
-
 router.get('/getting-started', (req, res) => {
     res.render('getting-started.njk');
 });
@@ -38,5 +30,12 @@ router.get('/contact-us-details', (req, res) => {
     res.render('contact-us-details.njk');
 });
 
+router.get('/features', (req, res) => {
+    res.render('features.njk');
+});
+
+router.get('/features/roadmap', (req, res) => {
+    res.render('roadmap.njk');
+});
 
 export default router;

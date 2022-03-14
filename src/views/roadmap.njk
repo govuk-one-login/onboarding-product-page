@@ -1,0 +1,76 @@
+{% extends "base.njk" %}
+
+{% block pageTitle %}Roadmap for GOV.UK Sign In - GOV.UK Product pages{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing govuk-main-wrapper-evaluate govuk-!-padding-6" %}
+{% set headerNavigationItemActiveFeatures = "govuk-header__navigation-item--active" %}
+
+{% block beforeContent %}
+  <div class="govuk-width-container">
+    <div class="govuk-breadcrumbs">
+      <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="/features">Features</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link"  href="#main-content" aria-current="page">Roadmap</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-one-third">
+        <nav class="sub-navigation">
+          <ul class="govuk-list sub_navigation_list_2">
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="/features">Current features</a>
+            </li>
+            <li class="sub-navigation__item sub-navigation__item--active">
+              <a class="govuk-link govuk-link--no-visited-state" href="#">Roadmap</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">Roadmap</h1>
+        <p class="govuk-body">Last updated: February 2022</p>
+        <h2 class="govuk-heading-m">Next</h2>
+        <p class="govuk-body">These are the features that will be available next.</p>
+        <h3 class="govuk-heading-s">Non-UK mobile numbers</h3>
+        <p class="govuk-body">We know users with international phone numbers need to sign in to government services, so we’re looking into how we can do this.</p>
+        <h3 class="govuk-heading-s">More two-factor authentication options</h3>
+        <p class="govuk-body">We know not everyone can do two-factor authentication using text messages, so we’re exploring other methods.</p>
+        <h3 class="govuk-heading-s">Two-factor authentication recovery</h3>
+        <p class="govuk-body">If your users lose access to the phone number they gave for two-factor authentication, we’ll help them get back into their account.</p>
+        <h2 class="govuk-heading-m">In future</h2>
+        <p class="govuk-body">In 2022 we’ll add identity checks for services that need to be sure their users are who they say they are. You’re likely to need identity checks if your service does things like paying out money or showing confidential information.</p>
+        <p class="govuk-body">These checks will happen after users have created or signed in to their account.</p>
+        <p class="govuk-body">If you need identity checks, <a class="govuk-link" href="/register">register your interest</a> to:</p>
+        <ul class="govuk-list govuk-list--bullet">
+          <li>tell us about your service’s identity needs and help shape our work</li>
+          <li>take part in user research</li>
+          <li>join our group of potential identity private beta partners</li>
+        </ul>
+        <h2 class="govuk-heading-m">Updates</h2>
+        <p class="govuk-body">As we’re still at an early stage, our plans may shift. We’ll update this page when this happens and add more detail when we can.</p>
+        <p class="govuk-body">We’ll keep sharing in blog posts and at cross-government show and tells - <a class="govuk-link" href="/register">register your interest</a> if you’d like to come.</p>
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

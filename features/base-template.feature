@@ -14,8 +14,7 @@ Feature: A base template that is used for pages that are not part of the evaluat
     Examples:
 
       | menu item         | page                                              |
-      | "Identity checks" | "/identity-checks"                                |
-      | "Find out more"   | "/find-out-more"                                  |
+      | "Features"        | "/features"                                       |
       | "Documentation"   | "https://docs.sign-in.service.gov.uk"             |
       | "Support"         | "/support"                                        |
       | "Get started"     | "/getting-started"                                |
