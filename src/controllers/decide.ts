@@ -1,4 +1,4 @@
-import {Request, Response, NextFunction} from 'express';
+import {Request, Response} from 'express';
 import SheetsService from "../lib/sheets/SheetsService";
 import Validation from "../lib/validation";
 import getTimestamp from "../lib/timestamp";
@@ -52,7 +52,7 @@ export const submitRequestForm = async function (req: Request, res: Response) {
         let redirectTo = '/decide/private-beta/request-submitted'
 
         let sheetsService: SheetsService = new SheetsService(process.env.REQUEST_SPREADSHEET_ID as string);
-        await sheetsService.init().catch(() => redirectTo = '/register-error');
+        await sheetsService.init().catch(() => redirectTo = '/decide/private-beta/request-error');
         await sheetsService.appendValues(
             values,
             process.env.REQUEST_SHEET_DATA_RANGE as string,
@@ -60,7 +60,7 @@ export const submitRequestForm = async function (req: Request, res: Response) {
             .then(() => console.log("Saved to sheets"))
             .catch(reason => {
                 console.log(reason)
-                redirectTo = '/register-error'
+                redirectTo = '/decide/private-beta/request-error'
             });
         res.redirect(redirectTo);
     } else {
@@ -81,4 +81,8 @@ export const submitRequestForm = async function (req: Request, res: Response) {
 
 export const requestSubmitted = function (req: Request, res: Response) {
     res.render('request-submitted.njk');
+}
+
+export const error = function (re: Request, res: Response) {
+    res.render('request-error.njk');
 }
