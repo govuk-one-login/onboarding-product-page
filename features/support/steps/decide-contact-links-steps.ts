@@ -9,8 +9,8 @@ Then('the Slack link will contain the correct URL', async function () {
   await checkUrl(this.page, link, slackLinkUrl);
 });
 
-Then('the online form link on the main decide page will contain the correct URL', async function () {
-  let contactUsText: string = "online form"
+Then('the support form link on the main decide page will contain the correct URL', async function () {
+  let contactUsText: string = "support form"
   let contactUsUrl: string = "/contact-us"
 
   let link = await getLink(this.page,  contactUsText);
