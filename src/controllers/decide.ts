@@ -4,6 +4,12 @@ import Validation from "../lib/validation";
 import getTimestamp from "../lib/timestamp";
 import uuid from "../lib/uuid";
 
+let requiredFields = new Map<string, string>();
+requiredFields.set("email", "Enter your government email address");
+requiredFields.set("name", "Enter your name");
+requiredFields.set("service-name", "Enter the name of your service");
+requiredFields.set("department-name", "Enter your department");
+
 export const decide = function (req: Request, res: Response) {
     res.render('decide.njk');
 }
@@ -35,15 +41,7 @@ export const submitRequestForm = async function (req: Request, res: Response) {
     const values = new Map<string, string>(Object.entries(req.body));
     values.forEach((value, key) => values.set(key, value.trim()));
 
-    let requiredFields = new Map<string, string>();
-    requiredFields.set("email", "Enter your government email address");
-    requiredFields.set("name", "Enter your name");
-    requiredFields.set("service-name", "Enter the name of your service");
-    requiredFields.set("department-name", "Enter your department");
-
-    const validator = new Validation(values, requiredFields);
-    await validator.loadExtendedEmailDomains();
-    const errorMessages = validator.validate();
+    const errorMessages = (req.app.get('validation') as Validation).validate(values, requiredFields);
 
     if (errorMessages.size == 0) {
         values.set('id', uuid());

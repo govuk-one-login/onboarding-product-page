@@ -1,4 +1,4 @@
-import express, {NextFunction, Request, Response } from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import configureViews from './lib/configureViews';
 
 import register from './routes/register'
@@ -6,10 +6,12 @@ import decide from './routes/decide'
 import contactUs from './routes/contact-us'
 import site from "./routes/site";
 import support from './routes/support'
+import Validation from "./lib/validation";
 
 const app = express();
 const bodyParser = require('body-parser')
 
+app.set('validation', Validation.getInstance());
 app.use('/dist', express.static('./dist/assets'));
 app.use(express.static('./dist'));
 
@@ -33,7 +35,7 @@ app.use((req, res, next) => {
 app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
     console.log(err);
     res.status(500)
-    res.render('there-is-a-problem.njk', { showLinkToContactForm: (req.path !== '/contact-us') });
+    res.render('there-is-a-problem.njk', {showLinkToContactForm: (req.path !== '/contact-us')});
 })
 
 const port = process.env.PORT || 3000
