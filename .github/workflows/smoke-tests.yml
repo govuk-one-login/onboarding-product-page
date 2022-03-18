@@ -2,7 +2,7 @@ name: Smoke tests
 
 on:
   push:
-    branches: [ DFA-551_smoke_tests ]
+    branches: [ main ]
     paths: [ 'monitoring/**' ]
 
 jobs:
@@ -21,10 +21,10 @@ jobs:
       contents: read
 
     steps:
-      - name: Checkout repository
+      - name: Pull repository
         uses: actions/checkout@v2
 
-      - name: Setup SAM
+      - name: Set up SAM
         uses: aws-actions/setup-sam@v1
 
       - name: Assume temporary AWS role
