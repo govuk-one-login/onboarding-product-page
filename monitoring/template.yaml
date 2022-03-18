@@ -1,0 +1,191 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  canaries
+
+Transform:
+- AWS::Serverless-2016-10-31
+
+Parameters:
+  Account:
+    Type: String
+
+Resources:
+
+  ProductPagesCanary:
+    Type: AWS::Synthetics::Canary
+    Properties:
+      Name: !Sub "${Account}-prod-pages"
+      ArtifactS3Location: !Sub "S3://${CanaryResultsBucket}"
+      SuccessRetentionPeriod: 1
+      FailureRetentionPeriod: 5
+      Code:
+        Handler: index.handler
+        Script: |
+          var synthetics = require('Synthetics');
+          const log = require('SyntheticsLogger');
+          let url = "https://www.sign-in.service.gov.uk/";
+          let syntheticsConfig = synthetics.getConfiguration();
+          syntheticsConfig.setConfig({
+              screenshotOnStepStart : false,
+              screenshotOnStepSuccess: false,
+              screenshotOnStepFailure: true,
+              includeRequestHeaders: true, // Enable if headers should be displayed in HAR
+              includeResponseHeaders: true, // Enable if headers should be displayed in HAR
+              restrictedHeaders: [], // Value of these headers will be redacted from logs and reports
+              restrictedUrlParameters: [] // Values of these url parameters will be redacted from logs and reports
+          });
+          exports.handler = async () => {
+              let page = await synthetics.getPage();
+              await synthetics.executeStep('Open product pages', async function (timeoutInMillis = 30000) {
+                  await page.goto(url, {waitUntil: ['load', 'networkidle0'], timeout: timeoutInMillis});
+              });
+          };
+      ExecutionRoleArn: !GetAtt CanaryExecutionRole.Arn
+      RuntimeVersion: "syn-nodejs-puppeteer-3.2"
+      RunConfig:
+        TimeoutInSeconds: 59
+      Schedule:
+        Expression: rate(5 minutes)
+      StartCanaryAfterCreation: true
+
+  SnsToSlackFunction:
+    Type: AWS::Serverless::Function
+    DependsOn:
+      - SlackSnsTopic
+    Properties:
+      Description: A Lambda function that takes SNS messages and translates them to a form of JSON Slack understands and then sends that JSON to Slack.
+      Environment:
+        Variables:
+          WEBHOOK_PARAMETER_NAME: "canaries-slack-webhook-path"
+          SLACK_CHANNEL: "di-dfa-tech-notifications"
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      CodeUri: lambdas/sns_to_slack/
+      Handler: snsToSlack.lambdaHandler
+      Policies:
+        - Statement:
+            - Effect: Allow
+              Action:
+                - ssm:GetParameter
+              Resource:
+                - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/canaries-slack-webhook-path"
+
+  SlackSnsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      DisplayName: DI Onboarding monitoring
+
+  SlackSnsTopicSubscription:
+    DependsOn:
+      - SlackSnsTopic
+      - SnsToSlackFunction
+    Type: AWS::SNS::Subscription
+    Properties:
+      Protocol: lambda
+      TopicArn: !Ref SlackSnsTopic
+      Endpoint: !GetAtt SnsToSlackFunction.Arn
+
+  SnsToSlackFunctionPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !GetAtt SnsToSlackFunction.Arn
+      Principal: sns.amazonaws.com
+      SourceArn: !Ref SlackSnsTopic
+
+  CanaryResultsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: Private
+      LifecycleConfiguration:
+        Rules:
+          - Id: RemoveOldObjects
+            Status: Enabled
+            ExpirationInDays: 7
+
+  CanaryLogGroup:
+    Type: AWS::Logs::LogGroup
+
+  CanaryExecutionRole:
+    Type: AWS::IAM::Role
+    DependsOn:
+      - CanaryLogGroup
+      - CanaryResultsBucket
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: CanaryPolicy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                Resource:
+                  Fn::Sub:
+                    - "${BucketArn}/*"
+                    - BucketArn: !GetAtt CanaryResultsBucket.Arn
+              - Effect: Allow
+                Action:
+                  - s3:GetBucketLocation
+                Resource:
+                  - !GetAtt CanaryResultsBucket.Arn
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !GetAtt CanaryLogGroup.Arn
+
+              - Effect: Allow
+                Action:
+                  - s3:ListAllMyBuckets
+                  - cloudwatch:PutMetricData
+                Resource:
+                  - "*"
+
+              - Effect: Allow
+                Action:
+                  - cloudwatch:PutMetricData
+                Condition:
+                  StringEquals:
+                    "cloudwatch:namespace": "CloudWatchSynthetics"
+                Resource:
+                  - "*"
+
+  ProductPagesCanaryAlarm:
+    DependsOn:
+      - ProductPagesCanary
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub "${Account}ProdPagesCanary"
+      AlarmDescription: "ProductPagesCanary: 2 failures in the last 5 periods"
+      AlarmActions:
+        - !Ref SlackSnsTopic
+      OKActions:
+        - !Ref SlackSnsTopic
+
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Statistic: Sum
+      Threshold: 1
+      Period: 300
+      EvaluationPeriods: 1
+      DatapointsToAlarm: 1
+      TreatMissingData: notBreaching # The metric is only reported when a test fails. So missing data means the tests aren't failing
+
+      MetricName: Failed
+      Namespace: CloudWatchSynthetics
+      Dimensions:
+        - Name: CanaryName
+          Value: prodpages_canary

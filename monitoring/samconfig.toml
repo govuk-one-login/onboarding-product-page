@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "monitoring"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1s7iwnt5qb707"
+s3_prefix = "monitoring"
+region = "eu-west-2"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []

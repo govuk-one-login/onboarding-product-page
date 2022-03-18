@@ -1,0 +1,94 @@
+Parameters:
+  GitHubOrg:
+    Type: String
+  RepositoryName:
+    Type: String
+  OIDCProviderArn:
+    Description: Arn for the GitHub OIDC Provider.
+    Default: ""
+    Type: String
+
+Conditions:
+  CreateOIDCProvider: !Equals
+    - !Ref OIDCProviderArn
+    - ""
+
+Resources:
+  Role:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRoleWithWebIdentity
+            Principal:
+              Federated: !If
+                - CreateOIDCProvider
+                - !Ref GithubOidc
+                - !Ref OIDCProviderArn
+            Condition:
+              StringLike:
+                token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOrg}/${RepositoryName}:*
+      Policies:
+        - PolicyName: wcgw
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - "cloudformation:CreateChangeSet"
+                  - "cloudformation:DescribeChangeSet"
+                  - "cloudformation:DescribeStackEvents"
+                  - "cloudformation:DescribeStacks"
+                  - "cloudformation:ExecuteChangeSet"
+                  - "cloudformation:GetTemplateSummary"
+                  - "cloudwatch:DescribeAlarms"
+                  - "cloudwatch:PutMetricAlarm"
+                  - "iam:AttachRolePolicy"
+                  - "iam:CreateRole"
+                  - "iam:CreateTags"
+                  - "iam:GetRole"
+                  - "iam:getRolePolicy"
+                  - "iam:ListPolicies"
+                  - "iam:PassRole"
+                  - "iam:PutRolePolicy"
+                  - "iam:TagRole"
+                  - "logs:CreateLogGroup"
+                  - "logs:DescribeLogGroups"
+                  - "lambda:AddPermission"
+                  - "lambda:CreateFunction"
+                  - "lambda:DeleteFunction"
+                  - "lambda:GetFunction"
+                  - "lambda:GetFunctionConfiguration"
+                  - "lambda:GetLayerVersion"
+                  - "lambda:PublishLayerVersion"
+                  - "lambda:PublishVersion"
+                  - "s3:CreateBucket"
+                  - "s3:GetBucket"
+                  - "s3:GetObject"
+                  - "s3:PutLifecycleConfiguration"
+                  - "s3:PutObject"
+                  - "s3:*"
+                  - "sns:CreateTags"
+                  - "sns:CreateTopic"
+                  - "sns:GetTopicAttributes"
+                  - "sns:Subscribe"
+                  - "synthetics:CreateCanary"
+                  - "synthetics:DeleteCanary"
+                  - "synthetics:GetCanary"
+                  - "synthetics:StartCanary"
+                Resource: "*"
+
+  GithubOidc:
+    Type: AWS::IAM::OIDCProvider
+    Condition: CreateOIDCProvider
+    Properties:
+      Url: https://token.actions.githubusercontent.com
+      ClientIdList:
+        - sts.amazonaws.com
+      ThumbprintList:
+        - 6938fd4d98bab03faadb97b34396831e3780aea1
+
+Outputs:
+  Role:
+    Value: !GetAtt Role.Arn
