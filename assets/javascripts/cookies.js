@@ -121,27 +121,25 @@ var cookieBanner = function () {
 
     function initGATagManager(hasGivenConsent) {
         if (hasGivenConsent) {
+
+            const commentStart = document.createComment(' Google Tag Manager ')
+            document.head.append(commentStart) ;
+
             const script = document.createElement("script");
+            const scriptValue = "
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','" + gaTrackingCode.value + "');
+            ";
+            script.text = scriptValue;
+            document.head.append(script);
 
-            script.type = "text/javascript";
-            script.id = "google-tag-manager";
-            script.src = "https://www.googletagmanager.com/gtag/js?id=" + gaTrackingCode.value;
-            script.async = true;
-            document.body.appendChild(script);
+            const commentEnd = document.createComment(' End Google Tag Manager ')
+            document.head.append(commentEnd) ;
 
-            window.dataLayer = window.dataLayer || [];
-
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-
-            gtag('js', new Date());
-            gtag('config', gaTrackingCode.value, {'anonymize_ip': true});
         } else {
-            const scriptTag = document.querySelector("#google-tag-manager");
-            if (scriptTag) {
-                scriptTag.remove();
-            }
             deleteCookie("_gid");
             deleteCookie("_ga");
             deleteCookie("_gat_gtag_" + gaTrackingCode.value.replace("-", "_"));
