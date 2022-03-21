@@ -1,0 +1,16 @@
+{
+  "name": "sns-to-slack",
+  "description": "Take an SNS message and send it to Slack via a webhook",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "aws-sdk": "^2.1077.0",
+    "axios": "^0.21.1"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

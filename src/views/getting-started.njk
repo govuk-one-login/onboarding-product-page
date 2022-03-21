@@ -1,8 +1,9 @@
 {% extends "base.njk" %}
 
-{% block pageTitle %}Getting Started with GOV.UK Sign In – GOV.UK Product Pages{% endblock %}
+{% block pageTitle %}Get started - GOV.UK Sign In{% endblock %}
 
 {% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing" %}
+{% set headerNavigationItemActiveGetStarted = "govuk-header__navigation-item--active" %}
 
 {% block beforeContent %}
   <div class="govuk-width-container">
@@ -39,8 +40,7 @@
         </p>
 
         <p class="govuk-body">You will also need to have development expertise in your team.</p>
-
-        <p class="govuk-body"><a class="govuk-link" href="/find-out-more">Find out more about GOV.UK Sign In.</a></p>
+        <p class="govuk-body"><a class="govuk-link" href="/features">See the features GOV.UK Sign In currently offers.</a></p>
       </div>
     </div>
 
@@ -50,7 +50,7 @@
 
         <p class="govuk-body">
           <a class="govuk-link" href="/register">Register your interest</a> by giving us some information about your
-          organisation and your service. 
+          organisation and your service.
         </p>
 
         <p class="govuk-body">Once you've done this, you'll be able to:</p>
@@ -66,18 +66,18 @@
             get updates about our work
           </li>
           <li>
-            potentially join our group of private beta partners 
+            potentially join our group of private beta partners
           </li>
         </ul>
        </div>
     </div>
-        
+
      <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <h2 class="govuk-heading-m govuk-!-padding-top-6">3. Test GOV.UK Sign In</h2>
 
         <p class="govuk-body">
-          If your service needs authentication and you work in central government, we’ll share our technical documentation with you. You’ll then be able to build a test service in our integration environment (also known as a sandbox).
+          If your service needs authentication and you work in central government, we’ll give you access to our test environment (or ‘sandbox’). You’ll be able to integrate your service to see how it works for yourself.
         </p>
 
         <p class="govuk-body">We’ll also send you information including:</p>
@@ -93,7 +93,7 @@
             suggested design patterns for linking your user journey to GOV.UK Sign In
           </li>
         </ul>
-        
+
         <p class="govuk-body">
           You can request to join our private beta if you think GOV.UK Sign In is right for you.
         </p>
@@ -117,9 +117,8 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <h2 class="govuk-heading-m govuk-!-padding-top-6">Contact us</h2>
-
         <p class="govuk-body">
-          If you have any questions, contact us at <a class="govuk-link" href="mailto:govuk-sign-in@digital.cabinet-office.gov.uk">govuk-sign-in@digital.cabinet-office.gov.uk</a>.
+          If you have questions or feedback, contact us using our <a class="govuk-link" href="/support">support form</a>. You can also use our <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a> if you’re from a government service team.
         </p>
       </div>
     </div>

@@ -1,7 +1,7 @@
 {% extends "base-evaluate.njk" %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% block pageTitle %}Find out more about the GOV.UK Sign In private beta - GOV.UK Product Pages{% endblock %}
+{% block pageTitle %}Private beta - GOV.UK Sign In{% endblock %}
 
 {% block content %}
   <div class="govuk-width-container">
@@ -25,7 +25,7 @@
               <a class="govuk-link govuk-link--no-visited-state" href="/decide/design-patterns">Design patterns</a>
             </li>
             <li class="sub-navigation__item">
-              <a class="govuk-link govuk-link--no-visited-state" href="https://auth-tech-docs.london.cloudapps.digital/#gov-uk-sign-in">Technical documentation</a>
+              <a class="govuk-link govuk-link--no-visited-state" href="{{ documentationUrl }}/#gov-uk-sign-in">Technical documentation</a>
             </li>
             <li class="sub-navigation__item sub-navigation__item--active">
               <a class="govuk-link govuk-link--no-visited-state" href="/decide/private-beta">Request to join private beta</a>

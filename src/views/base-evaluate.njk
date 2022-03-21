@@ -5,6 +5,8 @@
 
 {% set assetPath = "/dist" %}
 
+{% set documentationUrl = "https://docs.sign-in.service.gov.uk" %}
+
 {% block head %}
   <!--[if !IE 8]><!-->
   <link rel="stylesheet" type="text/css" href="/dist/app.css">
@@ -108,7 +110,7 @@
 
 {% block main %}
   {% block beforeContent %}{% endblock %}
-  <main class="govuk-main-wrapper govuk-main-wrapper-evaluate {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+  <main class="govuk-main-wrapper govuk-main-wrapper-evaluate govuk-!-padding-top-8 {{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
     {% block content %}
       <h1 class="govuk-heading-xl">Default page template</h1>
     {% endblock %}

@@ -25,7 +25,7 @@ Feature: Decide page
   Scenario: Read the technical documentation
 
     When they click on the "Technical documentation" link
-    Then they should be directed to a page with the title "Authentication Technical Docs - GOV.UK Sign In"
+    Then they should be directed to a page with the title "Authentication Technical Docs - Sign In"
 
   Scenario: Want to join the private beta
 
