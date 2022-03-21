@@ -8,6 +8,7 @@ on:
       app_name: { required: false, type: string }
       url: { required: false, type: string }
       instances: { required: false, type: number, default: 1 }
+      google_tag_id: { required: false, type: string, default: GTM-PFTQ6G2 }
       rolling_deployment: { required: false, type: boolean, default: false }
       use_stub_zendesk: { required: false, type: boolean, default: true }
     secrets:
@@ -87,4 +88,5 @@ jobs:
             --var use_stub_zendesk=${{ inputs.use_stub_zendesk }} \
             --var zendesk_api_token="${ZENDESK_API_TOKEN:- }" \
             --var zendesk_group_id="${ZENDESK_GROUP_ID:- }" \
-            --var zendesk_username="${ZENDESK_USERNAME:- }"
+            --var zendesk_username="${ZENDESK_USERNAME:- }" \
+            --var google_tag_id=${{ inputs.google_tag_id }}
