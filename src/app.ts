@@ -24,6 +24,7 @@ app.use('/', contactUs);
 app.use('/', site);
 app.use('/decide', decide);
 app.use('/', support);
+app.locals.googleTagId = process.env.GOOGLE_TAG_ID;
 
 //This middleware function should always be at the very bottom of the stack (below all other functions related to routing).
 app.use((req, res, next) => {

@@ -19,3 +19,4 @@ applications:
       ZENDESK_GROUP_ID: ((zendesk_group_id))
       ZENDESK_USERNAME: ((zendesk_username))
       ZENDESK_API_TOKEN: ((zendesk_api_token))
+      GOOGLE_TAG_ID: ((google_tag_id))

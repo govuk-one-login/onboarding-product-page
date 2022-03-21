@@ -45,6 +45,7 @@ jobs:
       use_stub_zendesk: false
       rolling_deployment: true
       instances: 3
+      google_tag_id: GTM-W38DXV2
     secrets:
       cf_username: ${{ secrets.CF_USERNAME }}
       cf_password: ${{ secrets.CF_PASSWORD }}
