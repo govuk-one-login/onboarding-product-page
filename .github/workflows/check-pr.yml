@@ -14,7 +14,7 @@ jobs:
   deploy-preview:
     name: Preview
     needs: build
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@f4bcebd6ce722d586f634bfb64c15d4e54db0eec
+    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@e5a1f487a479318759f644da1c3b78fba2bf5efc
     with:
       environment: preview
       cf_space_name: product-pages-preview

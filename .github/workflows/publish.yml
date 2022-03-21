@@ -16,7 +16,7 @@ jobs:
   deploy-test:
     name: Test
     needs: [build, run-unit-tests]
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@f4bcebd6ce722d586f634bfb64c15d4e54db0eec
+    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@e5a1f487a479318759f644da1c3b78fba2bf5efc
     with:
       environment: test
       cf_space_name: product-pages-test
@@ -37,7 +37,7 @@ jobs:
   deploy-production:
     name: Publish
     needs: run-acceptance-tests
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@f4bcebd6ce722d586f634bfb64c15d4e54db0eec
+    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@e5a1f487a479318759f644da1c3b78fba2bf5efc
     with:
       environment: production
       cf_space_name: product-pages-production
