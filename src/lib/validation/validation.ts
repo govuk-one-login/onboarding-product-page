@@ -1,56 +1,36 @@
 const emailValidator = require('./email-validator');
-import {promises as fs} from 'fs';
+import fs from 'fs';
 
 export default class Validation {
-    form: Map<string, string>;
-    requiredFields: Map<string, string>;
     validEmailDomains: string[];
+    static instance: Validation;
 
-    constructor(form: Map<string, string>, requiredFields: Map<string, string>) {
-        this.form = form;
-
-        this.requiredFields = requiredFields;
-
-        this.validEmailDomains = // get this from config eventually
-            [
-                "gov.uk",
-                "nhs.uk",
-                "nhs.net",
-                "nhs.scot",
-                "police.uk",
-                "cjsm.net",
-                "ac.uk",
-                "sch.uk",
-                "onevoicewales.wales",
-                "suttonmail.org",
-                "highwaysengland.co.uk"
-            ]
+    constructor() {
+        this.validEmailDomains = [];
+        console.log("Loading list of valid email domains.")
+        try {
+            let emails = fs.readFileSync("./valid-email-domains.txt", "utf-8")
+            this.validEmailDomains = emails.split("\n");
+        } catch (error) {
+            console.error("List of valid email domains could not be loaded.");
+            console.error(error);
+            process.kill(process.pid, 'SIGTERM');
+        }
     }
 
-    async loadExtendedEmailDomains(): Promise<void> {
-        let extendedDomains: string[] = [];
-        await fs.readFile("./valid-email-domains.txt", "utf-8")
-            .then((emails) => {
-                    extendedDomains = emails.split("\n");
-                    this.validEmailDomains = this.validEmailDomains.concat(extendedDomains);
-                }
-            )
-            .catch(() => console.error("No extended email domains provided"))
-    }
-
-    validate(): Map<string, string> {
+    validate(form: Map<string, string>, requiredFields: Map<string, string>): Map<string, string> {
         const errors = new Map();
 
-        this.requiredFields.forEach((errorMessage, field) => {
-            if (this.fieldHasNoValue(field)) {
+        requiredFields.forEach((errorMessage, field) => {
+            if (this.fieldHasNoValue(field, form)) {
                 errors.set(field, errorMessage);
             }
         });
 
         if (!errors.has('email')) {
-            if (this.invalidEmailAddress()) {
+            if (this.invalidEmailAddress(form)) {
                 errors.set('email', 'Enter an email address in the correct format, like name@gov.uk');
-            } else if (this.notGovernmentEmail()) {
+            } else if (this.notGovernmentEmail(form)) {
                 errors.set('email', 'Enter a government email address');
             }
         }
@@ -58,22 +38,28 @@ export default class Validation {
         return errors;
     }
 
-    fieldHasNoValue(field: string): boolean {
-        return this.form.get(field) == '' || this.form.get(field) == undefined;
+    fieldHasNoValue(field: string, form: Map<string, string>): boolean {
+        return form.get(field) == '' || form.get(field) == undefined;
     }
 
-    invalidEmailAddress(): boolean {
-        return !emailValidator(this.form.get('email'))
+    invalidEmailAddress(form: Map<string, string>): boolean {
+        return !emailValidator(form.get('email'))
     }
 
-    notGovernmentEmail(): boolean {
+    notGovernmentEmail(form: Map<string, string>): boolean {
         // "" will match anything and we get that if there's an empty line at the end of valid-email-domains.txt
         let match = this.validEmailDomains.find(suffix => {
             // @ts-ignore
-            return this.form.get('email').trim().endsWith(suffix) && suffix != "";
+            return form.get('email').trim().endsWith(suffix) && suffix != "";
         });
         return match == undefined;
     }
-}
 
+    static getInstance() {
+        if (!Validation.instance) {
+            Validation.instance = new Validation();
+        }
+        return Validation.instance;
+    }
+}
 

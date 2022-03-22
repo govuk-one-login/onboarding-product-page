@@ -1,8 +1,14 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import Validation from "../lib/validation";
 import uuid from "../lib/uuid";
 import getTimestamp from "../lib/timestamp";
 import SheetsService from "../lib/sheets/SheetsService";
+
+let requiredFields = new Map<string, string>();
+requiredFields.set("email", "Enter your government email address");
+requiredFields.set("name", "Enter your name");
+requiredFields.set("service-name", "Enter the name of your service");
+requiredFields.set("organisation-name", "Enter your organisation name");
 
 export const get = function(req: Request, res: Response) {
     const errorMessages = new Map();
@@ -14,15 +20,7 @@ export const post = async function(req: Request, res: Response) {
     const values = new Map<string, string>(Object.entries(req.body));
     values.forEach((value, key) => values.set(key, value.trim()));
 
-    let requiredFields = new Map<string, string>();
-    requiredFields.set("email", "Enter your government email address");
-    requiredFields.set("name", "Enter your name");
-    requiredFields.set("service-name", "Enter the name of your service");
-    requiredFields.set("organisation-name", "Enter your organisation name");
-
-    const validator = new Validation(values, requiredFields);
-    await validator.loadExtendedEmailDomains();
-    const errorMessages = validator.validate();
+    const errorMessages = (req.app.get('validation') as Validation).validate(values, requiredFields);
 
     if (errorMessages.size == 0) {
         values.set('id', uuid());
