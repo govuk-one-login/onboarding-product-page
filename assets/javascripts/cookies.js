@@ -70,7 +70,7 @@ var cookieBanner = function () {
             JSON.stringify(value) +
             "; expires=" +
             expiryDate +
-            "; path=/; Secure";
+            "; path=/; domain=sign-in.service.gov.uk; Secure";
     }
 
     function hideElement(el) {
