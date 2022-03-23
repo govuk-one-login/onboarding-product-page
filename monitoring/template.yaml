@@ -57,7 +57,7 @@ Resources:
       Environment:
         Variables:
           WEBHOOK_PARAMETER_NAME: "canaries-slack-webhook-path"
-          SLACK_CHANNEL: "di-dfa-tech-notifications"
+          SLACK_CHANNEL: "di-dfa-alerts"
       Runtime: nodejs14.x
       Architectures:
         - x86_64
