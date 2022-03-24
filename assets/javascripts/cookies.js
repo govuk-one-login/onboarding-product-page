@@ -59,7 +59,7 @@ var cookieBanner = function () {
             );
         });
     }
-
+// Set the tracking cookie
     function setCookie(name, value) {
         const currentDate = new Date();
         const expiryDate = new Date(
