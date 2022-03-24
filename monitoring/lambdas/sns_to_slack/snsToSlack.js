@@ -4,7 +4,6 @@ const axios = require("axios");
 
 exports.lambdaHandler = async (event, context) => {
     try {
-        // do this as a for each over each record ...
         let message = event.Records[0].Sns.Message
         let payload = {
             "channel": process.env.SLACK_CHANNEL,
