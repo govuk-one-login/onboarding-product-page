@@ -59,7 +59,7 @@ var cookieBanner = function () {
             );
         });
     }
-// Set the tracking cookie
+// Set the tracking cookie sign-in.service.gov.uk
     function setCookie(name, value) {
         const currentDate = new Date();
         const expiryDate = new Date(
@@ -70,7 +70,7 @@ var cookieBanner = function () {
             JSON.stringify(value) +
             "; expires=" +
             expiryDate +
-            "; path=/; domain=sign-in.service.gov.uk; Secure";
+            "; path=/; domain=london.cloudapps.digital; Secure";
     }
 
     function hideElement(el) {
