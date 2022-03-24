@@ -70,7 +70,7 @@ var cookieBanner = function () {
             JSON.stringify(value) +
             "; expires=" +
             expiryDate +
-            "; path=/; domain=london.cloudapps.digital; Secure";
+            "; path=/; domain=di-pp-prev-dfa-572-cookie-test.london.cloudapps.digital; Secure";
     }
 
     function hideElement(el) {
