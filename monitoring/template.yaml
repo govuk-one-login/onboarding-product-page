@@ -34,6 +34,7 @@ Resources:
               restrictedHeaders: [], // Value of these headers will be redacted from logs and reports
               restrictedUrlParameters: [] // Values of these url parameters will be redacted from logs and reports
           });
+          console.log("Getting page");
           exports.handler = async () => {
               let page = await synthetics.getPage();
               await synthetics.executeStep('Open product pages', async function (timeoutInMillis = 30000) {
