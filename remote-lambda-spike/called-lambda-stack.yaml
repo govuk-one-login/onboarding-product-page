@@ -1,0 +1,69 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  a stack with one lambda that gets called from somewhere else
+
+Resources:
+  CalledFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs14.x
+      InlineCode: |
+        exports.handler = function(event, context) {
+          console.log(event.message);
+          context.succeed({message: "called with: " + event.message});
+        }
+  InvokeLambdaRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "arn:aws:iam::663985455444:root"
+              },
+              "Action": "sts:AssumeRole",
+              "Condition": { }
+            }
+          ]
+        }
+      Policies:
+        - PolicyName: AssumeRoleInOtherAccount
+          PolicyDocument:
+            {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "InvokeLambdaFunction",
+                  "Effect": "Allow",
+                  "Action": [
+                      "lambda:InvokeFunction"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+      Description: The other account can assume this role and invoke a Lambda
+
+Outputs:
+  FunctionToCall:
+    Description: The name of the function that will be called
+    Value: !Ref CalledFunction
+    Export:
+      Name: FunctionToCall
+
+  FunctionToCallArn:
+    Description: The ARN of the function that will be called
+    Value: !GetAtt CalledFunction.Arn
+    Export:
+      Name: FunctionToCallArn
+
+  InvokeLamdbaRoleArn:
+    Description: The ARN of the InvokeLamdbaRole
+    Value: !GetAtt InvokeLambdaRole.Arn
+    Export:
+      Name: InvokeLambdaRoleArn

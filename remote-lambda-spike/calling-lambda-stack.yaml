@@ -1,0 +1,104 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  a stack with a lambda that calls a different lambda
+
+Parameters:
+  FunctionToCall:
+    Type: String
+    Description: The name of the function to call - should be useable in a LambdaInvokePolicy
+  FunctionToCallArn:
+    Type: String
+    Description: ARN for the function used for FunctionToCall
+
+Resources:
+  CallingFunction:
+    Type: AWS::Serverless::Function
+    DependsOn: AssumeRolePolicy
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs14.x
+      Environment:
+        Variables:
+          FUNCTION_TO_CALL: !Ref FunctionToCallArn
+      InlineCode: |
+        let aws = require('aws-sdk');
+        exports.handler = async function(event, context) {
+            var sts = new aws.STS({ region: process.env.REGION });
+          var stsParams = {
+          RoleArn: "arn:aws:iam::494650018671:role/called-lambda-InvokeLambdaRole-K6WJ6FQXEJJH",
+          DurationSeconds: 3600,
+          RoleSessionName: "MySession"
+        };
+          const stsResults = await sts.assumeRole(stsParams).promise();
+          console.log(stsResults);
+        
+        var lambda = new aws.Lambda({
+            region: process.env.REGION,
+            accessKeyId: stsResults.Credentials.AccessKeyId,
+            secretAccessKey:stsResults.Credentials.SecretAccessKey,
+            sessionToken: stsResults.Credentials.SessionToken
+        });
+        
+          const result = await lambda.invoke({
+          FunctionName: 'arn:aws:lambda:eu-west-2:494650018671:function:called-lambda-CalledFunction-mwSweeR3inzp',
+          InvocationType: 'RequestResponse',
+          Payload: JSON.stringify(event) // pass params
+        }).promise();
+          
+          console.log("The result was: " + JSON.stringify(result));
+          
+          const response = {
+          statusCode: 200,
+          body: result.Payload
+        };
+          return response;
+        }
+      Role: !GetAtt AssumeRolePolicy.Arn
+
+  AssumeRolePolicy:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        }
+      Policies:
+          - PolicyName: AssumeRoleInOtherAccount
+            PolicyDocument:
+              {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "stsassumerole",
+                  "Effect": "Allow",
+                  "Action": "sts:AssumeRole",
+                  "Resource": "arn:aws:iam::494650018671:role/called-lambda-InvokeLambdaRole-K6WJ6FQXEJJH"
+                },
+                {
+                  "Sid": "logsstreamevent",
+                  "Effect": "Allow",
+                  "Action": [
+                      "logs:CreateLogStream",
+                      "logs:PutLogEvents"
+                  ],
+                  "Resource": "arn:aws:logs:eu-west-2:494650018671:log-group:/aws/lambda/Lambda-Assume-Roles*/*"
+                },
+                {
+                  "Sid": "logsgroup",
+                  "Effect": "Allow",
+                  "Action": "logs:CreateLogGroup",
+                  "Resource": "*"
+                }
+              ]
+            }
+      Description: Allows lambda to assume a role in another account
