@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  a stack with one lambda that gets called from somewhere else
+  a stack with one lambda that gets called from another account.
 
 Resources:
   CalledFunction:
@@ -17,22 +17,23 @@ Resources:
   InvokeLambdaRole:
     Type: AWS::IAM::Role
     Properties:
-      AssumeRolePolicyDocument:
+      AssumeRolePolicyDocument: # this part says who can do it (principle)
         {
           "Version": "2012-10-17",
           "Statement": [
             {
               "Effect": "Allow",
               "Principal": {
-                "AWS": "arn:aws:iam::663985455444:root"
+                "AWS": "arn:aws:iam::663985455444:root" # Improve this - https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html
               },
               "Action": "sts:AssumeRole",
-              "Condition": { }
+              "Condition": { } # Here you can limit things by say, the runtime that is trying to assume the role (although I think that's the user agent which should be used with caution)
+                               # - https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html
             }
           ]
         }
       Policies:
-        - PolicyName: AssumeRoleInOtherAccount
+        - PolicyName: AllowOtherAccountToInvokeAnyLambda
           PolicyDocument:
             {
               "Version": "2012-10-17",
@@ -47,7 +48,8 @@ Resources:
                 }
               ]
             }
-      Description: The other account can assume this role and invoke a Lambda
+          # There could be other policies allowing access to a DynamoDb for example (or that could be a separate role).
+      Description: The other account can assume this role and invoke any Lambda. Changign Resource can narrow the scope.
 
 Outputs:
   FunctionToCall:

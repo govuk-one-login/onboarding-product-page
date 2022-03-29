@@ -1,15 +1,16 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  a stack with a lambda that calls a different lambda
+  a stack with a lambda that calls a different lambda in a different account.
+  The lambda needs to permission to assume the role in the other account
 
 Parameters:
-  FunctionToCall:
+  RoleArn:
     Type: String
-    Description: The name of the function to call - should be useable in a LambdaInvokePolicy
-  FunctionToCallArn:
+    Description: ARN of role to assume
+  FunctionName:
     Type: String
-    Description: ARN for the function used for FunctionToCall
+    Description: The ARN of the function to call - function name probably works too.
 
 Resources:
   CallingFunction:
@@ -20,38 +21,39 @@ Resources:
       Runtime: nodejs14.x
       Environment:
         Variables:
-          FUNCTION_TO_CALL: !Ref FunctionToCallArn
+          FUNCTION_NAME: !Ref FunctionName
+          ROLE_ARN: !Ref RoleArn
       InlineCode: |
         let aws = require('aws-sdk');
         exports.handler = async function(event, context) {
-            var sts = new aws.STS({ region: process.env.REGION });
+          var sts = new aws.STS({ region: process.env.REGION });
           var stsParams = {
-          RoleArn: "arn:aws:iam::494650018671:role/called-lambda-InvokeLambdaRole-K6WJ6FQXEJJH",
-          DurationSeconds: 3600,
-          RoleSessionName: "MySession"
-        };
+            RoleArn: Process.env.ROLE_ARN,
+            DurationSeconds: 3600,
+            RoleSessionName: "MySession"
+          };
           const stsResults = await sts.assumeRole(stsParams).promise();
-          console.log(stsResults);
+          console.log(stsResults); # probably not in prod ;)
         
-        var lambda = new aws.Lambda({
-            region: process.env.REGION,
-            accessKeyId: stsResults.Credentials.AccessKeyId,
-            secretAccessKey:stsResults.Credentials.SecretAccessKey,
-            sessionToken: stsResults.Credentials.SessionToken
-        });
+          var lambda = new aws.Lambda({
+              region: process.env.REGION,
+              accessKeyId: stsResults.Credentials.AccessKeyId,
+              secretAccessKey:stsResults.Credentials.SecretAccessKey,
+              sessionToken: stsResults.Credentials.SessionToken
+          });
         
           const result = await lambda.invoke({
-          FunctionName: 'arn:aws:lambda:eu-west-2:494650018671:function:called-lambda-CalledFunction-mwSweeR3inzp',
-          InvocationType: 'RequestResponse',
-          Payload: JSON.stringify(event) // pass params
-        }).promise();
+            FunctionName: Process.env.FUNCTION_NAME,
+            InvocationType: 'RequestResponse',
+            Payload: JSON.stringify(event) // pass params
+          }).promise();
           
           console.log("The result was: " + JSON.stringify(result));
           
           const response = {
-          statusCode: 200,
-          body: result.Payload
-        };
+            statusCode: 200,
+            body: result.Payload
+          };
           return response;
         }
       Role: !GetAtt AssumeRolePolicy.Arn
@@ -82,16 +84,16 @@ Resources:
                   "Sid": "stsassumerole",
                   "Effect": "Allow",
                   "Action": "sts:AssumeRole",
-                  "Resource": "arn:aws:iam::494650018671:role/called-lambda-InvokeLambdaRole-K6WJ6FQXEJJH"
+                  "Resource": !Ref RoleArn
                 },
-                {
+                { # Logging permissions are necessary for any lambda.  Probably there's a SAM role that covers this and can have the assumerole stuff appended.
                   "Sid": "logsstreamevent",
                   "Effect": "Allow",
                   "Action": [
                       "logs:CreateLogStream",
                       "logs:PutLogEvents"
                   ],
-                  "Resource": "arn:aws:logs:eu-west-2:494650018671:log-group:/aws/lambda/Lambda-Assume-Roles*/*"
+                  "Resource": "arn:aws:logs:eu-west-2:494650018671:log-group:/aws/lambda/Lambda-Assume-Roles*/*" # Not sure about this - it works but maybe should be a different resource
                 },
                 {
                   "Sid": "logsgroup",
