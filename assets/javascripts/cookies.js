@@ -60,6 +60,20 @@ var cookieBanner = function () {
         });
     }
 
+    function getCookieDomain () {
+        const PROD_HOSTNAME = 'sign-in.service.gov.uk';
+
+        if (window.location.hostname.includes(PROD_HOSTNAME)) {
+            return PROD_HOSTNAME
+        }
+
+        if (window.location.hostname.includes('localhost')) {
+            return 'localhost'
+        }
+
+        return undefined
+    }
+
     function setCookie(name, value) {
         const currentDate = new Date();
         const expiryDate = new Date(
@@ -68,9 +82,10 @@ var cookieBanner = function () {
         document.cookie =
             name + "=" +
             JSON.stringify(value) +
+            "; domain=" + getCookieDomain() +
             "; expires=" +
             expiryDate +
-            "; path=/; Secure";
+            "; path=/; ";
     }
 
     function hideElement(el) {
