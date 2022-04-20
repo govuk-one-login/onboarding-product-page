@@ -38,4 +38,8 @@ router.get('/features/roadmap', (req, res) => {
     res.render('roadmap.njk');
 });
 
+router.get('/documentation', (req, res) => {
+    res.render('documentation.njk');
+});
+
 export default router;

@@ -5,7 +5,7 @@
 
 {% set assetPath = "/dist" %}
 
-{% set documentationUrl = "https://docs.sign-in.service.gov.uk" %}
+{% set documentationUrl = "/documentation" %}
 
 {% block head %}
   <!--[if !IE 8]><!-->
@@ -108,7 +108,7 @@
                   Features
                 </a>
               </li>
-              <li class="govuk-header__navigation-item">
+              <li class="govuk-header__navigation-item {{ headerNavigationItemActiveDocumentation }}">
                 <a class="govuk-header__link" href="{{ documentationUrl }}">
                   Documentation
                 </a>
