@@ -12,7 +12,7 @@
     "buildjs": "uglifyjs --verbose node_modules/govuk-frontend/govuk/all.js -o dist/assets/govuk-all.js && uglifyjs --verbose assets/javascripts/cookies.js -o dist/assets/cookies.js",
     "buildgovuk": "cp -v -r node_modules/govuk-frontend/govuk/assets/* ./dist/assets && echo \"Done!\"",
     "buildlocalimages": "cp -v -r assets/images/* ./dist/assets/images",
-    "buildlocalfiles": "cp -v -r files/* ./dist/routes/files",
+    "buildlocalfiles": "mkdirp ./dist/routes/files && cp -v -r files/* ./dist/routes/files",
     "build": "npm run buildts && npm run buildsass && npm run buildjs && npm run buildgovuk && npm run buildlocalimages && npm run buildlocalfiles",
     "test": "mocha --require ts-node/register --ui bdd src/**/*.spec.ts",
     "cucumber": "./node_modules/.bin/cucumber-js --require-module ts-node/register --require features/support/test-setup.ts --require features/support/steps/**/*.ts --publish-quiet --tags 'not @wip'",
