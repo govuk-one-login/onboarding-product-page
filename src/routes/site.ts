@@ -42,4 +42,16 @@ router.get('/documentation', (req, res) => {
     res.render('documentation.njk');
 });
 
+router.get('/documentation/user-journeys', (req, res) => {
+    res.render('documentation-user-journeys.njk');
+});
+
+router.get('/users-create-an-account-upfront-pdf', (req, res) => {
+    res.sendFile(__dirname + "/files/users-create-an-account-upfront.pdf");
+});
+
+router.get('/users-create-an-account-to-save-progress-pdf', (req, res) => {
+    res.sendFile(__dirname + "/files/users-create-an-account-to-save-progress.pdf");
+});
+
 export default router;

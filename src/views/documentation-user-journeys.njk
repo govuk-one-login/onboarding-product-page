@@ -1,0 +1,73 @@
+{% extends "base.njk" %}
+
+{% block pageTitle %}User journey maps - GOV.UK Sign In{% endblock %}
+
+{% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing govuk-main-wrapper-evaluate govuk-main-wrapper-documentation govuk-!-padding-top-8" %}
+{% set headerNavigationItemActiveDocumentation = "govuk-header__navigation-item--active" %}
+
+{% block content %}
+
+  <div class="govuk-width-container">
+    <div class="govuk-grid-row">
+
+      <div class="govuk-grid-column-one-third">
+        <nav class="sub-navigation">
+          <ul class="govuk-list sub_navigation_list_2">
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="/documentation">Technical documentation</a>
+            </li>
+            <li class="sub-navigation__item sub-navigation__item--active">
+              <a class="govuk-link govuk-link--no-visited-state" href="/documentation/user-journeys">User journey maps</a>
+            </li>
+            <li class="sub-navigation__item">
+              <a class="govuk-link govuk-link--no-visited-state" href="/documentation/design-recommendations">Design recommendations: ‘create account to save progress’</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">User journey maps</h1>
+        <p class="govuk-body">There are two different ways of using GOV.UK Sign In in your service. You can see a user journey map for each option.</p>
+        <p class="govuk-body">Both options have been through multiple rounds of user testing.</p>
+        <div class="govuk-inset-text">
+          We’re working on making our documentation more accessible. If you have any problems accessing these journey maps, please <a class="govuk-link" href="/contact-us" >contact us</a>
+        </div>
+        <h2 class="govuk-heading-m">Option 1: users create an account upfront</h2>
+        <p class="govuk-body">his journey map shows a user creating an account at the start of your service journey.</p>
+        <div><img src="/dist/images/User-creates-account-upfront.svg" alt="" style="width: 100%; height: auto;"></div>
+        <p class="govuk-body">Users start at your service’s start page, usually on GOV.UK. They create a GOV.UK account using their email address, a password and two-factor authentication. Then, they’re sent to your service to complete their journey.</p>
+        <p class="govuk-body">This option is usually best for your service if you need all your users to create accounts before they can do anything.</p>
+        <p class="govuk-body govuk-!-font-weight-bold">See a detailed map of the user-facing screens</p>
+        <p class="govuk-body">
+          <a class="govuk-link" href="/users-create-an-account-upfront-pdf" rel="noreferrer noopener" target="_blank">View a PDF (opens in new tab)</a><br>
+          Best if you want to view or print the journey as it is.
+        </p>
+        <p class="govuk-body">
+          <a class="govuk-link" href="https://www.figma.com/file/SD9EyRaCaFPHJIBalbiKiH/GOV.UK-Sign-In%3A-Users-create-an-account-upfront?node-id=0%3A1" rel="noreferrer noopener" target="_blank">View in Figma (opens in new tab)</a><br>
+          Best if you want to copy the screens into your own journey maps and play around with the designs.
+        </p>
+        <h2 class="govuk-heading-m">Option 2: users create an account to save progress</h2>
+        <p class="govuk-body">This journey map shows a user creating an account in the middle of your service journey.</p>
+        <div><img src="/dist/images/User-creates-account-to-save-progress.svg" alt="" style="width: 100%; height: auto;"></div>
+        <p class="govuk-body">Users start at your service’s start page, usually on GOV.UK. They complete part of your journey, then decide they want to finish it later.</p>
+        <p class="govuk-body">To save their progress, they create a GOV.UK account using their email address, a password and two-factor authentication.</p>
+        <p class="govuk-body">Later, they return to your service and resume their journey by signing in to their account.</p>
+        <p class="govuk-body">This option is usually best for your service if you do not need all your users to create accounts, but want to give them the option of saving their progress.</p>
+        <p class="govuk-body govuk-!-font-weight-bold">See a detailed map of the user-facing screens</p>
+        <p class="govuk-body">
+          <a class="govuk-link" href="/users-create-an-account-to-save-progress-pdf" rel="noreferrer noopener" target="_blank">View a PDF (opens in new tab)</a><br>
+          Best if you want to view or print the journey as it is.
+        </p>
+        <p class="govuk-body">
+          <a class="govuk-link" href="https://www.figma.com/file/OBjFiLWIaxTIVIFduKb1td/GOV.UK-Sign-In%3A-Users-create-an-account-to-save-progress?node-id=0%3A1" rel="noreferrer noopener" target="_blank">View in Figma (opens in new tab)</a><br>
+          Best if you want to copy the screens into your own journey maps and play around with the designs.
+        </p>
+        <p class="govuk-body govuk-!-font-weight-bold">View design recommendations</p>
+        <p class="govuk-body">See our <a class="govuk-link" href="/documentation/design-recommendations" rel="noreferrer noopener" target="_blank">design recommendations</a> which will help you incorporate the ‘save and complete later’ journey into your service.
+        </p>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
