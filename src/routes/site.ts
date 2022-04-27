@@ -38,4 +38,8 @@ router.get('/features/roadmap', (req, res) => {
     res.render('roadmap.njk');
 });
 
+router.get('/getting-started/private-beta', (req, res) => {
+    res.render('getting-started-private-beta.njk');
+});
+
 export default router;
