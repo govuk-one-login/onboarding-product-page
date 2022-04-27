@@ -9,7 +9,7 @@
     "dev": "nodemon -r 'dotenv/config' src/app.ts",
     "buildts": "tsc -p .",
     "buildsass": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js assets/css/app.scss dist/assets/app.css",
-    "buildjs": "uglifyjs --verbose node_modules/govuk-frontend/govuk/all.js -o dist/assets/govuk-all.js && uglifyjs --verbose assets/javascripts/cookies.js -o dist/assets/cookies.js",
+    "buildjs": "uglifyjs --verbose node_modules/govuk-frontend/govuk/all.js -o dist/assets/govuk-all.js && uglifyjs --verbose assets/javascripts/cookies.js -o dist/assets/cookies.js && cp -v -r assets/javascripts/application.js ./dist/assets/application.js  && cp -v -r assets/javascripts/back-to-top.js ./dist/assets/back-to-top.js  && cp -v -r node_modules/govuk-frontend/govuk/vendor/polyfills/Function/prototype/bind.js ./dist/assets/bind.js",
     "buildgovuk": "cp -v -r node_modules/govuk-frontend/govuk/assets/* ./dist/assets && echo \"Done!\"",
     "buildlocalimages": "cp -v -r assets/images/* ./dist/assets/images",
     "buildlocalfiles": "mkdirp ./dist/routes/files && cp -v -r files/* ./dist/routes/files",

@@ -54,4 +54,8 @@ router.get('/users-create-an-account-to-save-progress-pdf', (req, res) => {
     res.sendFile(__dirname + "/files/users-create-an-account-to-save-progress.pdf");
 });
 
+router.get('/documentation/design-recommendations', (req, res) => {
+    res.render('documentation-design-recommendations.njk');
+});
+
 export default router;
