@@ -5,7 +5,7 @@
 
 {% set assetPath = "/dist" %}
 
-{% set documentationUrl = "https://docs.sign-in.service.gov.uk" %}
+{% set documentationUrl = "/documentation" %}
 
 {% block head %}
   <!--[if !IE 8]><!-->
@@ -79,7 +79,7 @@
 {% endblock %}
 
 {% block header %}
-  <header class="govuk-header" role="banner" data-module="govuk-header">
+  <header class="govuk-header" role="banner" data-module="govuk-header" id="top">
     <div class="govuk-header__container govuk-width-container">
       <div class="govuk-header__logo">
         <a href="/" class="govuk-header__link govuk-header__link--homepage">
@@ -108,7 +108,7 @@
                   Features
                 </a>
               </li>
-              <li class="govuk-header__navigation-item">
+              <li class="govuk-header__navigation-item {{ headerNavigationItemActiveDocumentation }}">
                 <a class="govuk-header__link" href="{{ documentationUrl }}">
                   Documentation
                 </a>
@@ -180,6 +180,7 @@
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   <script src="/dist/govuk-all.js"></script>
   <script src="/dist/cookies.js"></script>
+  <script type="module" src="/dist/application.js"></script>
   <script>window.GOVUKFrontend.initAll()</script>
   <script>window.GOVSignin.CookieBanner.init()</script>
 {% endblock %}
