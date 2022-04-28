@@ -186,6 +186,7 @@ div.feature-panel {
 .app-back-to-top {
   margin-top: govuk-spacing(4);
   margin-bottom: govuk-spacing(6);
+  margin-left: 15px;
 }
 
 @include govuk-media-query($from: tablet) {
