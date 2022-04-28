@@ -15,6 +15,6 @@ Feature: A base template that is used for pages that are not part of the evaluat
 
       | menu item         | page                                              |
       | "Features"        | "/features"                                       |
-      | "Documentation"   | "https://docs.sign-in.service.gov.uk"             |
+      | "Documentation"   | "/documentation"             |
       | "Support"         | "/support"                                        |
       | "Get started"     | "/getting-started"                                |
