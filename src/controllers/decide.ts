@@ -10,27 +10,6 @@ requiredFields.set("name", "Enter your name");
 requiredFields.set("service-name", "Enter the name of your service");
 requiredFields.set("department-name", "Enter your department");
 
-export const decide = function (req: Request, res: Response) {
-    res.render('decide.njk');
-}
-
-export const timescales = function (req: Request, res: Response) {
-    res.render('decide-timescales.njk');
-}
-
-export const userJourneys = function (req: Request, res: Response) {
-    res.render('decide-user-journeys.njk');
-}
-
-export const designPatterns = function(req: Request, res: Response) {
-    res.render('decide-design-patterns.njk');
-}
-
-
-export const privateBeta = function (req: Request, res: Response) {
-    res.render('decide-private-beta.njk');
-}
-
 export const showRequestForm = function (req: Request, res: Response) {
     const errorMessages = new Map();
     const values = new Map();
