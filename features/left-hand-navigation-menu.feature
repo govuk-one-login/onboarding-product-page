@@ -8,8 +8,6 @@ Feature: A navigation menu on the left hand side of some pages
 
     Examples:
       | page                      | link                           |
-      | "/decide"                 | "Home"                         |
-      | "/decide/timescales"      | "Timescales"                   |
-      | "/decide/user-journeys"   | "User journeys"                |
-      | "/decide/design-patterns" | "Design patterns"              |
-      | "/decide/private-beta"    | "Request to join private beta" |
+      | "/documentation"                 | "Technical documentation"                         |
+      | "/documentation/user-journeys"      | "User journey maps"                   |
+      | "/documentation/design-recommendations"   | "Design recommendations: ‘create account to save progress’"                |

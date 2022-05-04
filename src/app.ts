@@ -5,6 +5,7 @@ import register from './routes/register'
 import decide from './routes/decide'
 import contactUs from './routes/contact-us'
 import site from "./routes/site";
+import redirects from "./routes/redirects";
 import support from './routes/support'
 import Validation from "./lib/validation";
 
@@ -24,6 +25,7 @@ configureViews(app);
 app.use('/', register);
 app.use('/', contactUs);
 app.use('/', site);
+app.use('/', redirects);
 app.use('/decide', decide);
 app.use('/', support);
 app.locals.googleTagId = process.env.GOOGLE_TAG_ID;

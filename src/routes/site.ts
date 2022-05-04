@@ -22,10 +22,6 @@ router.get('/cookies', (req, res) => {
     res.render('cookies.njk');
 });
 
-router.get('/decide', (req, res) => {
-    res.render('decide.njk');
-});
-
 router.get('/contact-us-details', (req, res) => {
     res.render('contact-us-details.njk');
 });
