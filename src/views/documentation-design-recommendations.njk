@@ -2,8 +2,29 @@
 
 {% block pageTitle %}Design recommendations - GOV.UK Sign In{% endblock %}
 
-{% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing govuk-main-wrapper-evaluate govuk-main-wrapper-documentation govuk-!-padding-top-8 documentation-design-recommendations" %}
+{% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing govuk-main-wrapper-evaluate govuk-main-wrapper-documentation govuk-!-padding-top-6 documentation-design-recommendations" %}
 {% set headerNavigationItemActiveDocumentation = "govuk-header__navigation-item--active" %}
+
+{% block beforeContent %}
+  <div class="govuk-width-container">
+    <div class="govuk-breadcrumbs">
+      <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link"  href="/documentation">Documentation</a>
+        </li>
+        <li class="govuk-breadcrumbs__list-item">
+          <a class="govuk-breadcrumbs__link"  href="#main-content" aria-current="page">Design recommendations</a>
+        </li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}
 
 {% block content %}
 
