@@ -102,15 +102,14 @@ var cookieBanner = function () {
 
     function cookiesPageInit() {
         const cookie = getCookieValue(COOKIES_PREFERENCES_SET);
-        var analyticsValue = false;
 
         if (cookie) {
-            analyticsValue = JSON.parse(cookie).analytics;
+            var analyticsValue = JSON.parse(cookie).analytics;
             initGATagManager(analyticsValue);
+            document.querySelector("#policy-cookies-accepted").checked = analyticsValue;
+            document.querySelector("#policy-cookies-rejected").checked = !analyticsValue;
         }
 
-        document.querySelector("#policy-cookies-accepted").checked = analyticsValue;
-        document.querySelector("#policy-cookies-rejected").checked = !analyticsValue;
         document.querySelector("#save-cookie-settings").addEventListener(
             "click",
             function (event) {
