@@ -1,10 +1,5 @@
 Feature: A contact us form so users can contact us
 
-  Scenario: Check if there are unknown incidents
-
-    Given that the user is on the "/contact-us" page
-    Then the "status page" link will point to the following URL: "https://verifystatus.digital.cabinet-office.gov.uk/"
-
   Scenario: User contacts us and fills in the form correctly
 
     Given that the users enter alphanumeric characters into all of the fields in the contact us form
