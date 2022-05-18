@@ -1,4 +1,5 @@
 {% extends "base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block pageTitle %}GOV.UK Sign In{% endblock %}
 
@@ -26,23 +27,20 @@
     <div class="hero">
       <div class="hero__content">
       <div class="hero__body" id="index-hero-body">
-        <h1 class="hero__title">Help your users sign in quickly, easily and securely</h1>
+        <h1 class="hero__title">Let users sign in to your service</h1>
 
         <p class="hero__description">
-          GOV.UK Sign In is the new way for government services to sign in their users
+          Try GOV.UK Sign In if you work on a central government service.
         </p>
 
-        <p class="hero__paragraph">
-          If you work in central government, sign up to join our private beta
-        </p>
-        <a href="/register" role="button" draggable="false" class="govuk-button govuk-button--start app-button--inverted">
-          Register your interest
+        <a href="/getting-started" role="button" draggable="false" class="govuk-button govuk-button--start app-button--inverted">
+          Get started
           <svg aria-hidden="true" class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" focusable="false">
           <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z" />
           </svg>
         </a>
         <span class="hero-alternative-action">
-    or &nbsp;<a class="govuk-link" href="/features" data-click-events data-click-category="Hero" data-click-action="Internal link clicked">find out more</a>
+    or &nbsp;<a class="govuk-link" href="/features" data-click-events data-click-category="Hero" data-click-action="Internal link clicked">see what GOV.UK Sign In offers</a>
     </span>
       </div>
       <div class="hero__aside-image">
@@ -57,22 +55,28 @@
     <div class="govuk-grid-row content-section govuk-!-margin-bottom-7 feature-row">
       <div class="govuk-grid-column-one-half feature-column">
       <div class="govuk-panel feature-panel">
-        <h2 class="govuk-heading-l">
-          Easy for users
+        <h2 class="govuk-heading-m">
+          Let users sign in
         </h2>
-        <div class="govuk-body">
-          GOV.UK Sign In will give your users access to everything they need to do with government in one place.
-        </div>
+        <p class="govuk-body">
+          <strong class="govuk-tag">
+            Available now
+          </strong>
+        </p>
+        <p class="govuk-body">
+          Let your users sign into your service with their email address, password and two-factor authentication.
+        </p>
+        <p class="govuk-body">
+          They’ll be able to use these details to access all services that use GOV.UK Sign In. This is part of our ‘one login for government’ vision.
+        </p>
+        <p class="govuk-body">
+          <a class="govuk-link" href="/features">See the features available now.</a>
+        </p>
       </div>
       </div>
       <div class="govuk-grid-column-one-half  feature-column">
       <div class="govuk-panel feature-panel">
-        <h2 class="govuk-heading-l">
-          Free to use
-        </h2>
-        <div class="govuk-body">
-          GOV.UK Sign In is free to use for central government during private beta.
-        </div>
+        <div class="govuk-!-margin-bottom-5"><img src="/dist/images/Sign-in.svg" alt="" style="width: 100%; height: auto;"></div>
       </div>
       </div>
     </div>
@@ -80,22 +84,31 @@
     <div class="govuk-grid-row govuk-!-margin-bottom-7 feature-row">
       <div class=" govuk-grid-column-one-half feature-column">
       <div class="govuk-panel feature-panel">
-        <h2 class="govuk-heading-l">
-          Protection assured
+        <h2 class="govuk-heading-m">
+          Check the identity of your users
         </h2>
-        <div class="govuk-body">
-          GOV.UK Sign In will give you the level of protection you need for your users.
-        </div>
+        <p class="govuk-body">
+          <strong class="govuk-tag govuk-tag--blue">
+            Available soon
+          </strong>
+        </p>
+        <p class="govuk-body">
+          Soon we’ll add identity checks to GOV.UK Sign In.
+        </p>
+        <p class="govuk-body">
+          You’ll get confirmation that the person is who they say they are without having to do any checks yourself.
+        </p>
+        <p class="govuk-body">
+          Users will be able to reuse these checks to access other government services.
+        </p>
+        <p class="govuk-body">
+          <a class="govuk-link" href="/features/roadmap">See our roadmap</a> for more about our future plans.
+        </p>
       </div>
       </div>
       <div class=" govuk-grid-column-one-half feature-column">
       <div class="govuk-panel feature-panel">
-        <h2 class="govuk-heading-l">
-          Simple to join
-        </h2>
-        <div class="govuk-body">
-          Your technical team can connect to GOV.UK Sign In within hours.
-        </div>
+        <div class="govuk-!-margin-bottom-5"><img src="/dist/images/Identity.svg" alt="" style="width: 100%; height: auto;"></div>
       </div>
       </div>
     </div>
@@ -103,60 +116,62 @@
     <div class="govuk-grid-row govuk-!-margin-bottom-7 feature-row">
       <div class=" govuk-grid-column-one-half feature-column">
       <div class="govuk-panel feature-panel">
-        <h2 class="govuk-heading-l">
-          Connecting government services
+        <h2 class="govuk-heading-m">
+          Get set up quickly and easily
         </h2>
-        <div class="govuk-body">
-          GOV.UK Sign In will allow users to access any government service using the same username and password.
-        </div>
+        <p class="govuk-body">
+          Try out GOV.UK Sign In in our test environment with no obligations. Integrate at your own page by following our <a class="govuk-link" href="https://docs.sign-in.service.gov.uk" target="_blank">technical documentation (opens in new tab)</a>.
+        </p>
+        <div class="govuk-!-padding-right-3 govuk-!-margin-bottom-5 govuk-!-padding-top-2"><img src="/dist/images/Technical-documentation.svg" alt="" style="width: 100%; height: auto;"></div>
       </div>
       </div>
       <div class=" govuk-grid-column-one-half feature-column">
-      <div class="govuk-panel feature-panel">
-        <h2 class="govuk-heading-l">
-          Identity checking
-        </h2>
-        <div class="govuk-body">
-          In the future you’ll be able to prove your users are who they say they are, all with just a few extra lines of code.
+      <div class="govuk-panel feature-panel govuk-!-padding-left-3">
+        <div class="govuk-body govuk-!-padding-top-8 govuk-!-padding-bottom-5">
+          Incorporate our extensively researched, accessible <a class="govuk-link" href="/documentation/user-journeys">user journeys</a> into your existing service journey.
         </div>
+        <div class="govuk-!-margin-bottom-5 govuk-!-padding-top-2"><img src="/dist/images/User-journeys.svg" alt="" style="width: 100%; height: auto;"></div>
       </div>
       </div>
     </div>
 
-    <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+    <div class="govuk-grid-row govuk-!-margin-bottom-7 govuk-!-padding-left-2 govuk-grid-row-home-last">
+      <h2 class="govuk-heading-m">
+        Try GOV.UK Sign In
+      </h2>
+      <p class="govuk-body">
+        You can try out GOV.UK Sign In if you’re a central government service and  need to sign in your users.
+      </p>
+      <p class="govuk-body">
+        If it works for your service, you can also join our beta and offer it to your users.
+      </p>
 
-    <div class="govuk-grid-row govuk-!-margin-bottom-7">
-      <div class=" govuk-grid-column-one-half feature-column">
-      <section class="content-section">
-        <h2 class="govuk-heading-m content-section__first-heading">GOV.UK Sign In:</h2>
-        <p class="govuk-body">
-        <ul class="govuk-list govuk-list--bullet">
-          <li>
-          is quick and easy to implement
-          </li>
-          <li>
-          is fully supported by the GDS technical team
-          </li>
-          <li>
-          uses accessible GOV.UK design patterns
-          </li>
-        </ul>
-        </p>
-      </section>
-      </div>
+      {{ govukButton({
+        text: "Get started",
+        href: "/getting-started",
+        isStartButton: true
+      }) }}
 
-      <div class=" govuk-grid-column-one-half feature-column">
-      <section class="content-section">
-        <h2 class="govuk-heading-m content-section__first-heading">What next</h2>
-        <p class="govuk-body">
-          <a class="govuk-link" href="/register">Register your interest in using GOV.UK Sign In.</a>
-        </p>
-        <p class="govuk-body">
-          <a class="govuk-link" href="/support">Contact us</a> with any questions.
-        </p>
-      </section>
-      </div>
+      <h2 class="govuk-heading-m govuk-!-margin-top-4">
+        Join our mailing list
+      </h2>
+      <p class="govuk-body">
+        If you have a public sector email address, join our mailing list to stay up to date with our progress.
+      </p>
+      <p class="govuk-body">
+        You’ll get updates on our work and invitations to our regular cross-government show and tells.
+      </p>
+
+      <h2 class="govuk-heading-m govuk-!-margin-top-6">
+        Get in touch
+      </h2>
+
+      <p class="govuk-body">
+        Use our <a class="govuk-link" href="/support">support form</a> if you have any questions. We’d also love to hear your feedback or suggestions for improvements.
+      </p>
+
     </div>
+
   </div>
 
 

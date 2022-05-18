@@ -20,17 +20,31 @@ $govuk-new-link-styles: true;
   div.feature-row {
     display: flex;
     align-items: stretch;
+
+    padding: 0 10px;
   }
 
   div.feature-column {
     display: flex;
     align-items: stretch;
+    border-bottom: 1px solid #b1b4b6;
+  }
+
+  div.govuk-grid-column-one-half {
+    padding: 0;
+  }
+
+  div.govuk-panel {
+    padding: 0;
+  }
+
+  div.govuk-grid-row-home-last {
+    width: 66%;
   }
 }
 
 div.feature-panel {
   text-align: left;
-  border: 3px solid #F3F2F1;
   box-sizing: border-box;
 }
 
