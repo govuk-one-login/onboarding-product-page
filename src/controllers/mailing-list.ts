@@ -59,7 +59,7 @@ export const mailingList = async function(req: Request, res: Response) {
     res.render('mailing-list.njk', { errors: errorMessages, values: formValueHolder });
   } else {
 
-    let sheet = new SheetsService('blablablaa');
+    let sheet = new SheetsService(process.env.MAILING_LIST_SPREADSHEET_ID as string);
     let values = new Map<string, string>();
     values.set('name', personalName);
     values.set('organisation', organisationName);
@@ -68,7 +68,10 @@ export const mailingList = async function(req: Request, res: Response) {
 
     try {
       await sheet.init();
-      await sheet.appendValues(values, 'bla', 'blablaa');
+      await sheet.appendValues(values,
+        process.env.MAILING_LIST_SHEET_DATA_RANGE as string,
+        process.env.MAILING_LIST_SHEET_HEADER_RANGE as string
+      );
       res.send("Data submitted");
     } catch(err) {
       console.error(err);

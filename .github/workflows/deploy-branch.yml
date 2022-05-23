@@ -20,3 +20,4 @@ jobs:
       cf_password: ${{ secrets.CF_PASSWORD }}
       register_spreadsheet_id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
       request_spreadsheet_id: ${{ secrets.REQUEST_SPREADSHEET_ID }}
+      mailing_list_spreadsheet_id: ${{ secrets.MAILING_LIST_SPREADSHEET_ID }}
