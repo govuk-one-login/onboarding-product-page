@@ -72,10 +72,11 @@ export const mailingList = async function(req: Request, res: Response) {
         process.env.MAILING_LIST_SHEET_DATA_RANGE as string,
         process.env.MAILING_LIST_SHEET_HEADER_RANGE as string
       );
-      res.send("Data submitted");
+      res.redirect('/mailing-list/confirmation');
     } catch(err) {
       console.error(err);
-      res.send("ERROR - try again later");
+      res.status(500);
+      res.render('there-is-a-problem.njk');
     }
 
   }
