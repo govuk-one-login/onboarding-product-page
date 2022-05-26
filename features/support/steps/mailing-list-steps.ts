@@ -7,3 +7,10 @@ Given('that the users enter alphanumeric characters into all of the fields in th
   await this.page.type("#contactEmail", 'tessa.ting@foo-bar.gov.uk');
   await this.page.type("#serviceName", 'Unicorn Testing');
 });
+
+Given('that the users enter alphanumeric characters into all of the fields in the mailing list form except the name field', async function () {
+  await this.goToPath("/mailing-list");
+  await this.page.type('#organisationName', 'Department of Sorcery');
+  await this.page.type("#contactEmail", 'tessa.ting@foo-bar.gov.uk');
+  await this.page.type("#serviceName", 'Unicorn Testing');
+});
