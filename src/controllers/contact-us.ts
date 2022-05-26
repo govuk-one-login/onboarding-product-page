@@ -21,7 +21,7 @@ export const submitForm = async function(req: Request, res: Response) {
     const values = new Map<string, string>(Object.entries(req.body));
     values.forEach((value, key) => values.set(key, value.trim()));
 
-    const errorMessages = (req.app.get('validation') as Validation).validate(values, requiredFields);
+    const errorMessages = await (req.app.get('validation') as Validation).validate(values, requiredFields);
 
     if (errorMessages.size == 0) {
         const zendesk = new ZendeskService(

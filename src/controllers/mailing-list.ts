@@ -1,8 +1,9 @@
 import express, {NextFunction, Request, Response} from 'express';
 import SheetsService from "../lib/sheets/SheetsService";
 import Validation from "../lib/validation";
-import * as EmailValidator from 'email-validator';
 import fs from 'fs';
+import isRfc822Compliant from "../lib/validation/email-validator/isRfc822Compliant";
+import {isGovernmentEmailAddress} from "../lib/validation/email-validator/emailValidator";
 
 export const mailingList = async function(req: Request, res: Response) {
   const personalName = req.body.personalName;
@@ -31,24 +32,12 @@ export const mailingList = async function(req: Request, res: Response) {
 
   if(contactEmail === "") {
     errorMessages.set('contactEmail', 'Enter your government email address');
-  } else if(!EmailValidator.validate(contactEmail)){
+  } else if(!isRfc822Compliant(contactEmail)){
     errorMessages.set('contactEmail', 'Enter an email address in the correct format, like name@example.gov.uk');
   } else {
-    try {
-      const emails = fs.readFileSync("./valid-email-domains.txt", "utf-8");
-      let validEmailDomains = [];
-      validEmailDomains = emails.split("\n");
-      const ind = contactEmail.indexOf("@");
-      const emailDomain = contactEmail.slice((ind+1),contactEmail.length);
-      const isEmailGovUK = validEmailDomains.includes(emailDomain);
-      if (!isEmailGovUK) {
+      if (! await isGovernmentEmailAddress(contactEmail)) {
         errorMessages.set('contactEmail', 'Enter a government email address');
       }
-    } catch (error) {
-      console.error("List of valid email domains could not be loaded.");
-      console.error(error);
-      process.kill(process.pid, 'SIGTERM');
-    }
   }
 
   if(!onlyLettersAndNumbersPattern.test(serviceName)) {

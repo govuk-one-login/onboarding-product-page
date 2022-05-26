@@ -1,24 +1,15 @@
+import {isGovernmentEmailAddress} from "./email-validator/emailValidator";
+
 const emailValidator = require('./email-validator');
 import fs from 'fs';
+import isRfc822Compliant from "./email-validator/isRfc822Compliant";
 
 export default class Validation {
-    validEmailDomains: string[];
     static instance: Validation;
 
-    constructor() {
-        this.validEmailDomains = [];
-        console.log("Loading list of valid email domains.")
-        try {
-            let emails = fs.readFileSync("./valid-email-domains.txt", "utf-8")
-            this.validEmailDomains = emails.split("\n");
-        } catch (error) {
-            console.error("List of valid email domains could not be loaded.");
-            console.error(error);
-            process.kill(process.pid, 'SIGTERM');
-        }
-    }
+    constructor() {}
 
-    validate(form: Map<string, string>, requiredFields: Map<string, string>): Map<string, string> {
+    async validate(form: Map<string, string>, requiredFields: Map<string, string>): Promise<Map<string, string>> {
         const errors = new Map();
 
         requiredFields.forEach((errorMessage, field) => {
@@ -30,7 +21,8 @@ export default class Validation {
         if (!errors.has('email')) {
             if (this.invalidEmailAddress(form)) {
                 errors.set('email', 'Enter an email address in the correct format, like name@gov.uk');
-            } else if (this.notGovernmentEmail(form)) {
+            } else if (await this.notGovernmentEmail(form)) {
+                console.log("not government email address")
                 errors.set('email', 'Enter a government email address');
             }
         }
@@ -43,16 +35,12 @@ export default class Validation {
     }
 
     invalidEmailAddress(form: Map<string, string>): boolean {
-        return !emailValidator(form.get('email'))
+        console.log((form.get('email') || '').trim())
+        return isRfc822Compliant((form.get('email') || '').trim())
     }
 
-    notGovernmentEmail(form: Map<string, string>): boolean {
-        // "" will match anything and we get that if there's an empty line at the end of valid-email-domains.txt
-        let match = this.validEmailDomains.find(suffix => {
-            // @ts-ignore
-            return form.get('email').trim().endsWith(suffix) && suffix != "";
-        });
-        return match == undefined;
+    async notGovernmentEmail(form: Map<string, string>): Promise<boolean> {
+        return !(isGovernmentEmailAddress((form.get('email') || '').trim()));
     }
 
     static getInstance() {

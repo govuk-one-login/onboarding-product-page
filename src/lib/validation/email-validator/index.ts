@@ -1,13 +1,4 @@
-'use strict'
+import isRfc822Compliant from "./isRfc822Compliant";
+import allowedEmailDomains from "./allowedEmailDomains";
 
-// npm dependencies
-const rfc822Validator = require('rfc822-validate')
-
-module.exports = (email: string) => {
-    if (!rfc822Validator(email)) {
-        return false
-    } else {
-        let domain = email.split('@')[1]
-        return !(domain && domain.indexOf('.') === -1)
-    }
-}
+module.exports = {isRfc822Compliant, allowedEmailDomains}
