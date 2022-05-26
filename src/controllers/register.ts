@@ -9,6 +9,8 @@ requiredFields.set("email", "Enter your government email address");
 requiredFields.set("name", "Enter your name");
 requiredFields.set("service-name", "Enter the name of your service");
 requiredFields.set("organisation-name", "Enter your organisation name");
+requiredFields.set("mailing-list", "Select if you’d like to join the mailing list or not");
+
 
 export const get = function(req: Request, res: Response) {
     const errorMessages = new Map();
@@ -38,6 +40,22 @@ export const post = async function(req: Request, res: Response) {
                 console.log(reason);
                 redirectTo = '/register-error'
             });
+
+            if(values.get("mailing-list") === "yes") {
+                values.set("service", values.get("service-name") as string);
+                values.set("organisation", values.get("organisation-name") as string);
+                let sheetsService: SheetsService = new SheetsService(process.env.MAILING_LIST_SPREADSHEET_ID as string);
+                await sheetsService.init().catch(() => redirectTo = '/register-error');
+                await sheetsService.appendValues(
+                    values,
+                    process.env.MAILING_LIST_SHEET_DATA_RANGE as string,
+                    process.env.MAILING_LIST_SHEET_HEADER_RANGE as string)
+                    .catch(reason => {
+                        console.log(reason);
+                        redirectTo = '/register-error'
+                    });
+                }
+
         console.log("Saved to sheets");
         res.redirect(redirectTo);
     } else {
@@ -50,7 +68,8 @@ export const post = async function(req: Request, res: Response) {
                         "name",
                         "organisation-name",
                         "email",
-                        "service-name"
+                        "service-name",
+                        "mailing-list"
                     ]
             });
     }
