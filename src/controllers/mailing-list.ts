@@ -1,6 +1,5 @@
 import express, {NextFunction, Request, Response} from 'express';
 import SheetsService from "../lib/sheets/SheetsService";
-import Validation from "../lib/validation";
 import * as EmailValidator from 'email-validator';
 import fs from 'fs';
 
@@ -38,9 +37,12 @@ export const mailingList = async function(req: Request, res: Response) {
       const emails = fs.readFileSync("./valid-email-domains.txt", "utf-8");
       let validEmailDomains = [];
       validEmailDomains = emails.split("\n");
-      const ind = contactEmail.indexOf("@");
-      const emailDomain = contactEmail.slice((ind+1),contactEmail.length);
-      const isEmailGovUK = validEmailDomains.includes(emailDomain);
+
+      const isEmailGovUK = validEmailDomains.find(suffix => {
+        // @ts-ignore
+        return contactEmail.trim().endsWith(suffix) && suffix != "";
+      });
+      
       if (!isEmailGovUK) {
         errorMessages.set('contactEmail', 'Enter a government email address');
       }
