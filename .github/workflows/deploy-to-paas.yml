@@ -16,6 +16,7 @@ on:
       cf_password: { required: true }
       register_spreadsheet_id: { required: true }
       request_spreadsheet_id: { required: true }
+      mailing_list_spreadsheet_id: { required: true }
       zendesk_api_token: { required: false }
       zendesk_group_id: { required: false }
       zendesk_username: { required: false }
@@ -85,6 +86,7 @@ jobs:
             --instances ${{ inputs.instances }} $([[ $ROLLING_DEPLOYMENT == "true" ]] && echo --strategy rolling) \
             --var register_spreadsheet_id=${{ secrets.register_spreadsheet_id }} \
             --var request_spreadsheet_id=${{ secrets.request_spreadsheet_id }} \
+            --var mailing_list_spreadsheet_id=${{ secrets.mailing_list_spreadsheet_id }} \
             --var use_stub_zendesk=${{ inputs.use_stub_zendesk }} \
             --var zendesk_api_token="${ZENDESK_API_TOKEN:- }" \
             --var zendesk_group_id="${ZENDESK_GROUP_ID:- }" \

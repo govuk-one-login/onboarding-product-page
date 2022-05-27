@@ -8,6 +8,7 @@ import site from "./routes/site";
 import redirects from "./routes/redirects";
 import support from './routes/support'
 import Validation from "./lib/validation";
+import mailingList from './routes/mailing-list';
 
 const app = express();
 const bodyParser = require('body-parser')
@@ -29,6 +30,7 @@ app.use('/', redirects);
 app.use('/decide', decide);
 app.use('/', support);
 app.locals.googleTagId = process.env.GOOGLE_TAG_ID;
+app.use('/', mailingList);
 
 //This middleware function should always be at the very bottom of the stack (below all other functions related to routing).
 app.use((req, res, next) => {

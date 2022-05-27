@@ -5,16 +5,16 @@ on: pull_request
 jobs:
   build:
     name: Build
-    uses: alphagov/di-onboarding-product-page/.github/workflows/build.yml@0fc71869649811ea52287bc833949a78730c653e
+    uses: alphagov/di-onboarding-product-page/.github/workflows/build.yml@d012d1808b94e10a3d115430e1d11359b31bd50a
 
   run-unit-tests:
     name: Run tests
-    uses: alphagov/di-onboarding-product-page/.github/workflows/run-unit-tests.yml@0fc71869649811ea52287bc833949a78730c653e
+    uses: alphagov/di-onboarding-product-page/.github/workflows/run-unit-tests.yml@d012d1808b94e10a3d115430e1d11359b31bd50a
 
   deploy-preview:
     name: Preview
     needs: build
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@e5a1f487a479318759f644da1c3b78fba2bf5efc
+    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@d012d1808b94e10a3d115430e1d11359b31bd50a
     with:
       environment: preview
       cf_space_name: product-pages-preview
@@ -24,6 +24,7 @@ jobs:
       cf_password: ${{ secrets.CF_PASSWORD }}
       register_spreadsheet_id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
       request_spreadsheet_id: ${{ secrets.REQUEST_SPREADSHEET_ID }}
+      mailing_list_spreadsheet_id: ${{ secrets.MAILING_LIST_SPREADSHEET_ID }}
 
   run-acceptance-tests:
     name: Run tests
