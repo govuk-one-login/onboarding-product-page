@@ -8,6 +8,7 @@ Feature: A register form so users can sign up to get access to the GOV.UK Sign I
     And they should be directed to the following page: "/register-confirm"
     And they should see the text "You have signed up for access to GOV.UK Sign In"
 
+
   Scenario: The user doesn't complete the name field
 list
     Given that the users enter alphanumeric characters into all of the fields in the register form except the Name field
@@ -58,3 +59,4 @@ list
       Then their data is saved in the spreadsheet
       And they should be directed to the following page: "/register-confirm"
       And they should see the text "You have signed up for access to GOV.UK Sign In"
+
