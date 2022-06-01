@@ -6,7 +6,8 @@ Feature: A register form so users can sign up to get access to the GOV.UK Sign I
     When they select the Submit button
     Then their data is saved in the spreadsheet
     And they should be directed to the following page: "/register-confirm"
-    And they should see the text "You have successfully registered your interest"
+    And they should see the text "You have signed up for access to GOV.UK Sign In"
+
 
   Scenario: The user doesn't complete the name field
 list
@@ -57,4 +58,5 @@ list
       When they select the Submit button
       Then their data is saved in the spreadsheet
       And they should be directed to the following page: "/register-confirm"
-      And they should see the text "You have successfully registered your interest"
+      And they should see the text "You have signed up for access to GOV.UK Sign In"
+
