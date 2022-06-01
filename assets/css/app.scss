@@ -43,6 +43,13 @@ $govuk-new-link-styles: true;
     div.govuk-grid-row-home-last {
       width: 66%;
     }
+    div.home-feature-column-padding-left-10 {
+      padding-left: 12px;
+    }
+
+    div.home-feature-column-padding-right-10 {
+      padding-right: 10px;
+    }
   }
 
 }
@@ -56,6 +63,10 @@ div.feature-panel {
   div.feature-panel {
     border: none;
   }
+}
+
+.govuk-heading-m.homepage-h2-with-banner-below {
+  margin-bottom: 8px;
 }
 
 @media(min-width: 769px) {
@@ -247,10 +258,6 @@ div.feature-panel {
   .product-page-home {
     .masthead {
       margin-bottom: 10px;
-    }
-
-    .govuk-heading-m.homepage-h2-with-banner-below {
-      margin-bottom: 8px;
     }
 
     .govuk-grid-column-one-half {
