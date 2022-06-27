@@ -61,6 +61,7 @@ Resources:
                   - "lambda:GetFunction"
                   - "lambda:GetFunctionConfiguration"
                   - "lambda:GetLayerVersion"
+                  - "lambda:ListTags"
                   - "lambda:PublishLayerVersion"
                   - "lambda:PublishVersion"
                   - "lambda:UpdateFunction"
