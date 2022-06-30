@@ -9,17 +9,17 @@ applications:
       USE_STUB_SHEETS: false
       REGISTER_SHEET_DATA_RANGE: Register!A1
       REGISTER_SHEET_HEADER_RANGE: Register!A1:Y1
-      REGISTER_SPREADSHEET_ID: ((register_spreadsheet_id))
+      REGISTER_SPREADSHEET_ID: ((register-spreadsheet-id))
       REQUEST_SHEET_DATA_RANGE: "'Request to join private beta'!A1"
       REQUEST_SHEET_HEADER_RANGE: "'Request to join private beta'!A1:F1"
-      REQUEST_SPREADSHEET_ID: ((request_spreadsheet_id))
+      REQUEST_SPREADSHEET_ID: ((request-spreadsheet-id))
       MAILING_LIST_SHEET_DATA_RANGE: "'user who have requested to join the mailing list '!A1"
       MAILING_LIST_SHEET_HEADER_RANGE: "'user who have requested to join the mailing list '!A1:D1"
-      MAILING_LIST_SPREADSHEET_ID: ((mailing_list_spreadsheet_id))
+      MAILING_LIST_SPREADSHEET_ID: ((mailing-list-spreadsheet-id))
       ZENDESK_API_URL: https://govuk.zendesk.com/api/v2
       ZENDESK_TAG: sign_in_service_teams
-      USE_STUB_ZENDESK: ((use_stub_zendesk))
-      ZENDESK_GROUP_ID: ((zendesk_group_id))
-      ZENDESK_USERNAME: ((zendesk_username))
-      ZENDESK_API_TOKEN: ((zendesk_api_token))
-      GOOGLE_TAG_ID: ((google_tag_id))
+      USE_STUB_ZENDESK: ((use-stub-zendesk))
+      ZENDESK_GROUP_ID: ((zendesk-group-id))
+      ZENDESK_USERNAME: ((zendesk-username))
+      ZENDESK_API_TOKEN: ((zendesk-api-token))
+      GOOGLE_TAG_ID: ((google-tag-id))

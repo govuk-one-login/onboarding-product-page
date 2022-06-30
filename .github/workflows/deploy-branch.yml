@@ -10,14 +10,14 @@ jobs:
   deploy-preview:
     name: Preview
     needs: build
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@d012d1808b94e10a3d115430e1d11359b31bd50a
+    uses: ./.github/workflows/deploy-to-paas.yml
     with:
       environment: preview
-      cf_space_name: product-pages-preview
-      app_name: di-pp-prev-${{ github.ref_name }}
+      cf-space-name: product-pages-preview
+      app-name-prefix: di-pp-prev
     secrets:
-      cf_username: ${{ secrets.CF_USERNAME }}
-      cf_password: ${{ secrets.CF_PASSWORD }}
-      register_spreadsheet_id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
-      request_spreadsheet_id: ${{ secrets.REQUEST_SPREADSHEET_ID }}
-      mailing_list_spreadsheet_id: ${{ secrets.MAILING_LIST_SPREADSHEET_ID }}
+      cf-username: ${{ secrets.CF_USERNAME }}
+      cf-password: ${{ secrets.CF_PASSWORD }}
+      register-spreadsheet-id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
+      request-spreadsheet-id: ${{ secrets.REQUEST_SPREADSHEET_ID }}
+      mailing-list-spreadsheet-id: ${{ secrets.MAILING_LIST_SPREADSHEET_ID }}
