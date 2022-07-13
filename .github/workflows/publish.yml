@@ -7,11 +7,11 @@ on:
 jobs:
   build:
     name: Build
-    uses: alphagov/di-onboarding-product-page/.github/workflows/build.yml@d012d1808b94e10a3d115430e1d11359b31bd50a
+    uses: ./.github/workflows/build.yml
 
   run-unit-tests:
     name: Run tests
-    uses: alphagov/di-onboarding-product-page/.github/workflows/run-unit-tests.yml@0fc71869649811ea52287bc833949a78730c653e
+    uses: ./.github/workflows/run-unit-tests.yml
 
   deploy-test:
     name: Test
@@ -31,7 +31,7 @@ jobs:
   run-acceptance-tests:
     name: Run tests
     needs: deploy-test
-    uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@afc46a2e0f0bf612dbfd3171af1c4ce322e608e4
+    uses: ./.github/workflows/run-acceptance-tests.yml
     with:
       host: ${{ needs.deploy-test.outputs.deployment-url }}
 
