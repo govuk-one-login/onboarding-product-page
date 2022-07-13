@@ -17,44 +17,31 @@ jobs:
     runs-on: ubuntu-latest
     environment: preview
     steps:
-      - name: Install Cloud Foundry client
-        env:
-          CF_CLI_DOWNLOAD_URL: https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github&version=v7
-        run: |
-          curl -sL ${CF_CLI_DOWNLOAD_URL} | sudo tar -zx -C /usr/local/bin
-          cf version
-
       - name: PaaS login
-        env:
-          CF_API_URL: https://api.london.cloud.service.gov.uk
-          CF_ORG_NAME: gds-digital-identity-onboarding
-          CF_SPACE_NAME: product-pages-preview
-          CF_USERNAME: ${{ secrets.cf_username }}
-          CF_PASSWORD: ${{ secrets.cf_password }}
-        run: |
-          cf api ${CF_API_URL}
-          cf auth
-          cf target -o ${CF_ORG_NAME} -s ${CF_SPACE_NAME}
+        uses: alphagov/di-github-actions/paas/log-in-to-paas@64fae1abf5a5bf6360c7560dbc6a6fa850484f11
+        with:
+          cf-org-name: gds-digital-identity-onboarding
+          cf-space-name: product-pages-preview
+          cf-username: ${{ secrets.CF_USERNAME }}
+          cf-password: ${{ secrets.CF_PASSWORD }}
+
+      - name: Get app name
+        if: ${{ github.event_name != 'schedule' }}
+        uses: alphagov/di-github-actions/beautify-branch-name@64fae1abf5a5bf6360c7560dbc6a6fa850484f11
+        with:
+          downcase: true
+          length-limit: 63
+          underscores-to-hyphens: true
+          prefix: di-pp-prev
+          set-env-var: APP_NAME
+          usage: App name
 
       - name: Delete app
         if: ${{ github.event_name != 'schedule' }}
-        run: |
-          branch_name=$([[ ${{ github.event_name }} == 'pull_request' ]] && echo ${{ github.head_ref }} || echo ${{ github.ref_name }})
-          app_name=$(echo di-pp-prev-${branch_name} | tr '[:upper:]' '[:lower:]' | tr '_' '-' | cut -c1-63)
-          cf delete $app_name -rf
+        run: cf delete "$APP_NAME" -rf
 
       - name: Clean up stale deployments
         if: ${{ github.event_name == 'schedule' }}
-        run: |
-          cut_off_date=$(date -d "30 days ago" +%Y-%m-%d)
-          echo "Cut off date: $cut_off_date"
-          
-          for app in $(cf apps | awk 'NR>3 {print $1}')
-          do
-            last_upload_date=$(cf events $app | grep audit.app.package.upload | awk 'NR==1 {print $1}')
-            echo "$app | last uploaded: $last_upload_date"
-          
-            if [[ -z $last_upload_date || $(date -d $last_upload_date +%Y-%m-%d) < $cut_off_date ]]; then
-              cf delete $app -rf
-            fi
-          done
+        uses: alphagov/di-github-actions/paas/delete-stale-apps@64fae1abf5a5bf6360c7560dbc6a6fa850484f11
+        with:
+          age-threshold-days: 30
