@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
   build:
     name: Build
-    uses: alphagov/di-onboarding-product-page/.github/workflows/build.yml@d012d1808b94e10a3d115430e1d11359b31bd50a
+    uses: ./.github/workflows/build.yml
 
   deploy-preview:
     name: Preview
