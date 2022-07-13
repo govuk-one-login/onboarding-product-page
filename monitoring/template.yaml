@@ -1,98 +1,108 @@
-AWSTemplateFormatVersion: 2010-09-09
-Description: >-
-  canaries
-
-Transform:
-- AWS::Serverless-2016-10-31
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: DI product page monitoring
 
 Parameters:
-  Account:
+  SlackWebhookParamName:
     Type: String
+    Default: slack-webhook-path
+  SlackChannelParamName:
+    Type: String
+    Default: slack-canary-channel
+  NotificationEmailAddressParamName:
+    Type: String
+    Default: canary-notification-email-address
+  DIProductPageURL:
+    Type: String
+    Default: https://www.sign-in.service.gov.uk/
 
 Resources:
-
-  ProductPagesCanary:
+  ProductPageCanary:
     Type: AWS::Synthetics::Canary
     Properties:
-      Name: !Sub "${Account}-prod-pages"
-      ArtifactS3Location: !Sub "S3://${CanaryResultsBucket}"
+      Name: di-product-page
+      ArtifactS3Location: !Sub s3://${CanaryResultsBucket}
       SuccessRetentionPeriod: 1
       FailureRetentionPeriod: 5
       Code:
         Handler: index.handler
-        Script: |
-          var synthetics = require('Synthetics');
-          const log = require('SyntheticsLogger');
-          let url = "https://www.sign-in.service.gov.uk/";
-          let syntheticsConfig = synthetics.getConfiguration();
+        Script: !Sub |
+          const url = '${DIProductPageURL}';
+          const synthetics = require('Synthetics');
+          const syntheticsConfig = synthetics.getConfiguration();
           syntheticsConfig.setConfig({
-              screenshotOnStepStart : false,
-              screenshotOnStepSuccess: false,
-              screenshotOnStepFailure: true,
-              includeRequestHeaders: true, // Enable if headers should be displayed in HAR
-              includeResponseHeaders: true, // Enable if headers should be displayed in HAR
-              restrictedHeaders: [], // Value of these headers will be redacted from logs and reports
-              restrictedUrlParameters: [] // Values of these url parameters will be redacted from logs and reports
+            screenshotOnStepStart: false,
+            screenshotOnStepSuccess: false,
+            screenshotOnStepFailure: true,
+            includeRequestHeaders: true, // Enable if headers should be displayed in HAR
+            includeResponseHeaders: true, // Enable if headers should be displayed in HAR
+            restrictedHeaders: [], // Value of these headers will be redacted from logs and reports
+            restrictedUrlParameters: [] // Values of these url parameters will be redacted from logs and reports
           });
           exports.handler = async () => {
-              let page = await synthetics.getPage();
-              await synthetics.executeStep('Open product pages', async function (timeoutInMillis = 30000) {
-                  await page.goto(url, {waitUntil: ['load', 'networkidle0'], timeout: timeoutInMillis});
-              });
+            const page = await synthetics.getPage();
+            await synthetics.executeStep('Open product pages', async function (timeoutInMillis = 30000) {
+              const response = await page.goto(url, { waitUntil: ['load', 'networkidle0'], timeout: timeoutInMillis });
+              if (!response || response.status() < 200 || response.status() > 299) {
+                throw `Failed to load the page at ${!url} (${!response?.status()})`
+              }
+            });
           };
       ExecutionRoleArn: !GetAtt CanaryExecutionRole.Arn
-      RuntimeVersion: "syn-nodejs-puppeteer-3.2"
+      RuntimeVersion: syn-nodejs-puppeteer-3.6
       RunConfig:
-        TimeoutInSeconds: 59
+        TimeoutInSeconds: 60
       Schedule:
         Expression: rate(5 minutes)
       StartCanaryAfterCreation: true
 
-  SnsToSlackFunction:
+  CanarySnsToSlackFunction:
     Type: AWS::Serverless::Function
-    DependsOn:
-      - SlackSnsTopic
     Properties:
-      Description: A Lambda function that takes SNS messages and translates them to a form of JSON Slack understands and then sends that JSON to Slack.
+      Description: A lambda function that takes a Canary SNS message and sends it to Slack
+      CodeUri: lambda
+      Handler: sns-to-slack.canarySnsToSlackHandler
+      Runtime: nodejs16.x
       Environment:
         Variables:
-          WEBHOOK_PARAMETER_NAME: "canaries-slack-webhook-path"
-          SLACK_CHANNEL: "di-dfa-alerts"
-      Runtime: nodejs14.x
-      Architectures:
-        - x86_64
-      CodeUri: lambdas/sns_to_slack/
-      Handler: snsToSlack.lambdaHandler
+          SLACK_CHANNEL: !Sub "{{resolve:ssm:${SlackChannelParamName}}}"
+          SLACK_WEBHOOK_PATH: !Sub "{{resolve:ssm:${SlackWebhookParamName}}}"
+          PRODUCT_PAGE_URL: !Sub ${DIProductPageURL}
+      DeadLetterQueue:
+        Type: SNS
+        TargetArn: !Ref ProductPageCanaryDeadLetterQueue
       Policies:
-        - Statement:
-            - Effect: Allow
-              Action:
-                - ssm:GetParameter
-              Resource:
-                - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/canaries-slack-webhook-path"
+        - SNSPublishMessagePolicy:
+            TopicName: !GetAtt ProductPageCanaryDeadLetterQueue.TopicName
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        EntryPoints: [ sns-to-slack.ts ]
 
-  SlackSnsTopic:
+  ProductPageCanaryDeadLetterQueue:
+    # checkov:skip=CKV_AWS_26: "Ensure all data stored in the SNS topic is encrypted"
     Type: AWS::SNS::Topic
     Properties:
-      DisplayName: DI Onboarding monitoring
+      Subscription:
+        - Protocol: email
+          Endpoint: !Sub "{{resolve:ssm:${NotificationEmailAddressParamName}}}"
 
-  SlackSnsTopicSubscription:
-    DependsOn:
-      - SlackSnsTopic
-      - SnsToSlackFunction
-    Type: AWS::SNS::Subscription
+  ProductPageCanarySnsTopic:
+    # checkov:skip=CKV_AWS_26: "Ensure all data stored in the SNS topic is encrypted"
+    Type: AWS::SNS::Topic
     Properties:
-      Protocol: lambda
-      TopicArn: !Ref SlackSnsTopic
-      Endpoint: !GetAtt SnsToSlackFunction.Arn
+      DisplayName: DI product page monitoring
+      Subscription:
+        - Protocol: lambda
+          Endpoint: !GetAtt CanarySnsToSlackFunction.Arn
 
-  SnsToSlackFunctionPermission:
+  CanarySnsToSlackFunctionPermission:
     Type: AWS::Lambda::Permission
     Properties:
-      Action: "lambda:InvokeFunction"
-      FunctionName: !GetAtt SnsToSlackFunction.Arn
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref CanarySnsToSlackFunction
       Principal: sns.amazonaws.com
-      SourceArn: !Ref SlackSnsTopic
+      SourceArn: !Ref ProductPageCanarySnsTopic
 
   CanaryResultsBucket:
     Type: AWS::S3::Bucket
@@ -109,19 +119,14 @@ Resources:
 
   CanaryExecutionRole:
     Type: AWS::IAM::Role
-    DependsOn:
-      - CanaryLogGroup
-      - CanaryResultsBucket
     Properties:
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
           - Effect: Allow
             Principal:
-              Service:
-                - lambda.amazonaws.com
-            Action:
-              - 'sts:AssumeRole'
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
       Policies:
         - PolicyName: CanaryPolicy
           PolicyDocument:
@@ -131,61 +136,47 @@ Resources:
                 Action:
                   - s3:PutObject
                   - s3:GetObject
-                Resource:
-                  Fn::Sub:
-                    - "${BucketArn}/*"
-                    - BucketArn: !GetAtt CanaryResultsBucket.Arn
+                Resource: !Sub ${CanaryResultsBucket.Arn}/*
+
               - Effect: Allow
-                Action:
-                  - s3:GetBucketLocation
-                Resource:
-                  - !GetAtt CanaryResultsBucket.Arn
+                Action: s3:GetBucketLocation
+                Resource: !GetAtt CanaryResultsBucket.Arn
+
               - Effect: Allow
                 Action:
                   - logs:CreateLogGroup
                   - logs:CreateLogStream
                   - logs:PutLogEvents
-                Resource:
-                  - !GetAtt CanaryLogGroup.Arn
+                Resource: !GetAtt CanaryLogGroup.Arn
 
               - Effect: Allow
-                Action:
-                  - s3:ListAllMyBuckets
-                  - cloudwatch:PutMetricData
-                Resource:
-                  - "*"
+                Action: s3:ListAllMyBuckets
+                Resource: "*"
 
               - Effect: Allow
-                Action:
-                  - cloudwatch:PutMetricData
+                Action: cloudwatch:PutMetricData
                 Condition:
                   StringEquals:
-                    "cloudwatch:namespace": "CloudWatchSynthetics"
-                Resource:
-                  - "*"
+                    "cloudwatch:namespace": CloudWatchSynthetics
+                Resource: "*"
 
-  ProductPagesCanaryAlarm:
-    DependsOn:
-      - ProductPagesCanary
+  ProductPageCanaryAlarm:
     Type: AWS::CloudWatch::Alarm
+    DependsOn: ProductPageCanary
     Properties:
-      AlarmName: !Sub "${Account}ProdPagesCanary"
-      AlarmDescription: "ProductPagesCanary: 2 failures in the last 5 periods"
-      AlarmActions:
-        - !Ref SlackSnsTopic
-      OKActions:
-        - !Ref SlackSnsTopic
+      AlarmDescription: "Product page canary: 1 failure in the last 5 minutes"
+      AlarmActions: [ !Ref ProductPageCanarySnsTopic ]
+      OKActions: [ !Ref ProductPageCanarySnsTopic ]
 
       ComparisonOperator: GreaterThanOrEqualToThreshold
       Statistic: Sum
       Threshold: 1
       Period: 300
       EvaluationPeriods: 1
-      DatapointsToAlarm: 1
       TreatMissingData: notBreaching # The metric is only reported when a test fails. So missing data means the tests aren't failing
 
       MetricName: Failed
       Namespace: CloudWatchSynthetics
       Dimensions:
         - Name: CanaryName
-          Value: prodpages_canary
+          Value: !Ref ProductPageCanary
