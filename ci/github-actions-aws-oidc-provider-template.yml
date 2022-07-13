@@ -1,3 +1,5 @@
+Transform: AWS::Serverless-2016-10-31
+
 Parameters:
   GitHubOrg:
     Type: String
@@ -30,7 +32,7 @@ Resources:
               StringLike:
                 token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOrg}/${RepositoryName}:*
       Policies:
-        - PolicyName: wcgw
+        - PolicyName: GitHubActions
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
@@ -62,6 +64,8 @@ Resources:
                   - "lambda:GetFunctionConfiguration"
                   - "lambda:GetLayerVersion"
                   - "lambda:ListTags"
+                  - "lambda:TagResource"
+                  - "lambda:UntagResource"
                   - "lambda:PublishLayerVersion"
                   - "lambda:PublishVersion"
                   - "lambda:UpdateFunction"
@@ -74,6 +78,7 @@ Resources:
                   - "s3:PutObject"
                   - "s3:*"
                   - "sns:CreateTags"
+                  - "sns:TagResource"
                   - "sns:CreateTopic"
                   - "sns:GetTopicAttributes"
                   - "sns:Subscribe"
@@ -81,6 +86,7 @@ Resources:
                   - "synthetics:DeleteCanary"
                   - "synthetics:GetCanary"
                   - "synthetics:StartCanary"
+                  - "synthetics:UpdateCanary"
                 Resource: "*"
 
   GithubOidc:
