@@ -5,6 +5,9 @@ on:
     branches: [ main ]
     paths: [ 'monitoring/**' ]
 
+concurrency:
+  group: deploy-smoke-tests
+
 jobs:
   deploy-canary-stack:
     name: Deploy Canaries

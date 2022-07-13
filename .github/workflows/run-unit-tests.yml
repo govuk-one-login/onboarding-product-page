@@ -2,6 +2,10 @@ name: Unit tests
 
 on: workflow_call
 
+concurrency:
+  group: unit-tests-${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
   run-unit-tests:
     name: Unit
