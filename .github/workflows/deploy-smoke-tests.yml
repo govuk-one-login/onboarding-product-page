@@ -1,0 +1,41 @@
+name: Smoke tests
+
+on:
+  push:
+    branches: [ main ]
+    paths: [ 'monitoring/**' ]
+
+concurrency:
+  group: deploy-smoke-tests
+
+jobs:
+  deploy-canary-stack:
+    name: Deploy Canaries
+    environment: integration
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Pull repository
+        uses: actions/checkout@v3
+
+      - name: Build SAM application
+        uses: alphagov/di-github-actions/sam/build-application@6503ace389666495b9510daa9140d8dbd8eb4865
+        with:
+          sam-template-file: monitoring/template.yaml
+          aws-role-arn: ${{ secrets.AWS_ROLE_ARN }}
+          aws-session-name: ${{ secrets.AWS_ROLE_SESSION }}
+          aws-region: eu-west-2
+
+      - name: Deploy SAM stack
+        uses: alphagov/di-github-actions/sam/deploy-stack@6503ace389666495b9510daa9140d8dbd8eb4865
+        with:
+          sam-deployment-bucket: ${{ secrets.AWS_DEPLOYMENT_BUCKET }}
+          stack-name: di-product-page-monitoring
+          s3-prefix: smoke-tests
+          tags: |
+            DeploymentSource = GitHub Actions
+            StackType = Smoke Tests

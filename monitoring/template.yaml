@@ -1,20 +1,17 @@
-AWSTemplateFormatVersion: 2010-09-09
-Description: >-
-  canaries
-
-Transform:
-- AWS::Serverless-2016-10-31
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: DI product page monitoring
 
 Parameters:
-  Account:
+  SlackWebhookParamName:
     Type: String
+    Default: canaries-slack-webhook-path
 
 Resources:
-
-  ProductPagesCanary:
+  ProductPageCanary:
     Type: AWS::Synthetics::Canary
     Properties:
-      Name: !Sub "${Account}-prod-pages"
+      Name: di-product-page
       ArtifactS3Location: !Sub "S3://${CanaryResultsBucket}"
       SuccessRetentionPeriod: 1
       FailureRetentionPeriod: 5
@@ -41,7 +38,7 @@ Resources:
               });
           };
       ExecutionRoleArn: !GetAtt CanaryExecutionRole.Arn
-      RuntimeVersion: "syn-nodejs-puppeteer-3.2"
+      RuntimeVersion: "syn-nodejs-puppeteer-3.6"
       RunConfig:
         TimeoutInSeconds: 59
       Schedule:
@@ -56,12 +53,12 @@ Resources:
       Description: A Lambda function that takes SNS messages and translates them to a form of JSON Slack understands and then sends that JSON to Slack.
       Environment:
         Variables:
-          WEBHOOK_PARAMETER_NAME: "canaries-slack-webhook-path"
+          WEBHOOK_PARAMETER_NAME: !Sub ${SlackWebhookParamName}
           SLACK_CHANNEL: "di-dfa-alerts"
-      Runtime: nodejs14.x
+      Runtime: nodejs16.x
       Architectures:
         - x86_64
-      CodeUri: lambdas/sns_to_slack/
+      CodeUri: lambdas/sns-to-slack/
       Handler: snsToSlack.lambdaHandler
       Policies:
         - Statement:
@@ -69,12 +66,12 @@ Resources:
               Action:
                 - ssm:GetParameter
               Resource:
-                - !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/canaries-slack-webhook-path"
+                - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${SlackWebhookParamName}
 
   SlackSnsTopic:
     Type: AWS::SNS::Topic
     Properties:
-      DisplayName: DI Onboarding monitoring
+      DisplayName: DI product page monitoring
 
   SlackSnsTopicSubscription:
     DependsOn:
@@ -89,7 +86,7 @@ Resources:
   SnsToSlackFunctionPermission:
     Type: AWS::Lambda::Permission
     Properties:
-      Action: "lambda:InvokeFunction"
+      Action: lambda:InvokeFunction
       FunctionName: !GetAtt SnsToSlackFunction.Arn
       Principal: sns.amazonaws.com
       SourceArn: !Ref SlackSnsTopic
@@ -121,7 +118,7 @@ Resources:
               Service:
                 - lambda.amazonaws.com
             Action:
-              - 'sts:AssumeRole'
+              - sts:AssumeRole
       Policies:
         - PolicyName: CanaryPolicy
           PolicyDocument:
@@ -131,46 +128,36 @@ Resources:
                 Action:
                   - s3:PutObject
                   - s3:GetObject
-                Resource:
-                  Fn::Sub:
-                    - "${BucketArn}/*"
-                    - BucketArn: !GetAtt CanaryResultsBucket.Arn
+                Resource: !Sub ${CanaryResultsBucket.Arn}/*
+
               - Effect: Allow
-                Action:
-                  - s3:GetBucketLocation
-                Resource:
-                  - !GetAtt CanaryResultsBucket.Arn
+                Action: s3:GetBucketLocation
+                Resource: !GetAtt CanaryResultsBucket.Arn
+
               - Effect: Allow
                 Action:
                   - logs:CreateLogGroup
                   - logs:CreateLogStream
                   - logs:PutLogEvents
-                Resource:
-                  - !GetAtt CanaryLogGroup.Arn
+                Resource: !GetAtt CanaryLogGroup.Arn
 
               - Effect: Allow
-                Action:
-                  - s3:ListAllMyBuckets
-                  - cloudwatch:PutMetricData
-                Resource:
-                  - "*"
+                Action: s3:ListAllMyBuckets
+                Resource: "*"
 
               - Effect: Allow
-                Action:
-                  - cloudwatch:PutMetricData
+                Action: cloudwatch:PutMetricData
                 Condition:
                   StringEquals:
                     "cloudwatch:namespace": "CloudWatchSynthetics"
-                Resource:
-                  - "*"
+                Resource: "*"
 
-  ProductPagesCanaryAlarm:
+  ProductPageCanaryAlarm:
     DependsOn:
-      - ProductPagesCanary
+      - ProductPageCanary
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmName: !Sub "${Account}ProdPagesCanary"
-      AlarmDescription: "ProductPagesCanary: 2 failures in the last 5 periods"
+      AlarmDescription: "Product page canary: 2 failures in the last 5 periods"
       AlarmActions:
         - !Ref SlackSnsTopic
       OKActions:
@@ -188,4 +175,4 @@ Resources:
       Namespace: CloudWatchSynthetics
       Dimensions:
         - Name: CanaryName
-          Value: prodpages_canary
+          Value: di-product-page-canary
