@@ -57,6 +57,9 @@ Resources:
       StartCanaryAfterCreation: true
 
   CanarySnsToSlackFunction:
+    # checkov:skip=CKV_AWS_115: "Ensure that AWS Lambda function is configured for function-level concurrent execution limit"
+    # checkov:skip=CKV_AWS_117: "Ensure that AWS Lambda function is configured inside a VPC"
+    # checkov:skip=CKV_AWS_173: "Check encryption settings for Lambda environmental variable"
     Type: AWS::Serverless::Function
     Properties:
       Description: A lambda function that takes a Canary SNS message and sends it to Slack
@@ -105,9 +108,17 @@ Resources:
       SourceArn: !Ref ProductPageCanarySnsTopic
 
   CanaryResultsBucket:
+    # checkov:skip=CKV_AWS_18: "Ensure the S3 bucket has access logging enabled"
+    # checkov:skip=CKV_AWS_19: "Ensure the S3 bucket has server-side-encryption enabled"
+    # checkov:skip=CKV_AWS_21: "Ensure the S3 bucket has versioning enabled"
     Type: AWS::S3::Bucket
     Properties:
       AccessControl: Private
+      PublicAccessBlockConfiguration:
+        RestrictPublicBuckets: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        BlockPublicAcls: true
       LifecycleConfiguration:
         Rules:
           - Id: RemoveOldObjects
@@ -115,7 +126,10 @@ Resources:
             ExpirationInDays: 7
 
   CanaryLogGroup:
+    # checkov:skip=CKV_AWS_158: "Ensure that CloudWatch Log Group is encrypted by KMS"
     Type: AWS::Logs::LogGroup
+    Properties:
+      RetentionInDays: 30
 
   CanaryExecutionRole:
     Type: AWS::IAM::Role
