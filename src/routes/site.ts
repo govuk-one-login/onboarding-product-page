@@ -42,7 +42,7 @@ router.get('/documentation/user-journeys', (req, res) => {
     res.render('documentation-user-journeys.njk');
 });
 
-router.get('/users-create-an-account-upfront-pdf', (req, res) => {
+router.get('/users-create-an-account-upfront-pdf-july-2022', (req, res) => {
     res.sendFile(__dirname + "/files/Option1-Users-create-an-account-upfront-July-2022.pdf");
 });
 
