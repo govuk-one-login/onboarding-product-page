@@ -43,7 +43,7 @@ router.get('/documentation/user-journeys', (req, res) => {
 });
 
 router.get('/users-create-an-account-upfront-pdf', (req, res) => {
-    res.sendFile(__dirname + "/files/users-create-an-account-upfront.pdf");
+    res.sendFile(__dirname + "/files/Option1-Users-create-an-account-upfront-July-2022.pdf");
 });
 
 router.get('/users-create-an-account-to-save-progress-pdf', (req, res) => {
