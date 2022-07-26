@@ -124,6 +124,7 @@ logs*.json
 *.csv
 *.xlsx
 *.iml
+yarn.lock
 
 keys/
 .vscode/
