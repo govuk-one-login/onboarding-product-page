@@ -4,7 +4,10 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "aws-sdk": "^2.1173.0",
     "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.101",
+    "esbuild": "^0.14.50"
   }
 }
