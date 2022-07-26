@@ -25,6 +25,9 @@ on:
         description: "The PaaS deployment URL"
         value: ${{ jobs.deploy.outputs.deployment-url }}
 
+concurrency:
+  group: deploy-${{ github.head_ref || github.ref_name }}
+
 jobs:
   deploy:
     name: Deploy to PaaS

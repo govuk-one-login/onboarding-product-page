@@ -2,6 +2,10 @@ name: Build
 
 on: workflow_call
 
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: Product pages
