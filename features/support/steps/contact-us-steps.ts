@@ -1,4 +1,5 @@
-import {Given, Then} from "@cucumber/cucumber";
+import { Given, Then } from '@cucumber/cucumber';
+import { Page } from 'puppeteer';
 
 Given('that the users enter alphanumeric characters into all of the fields in the contact us form', async function () {
     await this.goToPath('/contact-us');
@@ -7,47 +8,47 @@ Given('that the users enter alphanumeric characters into all of the fields in th
 });
 
 Given('that the users enter alphanumeric characters into all of the fields in the contact us form except the name field', async function () {
-    await this.goToPath("/contact-us");
-    await this.page.type("#role", 'Chief Unicorn Tester');
+    await this.goToPath('/contact-us');
+    await this.page.type('#role', 'Chief Unicorn Tester');
     await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
-    await this.page.type("#service-name", "Unicorn Testing");
-    await this.page.type("#organisation-name", "Department of Sorcery");
-    await this.page.type("#how-can-we-help", "We'd like fairies to be able to sign up to get their unicorns tested.");
+    await this.page.type('#service-name', 'Unicorn Testing');
+    await this.page.type('#organisation-name', 'Department of Sorcery');
+    await this.page.type('#how-can-we-help', "We'd like fairies to be able to sign up to get their unicorns tested.");
 });
 
 Given('that the users enter alphanumeric characters into all of the fields in the contact us form except the email field', async function () {
-    await this.goToPath("/contact-us");
-    await this.page.type("#name", 'Tessa Ting');
-    await this.page.type("#role", 'Chief Unicorn Tester');
-    await this.page.type("#service-name", "Unicorn Testing");
-    await this.page.type("#organisation-name", "Department of Sorcery");
-    await this.page.type("#how-can-we-help", "We'd like fairies to be able to sign up to get their unicorns tested.");
+    await this.goToPath('/contact-us');
+    await this.page.type('#name', 'Tessa Ting');
+    await this.page.type('#role', 'Chief Unicorn Tester');
+    await this.page.type('#service-name', 'Unicorn Testing');
+    await this.page.type('#organisation-name', 'Department of Sorcery');
+    await this.page.type('#how-can-we-help', "We'd like fairies to be able to sign up to get their unicorns tested.");
 });
 
 Given('that the users enter alphanumeric characters into all of the fields in the contact us form except the role field', async function () {
-    await this.goToPath("/contact-us");
-    await this.page.type("#name", 'Tessa Ting');
-    await this.page.type("#service-name", "Unicorn Testing");
-    await this.page.type("#organisation-name", "Department of Sorcery");
-    await this.page.type("#how-can-we-help", "We'd like fairies to be able to sign up to get their unicorns tested.");
+    await this.goToPath('/contact-us');
+    await this.page.type('#name', 'Tessa Ting');
+    await this.page.type('#service-name', 'Unicorn Testing');
+    await this.page.type('#organisation-name', 'Department of Sorcery');
+    await this.page.type('#how-can-we-help', "We'd like fairies to be able to sign up to get their unicorns tested.");
 });
 
 Given('that the users enter alphanumeric characters into all of the fields in the contact us form except the organisation-name field', async function () {
-    await this.goToPath("/contact-us");
+    await this.goToPath('/contact-us');
     await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
-    await this.page.type("#name", 'Tessa Ting');
-    await this.page.type("#role", 'Chief Unicorn Tester');
-    await this.page.type("#service-name", "Unicorn Testing");
-    await this.page.type("#how-can-we-help", "We'd like fairies to be able to sign up to get their unicorns tested.");
+    await this.page.type('#name', 'Tessa Ting');
+    await this.page.type('#role', 'Chief Unicorn Tester');
+    await this.page.type('#service-name', 'Unicorn Testing');
+    await this.page.type('#how-can-we-help', "We'd like fairies to be able to sign up to get their unicorns tested.");
 });
 
 Given('that the users enter alphanumeric characters into all of the fields in the contact us form except the service-name field', async function () {
-    await this.goToPath("/contact-us");
+    await this.goToPath('/contact-us');
     await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
-    await this.page.type("#name", 'Tessa Ting');
-    await this.page.type("#role", 'Chief Unicorn Tester');
-    await this.page.type("#organisation-name", "Department of Sorcery");
-    await this.page.type("#how-can-we-help", "We'd like fairies to be able to sign up to get their unicorns tested.");
+    await this.page.type('#name', 'Tessa Ting');
+    await this.page.type('#role', 'Chief Unicorn Tester');
+    await this.page.type('#organisation-name', 'Department of Sorcery');
+    await this.page.type('#how-can-we-help', "We'd like fairies to be able to sign up to get their unicorns tested.");
 });
 
 Given('that the users enter alphanumeric characters into all of the fields in the contact us form except the how-can-we-help field', async function () {
@@ -56,12 +57,12 @@ Given('that the users enter alphanumeric characters into all of the fields in th
 });
 
 Given('that the user enters an invalid email address into the email field of the contact us form', async function () {
-    await this.goToPath("/contact-us");
+    await this.goToPath('/contact-us');
     await this.page.type('#email', '1 Station Road, Newtown, Countyshire AB1 2CD');
 });
 
 Given('that the user enters a non-government email address into the email field of the contact us form', async function () {
-    await this.goToPath("/contact-us");
+    await this.goToPath('/contact-us');
     await this.page.type('#email', 'bill@microsoft.com');
 });
 
