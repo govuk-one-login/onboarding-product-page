@@ -1,5 +1,5 @@
-import {Given, Then} from "@cucumber/cucumber";
-import {strict as assert} from "assert";
+import { Given, Then } from '@cucumber/cucumber';
+import { strict as assert } from 'assert';
 
 Given('the user wants to contact the service', async function () {
     // just here for the story to read better
