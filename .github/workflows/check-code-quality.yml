@@ -1,0 +1,28 @@
+name: Check code quality
+
+on: workflow_call
+
+concurrency:
+  group: code-quality-${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  run-checkov:
+    name: Checkov
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Run checkov
+        uses: alphagov/di-github-actions/code-quality/run-checkov@63112e1378180984e3267136eeb5f74648667a64
+
+  check-shell-scripts:
+    name: Shell scripts
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Run shell checks
+        uses: alphagov/di-github-actions/code-quality/check-shell-scripts@63112e1378180984e3267136eeb5f74648667a64
