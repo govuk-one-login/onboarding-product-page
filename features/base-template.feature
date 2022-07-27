@@ -13,8 +13,8 @@ Feature: A base template that is used for pages that are not part of the evaluat
 
     Examples:
 
-      | menu item         | page                                              |
-      | "Features"        | "/features"                                       |
-      | "Documentation"   | "/documentation"             |
-      | "Support"         | "/support"                                        |
-      | "Get started"     | "/getting-started"                                |
+      | menu item       | page               |
+      | "Features"      | "/features"        |
+      | "Documentation" | "/documentation"   |
+      | "Support"       | "/support"         |
+      | "Get started"   | "/getting-started" |

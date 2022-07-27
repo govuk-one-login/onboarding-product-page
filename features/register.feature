@@ -10,7 +10,6 @@ Feature: A register form so users can sign up to get access to the GOV.UK Sign I
 
 
   Scenario: The user doesn't complete the name field
-list
     Given that the users enter alphanumeric characters into all of the fields in the register form except the Name field
     When they select the Submit button
     Then the error message "Enter your name" must be displayed for the "name" field
@@ -46,17 +45,16 @@ list
     Then the error message "Enter a government email address" must be displayed for the "email" field
 
 
-  Scenario: The users doesnt click an option for the emailing list 
+  Scenario: The users doesnt click an option for the emailing list
 
     Given  that the users enter alphanumeric characters into all of the fields in the register form except the mailing-list radio
     When they select the Submit button
     Then the error message "Select if you’d like to join the mailing list or not" must be displayed for the "mailing-list" field
 
   Scenario: User selects no for the mailing list
-  
-      Given that the users enter alphanumeric characters into all of the fields in the register form and select no for the mailing list
-      When they select the Submit button
-      Then their data is saved in the spreadsheet
-      And they should be directed to the following page: "/register-confirm"
-      And they should see the text "You have signed up for access to GOV.UK Sign In"
 
+    Given that the users enter alphanumeric characters into all of the fields in the register form and select no for the mailing list
+    When they select the Submit button
+    Then their data is saved in the spreadsheet
+    And they should be directed to the following page: "/register-confirm"
+    And they should see the text "You have signed up for access to GOV.UK Sign In"

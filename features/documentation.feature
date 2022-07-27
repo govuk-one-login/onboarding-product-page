@@ -11,5 +11,3 @@ Feature: Documentation page
 
     When they click on the "Technical documentation" link
     Then they should be directed to a page with the title "Technical documentation - GOV.UK Sign In"
-
-
