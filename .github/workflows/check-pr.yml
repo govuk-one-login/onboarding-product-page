@@ -3,6 +3,10 @@ name: Check PR
 on: pull_request
 
 jobs:
+  code-quality:
+    name: Code quality
+    uses: ./.github/workflows/check-code-quality.yml
+
   build:
     name: Build
     uses: ./.github/workflows/build.yml
