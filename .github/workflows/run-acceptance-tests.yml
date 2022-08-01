@@ -5,13 +5,16 @@ on:
     inputs:
       host: { required: true, type: string }
 
+concurrency:
+  group: deploy-${{ github.head_ref || github.ref_name }}
+
 jobs:
   run-acceptance-tests:
     name: Acceptance
     runs-on: ubuntu-latest
     steps:
       - name: Pull repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Node
         uses: actions/setup-node@v2

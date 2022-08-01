@@ -4,26 +4,29 @@ on:
   workflow_call:
     inputs:
       environment: { required: true, type: string }
-      cf_space_name: { required: true, type: string }
-      app_name: { required: false, type: string }
+      cf-space-name: { required: true, type: string }
+      app-name-prefix: { required: false, type: string }
       url: { required: false, type: string }
       instances: { required: false, type: number, default: 1 }
-      google_tag_id: { required: false, type: string, default: GTM-PFTQ6G2 }
-      rolling_deployment: { required: false, type: boolean, default: false }
-      use_stub_zendesk: { required: false, type: boolean, default: true }
+      rolling-deployment: { required: false, type: boolean, default: false }
+      google-tag-id: { required: false, type: string, default: GTM-PFTQ6G2 }
+      use-stub-zendesk: { required: false, type: boolean, default: true }
     secrets:
-      cf_username: { required: true }
-      cf_password: { required: true }
-      register_spreadsheet_id: { required: true }
-      request_spreadsheet_id: { required: true }
-      mailing_list_spreadsheet_id: { required: true }
-      zendesk_api_token: { required: false }
-      zendesk_group_id: { required: false }
-      zendesk_username: { required: false }
+      cf-username: { required: true }
+      cf-password: { required: true }
+      request-spreadsheet-id: { required: true }
+      register-spreadsheet-id: { required: true }
+      mailing-list-spreadsheet-id: { required: true }
+      zendesk-api-token: { required: false }
+      zendesk-username: { required: false }
+      zendesk-group-id: { required: false }
     outputs:
-      deployment_url:
+      deployment-url:
         description: "The PaaS deployment URL"
-        value: ${{ jobs.deploy.outputs.deployment_url }}
+        value: ${{ jobs.deploy.outputs.deployment-url }}
+
+concurrency:
+  group: deploy-${{ github.head_ref || github.ref_name }}
 
 jobs:
   deploy:
@@ -31,64 +34,31 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment }}
-      url: ${{ steps.set_deployment_url.outputs.deployment_url }}
+      url: ${{ steps.push-to-paas.outputs.deployment-url }}
     outputs:
-      deployment_url: ${{ steps.set_deployment_url.outputs.deployment_url }}
+      deployment-url: ${{ steps.push-to-paas.outputs.deployment-url }}
     steps:
       - name: Get distribution artifact
         uses: actions/download-artifact@v2
         with:
           name: product-pages
 
-      - name: Install Cloud Foundry client
-        env:
-          CF_CLI_DOWNLOAD_URL: https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github&version=v7
-        run: |
-          curl -sL ${CF_CLI_DOWNLOAD_URL} | sudo tar -zx -C /usr/local/bin
-          cf version
-
-      - name: Set deployment hostname
-        id: set_deployment_hostname
-        if: ${{ inputs.app_name != null }}
-        run: |
-          # Downcase the hostname and limit length to 63 characters as per PaaS requirements
-          hostname=$(echo ${{ inputs.app_name }} | tr '[:upper:]' '[:lower:]' | tr '_' '-' | cut -c1-63)
-          echo "::set-output name=hostname::${hostname}"
-
-      - name: Set deployment URL
-        id: set_deployment_url
-        run: |
-          url=${{ inputs.url }}
-          hostname=${{ steps.set_deployment_hostname.outputs.hostname }}
-          deployment_url=$([[ $url ]] && echo $url || echo "https://${hostname}.london.cloudapps.digital")
-          echo "::set-output name=deployment_url::${deployment_url}"
-
-      - name: PaaS login
-        env:
-          CF_API_URL: https://api.london.cloud.service.gov.uk
-          CF_ORG_NAME: gds-digital-identity-onboarding
-          CF_SPACE_NAME: ${{ inputs.cf_space_name }}
-          CF_USERNAME: ${{ secrets.cf_username }}
-          CF_PASSWORD: ${{ secrets.cf_password }}
-        run: |
-          cf api ${CF_API_URL}
-          cf auth
-          cf target -o ${CF_ORG_NAME} -s ${CF_SPACE_NAME}
-
       - name: Push to PaaS
-        env:
-          ROLLING_DEPLOYMENT: ${{ inputs.rolling_deployment }}
-          ZENDESK_API_TOKEN: ${{ secrets.zendesk_api_token }}
-          ZENDESK_GROUP_ID: ${{ secrets.zendesk_group_id }}
-          ZENDESK_USERNAME: ${{ secrets.zendesk_username }}
-        run: |
-          cf push ${{ steps.set_deployment_hostname.outputs.hostname }} \
-            --instances ${{ inputs.instances }} $([[ $ROLLING_DEPLOYMENT == "true" ]] && echo --strategy rolling) \
-            --var register_spreadsheet_id=${{ secrets.register_spreadsheet_id }} \
-            --var request_spreadsheet_id=${{ secrets.request_spreadsheet_id }} \
-            --var mailing_list_spreadsheet_id=${{ secrets.mailing_list_spreadsheet_id }} \
-            --var use_stub_zendesk=${{ inputs.use_stub_zendesk }} \
-            --var zendesk_api_token="${ZENDESK_API_TOKEN:- }" \
-            --var zendesk_group_id="${ZENDESK_GROUP_ID:- }" \
-            --var zendesk_username="${ZENDESK_USERNAME:- }" \
-            --var google_tag_id=${{ inputs.google_tag_id }}
+        id: push-to-paas
+        uses: alphagov/di-github-actions/paas/deploy-app@64fae1abf5a5bf6360c7560dbc6a6fa850484f11
+        with:
+          app-name-prefix: ${{ inputs.app-name-prefix }}
+          cf-org-name: gds-digital-identity-onboarding
+          cf-space-name: ${{ inputs.cf-space-name }}
+          cf-username: ${{ secrets.cf-username }}
+          cf-password: ${{ secrets.cf-password }}
+          rolling-deployment: ${{ inputs.rolling-deployment }}
+          variables: |
+            request-spreadsheet-id = ${{ secrets.request-spreadsheet-id }}
+            register-spreadsheet-id = ${{ secrets.register-spreadsheet-id }}
+            mailing-list-spreadsheet-id = ${{ secrets.mailing-list-spreadsheet-id }}
+            zendesk-api-token = ${{ secrets.zendesk-api-token }}
+            zendesk-username = ${{ secrets.zendesk-username }}
+            zendesk-group-id = ${{ secrets.zendesk-group-id }}
+            use-stub-zendesk = ${{ inputs.use-stub-zendesk }}
+            google-tag-id = ${{ inputs.google-tag-id }}

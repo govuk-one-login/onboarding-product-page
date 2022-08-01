@@ -7,52 +7,52 @@ on:
 jobs:
   build:
     name: Build
-    uses: alphagov/di-onboarding-product-page/.github/workflows/build.yml@d012d1808b94e10a3d115430e1d11359b31bd50a
+    uses: ./.github/workflows/build.yml
 
   run-unit-tests:
     name: Run tests
-    uses: alphagov/di-onboarding-product-page/.github/workflows/run-unit-tests.yml@0fc71869649811ea52287bc833949a78730c653e
+    uses: ./.github/workflows/run-unit-tests.yml
 
   deploy-test:
     name: Test
-    needs: [build, run-unit-tests]
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@d012d1808b94e10a3d115430e1d11359b31bd50a
+    needs: [ build, run-unit-tests ]
+    uses: ./.github/workflows/deploy-to-paas.yml
     with:
       environment: test
-      cf_space_name: product-pages-test
+      cf-space-name: product-pages-test
       url: https://di-product-page-test.london.cloudapps.digital
     secrets:
-      cf_username: ${{ secrets.CF_USERNAME }}
-      cf_password: ${{ secrets.CF_PASSWORD }}
-      register_spreadsheet_id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
-      request_spreadsheet_id: ${{ secrets.REQUEST_SPREADSHEET_ID }}
-      mailing_list_spreadsheet_id: ${{ secrets.MAILING_LIST_SPREADSHEET_ID }}
+      cf-username: ${{ secrets.CF_USERNAME }}
+      cf-password: ${{ secrets.CF_PASSWORD }}
+      register-spreadsheet-id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
+      request-spreadsheet-id: ${{ secrets.REQUEST_SPREADSHEET_ID }}
+      mailing-list-spreadsheet-id: ${{ secrets.MAILING_LIST_SPREADSHEET_ID }}
 
   run-acceptance-tests:
     name: Run tests
     needs: deploy-test
-    uses: alphagov/di-onboarding-product-page/.github/workflows/run-acceptance-tests.yml@afc46a2e0f0bf612dbfd3171af1c4ce322e608e4
+    uses: ./.github/workflows/run-acceptance-tests.yml
     with:
-      host: ${{ needs.deploy-test.outputs.deployment_url }}
+      host: ${{ needs.deploy-test.outputs.deployment-url }}
 
   deploy-production:
     name: Publish
     needs: run-acceptance-tests
-    uses: alphagov/di-onboarding-product-page/.github/workflows/deploy-to-paas.yml@d012d1808b94e10a3d115430e1d11359b31bd50a
+    uses: ./.github/workflows/deploy-to-paas.yml
     with:
       environment: production
-      cf_space_name: product-pages-production
+      cf-space-name: product-pages-production
       url: https://www.sign-in.service.gov.uk
-      use_stub_zendesk: false
-      rolling_deployment: true
+      google-tag-id: GTM-W38DXV2
+      use-stub-zendesk: false
+      rolling-deployment: true
       instances: 3
-      google_tag_id: GTM-W38DXV2
     secrets:
-      cf_username: ${{ secrets.CF_USERNAME }}
-      cf_password: ${{ secrets.CF_PASSWORD }}
-      zendesk_group_id: ${{ secrets.ZENDESK_GROUP_ID }}
-      zendesk_username: ${{ secrets.ZENDESK_USERNAME }}
-      zendesk_api_token: ${{ secrets.ZENDESK_API_TOKEN }}
-      register_spreadsheet_id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
-      request_spreadsheet_id: ${{ secrets.REQUEST_SPREADSHEET_ID }}
-      mailing_list_spreadsheet_id: ${{ secrets.MAILING_LIST_SPREADSHEET_ID }}
+      cf-username: ${{ secrets.CF_USERNAME }}
+      cf-password: ${{ secrets.CF_PASSWORD }}
+      zendesk-group-id: ${{ secrets.ZENDESK_GROUP_ID }}
+      zendesk-username: ${{ secrets.ZENDESK_USERNAME }}
+      zendesk-api-token: ${{ secrets.ZENDESK_API_TOKEN }}
+      register-spreadsheet-id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
+      request-spreadsheet-id: ${{ secrets.REQUEST_SPREADSHEET_ID }}
+      mailing-list-spreadsheet-id: ${{ secrets.MAILING_LIST_SPREADSHEET_ID }}
