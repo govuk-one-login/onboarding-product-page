@@ -14,7 +14,6 @@
 {% endblock %}
 
 {% block bodyStart %}
-
   <div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on GOV.UK Sign In" style="display: none">
     <div class="govuk-cookie-banner__message govuk-width-container" id="cookies-banner-main">
 
@@ -75,7 +74,6 @@
       </div>
     </div>
   </div>
-
 {% endblock %}
 
 {% block header %}
@@ -101,8 +99,6 @@
       </div>
     </div>
   </header>
-
-
 {% endblock %}
 
 {% block main %}
@@ -154,13 +150,11 @@
   </footer>
 {% endblock %}
 
-
-
 {% block bodyEnd %}
   <input type="hidden" value="{{ googleTagId }}" id="ga-tracking">
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
   <script src="/dist/govuk-all.js"></script>
   <script src="/dist/cookies.js"></script>
   <script>window.GOVUKFrontend.initAll()</script>
-  <script>window.GOVSignin.CookieBanner.init()</script>
+  <script>window.GOVUKSignIn.CookieBanner.init()</script>
 {% endblock %}
