@@ -23,7 +23,6 @@
   "dependencies": {
     "@googleapis/sheets": "^0.3.0",
     "axios": "^0.27.2",
-    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "google-auth-library": "^8.1.1",
     "googleapis": "^91.0.0",
@@ -43,6 +42,7 @@
     "@types/nunjucks": "^3.2.1",
     "@types/puppeteer": "^5.4.6",
     "@types/uuid": "^8.3.4",
+    "dotenv": "^16.0.1",
     "chai": "^4.3.6",
     "mocha": "^10.0.0",
     "node-sass": "^7.0.1",
