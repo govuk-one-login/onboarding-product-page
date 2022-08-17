@@ -66,4 +66,4 @@ BackToTop.prototype.init = function () {
     observer.observe($subNav)
 }
 
-export default BackToTop
+new BackToTop(document.querySelector('[data-module="app-back-to-top"]')).init()
