@@ -9,18 +9,15 @@
 {% set baseClasses = "govuk-!-padding-top-5" %}
 
 {% block beforeContent %}
-    <div class="govuk-width-container ">
-      {{ govukBackLink({
-        text: "Back",
-        href: "/decide/private-beta"
-      }) }}
-    </div>
+  {{ govukBackLink({
+    text: "Back",
+    href: "/decide/private-beta"
+  }) }}
 {% endblock %}
 
 {% block content %}
-    <div class="govuk-width-container">
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
 
               {% if errorMessages.size != 0 %}
                 <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"
@@ -135,13 +132,10 @@
 
                     </fieldset>
 
-                    <button class="govuk-button" data-module="govuk-button" id="submit">
-                        Submit
-                    </button>
-
-                </form>
-            </div>
-
-        </div>
+        <button class="govuk-button" data-module="govuk-button" id="submit">
+          Submit
+        </button>
+      </form>
     </div>
+  </div>
 {% endblock %}

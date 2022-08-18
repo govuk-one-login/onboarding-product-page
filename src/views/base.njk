@@ -131,25 +131,14 @@
 
     </div>
   </header>
-
-
-{% endblock %}
-
-{% block main %}
-    <div class="govuk-width-container">
-      {{ govukPhaseBanner({
-        tag: {
-          text: "beta"
-        },
-        html: 'This is a new service – your <a href="/contact-us" class="govuk-link" rel="noreferrer noopener" target="_blank">feedback (opens in a new tab)</a> will help us improve it.'
-      }) }}
-    </div>
-    {% block beforeContent %}{% endblock %}
-    <main class="{{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
-      {% block content %}
-        <h1 class="govuk-heading-xl">Default page template</h1>
-      {% endblock %}
-    </main>
+  <div class="govuk-width-container">
+    {{ govukPhaseBanner({
+      tag: {
+        text: "beta"
+      },
+      html: 'This is a new service – your <a href="/contact-us" class="govuk-link" rel="noreferrer noopener" target="_blank">feedback (opens in a new tab)</a> will help us improve it.'
+    }) }}
+  </div>
 {% endblock %}
 
 {% block footer %}

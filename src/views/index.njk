@@ -6,7 +6,14 @@
 {% set bodyClasses = "product-home-page-wrapper" %}
 {% set baseClasses = "product-home-page" %}
 
-{% block beforeContent %}
+{% block main %}
+  {{ beforeContent | safe }}
+  <main class="{{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
+    {{ content | safe }}
+  </main>
+{% endblock %}
+
+{% set beforeContent %}
   <div class="hero-breadcrumb-banner">
     <div class="hero hero--breaded">
       <div class="govuk-breadcrumbs breadcrumbs-hero">
@@ -21,9 +28,9 @@
       </div>
     </div>
   </div>
-{% endblock %}
+{% endset %}
 
-{% block content %}
+{% set content %}
   <div class="masthead">
     <div class="hero">
       <div class="hero__content">
@@ -169,8 +176,5 @@
       </p>
 
     </div>
-
   </div>
-
-
-{% endblock %}
+{% endset %}

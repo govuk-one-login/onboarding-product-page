@@ -8,29 +8,25 @@
 {% set headerNavigationItemActiveSupport = "govuk-header__navigation-item--active" %}
 
 {% block beforeContent %}
-  <div class="govuk-width-container">
-    <div class="govuk-breadcrumbs">
-      <ol class="govuk-breadcrumbs__list">
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link"  href="#main-content" aria-current="page">Support</a>
-        </li>
-      </ol>
-    </div>
+  <div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Support</a>
+      </li>
+    </ol>
   </div>
 {% endblock %}
 
 {% block content %}
-
-  <div class="govuk-width-container">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        {% if valueNotSelected %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if valueNotSelected %}
         {{ govukErrorSummary({
           titleText: "There is a problem",
           errorList: [
@@ -40,84 +36,82 @@
             }
           ]
         }) }}
-        {% endif %}
+      {% endif %}
 
-        <h1 class="govuk-heading-l">Support</h1>
+      <h1 class="govuk-heading-l">Support</h1>
 
-        <form action="/support" method="post" novalidate>
+      <form action="/support" method="post" novalidate>
 
-          {% if valueNotSelected %}
+        {% if valueNotSelected %}
 
-            {{ govukRadios({
-              idPrefix: "support",
-              name: "support",
-              fieldset: {
-                legend: {
-                  text: "What do you need help with?"
-                }
+          {{ govukRadios({
+            idPrefix: "support",
+            name: "support",
+            fieldset: {
+              legend: {
+                text: "What do you need help with?"
+              }
+            },
+            errorMessage: {
+              text: "You must select an option to tell us what you need help with"
+            },
+            items: [
+              {
+                value: "gov-service-start-using-sign-in",
+                text: "I work in a government service team and we want to start using GOV.UK Sign In"
               },
-              errorMessage: {
-                text: "You must select an option to tell us what you need help with"
+              {
+                value: "gov-service-uses-sign-in",
+                text: "I work in a government service team that is setting up or already using GOV.UK Sign In"
               },
-              items: [
-                {
-                  value: "gov-service-start-using-sign-in",
-                  text: "I work in a government service team and we want to start using GOV.UK Sign In"
-                },
-                {
-                  value: "gov-service-uses-sign-in",
-                  text: "I work in a government service team that is setting up or already using GOV.UK Sign In"
-                },
-                {
-                  value: "gov-service-is-public",
-                  text: "I’m a member of the public"
-                }
-              ]
-            }) }}
-
-          {% else %}
-
-            {{ govukRadios({
-              idPrefix: "support",
-              name: "support",
-              fieldset: {
-                legend: {
-                  text: "What do you need help with?"
-                }
-              },
-              items: [
-                {
-                  value: "gov-service-start-using-sign-in",
-                  text: "I work in a government service team and we want to start using GOV.UK Sign In"
-                },
-                {
-                  value: "gov-service-uses-sign-in",
-                  text: "I work in a government service team that is setting up or already using GOV.UK Sign In"
-                },
-                {
-                  value: "gov-service-is-public",
-                  text: "I’m a member of the public"
-                }
-              ]
-            }) }}
-
-          {% endif %}
-
-          {{ govukButton({
-            text: "Continue",
-            attributes: {"id": "continue"}
+              {
+                value: "gov-service-is-public",
+                text: "I’m a member of the public"
+              }
+            ]
           }) }}
 
-        </form>
+        {% else %}
 
-        <h2 class="govuk-heading-m">Office hours</h2>
+          {{ govukRadios({
+            idPrefix: "support",
+            name: "support",
+            fieldset: {
+              legend: {
+                text: "What do you need help with?"
+              }
+            },
+            items: [
+              {
+                value: "gov-service-start-using-sign-in",
+                text: "I work in a government service team and we want to start using GOV.UK Sign In"
+              },
+              {
+                value: "gov-service-uses-sign-in",
+                text: "I work in a government service team that is setting up or already using GOV.UK Sign In"
+              },
+              {
+                value: "gov-service-is-public",
+                text: "I’m a member of the public"
+              }
+            ]
+          }) }}
 
-        <p class="govuk-body">We can only respond to your support queries during office hours. Our office hours are 9:30am to 5:30pm, Monday to Friday.</p>
+        {% endif %}
 
-        <p class="govuk-body">When you get in touch during office hours, we’ll try to reply within 2 working days.</p>
+        {{ govukButton({
+          text: "Continue",
+          attributes: {"id": "continue"}
+        }) }}
 
-      </div>
+      </form>
+
+      <h2 class="govuk-heading-m">Office hours</h2>
+
+      <p class="govuk-body">We can only respond to your support queries during office hours. Our office hours are 9:30am to 5:30pm, Monday to Friday.</p>
+
+      <p class="govuk-body">When you get in touch during office hours, we’ll try to reply within 2 working days.</p>
+
     </div>
   </div>
-
 {% endblock %}
