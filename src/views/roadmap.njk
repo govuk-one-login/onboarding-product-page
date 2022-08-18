@@ -4,74 +4,67 @@
 {% set headerNavigationActiveItem = "features" %}
 
 {% block beforeContent %}
-  <div class="govuk-width-container">
-    <div class="govuk-breadcrumbs">
-      <ol class="govuk-breadcrumbs__list">
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="/features">Features</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link"  href="#main-content" aria-current="page">Roadmap</a>
-        </li>
-      </ol>
-    </div>
+  <div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="/features">Features</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Roadmap</a>
+      </li>
+    </ol>
   </div>
 {% endblock %}
 
 {% block content %}
-
-  <div class="govuk-width-container">
-    <div class="govuk-grid-row">
-
-      <div class="govuk-grid-column-one-third">
-        <nav class="sub-navigation">
-          <ul class="govuk-list sub_navigation_list_2">
-            <li class="sub-navigation__item">
-              <a class="govuk-link govuk-link--no-visited-state" href="/features">Current features</a>
-            </li>
-            <li class="sub-navigation__item sub-navigation__item--active">
-              <a class="govuk-link govuk-link--no-visited-state" href="#">Roadmap</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <div class="govuk-grid-column-two-thirds">
-
-        <h1 class="govuk-heading-l">Roadmap</h1>
-        <p class="govuk-body">Last updated: August 2022</p>
-        <h2 class="govuk-heading-m">Recently released</h2>
-        <p class="govuk-body">Users can now use authenticator apps for two-factor authentication, as an alternative to text messages.</p>
-        <h2 class="govuk-heading-m">What we're working on now</h2>
-        <p class="govuk-body">These are the features that will be available next.</p>
-        <h3 class="govuk-heading-s">Non-UK mobile numbers</h3>
-        <p class="govuk-body">We know users with international phone numbers need to sign in to government services, so we’re looking into how we can do this.</p>
-        <h3 class="govuk-heading-s">Two-factor authentication recovery</h3>
-        <p class="govuk-body">If your users lose access to their two-factor authentication method, we’ll help them get back into their account.</p>
-        <h2 class="govuk-heading-m">Identity checks will be added in future</h2>
-        <p class="govuk-body">Identity checks are for services that need to be sure their users are who they say they are.</p>
-        <p class="govuk-body">We’re adding the checks to GOV.UK Sign In in 2022. They’ll be available to our identity private beta partners first, and available for all services in 2023.</p>
-        <p class="govuk-body">You’re likely to need identity checks if your service does things like paying out money or showing confidential information.</p>
-        <p class="govuk-body">You cannot have identity checks without the ‘sign in’ functionality.</p>
-        <p class="govuk-body">If you’re a central government service and you need identity checks, <a class="govuk-link" href="/register">sign up for access</a>.</p>
-        <p class="govuk-body">After you sign up:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>you’ll be able to test out the ‘sign in’ part of the journey with your service</li>
-          <li>we’ll contact you about getting access to the identity checks when we add them to GOV.UK Sign In</li>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+      <nav class="sub-navigation">
+        <ul class="govuk-list sub_navigation_list">
+          <li class="sub-navigation__item">
+            <a class="govuk-link govuk-link--no-visited-state" href="/features">Current features</a>
+          </li>
+          <li class="sub-navigation__item sub-navigation__item--active">
+            <a class="govuk-link govuk-link--no-visited-state" href="#">Roadmap</a>
+          </li>
         </ul>
-        <h2 class="govuk-heading-m">Updates</h2>
-        <p class="govuk-body">As we’re still at an early stage, our plans may shift. We’ll update this page when this happens and add more detail when we can.</p>
-        <p class="govuk-body">We’ll keep sharing in blog posts and at our regular cross-government show and tells too.</p>
-        <p class="govuk-body"><a class="govuk-link" href="/mailing-list">Join our mailing list</a> to stay up to date.</p>
+      </nav>
+    </div>
 
-      </div>
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-l">Roadmap</h1>
+      <p class="govuk-body">Last updated: August 2022</p>
+      <h2 class="govuk-heading-m">Recently released</h2>
+      <p class="govuk-body">Users can now use authenticator apps for two-factor authentication, as an alternative to text messages.</p>
+      <h2 class="govuk-heading-m">What we're working on now</h2>
+      <p class="govuk-body">These are the features that will be available next.</p>
+      <h3 class="govuk-heading-s">Non-UK mobile numbers</h3>
+      <p class="govuk-body">We know users with international phone numbers need to sign in to government services, so we’re looking into how we can do this.</p>
+      <h3 class="govuk-heading-s">Two-factor authentication recovery</h3>
+      <p class="govuk-body">If your users lose access to their two-factor authentication method, we’ll help them get back into their account.</p>
+      <h2 class="govuk-heading-m">Identity checks will be added in future</h2>
+      <p class="govuk-body">Identity checks are for services that need to be sure their users are who they say they are.</p>
+      <p class="govuk-body">We’re adding the checks to GOV.UK Sign In in 2022. They’ll be available to our identity private beta partners first, and available for all services in 2023.</p>
+      <p class="govuk-body">You’re likely to need identity checks if your service does things like paying out money or showing confidential information.</p>
+      <p class="govuk-body">You cannot have identity checks without the ‘sign in’ functionality.</p>
+      <p class="govuk-body">If you’re a central government service and you need identity checks, <a class="govuk-link" href="/register">sign up for access</a>.</p>
+      <p class="govuk-body">After you sign up:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>you’ll be able to test out the ‘sign in’ part of the journey with your service</li>
+        <li>we’ll contact you about getting access to the identity checks when we add them to GOV.UK Sign In</li>
+      </ul>
+      <h2 class="govuk-heading-m">Updates</h2>
+      <p class="govuk-body">As we’re still at an early stage, our plans may shift. We’ll update this page when this happens and add more detail when we can.</p>
+      <p class="govuk-body">We’ll keep sharing in blog posts and at our regular cross-government show and tells too.</p>
+      <p class="govuk-body"><a class="govuk-link" href="/mailing-list">Join our mailing list</a> to stay up to date.</p>
+
     </div>
   </div>
-
 {% endblock %}

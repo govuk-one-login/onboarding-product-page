@@ -3,27 +3,24 @@
 {% block pageTitle %}Cookies - GOV.UK Sign In{% endblock %}
 
 {% block beforeContent %}
-  <div class="govuk-width-container">
-    <div class="govuk-breadcrumbs">
-      <ol class="govuk-breadcrumbs__list">
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Cookies</a>
-        </li>
-      </ol>
-    </div>
+  <div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Cookies</a>
+      </li>
+    </ol>
   </div>
 {% endblock %}
 
 {% block content %}
-  <div class="govuk-width-container">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
 
         <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" id="save-success-banner" hidden="true">
           <div class="govuk-notification-banner__header">
@@ -114,33 +111,33 @@
           </tbody>
         </table>
 
-        <div class="govuk-form-group">
-          <fieldset class="govuk-fieldset">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-              Do you want to accept analytics cookies?
-            </legend>
-            <div class="govuk-radios" id="radio-cookie-preferences">
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="policy-cookies-accepted" name="cookie-preferences" type="radio" value="true">
-                <label class="govuk-label govuk-radios__label" for="policy-cookies-accepted">
-                  Yes
-                </label>
-
-              </div>
-              <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="policy-cookies-rejected" name="cookie-preferences" type="radio" value="false">
-                <label class="govuk-label govuk-radios__label" for="policy-cookies-rejected">
-                  No
-                </label>
-              </div>
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+            Do you want to accept analytics cookies?
+          </legend>
+          <div class="govuk-radios" id="radio-cookie-preferences">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="policy-cookies-accepted" name="cookie-preferences" type="radio" value="true">
+              <label class="govuk-label govuk-radios__label" for="policy-cookies-accepted">
+                Yes
+              </label>
             </div>
-          </fieldset>
 
-        </div>
-        <button type="Button" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button" id="save-cookie-settings">
-          Save cookie settings
-        </button>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="policy-cookies-rejected" name="cookie-preferences" type="radio" value="false">
+              <label class="govuk-label govuk-radios__label" for="policy-cookies-rejected">
+                No
+              </label>
+            </div>
+          </div>
+        </fieldset>
       </div>
+
+      <button type="Button" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button" id="save-cookie-settings">
+        Save cookie settings
+      </button>
+
     </div>
   </div>
 {% endblock %}

@@ -5,66 +5,59 @@
 {% set headerNavigationActiveItem = "documentation" %}
 
 {% block beforeContent %}
-  <div class="govuk-width-container">
-    <div class="govuk-breadcrumbs">
-      <ol class="govuk-breadcrumbs__list">
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link"  href="#main-content" aria-current="page">Documentation</a>
-        </li>
-      </ol>
-    </div>
+  <div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Documentation</a>
+      </li>
+    </ol>
   </div>
 {% endblock %}
 
 {% block content %}
-
-  <div class="govuk-width-container">
-    <div class="govuk-grid-row">
-
-      <div class="govuk-grid-column-one-third">
-        <nav class="sub-navigation">
-          <ul class="govuk-list sub_navigation_list_2">
-            <li class="sub-navigation__item sub-navigation__item--active">
-              <a class="govuk-link govuk-link--no-visited-state" href="/documentation">Technical documentation</a>
-            </li>
-            <li class="sub-navigation__item">
-              <a class="govuk-link govuk-link--no-visited-state" href="/documentation/user-journeys">User journey maps</a>
-            </li>
-            <li class="sub-navigation__item">
-              <a class="govuk-link govuk-link--no-visited-state" href="/documentation/design-recommendations">Design recommendations: ‘create account to save progress’</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">Technical documentation</h1>
-        <p class="govuk-body">Our technical documentation will help you:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>understand how GOV.UK Sign In works</li>
-          <li>integrate with GOV.UK Sign In’s test environment for authentication</li>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+      <nav class="sub-navigation">
+        <ul class="govuk-list sub_navigation_list">
+          <li class="sub-navigation__item sub-navigation__item--active">
+            <a class="govuk-link govuk-link--no-visited-state" href="/documentation">Technical documentation</a>
+          </li>
+          <li class="sub-navigation__item">
+            <a class="govuk-link govuk-link--no-visited-state" href="/documentation/user-journeys">User journey maps</a>
+          </li>
+          <li class="sub-navigation__item">
+            <a class="govuk-link govuk-link--no-visited-state" href="/documentation/design-recommendations">Design recommendations: ‘create account to save progress’</a>
+          </li>
         </ul>
-        <p class="govuk-body">
-          The documentation covers both the authentication and identity checking parts of GOV.UK Sign In.
-        </p>
-        <p class="govuk-body">
-          Only the authentication part is available to all central government services now.
-        </p>
-        <p class="govuk-body">
-          We’ve included information about identity checks because this feature is being tested by selected services. It will also let all services see how our identity checks work.
-        </p>
+      </nav>
+    </div>
 
-        <p class="govuk-body">
-          <a class="govuk-link" href="https://docs.sign-in.service.gov.uk" rel="noreferrer noopener" target="_blank">Read our technical documentation (opens in new tab)</a>
-        </p>
-      </div>
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Technical documentation</h1>
+      <p class="govuk-body">Our technical documentation will help you:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>understand how GOV.UK Sign In works</li>
+        <li>integrate with GOV.UK Sign In’s test environment for authentication</li>
+      </ul>
+      <p class="govuk-body">
+        The documentation covers both the authentication and identity checking parts of GOV.UK Sign In.
+      </p>
+      <p class="govuk-body">
+        Only the authentication part is available to all central government services now.
+      </p>
+      <p class="govuk-body">
+        We’ve included information about identity checks because this feature is being tested by selected services. It will also let all services see how our identity checks work.
+      </p>
+
+      <p class="govuk-body">
+        <a class="govuk-link" href="https://docs.sign-in.service.gov.uk" rel="noreferrer noopener" target="_blank">Read our technical documentation (opens in new tab)</a>
+      </p>
     </div>
   </div>
-
 {% endblock %}
