@@ -1,6 +1,10 @@
-{% extends "base-evaluate.njk" %}
+{% extends "base.njk" %}
 
 {% block pageTitle %}Request submitted - GOV.UK Sign In{% endblock %}
+
+{% set showTopNav = false %}
+{% set homePath = "decide" %}
+{% set baseClasses = "govuk-!-padding-top-8" %}
 
 {% block content %}
     <div class="govuk-width-container">

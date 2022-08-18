@@ -1,10 +1,12 @@
-{% extends "base-evaluate.njk" %}
+{% extends "base.njk" %}
 
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% block pageTitle %}Request to join private beta - GOV.UK Sign In{% endblock %}
 
-{% set mainClasses = "govuk-!-padding-top-6" %}
+{% set showTopNav = false %}
+{% set homePath = "decide" %}
+{% set baseClasses = "govuk-!-padding-top-5" %}
 
 {% block beforeContent %}
     <div class="govuk-width-container ">
