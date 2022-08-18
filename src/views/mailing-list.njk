@@ -35,10 +35,12 @@
           'serviceName': '#serviceName'
         }
       }) }}
+
       <h1 class="govuk-heading-l">Join our mailing list</h1>
       <p class="govuk-body">Complete this form to stay up to date with our progress on GOV.UK Sign In.</p>
       <p class="govuk-body">Once you’ve submitted the form, we’ll add you to our mailing list. You’ll get emails with
         updates about our work. We’ll also invite you to our cross-government show and tells.</p>
+
       <form class="form" action="/mailing-list" method="post">
 
         {{ govukInput({
@@ -99,9 +101,7 @@
         <button class="govuk-button" data-module="govuk-button" id="submit" name="submit">
           Submit
         </button>
-
       </form>
-
     </div>
   </div>
 {% endblock %}
