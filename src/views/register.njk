@@ -3,25 +3,24 @@
 {% block pageTitle %}Sign up to get access - GOV.UK Sign In{% endblock %}
 
 {% block beforeContent %}
-<div class="govuk-width-container ">
-    <div class="govuk-breadcrumbs">
-        <ol class="govuk-breadcrumbs__list">
-            <li class="govuk-breadcrumbs__list-item">
-                <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK
-                    services</a>
-            </li>
-            <li class="govuk-breadcrumbs__list-item">
-                <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
-            </li>
-            <li class="govuk-breadcrumbs__list-item">
-                <a class="govuk-breadcrumbs__link" href="/getting-started">Get started</a>
-            </li>
-            <li class="govuk-breadcrumbs__list-item">
-                <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Sign up to get access</a>
-            </li>
-        </ol>
-    </div>
-    {% endblock %}
+  <div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK
+          services</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="/getting-started">Get started</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Sign up to get access</a>
+      </li>
+    </ol>
+  </div>
+{% endblock %}
 
     {% block content %}
     <div class="govuk-grid-row">
@@ -141,43 +140,40 @@
                     >
                 </div>
 
-                <div class="govuk-form-group {% if errorMessages.get('mailing-list') %}govuk-form-group--error{% endif %}">
-                    <label class="govuk-label" for="service-name">
-                        Would you like to join our mailing list? 
-                    </label>
-                    <div id="email-hint" class="govuk-hint">
-                        You’ll get occasional email updates about our work and invitations to our cross-government show and tells.
-                    </div>
-                    {% if errorMessages.get('mailing-list') %}
-                        <span class="govuk-error-message" id="mailing-list-error">
-                            <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('mailing-list') }}
-                        </span>
-                    {% endif %}
-                    <div class="govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mailing-list-yes" name="mailing-list" type="radio" value="yes" {% if values.get('mailing-list') == 'yes' %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="mailing-list-yes">
-                                Yes
-                            </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="mailing-list-no" name="mailing-list" type="radio" value="no" {% if values.get('mailing-list') == 'no' %}checked{% endif %}>
-                            <label class="govuk-label govuk-radios__label" for="mailing-list-no">
-                                No
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <br/>
-                <button id="submit" name="submit" class="govuk-button" data-module="govuk-button">
-                    Submit
-                </button>
-            </form>
-
-
-
+        <div class="govuk-form-group {% if errorMessages.get('mailing-list') %}govuk-form-group--error{% endif %}">
+          <label class="govuk-label" for="service-name">
+            Would you like to join our mailing list?
+          </label>
+          <div id="email-hint" class="govuk-hint">
+            You’ll get occasional email updates about our work and invitations to our cross-government show and tells.
+          </div>
+          {% if errorMessages.get('mailing-list') %}
+            <span class="govuk-error-message" id="mailing-list-error">
+              <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('mailing-list') }}
+            </span>
+          {% endif %}
+          <div class="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="mailing-list-yes" name="mailing-list" type="radio" value="yes"
+                     {% if values.get('mailing-list') == 'yes' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="mailing-list-yes">
+                Yes
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="mailing-list-no" name="mailing-list" type="radio" value="no"
+                     {% if values.get('mailing-list') == 'no' %}checked{% endif %}>
+              <label class="govuk-label govuk-radios__label" for="mailing-list-no">
+                No
+              </label>
+            </div>
+          </div>
         </div>
-
+        <br/>
+        <button id="submit" name="submit" class="govuk-button" data-module="govuk-button">
+          Submit
+        </button>
+      </form>
     </div>
-</div>
+  </div>
 {% endblock %}

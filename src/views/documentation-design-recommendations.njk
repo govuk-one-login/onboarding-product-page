@@ -5,132 +5,130 @@
 {% set mainClasses = "govuk-main-wrapper-documentation documentation-design-recommendations" %}
 
 {% block beforeContent %}
-  <div class="govuk-width-container">
-    <div class="govuk-breadcrumbs">
-      <ol class="govuk-breadcrumbs__list">
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link"  href="/documentation">Documentation</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link"  href="#main-content" aria-current="page">Design recommendations</a>
-        </li>
-      </ol>
-    </div>
+  <div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="/documentation">Documentation</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Design recommendations</a>
+      </li>
+    </ol>
   </div>
 {% endblock %}
 
 {% block content %}
-  <div class="govuk-width-container">
-    <div class="govuk-grid-row" style="position: relative;">
-
-      <div class="govuk-grid-column-one-third">
-        <nav class="sub-navigation">
-          <ul class="govuk-list sub_navigation_list_2">
-            <li class="sub-navigation__item">
-              <a class="govuk-link govuk-link--no-visited-state" href="/documentation">Technical documentation</a>
-            </li>
-            <li class="sub-navigation__item">
-              <a class="govuk-link govuk-link--no-visited-state" href="/documentation/user-journeys">User journey maps</a>
-            </li>
-            <li class="sub-navigation__item sub-navigation__item--active">
-              <a class="govuk-link govuk-link--no-visited-state" href="/documentation/design-recommendations">Design recommendations: ‘create account to save progress’</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">Design recommendations: ‘create account to save progress’</h1>
-        <p class="govuk-body">We’ve created designs to help you incorporate GOV.UK Sign In into your service. They’re for the journey option where users create an account to save progress - <a class="govuk-link" href="/documentation/user-journeys">see journey map option 2</a> for context.</p>
-        <p class="govuk-body">The aim is to provide a consistent experience for users across all services that use GOV.UK Sign In, and reduce duplication of effort by services.</p>
-        <p class="govuk-body">However, you’ll need to tailor them to your service. You do not have to use them if research shows something else works better for you. Please <a class="govuk-link" href="/contact-us">contact us</a> if this is the case, so we can learn from you.</p>
-        <h2 class="govuk-heading-m">How we created these designs</h2>
-        <p class="govuk-body">The designs all use existing patterns and components from the <a class="govuk-link" href="https://design-system.service.gov.uk">GOV.UK Design System</a>. As this is a new type of journey, we’ve combined those existing patterns in new ways. We’ll be sharing our findings with the GOV.UK Design System team.</p>
-        <p class="govuk-body">We’ve used a DVLA service as an example. You should be able to replace DVLA with your own service name and adjust the designs to fit your service.</p>
-        <p class="govuk-body">The designs have all been tested with users. Contact us if you’d like more details on the research.</p>
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Contents</h2>
-        <ul class="documentation-contents govuk-body">
-          <li class="documentation-contents-item">
-            <a class="govuk-link govuk-link--no-visited-state" href="#save-and-complete-later-link">Save and complete later link</a>
+  <div class="govuk-grid-row" style="position: relative;">
+    <div class="govuk-grid-column-one-third">
+      <nav class="sub-navigation">
+        <ul class="govuk-list sub_navigation_list">
+          <li class="sub-navigation__item">
+            <a class="govuk-link govuk-link--no-visited-state" href="/documentation">Technical documentation</a>
           </li>
-          <li class="documentation-contents-item">
-            <a class="govuk-link govuk-link--no-visited-state" href="#start-or-resume-a-report-or-application">Start or resume a report or application</a>
+          <li class="sub-navigation__item">
+            <a class="govuk-link govuk-link--no-visited-state" href="/documentation/user-journeys">User journey maps</a>
           </li>
-          <li class="documentation-contents-item">
-            <a class="govuk-link govuk-link--no-visited-state" href="#task-list-page">Task list page</a>
-          </li>
-          <li class="documentation-contents-item">
-            <a class="govuk-link govuk-link--no-visited-state" href="#sign-out-interruption-screen">Sign out interruption screen</a>
-          </li>
-          <li class="documentation-contents-item">
-            <a class="govuk-link govuk-link--no-visited-state" href="#confirmation-email">Confirmation email</a>
+          <li class="sub-navigation__item sub-navigation__item--active">
+            <a class="govuk-link govuk-link--no-visited-state" href="/documentation/design-recommendations">
+              Design recommendations: ‘create account to save progress’
+            </a>
           </li>
         </ul>
-        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-8 govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-3" id="save-and-complete-later-link">Save and complete later link</h2>
-        <div class="govuk-!-margin-bottom-5"><img src="/dist/images/Save-and-complete-later-link.svg" alt="" style="width: 42%; height: auto;"></div>
-        <h3 class="govuk-heading-s">What is it?</h3>
-        <p class="govuk-body">A ‘Save and complete later’ link is the first point of interaction for a user when they decide they want to save their report or application, and come back to finish it later. The link is placed under the primary action of a page.</p>
-        <h3 class="govuk-heading-s">When to use it</h3>
-        <p class="govuk-body">Use the ‘Save and complete later’ link on all pages within a service form.</p>
-        <h3 class="govuk-heading-s">How it works</h3>
-        <p class="govuk-body">The link will take users into the Sign In journey. From there users have the option of creating a GOV.UK account or signing in if they already have one.</p>
-        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-8 govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-3" id="start-or-resume-a-report-or-application">Start or resume a report or application</h2>
-        <div class="govuk-!-margin-bottom-5"><img src="/dist/images/Start-or-resume-form-or-application.svg" alt="" style="width: 42%; height: auto;"></div>
-        <h3 class="govuk-heading-s">What is it?</h3>
-        <p class="govuk-body">A ‘What do you want to do?’ screen asks users if they want to start a new report or application, or resume one they’ve previously saved. It’s their point of access for resuming an application.</p>
-        <h3 class="govuk-heading-s">When to use it</h3>
-        <p class="govuk-body">This screen is shown directly after the service start page, after the user has selected ‘Start now’.</p>
-        <h3 class="govuk-heading-s">How it works</h3>
-        <p class="govuk-body">Selecting the first radio button “Start a new [report] to [service]” will take users to the first question of the service’s form.</p>
-        <p class="govuk-body">Selecting the second radio button “Resume a saved [report]” will take users to a ‘sign in to your account to resume’ page.  Users must sign in to view their progress with the saved report or application and then carry on from where they left off.</p>
-        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-8 govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-3" id="task-list-page">Task list page</h2>
-        <div class="govuk-!-margin-bottom-5">
-          <img src="/dist/images/Task-list-page-1.svg" alt="" style="width: 42%; height: auto;">
-          <img src="/dist/images/Task-list-page-2.svg" alt="" style="width: 42%; height: auto; vertical-align: top;">
-        </div>
-        <h3 class="govuk-heading-s">What is it?</h3>
-        <p class="govuk-body">A task list page shows all the tasks that a user has to complete as part of the application or report, with indicators to show the status of each task. </p>
-        <p class="govuk-body">On one version of this page, a ‘success’ panel appears at the top to show that a user has saved their progress. On the other version, there’s no panel.</p>
-        <h3 class="govuk-heading-s">When to use it</h3>
-        <p class="govuk-body">Use the version with the success panel immediately after a user has saved their progress on an application.</p>
-        <p class="govuk-body">Use the version without the success panel after a user has signed in to resume an application.</p>
-        <h3 class="govuk-heading-s">How it works</h3>
-        <p class="govuk-body">When a user selects a hyperlinked task in the task list, they can fill in their answers for that question (or change their answer if they’d previously completed it) and continue to fill in the form. If they save their progress again, they’ll come back to the task list page.</p>
-        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-8 govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-3" id="sign-out-interruption-screen">Sign out interruption screen</h2>
-        <div class="govuk-!-margin-bottom-5"><img src="/dist/images/Sign-out-interruption-screen.svg" alt="" style="width: 42%; height: auto;"></div>
-        <h3 class="govuk-heading-s">What is it?</h3>
-        <p class="govuk-body">A sign out interruption screen warns signed-in users that their progress on a form will be lost if they do not save it before they sign out. They can choose to save their progress or sign out.</p>
-        <h3 class="govuk-heading-s">When to use it</h3>
-        <p class="govuk-body">Use the sign out interruption screen when a signed-in user selects ‘Sign out’ without having saved their progress on the form.</p>
-        <h3 class="govuk-heading-s">How it works</h3>
-        <p class="govuk-body">The ‘Save my progress’ button will save the user’s progress on the form and send them to the task list page. The ‘Sign out’ button will sign them out of the account without saving their progress, and send them to the ‘You have signed out’ page.</p>
-        <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-8 govuk-!-margin-bottom-8">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-3" id="confirmation-email">Confirmation email</h2>
-        <div class="govuk-!-margin-bottom-5"><img src="/dist/images/Confirmation-email.svg" alt="" style="width: 42%; height: auto;"></div>
-        <h3 class="govuk-heading-s">What is it?</h3>
-        <p class="govuk-body">A confirmation email is sent to the user to tell them that their progress on their application has been saved. It also gives them a route to resume their application.</p>
-        <h3 class="govuk-heading-s">When to use it</h3>
-        <p class="govuk-body">Send the email to users after they have saved their progress on an application, report or other form.</p>
-        <h3 class="govuk-heading-s">How it works</h3>
-        <p class="govuk-body">The content of the email tells users their report or application has been saved and how to resume it. The URL takes the user to the ‘Sign in’ page.</p>
+      </nav>
+    </div>
+
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">Design recommendations: ‘create account to save progress’</h1>
+      <p class="govuk-body">We’ve created designs to help you incorporate GOV.UK Sign In into your service. They’re for the journey option where users create an account to save progress - <a class="govuk-link" href="/documentation/user-journeys">see journey map option 2</a> for context.</p>
+      <p class="govuk-body">The aim is to provide a consistent experience for users across all services that use GOV.UK Sign In, and reduce duplication of effort by services.</p>
+      <p class="govuk-body">However, you’ll need to tailor them to your service. You do not have to use them if research shows something else works better for you. Please <a class="govuk-link" href="/contact-us">contact us</a> if this is the case, so we can learn from you.</p>
+      <h2 class="govuk-heading-m">How we created these designs</h2>
+      <p class="govuk-body">The designs all use existing patterns and components from the <a class="govuk-link" href="https://design-system.service.gov.uk">GOV.UK Design System</a>. As this is a new type of journey, we’ve combined those existing patterns in new ways. We’ll be sharing our findings with the GOV.UK Design System team.</p>
+      <p class="govuk-body">We’ve used a DVLA service as an example. You should be able to replace DVLA with your own service name and adjust the designs to fit your service.</p>
+      <p class="govuk-body">The designs have all been tested with users. Contact us if you’d like more details on the research.</p>
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-3">Contents</h2>
+      <ul class="documentation-contents govuk-body">
+        <li class="documentation-contents-item">
+          <a class="govuk-link govuk-link--no-visited-state" href="#save-and-complete-later-link">Save and complete later link</a>
+        </li>
+        <li class="documentation-contents-item">
+          <a class="govuk-link govuk-link--no-visited-state" href="#start-or-resume-a-report-or-application">Start or resume a report or application</a>
+        </li>
+        <li class="documentation-contents-item">
+          <a class="govuk-link govuk-link--no-visited-state" href="#task-list-page">Task list page</a>
+        </li>
+        <li class="documentation-contents-item">
+          <a class="govuk-link govuk-link--no-visited-state" href="#sign-out-interruption-screen">Sign out interruption screen</a>
+        </li>
+        <li class="documentation-contents-item">
+          <a class="govuk-link govuk-link--no-visited-state" href="#confirmation-email">Confirmation email</a>
+        </li>
+      </ul>
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-3" id="save-and-complete-later-link">Save and complete later link</h2>
+      <div class="govuk-!-margin-bottom-5"><img src="/dist/images/Save-and-complete-later-link.svg" alt="" style="width: 42%; height: auto;"></div>
+      <h3 class="govuk-heading-s">What is it?</h3>
+      <p class="govuk-body">A ‘Save and complete later’ link is the first point of interaction for a user when they decide they want to save their report or application, and come back to finish it later. The link is placed under the primary action of a page.</p>
+      <h3 class="govuk-heading-s">When to use it</h3>
+      <p class="govuk-body">Use the ‘Save and complete later’ link on all pages within a service form.</p>
+      <h3 class="govuk-heading-s">How it works</h3>
+      <p class="govuk-body">The link will take users into the Sign In journey. From there users have the option of creating a GOV.UK account or signing in if they already have one.</p>
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-3" id="start-or-resume-a-report-or-application">Start or resume a report or application</h2>
+      <div class="govuk-!-margin-bottom-5"><img src="/dist/images/Start-or-resume-form-or-application.svg" alt="" style="width: 42%; height: auto;"></div>
+      <h3 class="govuk-heading-s">What is it?</h3>
+      <p class="govuk-body">A ‘What do you want to do?’ screen asks users if they want to start a new report or application, or resume one they’ve previously saved. It’s their point of access for resuming an application.</p>
+      <h3 class="govuk-heading-s">When to use it</h3>
+      <p class="govuk-body">This screen is shown directly after the service start page, after the user has selected ‘Start now’.</p>
+      <h3 class="govuk-heading-s">How it works</h3>
+      <p class="govuk-body">Selecting the first radio button “Start a new [report] to [service]” will take users to the first question of the service’s form.</p>
+      <p class="govuk-body">Selecting the second radio button “Resume a saved [report]” will take users to a ‘sign in to your account to resume’ page. Users must sign in to view their progress with the saved report or application and then carry on from where they left off.</p>
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-3" id="task-list-page">Task list page</h2>
+      <div class="govuk-!-margin-bottom-5">
+        <img src="/dist/images/Task-list-page-1.svg" alt="" style="width: 42%; height: auto;">
+        <img src="/dist/images/Task-list-page-2.svg" alt="" style="width: 42%; height: auto; vertical-align: top;">
       </div>
-      <div class="app-back-to-top app-back-to-top--hidden" data-module="app-back-to-top">
-        <a class="govuk-link govuk-link--no-visited-state app-back-to-top__link" href="#top">
-          <svg role="presentation" focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17">
-            <path fill="currentColor" d="M6.5 0L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
-          </svg>Back to top
-        </a>
-      </div>
+      <h3 class="govuk-heading-s">What is it?</h3>
+      <p class="govuk-body">A task list page shows all the tasks that a user has to complete as part of the application or report, with indicators to show the status of each task.</p>
+      <p class="govuk-body">On one version of this page, a ‘success’ panel appears at the top to show that a user has saved their progress. On the other version, there’s no panel.</p>
+      <h3 class="govuk-heading-s">When to use it</h3>
+      <p class="govuk-body">Use the version with the success panel immediately after a user has saved their progress on an application.</p>
+      <p class="govuk-body">Use the version without the success panel after a user has signed in to resume an application.</p>
+      <h3 class="govuk-heading-s">How it works</h3>
+      <p class="govuk-body">When a user selects a hyperlinked task in the task list, they can fill in their answers for that question (or change their answer if they’d previously completed it) and continue to fill in the form. If they save their progress again, they’ll come back to the task list page.</p>
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-3" id="sign-out-interruption-screen">Sign out interruption screen</h2>
+      <div class="govuk-!-margin-bottom-5"><img src="/dist/images/Sign-out-interruption-screen.svg" alt="" style="width: 42%; height: auto;"></div>
+      <h3 class="govuk-heading-s">What is it?</h3>
+      <p class="govuk-body">A sign out interruption screen warns signed-in users that their progress on a form will be lost if they do not save it before they sign out. They can choose to save their progress or sign out.</p>
+      <h3 class="govuk-heading-s">When to use it</h3>
+      <p class="govuk-body">Use the sign out interruption screen when a signed-in user selects ‘Sign out’ without having saved their progress on the form.</p>
+      <h3 class="govuk-heading-s">How it works</h3>
+      <p class="govuk-body">The ‘Save my progress’ button will save the user’s progress on the form and send them to the task list page. The ‘Sign out’ button will sign them out of the account without saving their progress, and send them to the ‘You have signed out’ page.</p>
+      <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-8 govuk-!-margin-bottom-8">
+      <h2 class="govuk-heading-m govuk-!-margin-bottom-3" id="confirmation-email">Confirmation email</h2>
+      <div class="govuk-!-margin-bottom-5"><img src="/dist/images/Confirmation-email.svg" alt="" style="width: 42%; height: auto;"></div>
+      <h3 class="govuk-heading-s">What is it?</h3>
+      <p class="govuk-body">A confirmation email is sent to the user to tell them that their progress on their application has been saved. It also gives them a route to resume their application.</p>
+      <h3 class="govuk-heading-s">When to use it</h3>
+      <p class="govuk-body">Send the email to users after they have saved their progress on an application, report or other form.</p>
+      <h3 class="govuk-heading-s">How it works</h3>
+      <p class="govuk-body">The content of the email tells users their report or application has been saved and how to resume it. The URL takes the user to the ‘Sign in’ page.</p>
+    </div>
+
+    <div class="app-back-to-top app-back-to-top--hidden" data-module="app-back-to-top">
+      <a class="govuk-link govuk-link--no-visited-state app-back-to-top__link" href="#top">
+        <svg role="presentation" focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17">
+          <path fill="currentColor" d="M6.5 0L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"/>
+        </svg>Back to top
+      </a>
     </div>
   </div>
 {% endblock %}
