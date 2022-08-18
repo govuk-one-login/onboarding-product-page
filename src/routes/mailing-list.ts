@@ -4,11 +4,11 @@ import { mailingList } from "../controllers/mailing-list";
 const router = express.Router();
 
 router.get('/mailing-list', (req, res) => {
-  res.render('mailing-list.njk');
+  res.render('mailing-list/mailing-list.njk');
 });
 
 router.get('/mailing-list/confirmation', (req, res) => {
-  res.render('mailing-list-confirmation.njk');
+  res.render('mailing-list/mailing-list-confirmation.njk');
 });
 
 router.post('/mailing-list', mailingList);

@@ -14,7 +14,7 @@ requiredFields.set("how-can-we-help", "Tell us how we can help");
 export const showForm = function(req: Request, res: Response) {
     const errorMessages = new Map();
     const values = new Map();
-    res.render('contact-us.njk', {errorMessages: errorMessages, values: values});
+    res.render('support/contact-us.njk', {errorMessages: errorMessages, values: values});
 }
 
 export const submitForm = async function(req: Request, res: Response) {
@@ -37,7 +37,7 @@ export const submitForm = async function(req: Request, res: Response) {
             res.redirect('contact-us-error')
         }
     } else {
-        res.render('contact-us.njk',
+        res.render('support/contact-us.njk',
             {
                 errorMessages: errorMessages,
                 values: values,
@@ -55,5 +55,5 @@ export const submitForm = async function(req: Request, res: Response) {
 }
 
 export const confirmation = function(req: Request, res: Response) {
-    res.render('contact-us-confirm.njk');
+    res.render('support/contact-us-confirm.njk');
 }

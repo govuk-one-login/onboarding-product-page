@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 
 export const showForm = function(req: Request, res: Response) {
-    res.render('support.njk');
+    res.render('support/support.njk');
 }
 
 export const submitForm = function(req: Request, res: Response) {
     if (req.body && Object.keys(req.body).length === 0) {
-        res.render('support.njk', {valueNotSelected: true});
+        res.render('support/support.njk', {valueNotSelected: true});
     } else {
         if (req.body.support === 'gov-service-start-using-sign-in') {
             res.redirect('/contact-us-details');
@@ -19,4 +19,3 @@ export const submitForm = function(req: Request, res: Response) {
         }
     }
 }
-

@@ -1,27 +1,13 @@
-{% extends "base.njk" %}
+{% extends "../base.njk" %}
 
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-
-{% block pageTitle %}Request to join private beta - GOV.UK Sign In{% endblock %}
-
-{% set showTopNav = false %}
-{% set homePath = "decide" %}
-{% set baseClasses = "govuk-!-padding-top-5" %}
-
-{% block beforeContent %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "/decide/private-beta"
-  }) }}
-{% endblock %}
+{% block pageTitle %}Contact us - GOV.UK Sign In{% endblock %}
 
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-
       {% if errorMessages.size != 0 %}
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"
-             data-module="govuk-error-summary">
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert"
+             tabindex="-1" data-module="govuk-error-summary">
           <h2 class="govuk-error-summary__title" id="error-summary-title">
             There is a problem
           </h2>
@@ -39,19 +25,25 @@
         </div>
       {% endif %}
 
-      <h1 class="govuk-heading-l govuk-!-margin-bottom-7">
-        Request to join private beta
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-6">
+        Contact us
       </h1>
+
+      <p class="govuk-body">Use this form to:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>report a problem</li>
+        <li>ask questions</li>
+        <li>suggest improvements</li>
+      </ul>
 
       <form class="form" method="post" novalidate="novalidate">
         <fieldset class="govuk-fieldset">
-
           <div class="govuk-form-group {% if errorMessages.get('name') %}govuk-form-group--error{% endif %}">
             <label class="govuk-label" for="name">Name</label>
             {% if errorMessages.get('name') %}
               <span class="govuk-error-message" id="name-error">
-                  <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('name') }}
-                </span>
+                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('name') }}
+              </span>
             {% endif %}
             <input class="govuk-input govuk-!-width-one-half{% if errorMessages.get('name') %} govuk-input--error{% endif %}"
                    id="name" name="name"
@@ -60,11 +52,10 @@
                    value="{{ values.get('name') }}"
                    {% if errorMessages.get('name') %}aria-describedby="name-error"{% endif %}>
           </div>
-
           <div class="govuk-form-group {% if errorMessages.get('email') %}govuk-form-group--error{% endif %}">
             <label class="govuk-label" for="email">Email address</label>
             <div id="email-hint" class="govuk-hint">
-              Must be a government email address
+              You must enter a government email address
             </div>
             {% if errorMessages.get('email') %}
               <span class="govuk-error-message" id="email-error">
@@ -81,22 +72,39 @@
                    aria-describedby="email-hint {% if errorMessages.get('email') %}email-error{% endif %}">
           </div>
 
-          <div class="govuk-form-group {% if errorMessages.get('department-name') %}govuk-form-group--error{% endif %}">
-            <label class="govuk-label" for="department-name">Department</label>
-            {% if errorMessages.get('department-name') %}
-              <span class="govuk-error-message" id="department-name-error">
-                    <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('department-name') }}
-                  </span>
+          <div class="govuk-form-group {% if errorMessages.get('role') %}govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="role">Role</label>
+            {% if errorMessages.get('role') %}
+              <span class="govuk-error-message" id="role-error">
+                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('role') }}
+              </span>
             {% endif %}
-
-            <input class="govuk-input govuk-!-width-one-half {% if errorMessages.get('department-name') %} govuk-input--error{% endif %}"
-                   id="department-name"
-                   name="department-name"
+            <input class="govuk-input govuk-!-width-one-half{% if errorMessages.get('role') %} govuk-input--error{% endif %}"
+                   id="role"
+                   name="role"
                    type="text"
                    spellcheck="false"
-                   value="{{ values.get('department-name') }}"
-                    {% if errorMessages.get('department-name') %}aria-describedby="department-name-error"{% endif %}>
+                   value="{{ values.get('role') }}"
+                   {% if errorMessages.get('name') %}aria-describedby="role-error"{% endif %}>
           </div>
+
+          <div class="govuk-form-group {% if errorMessages.get('organisation-name') %}govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="organisation-name">Organisation</label>
+            {% if errorMessages.get('organisation-name') %}
+              <span class="govuk-error-message" id="organisation-name-error">
+                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('organisation-name') }}
+              </span>
+            {% endif %}
+
+            <input class="govuk-input govuk-!-width-one-half{% if errorMessages.get('organisation-name') %} govuk-input--error{% endif %}"
+                   id="organisation-name"
+                   name="organisation-name"
+                   type="text"
+                   spellcheck="false"
+                   value="{{ values.get('organisation-name') }}"
+                   {% if errorMessages.get('organisation-name') %}aria-describedby="organisation-name-error"{% endif %}>
+          </div>
+
           <div class="govuk-form-group {% if errorMessages.get('service-name') %}govuk-form-group--error{% endif %}">
             <label class="govuk-label" for="service-name">Service name</label>
             {% if errorMessages.get('service-name') %}
@@ -113,9 +121,21 @@
                    value="{{ values.get('service-name') }}"
                    {% if errorMessages.get('service-name') %}aria-describedby="service-name-error"{% endif %}>
           </div>
+
+          <div class="govuk-form-group {% if errorMessages.get('how-can-we-help') %}govuk-form-group--error{% endif %}">
+            <label class="govuk-label" for="how-can-we-help">How can we help?</label>
+            {% if errorMessages.get('how-can-we-help') %}
+              <span class="govuk-error-message" id="how-can-we-help-error">
+                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('how-can-we-help') }}
+              </span>
+            {% endif %}
+            <textarea class="govuk-textarea{% if errorMessages.get('how-can-we-help') %} govuk-input--error{% endif %}"
+                      id="how-can-we-help" name="how-can-we-help" rows="5"
+                      aria-describedby="how-can-we-help-error">{{ values.get('how-can-we-help') }}</textarea>
+          </div>
         </fieldset>
 
-        <button class="govuk-button" data-module="govuk-button" id="submit">Submit</button>
+        <button class="govuk-button" data-module="govuk-button" name="submit" id="submit">Submit form</button>
       </form>
     </div>
   </div>

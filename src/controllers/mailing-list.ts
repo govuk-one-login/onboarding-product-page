@@ -58,7 +58,7 @@ export const mailingList = async function (req: Request, res: Response) {
     }
 
     if (errorMessages.size != 0) {
-        res.render('mailing-list.njk', {errors: errorMessages, values: formValueHolder});
+        res.render('mailing-list/mailing-list.njk', {errors: errorMessages, values: formValueHolder});
     } else {
 
         let sheet = new SheetsService(process.env.MAILING_LIST_SPREADSHEET_ID as string);

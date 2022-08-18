@@ -15,7 +15,7 @@ requiredFields.set("mailing-list", "Select if you’d like to join the mailing l
 export const get = function(req: Request, res: Response) {
     const errorMessages = new Map();
     const values = new Map();
-    res.render('register.njk', {errorMessages: errorMessages, values: values});
+    res.render('register-interest/register.njk', {errorMessages: errorMessages, values: values});
 }
 
 export const post = async function(req: Request, res: Response) {
@@ -59,7 +59,7 @@ export const post = async function(req: Request, res: Response) {
         console.log("Saved to sheets");
         res.redirect(redirectTo);
     } else {
-        res.render('register.njk',
+        res.render('register-interest/register.njk',
             {
                 errorMessages: errorMessages,
                 values: values,
@@ -76,9 +76,9 @@ export const post = async function(req: Request, res: Response) {
 }
 
 export const confirm = function(req: Request, res: Response) {
-    res.render('register-confirm.njk');
+    res.render('register-interest/register-confirm.njk');
 };
 
 export const error = function(req: Request, res: Response) {
-    res.render('register-error.njk');
+    res.render('register-interest/register-error.njk');
 }

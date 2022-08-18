@@ -13,7 +13,7 @@ requiredFields.set("department-name", "Enter your department");
 export const showRequestForm = function (req: Request, res: Response) {
     const errorMessages = new Map();
     const values = new Map();
-    res.render('request.njk', {errorMessages: errorMessages, values: values});
+    res.render('private-beta/request.njk', {errorMessages: errorMessages, values: values});
 }
 
 export const submitRequestForm = async function (req: Request, res: Response) {
@@ -41,7 +41,7 @@ export const submitRequestForm = async function (req: Request, res: Response) {
             });
         res.redirect(redirectTo);
     } else {
-        res.render('request.njk',
+        res.render('private-beta/request.njk',
             {
                 errorMessages: errorMessages,
                 values: values,
@@ -57,9 +57,9 @@ export const submitRequestForm = async function (req: Request, res: Response) {
 }
 
 export const requestSubmitted = function (req: Request, res: Response) {
-    res.render('request-submitted.njk');
+    res.render('private-beta/request-submitted.njk');
 }
 
 export const error = function (re: Request, res: Response) {
-    res.render('request-error.njk');
+    res.render('private-beta/request-error.njk');
 }
