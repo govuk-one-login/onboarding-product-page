@@ -17,7 +17,7 @@ BackToTop.prototype.init = function () {
     }
 
     var $footer = document.querySelector('.govuk-footer')
-    var $subNav = document.querySelector('.sub-navigation')
+    var $subNav = document.querySelector('.side-navigation')
 
     // Check if there is anything to observe
     if (!$footer || !$subNav) {

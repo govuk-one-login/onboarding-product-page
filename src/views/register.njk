@@ -22,128 +22,108 @@
   </div>
 {% endblock %}
 
-    {% block content %}
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            {% if errorMessages.size != 0 %}
-                <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"
-                     data-module="govuk-error-summary">
-                    <h2 class="govuk-error-summary__title" id="error-summary-title">
-                        There is a problem
-                    </h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            {% for field in fieldOrder %}
-                                {% if errorMessages.get(field) %}
-                                    <li>
-                                        <a href="#{{ field }}">{{ errorMessages.get(field) }}</a>
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-            {% endif %}
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      {% if errorMessages.size != 0 %}
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"
+             data-module="govuk-error-summary">
+          <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+          </h2>
+          <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+              {% for field in fieldOrder %}
+                {% if errorMessages.get(field) %}
+                  <li>
+                    <a href="#{{ field }}">{{ errorMessages.get(field) }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {% endif %}
 
-            <h1 class="govuk-heading-l">
-                Sign up to get access
-            </h1>
+      <h1 class="govuk-heading-l">Sign up to get access</h1>
 
-            <p class="govuk-body">Complete this form if you’re from a central government service team and want to try out GOV.UK Sign In.</p>
-            <p class="govuk-body">
-                Once you’ve submitted it, we’ll get in touch to learn more about your service and give you access to our test environment (or ‘sandbox’).
-            </p>
+      <p class="govuk-body">Complete this form if you’re from a central government service team and want to try out GOV.UK Sign In.</p>
+      <p class="govuk-body">Once you’ve submitted it, we’ll get in touch to learn more about your service and give you
+        access to our test environment (or ‘sandbox’).
+      </p>
 
-            <form class="form" method="post" novalidate="novalidate">
-                <div class="govuk-form-group {% if errorMessages.get('name') %}govuk-form-group--error{% endif %}">
-                    <label class="govuk-label" for="name">
-                        Name
-                    </label>
-                    {% if errorMessages.get('name') %}
-                        <span class="govuk-error-message" id="name-error">
-                  <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('name') }}
+      <form class="form" method="post" novalidate="novalidate">
+        <div class="govuk-form-group {% if errorMessages.get('name') %}govuk-form-group--error{% endif %}">
+          <label class="govuk-label" for="name">Name</label>
+          {% if errorMessages.get('name') %}
+            <span class="govuk-error-message" id="name-error">
+                <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('name') }}
+              </span>
+          {% endif %}
+          <input class="govuk-input govuk-!-width-two-thirds{% if errorMessages.get('name') %} govuk-input--error{% endif %}"
+                 id="name" name="name"
+                 type="text"
+                 spellcheck="false"
+                 value="{{ values.get('name') }}"
+                 {% if errorMessages.get('name') %}aria-describedby="name-error"{% endif %}>
+        </div>
+
+        <div class="govuk-form-group {% if errorMessages.get('organisation-name') %}govuk-form-group--error{% endif %}">
+          <label class="govuk-label" for="organisation-name">Organisation name</label>
+          {% if errorMessages.get('organisation-name') %}
+            <span class="govuk-error-message" id="organisation-name-error">
+                  <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('organisation-name') }}
                 </span>
-                    {% endif %}
-                    <input
-                            class="govuk-input govuk-!-width-two-thirds{% if errorMessages.get('name') %} govuk-input--error{% endif %}"
-                            id="name" name="name"
-                            type="text"
-                            spellcheck="false"
-                            value="{{ values.get('name') }}"
-                            {% if errorMessages.get('name') %}aria-describedby="name-error"{% endif %}
-                    >
-                </div>
+          {% endif %}
 
-                <div class="govuk-form-group {% if errorMessages.get('organisation-name') %}govuk-form-group--error{% endif %}">
-                    <label class="govuk-label" for="organisation-name">
-                        Organisation name
-                    </label>
-                    {% if errorMessages.get('organisation-name') %}
-                        <span class="govuk-error-message" id="organisation-name-error">
-                    <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('organisation-name') }}
-                  </span>
-                    {% endif %}
+          <input class="govuk-input govuk-!-width-two-thirds{% if errorMessages.get('organisation-name') %} govuk-input--error{% endif %}"
+                 id="organisation-name"
+                 name="organisation-name"
+                 type="text"
+                 spellcheck="false"
+                 value="{{ values.get('organisation-name') }}"
+                 {% if errorMessages.get('organisation-name') %}aria-describedby="organisation-name-error"{% endif %}>
+        </div>
 
-                    <input
-                            class="govuk-input govuk-!-width-two-thirds{% if errorMessages.get('organisation-name') %} govuk-input--error{% endif %}"
-                            id="organisation-name"
-                            name="organisation-name"
-                            type="text"
-                            spellcheck="false"
-                            value="{{ values.get('organisation-name') }}"
-                            {% if errorMessages.get('organisation-name') %}aria-describedby="organisation-name-error"{% endif %}
-                    >
-                </div>
+        <div class="govuk-form-group {% if errorMessages.get('email') %}govuk-form-group--error{% endif %}">
+          <label class="govuk-label" for="email">Contact email</label>
+          <div id="email-hint" class="govuk-hint">
+            You must enter a government email address
+          </div>
+          {% if errorMessages.get('email') %}
+            <span class="govuk-error-message" id="email-error">
+                  <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('email') }}
+                </span>
+          {% endif %}
+          <input class="govuk-input govuk-!-width-two-thirds{% if errorMessages.get('email') %} govuk-input--error{% endif %}"
+                 id="email"
+                 name="email"
+                 type="email"
+                 spellcheck="false"
+                 autocomplete="email"
+                 value="{{ values.get('email') }}"
+                 aria-describedby="email-hint {% if errorMessages.get('email') %}email-error{% endif %}">
+        </div>
 
-                <div class="govuk-form-group {% if errorMessages.get('email') %}govuk-form-group--error{% endif %}">
-                    <label class="govuk-label" for="email">
-                        Contact email
-                    </label>
-                    <div id="email-hint" class="govuk-hint">
-                        You must enter a government email address
-                    </div>
-                    {% if errorMessages.get('email') %}
-                        <span class="govuk-error-message" id="email-error">
-                    <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('email') }}
-                  </span>
-                    {% endif %}
-                    <input
-                            class="govuk-input govuk-!-width-two-thirds{% if errorMessages.get('email') %} govuk-input--error{% endif %}"
-                            id="email"
-                            name="email"
-                            type="email"
-                            spellcheck="false"
-                            aria-describedby="email-hint"
-                            autocomplete="email"
-                            value="{{ values.get('email') }}"
-                            aria-describedby="email-hint {% if errorMessages.get('email') %}email-error{% endif %}">
-                </div>
+        <div class="govuk-form-group {% if errorMessages.get('service-name') %}govuk-form-group--error{% endif %}">
+          <label class="govuk-label" for="service-name">Service name</label>
+          {% if errorMessages.get('service-name') %}
+            <span class="govuk-error-message" id="service-name-error">
+                  <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('service-name') }}
+                </span>
+          {% endif %}
 
-                <div class="govuk-form-group {% if errorMessages.get('service-name') %}govuk-form-group--error{% endif %}">
-                    <label class="govuk-label" for="service-name">
-                        Service name
-                    </label>
-                    {% if errorMessages.get('service-name') %}
-                        <span class="govuk-error-message" id="service-name-error">
-                    <span class="govuk-visually-hidden">Error:</span> {{ errorMessages.get('service-name') }}
-                  </span>
-                    {% endif %}
-
-                    <input
-                            class="govuk-input {% if errorMessages.get('service-name') %} govuk-input--error{% endif %}"
-                            id="service-name"
-                            name="service-name"
-                            type="text"
-                            spellcheck="false"
-                            value="{{ values.get('service-name') }}"
-                            {% if errorMessages.get('service-name') %}aria-describedby="service-name-error"{% endif %}
-                    >
-                </div>
+          <input class="govuk-input {% if errorMessages.get('service-name') %} govuk-input--error{% endif %}"
+                 id="service-name"
+                 name="service-name"
+                 type="text"
+                 spellcheck="false"
+                 value="{{ values.get('service-name') }}"
+                 {% if errorMessages.get('service-name') %}aria-describedby="service-name-error"{% endif %}>
+        </div>
 
         <div class="govuk-form-group {% if errorMessages.get('mailing-list') %}govuk-form-group--error{% endif %}">
-          <label class="govuk-label" for="service-name">
-            Would you like to join our mailing list?
-          </label>
+          <label class="govuk-label" for="service-name">Would you like to join our mailing list?</label>
           <div id="email-hint" class="govuk-hint">
             You’ll get occasional email updates about our work and invitations to our cross-government show and tells.
           </div>
@@ -156,23 +136,17 @@
             <div class="govuk-radios__item">
               <input class="govuk-radios__input" id="mailing-list-yes" name="mailing-list" type="radio" value="yes"
                      {% if values.get('mailing-list') == 'yes' %}checked{% endif %}>
-              <label class="govuk-label govuk-radios__label" for="mailing-list-yes">
-                Yes
-              </label>
+              <label class="govuk-label govuk-radios__label" for="mailing-list-yes">Yes</label>
             </div>
             <div class="govuk-radios__item">
               <input class="govuk-radios__input" id="mailing-list-no" name="mailing-list" type="radio" value="no"
                      {% if values.get('mailing-list') == 'no' %}checked{% endif %}>
-              <label class="govuk-label govuk-radios__label" for="mailing-list-no">
-                No
-              </label>
+              <label class="govuk-label govuk-radios__label" for="mailing-list-no">No</label>
             </div>
           </div>
         </div>
         <br/>
-        <button id="submit" name="submit" class="govuk-button" data-module="govuk-button">
-          Submit
-        </button>
+        <button id="submit" name="submit" class="govuk-button" data-module="govuk-button">Submit</button>
       </form>
     </div>
   </div>
