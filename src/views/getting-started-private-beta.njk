@@ -1,26 +1,9 @@
 {% extends "base.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
 
 {% set pageTitle = "Private beta" %}
 {% set headerNavigationActiveItem = "get-started" %}
-
-{% block beforeContent %}
-  <div class="govuk-breadcrumbs">
-    <ol class="govuk-breadcrumbs__list">
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="/getting-started" aria-current="page">Get started</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="#" aria-current="page">Private beta</a>
-      </li>
-    </ol>
-  </div>
-{% endblock %}
+{% set breadcrumbs = breadcrumbs([{text: "Get started", href: "/getting-started"}], pageTitle) %}
 
 {% block mainContent %}
   <h1 class="govuk-heading-l">Find out more about private beta</h1>

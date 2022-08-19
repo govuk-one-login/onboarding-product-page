@@ -1,12 +1,10 @@
 {% extends "base.njk" %}
-
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-
-{% set pageTitle = "Request to join private beta" %}
 
 {% set showTopNav = false %}
 {% set homePath = "decide" %}
 {% set baseClasses = "govuk-!-padding-top-5" %}
+{% set pageTitle = "Request to join private beta" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
