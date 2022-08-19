@@ -6,6 +6,6 @@ Given('the user wants to contact the service', async function () {
 });
 
 Then('they would be able to send an email to the service if they selected the {string} link', async function (text: string) {
-    let links = await this.page.$x(`//a[contains(., '${text}')]`);
+    let links = await this.page.$x(`//a[text()="${text}")]`);
     assert.equal(await this.page.evaluate((anchor: { getAttribute: (arg0: string) => any; }) => anchor.getAttribute('href'), links[0]), `mailto:${text}`);
 });

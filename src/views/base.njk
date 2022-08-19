@@ -5,7 +5,7 @@
 {% set documentationUrl = "/documentation" %}
 
 {% set showTopNav = showTopNav | default(true) %}
-{% set mainClasses = ["govuk-main-wrapper--auto-spacing", baseClasses | default("govuk-!-padding-top-6"), mainClasses | default("")] | join(" ") %}
+{% set mainClasses = ["govuk-main-wrapper--auto-spacing", baseClasses | default("govuk-!-padding-top-6"), mainClasses] | join(" ") %}
 
 {% block pageTitle %}{{ pageTitle }} - GOV.UK Sign In{% endblock %}
 
@@ -41,28 +41,20 @@
 
       {% if showTopNav %}
         <div class="govuk-header__content">
-          <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation">Menu</button>
-          <nav>
-            <ul id="navigation" class="govuk-header__navigation" aria-label="Top Level Navigation">
+          <nav aria-label="Menu" class="govuk-header__navigation ">
+            <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide menu" hidden>Menu</button>
+            <ul id="navigation" class="govuk-header__navigation-list">
               <li class="govuk-header__navigation-item{% if headerNavigationActiveItem == "features" %} govuk-header__navigation-item--active{% endif %}">
-                <a class="govuk-header__link" href="/features">
-                  Features
-                </a>
+                <a class="govuk-header__link" href="/features">Features</a>
               </li>
               <li class="govuk-header__navigation-item{% if headerNavigationActiveItem == "documentation" %} govuk-header__navigation-item--active{% endif %}">
-                <a class="govuk-header__link" href="{{ documentationUrl }}">
-                  Documentation
-                </a>
+                <a class="govuk-header__link" href="{{ documentationUrl }}">Documentation</a>
               </li>
               <li class="govuk-header__navigation-item{% if headerNavigationActiveItem == "get-started" %} govuk-header__navigation-item--active{% endif %}">
-                <a class="govuk-header__link" href="/getting-started">
-                  Get started
-                </a>
+                <a class="govuk-header__link" href="/getting-started">Get started</a>
               </li>
               <li class="govuk-header__navigation-item{% if headerNavigationActiveItem == "support" %} govuk-header__navigation-item--active{% endif %}">
-                <a class="govuk-header__link" href="/support">
-                  Support
-                </a>
+                <a class="govuk-header__link" href="/support">Support</a>
               </li>
             </ul>
           </nav>

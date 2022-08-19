@@ -2,7 +2,7 @@ import { strict as assert } from 'assert';
 import { ElementHandle, Page } from 'puppeteer';
 
 export async function getLink(page: Page, linkText: string): Promise<any> {
-    let links = await page.$x(`//a[contains(., '${linkText}')]`);
+    let links = await page.$x(`//a[text()="${linkText}"]`);
     assert.equal(links.length, 1, `More than one link matched ${linkText}`);
     return links
 }
