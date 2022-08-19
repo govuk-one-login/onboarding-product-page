@@ -24,95 +24,90 @@
   </div>
 {% endblock %}
 
-{% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      {% if valueNotSelected %}
-        {{ govukErrorSummary({
-          titleText: "There is a problem",
-          errorList: [
-            {
-              text: "You must select an option to tell us what you need help with",
-              href: "#support-error"
-            }
-          ]
-        }) }}
-      {% endif %}
+{% block mainContent %}
+  {% if valueNotSelected %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [
+        {
+          text: "You must select an option to tell us what you need help with",
+          href: "#support-error"
+        }
+      ]
+    }) }}
+  {% endif %}
 
-      <h1 class="govuk-heading-l">Support</h1>
+  <h1 class="govuk-heading-l">Support</h1>
 
-      <form action="/support" method="post" novalidate>
+  <form action="/support" method="post" novalidate>
 
-        {% if valueNotSelected %}
+    {% if valueNotSelected %}
 
-          {{ govukRadios({
-            idPrefix: "support",
-            name: "support",
-            fieldset: {
-              legend: {
-                text: "What do you need help with?"
-              }
-            },
-            errorMessage: {
-              text: "You must select an option to tell us what you need help with"
-            },
-            items: [
-              {
-                value: "gov-service-start-using-sign-in",
-                text: "I work in a government service team and we want to start using GOV.UK Sign In"
-              },
-              {
-                value: "gov-service-uses-sign-in",
-                text: "I work in a government service team that is setting up or already using GOV.UK Sign In"
-              },
-              {
-                value: "gov-service-is-public",
-                text: "I’m a member of the public"
-              }
-            ]
-          }) }}
+      {{ govukRadios({
+        idPrefix: "support",
+        name: "support",
+        fieldset: {
+          legend: {
+            text: "What do you need help with?"
+          }
+        },
+        errorMessage: {
+          text: "You must select an option to tell us what you need help with"
+        },
+        items: [
+          {
+            value: "gov-service-start-using-sign-in",
+            text: "I work in a government service team and we want to start using GOV.UK Sign In"
+          },
+          {
+            value: "gov-service-uses-sign-in",
+            text: "I work in a government service team that is setting up or already using GOV.UK Sign In"
+          },
+          {
+            value: "gov-service-is-public",
+            text: "I’m a member of the public"
+          }
+        ]
+      }) }}
 
-        {% else %}
+    {% else %}
 
-          {{ govukRadios({
-            idPrefix: "support",
-            name: "support",
-            fieldset: {
-              legend: {
-                text: "What do you need help with?"
-              }
-            },
-            items: [
-              {
-                value: "gov-service-start-using-sign-in",
-                text: "I work in a government service team and we want to start using GOV.UK Sign In"
-              },
-              {
-                value: "gov-service-uses-sign-in",
-                text: "I work in a government service team that is setting up or already using GOV.UK Sign In"
-              },
-              {
-                value: "gov-service-is-public",
-                text: "I’m a member of the public"
-              }
-            ]
-          }) }}
+      {{ govukRadios({
+        idPrefix: "support",
+        name: "support",
+        fieldset: {
+          legend: {
+            text: "What do you need help with?"
+          }
+        },
+        items: [
+          {
+            value: "gov-service-start-using-sign-in",
+            text: "I work in a government service team and we want to start using GOV.UK Sign In"
+          },
+          {
+            value: "gov-service-uses-sign-in",
+            text: "I work in a government service team that is setting up or already using GOV.UK Sign In"
+          },
+          {
+            value: "gov-service-is-public",
+            text: "I’m a member of the public"
+          }
+        ]
+      }) }}
 
-        {% endif %}
+    {% endif %}
 
-        {{ govukButton({
-          text: "Continue",
-          attributes: {"id": "continue"}
-        }) }}
+    {{ govukButton({
+      text: "Continue",
+      attributes: {"id": "continue"}
+    }) }}
 
-      </form>
+  </form>
 
-      <h2 class="govuk-heading-m">Office hours</h2>
+  <h2 class="govuk-heading-m">Office hours</h2>
 
-      <p class="govuk-body">We can only respond to your support queries during office hours. Our office hours are 9:30am to 5:30pm, Monday to Friday.</p>
+  <p class="govuk-body">We can only respond to your support queries during office hours. Our office hours are 9:30am to 5:30pm, Monday to Friday.</p>
 
-      <p class="govuk-body">When you get in touch during office hours, we’ll try to reply within 2 working days.</p>
-
-    </div>
-  </div>
+  <p class="govuk-body">When you get in touch during office hours, we’ll try to reply within 2 working days.</p>
 {% endblock %}
