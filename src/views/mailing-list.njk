@@ -77,9 +77,13 @@
       } if errors and errors.has('serviceName')
     }) }}
 
-    <button class="govuk-button" data-module="govuk-button" id="submit" name="submit">
-      Submit
-    </button>
+    {{ govukButton({
+      text: "Submit",
+      name: "submit",
+      attributes: {
+        id: "submit"
+      }
+    }) }}
 
   </form>
 {% endblock %}

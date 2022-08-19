@@ -1,5 +1,6 @@
 {% extends "base.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set pageTitle = "Sign up to get access" %}
 {% set breadcrumbs = breadcrumbs([{text: "Get started", href: "/getting-started"}], pageTitle) %}
@@ -148,8 +149,13 @@
       </div>
     </div>
     <br/>
-    <button id="submit" name="submit" class="govuk-button" data-module="govuk-button">
-      Submit
-    </button>
+
+    {{ govukButton({
+      text: "Submit",
+      name: "submit",
+      attributes: {
+        id: "submit"
+      }
+    }) }}
   </form>
 {% endblock %}
