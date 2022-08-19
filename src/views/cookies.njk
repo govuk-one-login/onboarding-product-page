@@ -1,5 +1,6 @@
 {% extends "base.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set pageTitle = "Cookies" %}
@@ -108,24 +109,30 @@
     </tbody>
   </table>
 
-  <div class="govuk-form-group">
-    <fieldset class="govuk-fieldset">
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-        Do you want to accept analytics cookies?
-      </legend>
-      <div class="govuk-radios" id="radio-cookie-preferences">
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="policy-cookies-accepted" name="cookie-preferences" type="radio" value="true">
-          <label class="govuk-label govuk-radios__label" for="policy-cookies-accepted">Yes</label>
-        </div>
-
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="policy-cookies-rejected" name="cookie-preferences" type="radio" value="false">
-          <label class="govuk-label govuk-radios__label" for="policy-cookies-rejected">No</label>
-        </div>
-      </div>
-    </fieldset>
-  </div>
+  {{ govukRadios({
+    name: "cookie-preferences",
+    attributes: {
+      id: "radio-cookie-preferences"
+    },
+    fieldset: {
+      legend: {
+        text: "Do you want to accept analytics cookies?",
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    items: [
+      {
+        text: "Yes",
+        value: "true",
+        id: "policy-cookies-accepted"
+      },
+      {
+        text: "No",
+        value: "false",
+        id: "policy-cookies-rejected"
+      }
+    ]
+  }) }}
 
   {{ govukButton({
     text: "Save cookie settings",
