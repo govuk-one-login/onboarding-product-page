@@ -7,13 +7,13 @@
 {% set baseClasses = "product-home-page" %}
 
 {% block main %}
-  {{ beforeContent | safe }}
+  {{ breadcrumbs | safe }}
   <main class="{{ mainClasses }}" id="main-content" role="main"{% if mainLang %} lang="{{ mainLang }}"{% endif %}>
     {{ content | safe }}
   </main>
 {% endblock %}
 
-{% set beforeContent %}
+{% set breadcrumbs %}
   <div class="hero-breadcrumb-banner">
     <div class="hero hero--breaded">
       <div class="govuk-breadcrumbs breadcrumbs-hero">

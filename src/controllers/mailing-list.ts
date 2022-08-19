@@ -14,7 +14,7 @@ export const mailingList = async function(req: Request, res: Response) {
     personalNameHolder: personalName,
     organisationNameHolder: organisationName,
     contactEmailHolder: contactEmail,
-    serviceNamehHolder: serviceName
+    serviceNameHolder: serviceName
   }
 
   const onlyLettersPattern = /^[a-zA-Z\-\s]{1,300}$/;
