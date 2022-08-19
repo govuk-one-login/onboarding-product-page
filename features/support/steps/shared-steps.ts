@@ -79,7 +79,7 @@ async function checkErrorMessageDisplayedAboveElement(page: Page, errorLink: any
     const actualMessageInSummary = await page.evaluate((el: { textContent: any; }) => el.textContent, errorLink[0]);
     assert.equal(actualMessageInSummary, errorMessage, `Expected text of the link to be ${errorMessage}`);
 
-    const messageAboveElement = await page.$x(`//span[contains(concat(" ", normalize-space(@class), " "), " govuk-error-message ") and @id="${field}-error" ]`);
+    const messageAboveElement = await page.$x(`//p[contains(concat(" ", normalize-space(@class), " "), " govuk-error-message ") and @id="${field}-error" ]`);
     assert.notEqual(messageAboveElement.length, 0, `Expected to find the message ${errorMessage} above the ${field} field.`);
 
     const actualMessageAboveSummary = await page.evaluate((el: { textContent: any; }) => el.textContent, messageAboveElement[0]);
