@@ -1,4 +1,5 @@
 {% extends "base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% set showTopNav = false %}
@@ -101,8 +102,11 @@
       </div>
     </fieldset>
 
-    <button class="govuk-button" data-module="govuk-button" id="submit">
-      Submit
-    </button>
+    {{ govukButton({
+      text: "Submit",
+      attributes: {
+        id: "submit"
+      }
+    }) }}
   </form>
 {% endblock %}

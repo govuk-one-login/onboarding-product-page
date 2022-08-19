@@ -25,7 +25,6 @@
     updates about our work. We’ll also invite you to our cross-government show and tells.</p>
 
   <form class="form" action="/mailing-list" method="post">
-
     {{ govukInput({
       label: {
         text: "Name"
@@ -81,8 +80,12 @@
       } if errors and errors.has('serviceName')
     }) }}
 
-    <button class="govuk-button" data-module="govuk-button" id="submit" name="submit">
-      Submit
-    </button>
+    {{ govukButton({
+      text: "Submit",
+      name: "submit",
+      attributes: {
+        id: "submit"
+      }
+    }) }}
   </form>
 {% endblock %}

@@ -1,5 +1,6 @@
 {% extends "base.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set pageTitle = "Cookies" %}
 {% set breadcrumbs = breadcrumbs(currentPageName = pageTitle) %}
@@ -126,7 +127,12 @@
     </fieldset>
   </div>
 
-  <button type="Button" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button" id="save-cookie-settings">
-    Save cookie settings
-  </button>
+  {{ govukButton({
+    text: "Save cookie settings",
+    preventDoubleClick: true,
+    type: "button",
+    attributes: {
+      id: "save-cookie-settings"
+    }
+  }) }}
 {% endblock %}
