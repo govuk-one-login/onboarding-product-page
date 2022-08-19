@@ -17,11 +17,12 @@
       'serviceName': '#serviceName'
     }
   }) }}
+
   <h1 class="govuk-heading-l">Join our mailing list</h1>
   <p class="govuk-body">Complete this form to stay up to date with our progress on GOV.UK Sign In.</p>
   <p class="govuk-body">Once you’ve submitted the form, we’ll add you to our mailing list. You’ll get emails with updates about our work. We’ll also invite you to our cross-government show and tells.</p>
-  <form class="form" action="/mailing-list" method="post">
 
+  <form class="form" action="/mailing-list" method="post">
     {{ govukInput({
       label: {
         text: "Name"
@@ -31,8 +32,8 @@
       classes: "govuk-input--width-20",
       value: values.personalNameHolder,
       errorMessage: {
-        text: errors.get('personalName')
-      } if errors and errors.has('personalName')
+        text: errors.get("personalName")
+      } if errors and errors.has("personalName")
     }) }}
 
     {{ govukInput({
@@ -44,13 +45,13 @@
       classes: "govuk-input--width-20",
       value: values.organisationNameHolder,
       errorMessage: {
-        text: errors.get('organisationName')
-      } if errors and errors.has('organisationName')
+        text: errors.get("organisationName")
+      } if errors and errors.has("organisationName")
     }) }}
 
     {{ govukInput({
       label: {
-        text: "Contact email "
+        text: "Contact email"
       },
       name: "contactEmail",
       id: "contactEmail",
@@ -60,8 +61,8 @@
         text: "You must enter a government email address"
       },
       errorMessage: {
-        text: errors.get('contactEmail')
-      } if errors and errors.has('contactEmail')
+        text: errors.get("contactEmail")
+      } if errors and errors.has("contactEmail")
     }) }}
 
     {{ govukInput({
@@ -73,8 +74,8 @@
       classes: "govuk-input--width-30",
       value: values.serviceNameHolder,
       errorMessage: {
-        text: errors.get('serviceName')
-      } if errors and errors.has('serviceName')
+        text: errors.get("serviceName")
+      } if errors and errors.has("serviceName")
     }) }}
 
     {{ govukButton({
@@ -84,6 +85,5 @@
         id: "submit"
       }
     }) }}
-
   </form>
 {% endblock %}
