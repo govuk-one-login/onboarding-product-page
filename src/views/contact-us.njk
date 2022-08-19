@@ -1,7 +1,6 @@
 {% extends "base.njk" %}
-{% from "govuk/components/input/macro.njk" import govukInput %}
+{% import "macros/form-inputs.njk" as inputs with context %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
 {% set pageTitle = "Contact us" %}
 
@@ -36,93 +35,12 @@
   </ul>
 
   <form class="form" method="post" novalidate="novalidate">
-
-    {{ govukInput({
-      label: {
-        text: "Name"
-      },
-      id: "name",
-      name: "name",
-      spellcheck: false,
-      classes: "govuk-!-width-one-half",
-      value: values.get("name"),
-      errorMessage: {
-        text: errorMessages.get("name")
-      } if errorMessages and errorMessages.has("name")
-    }) }}
-
-    {{ govukInput({
-      label: {
-        text: "Email address"
-      },
-      hint: {
-        text: "You must enter a government email address"
-      },
-      id: "email",
-      name: "email",
-      type: "email",
-      spellcheck: false,
-      autocomplete: "email",
-      classes: "govuk-!-width-two-thirds",
-      value: values.get("email"),
-      errorMessage: {
-        text: errorMessages.get("email")
-      } if errorMessages and errorMessages.has("email")
-    }) }}
-
-    {{ govukInput({
-      label: {
-        text: "Role"
-      },
-      id: "role",
-      name: "role",
-      spellcheck: false,
-      classes: "govuk-!-width-one-half",
-      value: values.get("role"),
-      errorMessage: {
-        text: errorMessages.get("name")
-      } if errorMessages and errorMessages.has("role")
-    }) }}
-
-    {{ govukInput({
-      label: {
-        text: "Organisation"
-      },
-      id: "organisation-name",
-      name: "organisation-name",
-      spellcheck: false,
-      classes: "govuk-!-width-one-half",
-      value: values.get("organisation-name"),
-      errorMessage: {
-        text: errorMessages.get("organisation-name")
-      } if errorMessages and errorMessages.has("organisation-name")
-    }) }}
-
-    {{ govukInput({
-      label: {
-        text: "Service name"
-      },
-      id: "service-name",
-      name: "service-name",
-      spellcheck: false,
-      classes: "govuk-!-width-one-half",
-      value: values.get("service-name"),
-      errorMessage: {
-        text: errorMessages.get("service-name")
-      } if errorMessages and errorMessages.has("service-name")
-    }) }}
-
-    {{ govukTextarea({
-      label: {
-        text: "How can we help?"
-      },
-      id: "how-can-we-help",
-      name: "how-can-we-help",
-      rows: 5,
-      errorMessage: {
-        text: errorMessages.get("how-can-we-help")
-      } if errorMessages and errorMessages.has("how-can-we-help")
-    }) }}
+    {{ inputs.textInput("Name", "name") }}
+    {{ inputs.emailInput() }}
+    {{ inputs.textInput("Role", "role") }}
+    {{ inputs.textInput("Organisation", "organisation-name") }}
+    {{ inputs.textInput("Service name", "service-name") }}
+    {{ inputs.textAreaInput("How can we help?", "how-can-we-help") }}
 
     {{ govukButton({
       text: "Submit form",

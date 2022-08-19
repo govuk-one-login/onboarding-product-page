@@ -11,10 +11,10 @@ export const mailingList = async function (req: Request, res: Response) {
     let errorMessages: Map<String, String> = new Map<String, String>();
 
     const formValueHolder = {
-        personalNameHolder: personalName,
-        organisationNameHolder: organisationName,
-        contactEmailHolder: contactEmail,
-        serviceNameHolder: serviceName
+        personalName: personalName,
+        organisationName: organisationName,
+        contactEmail: contactEmail,
+        serviceName: serviceName
     }
 
     const onlyLettersPattern = /^[a-zA-Z\-\s]{1,300}$/;
@@ -58,9 +58,11 @@ export const mailingList = async function (req: Request, res: Response) {
     }
 
     if (errorMessages.size != 0) {
-        res.render('mailing-list.njk', {errors: errorMessages, values: formValueHolder});
+        res.render('mailing-list.njk', {
+            errorMessages: errorMessages,
+            values: new Map<string, string>(Object.entries(formValueHolder))
+        });
     } else {
-
         let sheet = new SheetsService(process.env.MAILING_LIST_SPREADSHEET_ID as string);
         let values = new Map<string, string>();
         values.set('name', personalName);

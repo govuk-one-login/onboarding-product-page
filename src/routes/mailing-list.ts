@@ -1,5 +1,5 @@
 import express from 'express';
-import { mailingList } from "../controllers/mailing-list";
+import {mailingList} from "../controllers/mailing-list";
 
 const router = express.Router();
 

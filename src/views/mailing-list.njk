@@ -1,7 +1,7 @@
 {% extends "base.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
 {% from "./macros/error-summary.njk" import errorSummary %}
-{% from "govuk/components/input/macro.njk" import govukInput %}
+{% import "macros/form-inputs.njk" as inputs with context %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set pageTitle = "Join our mailing list" %}
@@ -10,7 +10,7 @@
 
 {% block mainContent %}
   {{ errorSummary ({
-    errors: errors,
+    errors: errorMessages,
     hrefs: {
       'personalName': '#personalName',
       'organisationName': '#organisationName',
@@ -25,61 +25,10 @@
     updates about our work. We’ll also invite you to our cross-government show and tells.</p>
 
   <form class="form" action="/mailing-list" method="post">
-
-    {{ govukInput({
-      label: {
-        text: "Name"
-      },
-      name: "personalName",
-      id: "personalName",
-      classes: "govuk-input--width-20",
-      value: values.personalNameHolder,
-      errorMessage: {
-        text: errors.get("personalName")
-      } if errors and errors.has("personalName")
-    }) }}
-
-    {{ govukInput({
-      label: {
-        text: "Organisation name"
-      },
-      name: "organisationName",
-      id: "organisationName",
-      classes: "govuk-input--width-20",
-      value: values.organisationNameHolder,
-      errorMessage: {
-        text: errors.get("organisationName")
-      } if errors and errors.has("organisationName")
-    }) }}
-
-    {{ govukInput({
-      label: {
-        text: "Contact email "
-      },
-      name: "contactEmail",
-      id: "contactEmail",
-      classes: "govuk-input--width-20",
-      value: values.contactEmailHolder,
-      hint: {
-        text: "You must enter a government email address"
-      },
-      errorMessage: {
-        text: errors.get("contactEmail")
-      } if errors and errors.has("contactEmail")
-    }) }}
-
-    {{ govukInput({
-      label: {
-        text: "Service name"
-      },
-      name: "serviceName",
-      id: "serviceName",
-      classes: "govuk-input--width-30",
-      value: values.serviceNameHolder,
-      errorMessage: {
-        text: errors.get("serviceName")
-      } if errors and errors.has("serviceName")
-    }) }}
+    {{ inputs.textInput("Name", "personalName", "govuk-input--width-20") }}
+    {{ inputs.textInput("Organisation name", "organisationName", "govuk-input--width-20") }}
+    {{ inputs.emailInput("Contact email", id = "contactEmail", classes = "govuk-input--width-20") }}
+    {{ inputs.textInput("Service name", "serviceName", "govuk-input--width-30") }}
 
     {{ govukButton({
       text: "Submit",
@@ -88,6 +37,5 @@
         id: "submit"
       }
     }) }}
-
   </form>
 {% endblock %}
