@@ -1,8 +1,6 @@
 {% extends "base.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
-{% import "macros/form-inputs.njk" as inputs with context %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+{% import "macros/form.njk" as form with context %}
 
 {% set pageTitle = "Sign up to get access" %}
 {% set breadcrumbs = breadcrumbs([{text: "Get started", href: "/getting-started"}], pageTitle) %}
@@ -32,26 +30,14 @@
   <p class="govuk-body">Complete this form if you’re from a central government service team and want to try out GOV.UK Sign In.</p>
   <p class="govuk-body">Once you’ve submitted it, we’ll get in touch to learn more about your service and give you access to our test environment (or ‘sandbox’).</p>
 
-  <form class="form" method="post" novalidate="novalidate">
-    {{ inputs.textInput("Name", "name", "govuk-!-width-two-thirds") }}
-    {{ inputs.textInput("Organisation name", "organisation-name", "govuk-!-width-two-thirds") }}
-    {{ inputs.emailInput("Contact email") }}
-    {{ inputs.textInput("Service name", "service-name", "govuk-!-width-full") }}
-
-    {{ govukRadios({
-      name: "mailing-list",
-      attributes: {
-        id: "mailing-list"
-      },
-      fieldset: {
-        legend: {
-          text: "Would you like to join our mailing list?"
-        }
-      },
-      hint: {
-        text: "You’ll get occasional email updates about our work and invitations to our cross-government show and tells."
-      },
-      items: [
+  {% call form.generate() %}
+    {{ form.textInput("Name", "name", "govuk-!-width-two-thirds") }}
+    {{ form.textInput("Organisation name", "organisation-name", "govuk-!-width-two-thirds") }}
+    {{ form.emailInput("Contact email") }}
+    {{ form.textInput("Service name", "service-name", "govuk-!-width-full") }}
+    {{ form.radiosInput("Would you like to join our mailing list?", id = "mailing-list",
+      hint = "You’ll get occasional email updates about our work and invitations to our cross-government show and tells.",
+      items = [
         {
           text: "Yes",
           value: "yes",
@@ -62,12 +48,6 @@
           value: "no",
           id: "mailing-list-no"
         }
-      ],
-      errorMessage: {
-        text: errorMessages.get("mailing-list")
-      } if errorMessages and errorMessages.has("mailing-list")
-    }) }}
-
-    {{ govukButton({ text: "Submit", attributes: {id: "submit"} }) }}
-  </form>
+      ]) }}
+  {% endcall %}
 {% endblock %}

@@ -1,97 +1,41 @@
 {% extends "base.njk" %}
+{% import "macros/form.njk" as form with context %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
-{% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "macros/error-summary.njk" import errorSummary %}
 
 {% set pageTitle = "Support" %}
 {% set headerNavigationActiveItem = "support" %}
 {% set breadcrumbs = breadcrumbs(currentPageName = pageTitle) %}
 
 {% block mainContent %}
-  {% if valueNotSelected %}
-    {{ govukErrorSummary({
-      titleText: "There is a problem",
-      errorList: [
-        {
-          text: "You must select an option to tell us what you need help with",
-          href: "#support-error"
-        }
-      ]
-    }) }}
-  {% endif %}
+  {{ errorSummary ({
+    errors: errorMessages,
+    hrefs: {
+      support: "#support"
+    }
+  }) }}
 
   <h1 class="govuk-heading-l">Support</h1>
 
-  <form action="/support" method="post" novalidate>
-
-    {% if valueNotSelected %}
-
-      {{ govukRadios({
-        idPrefix: "support",
-        name: "support",
-        fieldset: {
-          legend: {
-            text: "What do you need help with?"
-          }
+  {% call form.generate(action = "/support", buttonText = "Continue") %}
+    {{ form.radiosInput("What do you need help with?", id = "support",
+      items = [
+        {
+          text: "I work in a government service team and we want to start using GOV.UK Sign In",
+          value: "gov-service-start-using-sign-in"
         },
-        errorMessage: {
-          text: "You must select an option to tell us what you need help with"
+        {
+          text: "I work in a government service team that is setting up or already using GOV.UK Sign In",
+          value: "gov-service-uses-sign-in"
         },
-        items: [
-          {
-            value: "gov-service-start-using-sign-in",
-            text: "I work in a government service team and we want to start using GOV.UK Sign In"
-          },
-          {
-            value: "gov-service-uses-sign-in",
-            text: "I work in a government service team that is setting up or already using GOV.UK Sign In"
-          },
-          {
-            value: "gov-service-is-public",
-            text: "I’m a member of the public"
-          }
-        ]
-      }) }}
-
-    {% else %}
-
-      {{ govukRadios({
-        idPrefix: "support",
-        name: "support",
-        fieldset: {
-          legend: {
-            text: "What do you need help with?"
-          }
-        },
-        items: [
-          {
-            value: "gov-service-start-using-sign-in",
-            text: "I work in a government service team and we want to start using GOV.UK Sign In"
-          },
-          {
-            value: "gov-service-uses-sign-in",
-            text: "I work in a government service team that is setting up or already using GOV.UK Sign In"
-          },
-          {
-            value: "gov-service-is-public",
-            text: "I’m a member of the public"
-          }
-        ]
-      }) }}
-
-    {% endif %}
-
-    {{ govukButton({
-      text: "Continue",
-      attributes: {"id": "continue"}
-    }) }}
-
-  </form>
+        {
+          text: "I’m a member of the public",
+          value: "gov-service-is-public"
+        }
+      ]) }}
+  {% endcall %}
 
   <h2 class="govuk-heading-m">Office hours</h2>
-
   <p class="govuk-body">We can only respond to your support queries during office hours. Our office hours are 9:30am to 5:30pm, Monday to Friday.</p>
-
   <p class="govuk-body">When you get in touch during office hours, we’ll try to reply within 2 working days.</p>
 {% endblock %}

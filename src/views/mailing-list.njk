@@ -1,8 +1,7 @@
 {% extends "base.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
 {% from "macros/error-summary.njk" import errorSummary %}
-{% import "macros/form-inputs.njk" as inputs with context %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+{% import "macros/form.njk" as form with context %}
 
 {% set pageTitle = "Join our mailing list" %}
 {% set breadcrumbs = breadcrumbs(currentPageName = pageTitle) %}
@@ -25,12 +24,10 @@
     We’ll also invite you to our cross-government show and tells.
   </p>
 
-  <form class="form" action="/mailing-list" method="post">
-    {{ inputs.textInput("Name", "personalName", "govuk-input--width-20") }}
-    {{ inputs.textInput("Organisation name", "organisationName", "govuk-input--width-20") }}
-    {{ inputs.emailInput("Contact email", id = "contactEmail", classes = "govuk-input--width-20") }}
-    {{ inputs.textInput("Service name", "serviceName", "govuk-input--width-30") }}
-
-    {{ govukButton({ text: "Submit", attributes: {id: "submit"} }) }}
-  </form>
+  {% call form.generate("/mailing-list") %}
+    {{ form.textInput("Name", "personalName", "govuk-input--width-20") }}
+    {{ form.textInput("Organisation name", "organisationName", "govuk-input--width-20") }}
+    {{ form.emailInput("Contact email", id = "contactEmail", classes = "govuk-input--width-20") }}
+    {{ form.textInput("Service name", "serviceName", "govuk-input--width-30") }}
+  {% endcall %}
 {% endblock %}

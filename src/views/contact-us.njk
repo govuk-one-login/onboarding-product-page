@@ -1,6 +1,5 @@
 {% extends "base.njk" %}
-{% import "macros/form-inputs.njk" as inputs with context %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+{% import "macros/form.njk" as form with context %}
 
 {% set pageTitle = "Contact us" %}
 
@@ -35,14 +34,12 @@
     <li>suggest improvements</li>
   </ul>
 
-  <form class="form" method="post" novalidate="novalidate">
-    {{ inputs.textInput("Name", "name") }}
-    {{ inputs.emailInput() }}
-    {{ inputs.textInput("Role", "role") }}
-    {{ inputs.textInput("Organisation", "organisation-name") }}
-    {{ inputs.textInput("Service name", "service-name") }}
-    {{ inputs.textAreaInput("How can we help?", "how-can-we-help") }}
-
-    {{ govukButton({ text: "Submit form", attributes: {id: "submit"} }) }}
-  </form>
+  {% call form.generate(buttonText = "Submit form") %}
+    {{ form.textInput("Name", "name") }}
+    {{ form.emailInput() }}
+    {{ form.textInput("Role", "role") }}
+    {{ form.textInput("Organisation", "organisation-name") }}
+    {{ form.textInput("Service name", "service-name") }}
+    {{ form.textAreaInput("How can we help?", "how-can-we-help") }}
+  {% endcall %}
 {% endblock %}

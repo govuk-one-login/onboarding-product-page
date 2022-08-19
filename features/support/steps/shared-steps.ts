@@ -23,10 +23,19 @@ When('they click on the {string} button-link', async function (text: string) {
     ]);
 });
 
-When('they select the Submit button', async function () {
+When('they click the {string} button', async function (name: string) {
+    let button = await this.page.$x(`//button[contains(text(), '${name}')]`);
     await Promise.all([
-        this.page.waitForNavigation(),
-        this.page.click('#submit')
+        this.page.waitForNavigation({timeout: 10000}),
+        button[0].click()
+    ]);
+});
+
+When('they select the Submit button', async function () {
+    let button = await this.page.$x(`//button[contains(text(), 'Submit')]`);
+    await Promise.all([
+        this.page.waitForNavigation({timeout: 10000}),
+        button[0].click()
     ]);
 });
 
@@ -49,13 +58,11 @@ Then('their data is saved in the spreadsheet', async function () {
 });
 
 Then('the error message {string} must be displayed for the {string} field', async function (errorMessage, field) {
-    const errorLink = await this.page.$x(`//div[@class="govuk-error-summary"]//a[@href="#${field}"]`);
-    await checkErrorMessageDisplayedAboveElement(this.page, errorLink, errorMessage, field);
+    await checkErrorMessageDisplayedAboveElement(this.page, errorMessage, field);
 });
 
 Then('the error message {string} must be displayed for the {string} radios', async function (errorMessage, field) {
-    const errorLink = await this.page.$x(`//div[@class="govuk-error-summary"]//a[@href="#${field}-error"]`);
-    await checkErrorMessageDisplayedAboveElement(this.page, errorLink, errorMessage, field);
+    await checkErrorMessageDisplayedAboveElement(this.page, errorMessage, field, true);
 });
 
 Then('they should see the text {string}', async function (text) {
@@ -73,15 +80,16 @@ Then('the {string} link will point to the following page: {string}', async funct
     await checkUrl(this.page, link, expectedPage);
 });
 
-async function checkErrorMessageDisplayedAboveElement(page: Page, errorLink: any, errorMessage: string, field: string) {
-    assert.notEqual(errorLink.length, 0, `Expected to find the message ${errorMessage} in the error summary.`);
+async function checkErrorMessageDisplayedAboveElement(page: Page, errorMessage: string, field: string, radios = false) {
+    const errorLink = await page.$x(`//div[@class="govuk-error-summary"]//a[@href="#${field}"]`);
+    assert.notEqual(errorLink.length, 0, `Expected to find the message "${errorMessage}" in the error summary.`);
 
-    const actualMessageInSummary = await page.evaluate((el: { textContent: any; }) => el.textContent, errorLink[0]);
-    assert.equal(actualMessageInSummary, errorMessage, `Expected text of the link to be ${errorMessage}`);
+    const actualMessageInSummary = await page.evaluate((el: {textContent: any}) => el.textContent, errorLink[0]);
+    assert.equal(actualMessageInSummary, errorMessage, `Expected text of the link to be "${errorMessage}"`);
 
-    const messageAboveElement = await page.$x(`//p[@class="govuk-error-message"][@id="${field}-error"]`);
-    assert.notEqual(messageAboveElement.length, 0, `Expected to find the message ${errorMessage} above the ${field} field.`);
+    const messageAboveElement = await page.$x(`//p[@class="govuk-error-message"][@id="${field}${radios ? "-option" : ""}-error"]`);
+    assert.notEqual(messageAboveElement.length, 0, `Expected to find the message "${errorMessage}" above the ${field} field.`);
 
-    const actualMessageAboveSummary = await page.evaluate((el: { textContent: any; }) => el.textContent, messageAboveElement[0]);
-    assert.equal(actualMessageAboveSummary.trim(), `Error: ${errorMessage}`, `Expected the message above the ${field} field to be ${errorMessage}`);
+    const actualMessageAboveSummary = await page.evaluate((el: {textContent: any}) => el.textContent, messageAboveElement[0]);
+    assert.equal(actualMessageAboveSummary.trim(), `Error: ${errorMessage}`, `Expected the message above the ${field} field to be "${errorMessage}"`);
 }
