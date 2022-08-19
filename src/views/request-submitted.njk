@@ -6,34 +6,30 @@
 {% set homePath = "decide" %}
 {% set baseClasses = "govuk-!-padding-top-8" %}
 
-{% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-7">
-        <h1 class="govuk-panel__title">
-          Request submitted
-        </h1>
-      </div>
-
-      <p class="govuk-body">
-        Thank you for requesting to join our private beta. We'll be in touch within five working days.
-      </p>
-
-      <p class="govuk-body">
-        We'll arrange a phone call to talk more about your service and what the private beta involves.
-      </p>
-
-      <p class="govuk-body">
-        If you have any questions in the meantime, contact us using our
-        <a class="govuk-link" href="/contact-us">support form</a> or via our
-        <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a>.
-      </p>
-
-      <p class="govuk-body">
-        <a class="govuk-link" href="/">
-          Return to the homepage
-        </a>
-      </p>
-    </div>
+{% block mainContent %}
+  <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-7">
+    <h1 class="govuk-panel__title">
+      Request submitted
+    </h1>
   </div>
+
+  <p class="govuk-body">
+    Thank you for requesting to join our private beta. We'll be in touch within five working days.
+  </p>
+
+  <p class="govuk-body">
+    We'll arrange a phone call to talk more about your service and what the private beta involves.
+  </p>
+
+  <p class="govuk-body">
+    If you have any questions in the meantime, contact us using our
+    <a class="govuk-link" href="/contact-us">support form</a> or via our
+    <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a>.
+  </p>
+
+  <p class="govuk-body">
+    <a class="govuk-link" href="/">
+      Return to the homepage
+    </a>
+  </p>
 {% endblock %}
