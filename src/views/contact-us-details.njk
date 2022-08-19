@@ -1,10 +1,8 @@
 {% extends "base.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% set pageTitle = "Contact us to get started" %}
-
-{% block beforeContent %}
-  <a href="/support" class="govuk-back-link">Back</a>
-{% endblock %}
+{% set backLink = govukBackLink({text: "Back", href: "/support"}) %}
 
 {% block mainContent %}
   <h1 class="govuk-heading-l">

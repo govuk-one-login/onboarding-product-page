@@ -132,6 +132,7 @@
 {% endblock %}
 
 {% block beforeContent %}
+  {{ backLink | safe }}
   {{ breadcrumbs | safe }}
   {% block beforeMainContent %}{% endblock %}
 {% endblock %}

@@ -5,13 +5,7 @@
 {% set homePath = "decide" %}
 {% set baseClasses = "govuk-!-padding-top-5" %}
 {% set pageTitle = "Request to join private beta" %}
-
-{% block beforeContent %}
-  {{ govukBackLink({
-    text: "Back",
-    href: "/decide/private-beta"
-  }) }}
-{% endblock %}
+{% set backLink = govukBackLink({text: "Back", href: "/decide/private-beta"}) %}
 
 {% block mainContent %}
   {% if errorMessages.size != 0 %}
