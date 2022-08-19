@@ -1,6 +1,5 @@
-import { Given, Then, When } from '@cucumber/cucumber';
-import { assert } from 'chai';
-
+import {Given, Then, When} from '@cucumber/cucumber';
+import {assert} from 'chai';
 
 Given('the user is browsing with a viewport {int} pixels wide', async function (width: number) {
     await this.page.setViewport({ height: 400, width: width })

@@ -1,7 +1,6 @@
 {% extends "base.njk" %}
-{% import "macros/form-inputs.njk" as inputs with context %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% import "macros/form.njk" as form with context %}
 
 {% set showTopNav = false %}
 {% set homePath = "decide" %}
@@ -32,17 +31,10 @@
 
   <h1 class="govuk-heading-l govuk-!-margin-bottom-7">Request to join private beta</h1>
 
-  <form class="form" method="post" novalidate="novalidate">
-    {{ inputs.textInput("Name", "name") }}
-    {{ inputs.emailInput(hint = "Must be a government email address") }}
-    {{ inputs.textInput("Department", "department-name") }}
-    {{ inputs.textInput("Service name", "service-name") }}
-
-    {{ govukButton({
-      text: "Submit",
-      attributes: {
-        id: "submit"
-      }
-    }) }}
-  </form>
+  {% call form() %}
+    {{ form.textInput("Name", "name") }}
+    {{ form.emailInput(hint = "Must be a government email address") }}
+    {{ form.textInput("Department", "department-name") }}
+    {{ form.textInput("Service name", "service-name") }}
+  {% endcall %}
 {% endblock %}

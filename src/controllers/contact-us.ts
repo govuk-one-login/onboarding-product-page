@@ -10,7 +10,6 @@ requiredFields.set("service-name", "Enter the name of your service");
 requiredFields.set("organisation-name", "Enter the name of your organisation");
 requiredFields.set("how-can-we-help", "Tell us how we can help");
 
-
 export const showForm = function(req: Request, res: Response) {
     const errorMessages = new Map();
     const values = new Map();

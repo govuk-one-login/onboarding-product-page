@@ -27,7 +27,7 @@ export default class Validation {
             }
         });
 
-        if (!errors.has('email')) {
+        if (requiredFields.has('email') && !errors.has('email')) {
             if (this.invalidEmailAddress(form)) {
                 errors.set('email', 'Enter an email address in the correct format, like name@gov.uk');
             } else if (this.notGovernmentEmail(form)) {

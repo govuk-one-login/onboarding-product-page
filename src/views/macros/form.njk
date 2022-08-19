@@ -1,5 +1,20 @@
 {% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% macro form(action, buttonText = "Submit") %}
+  <form class="form" method="post"{% if action %} action="{{ action }}"{% endif %} novalidate="novalidate">
+    {{ caller() }}
+
+    {{ govukButton({
+      text: buttonText,
+      attributes: {
+        id: buttonText | lower
+      }
+    }) }}
+  </form>
+{% endmacro %}
 
 {% macro textInput(label, id, classes = "govuk-!-width-one-half") %}
   {{ govukInput({
@@ -47,6 +62,29 @@
     id: id,
     name: id,
     rows: rows,
+    errorMessage: {
+      text: errorMessages.get(id)
+    } if errorMessages and errorMessages.has(id)
+  }) }}
+{% endmacro %}
+
+{% macro radiosInput(label, id, hint, items) %}
+  {{ govukRadios({
+    name: id,
+    idPrefix: id + "-option",
+    attributes: {
+      id: id
+    },
+    fieldset: {
+      legend: {
+        text: label
+      }
+    },
+    hint: {
+      text: hint
+    } if hint,
+    value: values.get(id) if values,
+    items: items,
     errorMessage: {
       text: errorMessages.get(id)
     } if errorMessages and errorMessages.has(id)
