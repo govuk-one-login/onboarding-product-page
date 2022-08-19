@@ -17,10 +17,10 @@ BackToTop.prototype.init = function () {
     }
 
     var $footer = document.querySelector('.govuk-footer')
-    var $subNav = document.querySelector('.side-navigation')
+    var $sideNav = document.querySelector('.side-navigation')
 
     // Check if there is anything to observe
-    if (!$footer || !$subNav) {
+    if (!$footer || !$sideNav) {
         return
     }
 
@@ -34,7 +34,7 @@ BackToTop.prototype.init = function () {
             return entry.target === $footer
         })
         var subNavEntry = entries.find(function (entry) {
-            return entry.target === $subNav
+            return entry.target === $sideNav
         })
 
         // If there is an entry this means the element has changed so lets check if it's intersecting.
@@ -63,7 +63,7 @@ BackToTop.prototype.init = function () {
     }.bind(this))
 
     observer.observe($footer)
-    observer.observe($subNav)
+    observer.observe($sideNav)
 }
 
 new BackToTop(document.querySelector('[data-module="app-back-to-top"]')).init()

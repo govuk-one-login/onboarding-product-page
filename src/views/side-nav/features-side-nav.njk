@@ -1,0 +1,8 @@
+{% from "../macros/side-navigation.njk" import sideNavigation %}
+
+{% macro nav(active) %}
+  {{ sideNavigation([
+    ["Current features", "features", "/features"],
+    ["Roadmap", "roadmap", "/features/roadmap"]
+  ], active) }}
+{% endmacro %}

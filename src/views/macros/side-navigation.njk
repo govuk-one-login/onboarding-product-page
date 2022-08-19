@@ -1,0 +1,9 @@
+{% macro sideNavigation(items, active) %}
+  <ul class="govuk-list side-navigation__list">
+    {% for name, description, href in items %}
+      <li class="side-navigation__item{% if active == description %} side-navigation__item--active{% endif %}">
+        <a class="govuk-link govuk-link--no-visited-state" href="{{ href }}">{{ name }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endmacro %}
