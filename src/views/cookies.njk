@@ -18,126 +18,120 @@
   </div>
 {% endblock %}
 
-{% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+{% block mainContent %}
+    <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" id="save-success-banner" hidden="true">
+      <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+          Success
+        </h2>
+      </div>
+      <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+          Your cookie settings were saved
+        </h3>
+        <p id="policy-cookies-accepted-banner" class="govuk-body" style="display: none">You’ve accepted analytics cookies.</p>
+        <p id="policy-cookies-rejected-banner" class="govuk-body">You’ve rejected analytics cookies.</p>
+        <p class="govuk-body">You can change your cookie settings at any time from this page.</p>
+      </div>
+    </div>
 
-        <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" id="save-success-banner" hidden="true">
-          <div class="govuk-notification-banner__header">
-            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-              Success
-            </h2>
-          </div>
-          <div class="govuk-notification-banner__content">
-            <h3 class="govuk-notification-banner__heading">
-              Your cookie settings were saved
-            </h3>
-            <p id="policy-cookies-accepted-banner" class="govuk-body" style="display: none">You’ve accepted analytics cookies.</p>
-            <p id="policy-cookies-rejected-banner" class="govuk-body">You’ve rejected analytics cookies.</p>
-            <p class="govuk-body">You can change your cookie settings at any time from this page.</p>
-          </div>
+    <h1 class="govuk-heading-l govuk-!-margin-top-0 govuk-!-margin-bottom-3">Cookies</h1>
+
+    <p class="govuk-body">GOV.UK Sign In puts small files (known as ‘cookies’) on to your computer.</p>
+    <p class="govuk-body">Cookies are used to remember the notifications you’ve seen so we don’t show them
+      again.</p>
+    <p class="govuk-body">You’ll normally see a message on the site before we store a cookie on your computer.</p>
+    <p class="govuk-body">Find out
+      <a class="govuk-link" href="https://ico.org.uk/for-the-public/online/cookies/">how to manage cookies.</a></p>
+
+    <h2 class="govuk-heading-s">Our introductory message</h2>
+    <p class="govuk-body">
+      You may see a pop-up welcome message when you first visit GOV.UK Sign In. This message will ask whether you want to accept or reject analytics cookies. Once you've saved your preferences, we'll store a cookie on your computer to remember them.
+    </p>
+    <p class="govuk-body">
+      You can change your cookie settings at any time from this page.
+    </p>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header govuk-body-s">Name</th>
+        <th scope="col" class="govuk-table__header govuk-body-s">Purpose</th>
+        <th scope="col" class="govuk-table__header govuk-body-s">Expires</th>
+      </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell govuk-body-s">cookies_preferences_set</td>
+        <td class="govuk-table__cell govuk-body-s">Saves your cookie consent settings</td>
+        <td class="govuk-table__cell govuk-body-s">1 year</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <h2 class="govuk-heading-s">Analytics cookies (optional)</h2>
+    <p class="govuk-body">With your permission, we use Google Analytics to collect data about how you use GOV.UK Sign In. This information helps us to improve the website.</p>
+    <p class="govuk-body">Google is not allowed to use or share our analytics data with anyone.</p>
+    <p class="govuk-body">Google Analytics stores anonymised information about:</p>
+    <ul class="govuk-list govuk-list--bullet">
+      <li>how you got to GOV.UK Sign In</li>
+      <li>the pages you visit</li>
+      <li>how long you spend on each page</li>
+      <li>what you click on while you’re visiting the site</li>
+      <li>the device and browser you’re using</li>
+    </ul>
+
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+      <tr class="govuk-table__row">
+        <th scope="col" class="govuk-table__header govuk-body-s">Name</th>
+        <th scope="col" class="govuk-table__header govuk-body-s">Purpose</th>
+        <th scope="col" class="govuk-table__header govuk-body-s">Expires</th>
+      </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell govuk-body-s">_ga</td>
+        <td class="govuk-table__cell govuk-body-s">Checks if you’ve visited GOV.UK Sign In before. This helps us count how many people visit our site.</td>
+        <td class="govuk-table__cell govuk-body-s">2 years</td>
+      </tr>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell govuk-body-s">_gid</td>
+        <td class="govuk-table__cell govuk-body-s">Checks if you’ve visited GOV.UK Sign In before. This helps us count how many people visit our site.</td>
+        <td class="govuk-table__cell govuk-body-s">24 hours</td>
+      </tr>
+      <tr class="govuk-table__row">
+        <td class="govuk-table__cell govuk-body-s">_gat_gtag_[property_id]</td>
+        <td class="govuk-table__cell govuk-body-s">This helps us track how you use our site, for example how long you spend on a page.</td>
+        <td class="govuk-table__cell govuk-body-s">1 minute</td>
+      </tr>
+      </tbody>
+    </table>
+
+  <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+        Do you want to accept analytics cookies?
+      </legend>
+      <div class="govuk-radios" id="radio-cookie-preferences">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="policy-cookies-accepted" name="cookie-preferences" type="radio" value="true">
+          <label class="govuk-label govuk-radios__label" for="policy-cookies-accepted">
+            Yes
+          </label>
         </div>
 
-        <h1 class="govuk-heading-l govuk-!-margin-top-0 govuk-!-margin-bottom-3">Cookies</h1>
-
-        <p class="govuk-body">GOV.UK Sign In puts small files (known as ‘cookies’) on to your computer.</p>
-        <p class="govuk-body">Cookies are used to remember the notifications you’ve seen so we don’t show them
-          again.</p>
-        <p class="govuk-body">You’ll normally see a message on the site before we store a cookie on your computer.</p>
-        <p class="govuk-body">Find out
-          <a class="govuk-link" href="https://ico.org.uk/for-the-public/online/cookies/">how to manage cookies.</a></p>
-
-        <h2 class="govuk-heading-s">Our introductory message</h2>
-        <p class="govuk-body">
-          You may see a pop-up welcome message when you first visit GOV.UK Sign In. This message will ask whether you want to accept or reject analytics cookies. Once you've saved your preferences, we'll store a cookie on your computer to remember them.
-        </p>
-        <p class="govuk-body">
-          You can change your cookie settings at any time from this page.
-        </p>
-
-        <table class="govuk-table">
-          <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header govuk-body-s">Name</th>
-            <th scope="col" class="govuk-table__header govuk-body-s">Purpose</th>
-            <th scope="col" class="govuk-table__header govuk-body-s">Expires</th>
-          </tr>
-          </thead>
-          <tbody class="govuk-table__body">
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell govuk-body-s">cookies_preferences_set</td>
-            <td class="govuk-table__cell govuk-body-s">Saves your cookie consent settings</td>
-            <td class="govuk-table__cell govuk-body-s">1 year</td>
-          </tr>
-          </tbody>
-        </table>
-
-        <h2 class="govuk-heading-s">Analytics cookies (optional)</h2>
-        <p class="govuk-body">With your permission, we use Google Analytics to collect data about how you use GOV.UK Sign In. This information helps us to improve the website.</p>
-        <p class="govuk-body">Google is not allowed to use or share our analytics data with anyone.</p>
-        <p class="govuk-body">Google Analytics stores anonymised information about:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>how you got to GOV.UK Sign In</li>
-          <li>the pages you visit</li>
-          <li>how long you spend on each page</li>
-          <li>what you click on while you’re visiting the site</li>
-          <li>the device and browser you’re using</li>
-        </ul>
-
-        <table class="govuk-table">
-          <thead class="govuk-table__head">
-          <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header govuk-body-s">Name</th>
-            <th scope="col" class="govuk-table__header govuk-body-s">Purpose</th>
-            <th scope="col" class="govuk-table__header govuk-body-s">Expires</th>
-          </tr>
-          </thead>
-          <tbody class="govuk-table__body">
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell govuk-body-s">_ga</td>
-            <td class="govuk-table__cell govuk-body-s">Checks if you’ve visited GOV.UK Sign In before. This helps us count how many people visit our site.</td>
-            <td class="govuk-table__cell govuk-body-s">2 years</td>
-          </tr>
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell govuk-body-s">_gid</td>
-            <td class="govuk-table__cell govuk-body-s">Checks if you’ve visited GOV.UK Sign In before. This helps us count how many people visit our site.</td>
-            <td class="govuk-table__cell govuk-body-s">24 hours</td>
-          </tr>
-          <tr class="govuk-table__row">
-            <td class="govuk-table__cell govuk-body-s">_gat_gtag_[property_id]</td>
-            <td class="govuk-table__cell govuk-body-s">This helps us track how you use our site, for example how long you spend on a page.</td>
-            <td class="govuk-table__cell govuk-body-s">1 minute</td>
-          </tr>
-          </tbody>
-        </table>
-
-      <div class="govuk-form-group">
-        <fieldset class="govuk-fieldset">
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-            Do you want to accept analytics cookies?
-          </legend>
-          <div class="govuk-radios" id="radio-cookie-preferences">
-            <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="policy-cookies-accepted" name="cookie-preferences" type="radio" value="true">
-              <label class="govuk-label govuk-radios__label" for="policy-cookies-accepted">
-                Yes
-              </label>
-            </div>
-
-            <div class="govuk-radios__item">
-              <input class="govuk-radios__input" id="policy-cookies-rejected" name="cookie-preferences" type="radio" value="false">
-              <label class="govuk-label govuk-radios__label" for="policy-cookies-rejected">
-                No
-              </label>
-            </div>
-          </div>
-        </fieldset>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="policy-cookies-rejected" name="cookie-preferences" type="radio" value="false">
+          <label class="govuk-label govuk-radios__label" for="policy-cookies-rejected">
+            No
+          </label>
+        </div>
       </div>
-
-      <button type="Button" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button" id="save-cookie-settings">
-        Save cookie settings
-      </button>
-
-    </div>
+    </fieldset>
   </div>
+
+  <button type="Button" data-prevent-double-click="true" class="govuk-button" data-module="govuk-button" id="save-cookie-settings">
+    Save cookie settings
+  </button>
 {% endblock %}

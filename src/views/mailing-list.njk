@@ -23,84 +23,79 @@
   </div>
 {% endblock %}
 
-{% block content %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-      {{ errorSummary ({
-        errors: errors,
-        hrefs: {
-          'personalName': '#personalName',
-          'organisationName': '#organisationName',
-          'contactEmail': '#contactEmail',
-          'serviceName': '#serviceName'
-        }
-      }) }}
-      <h1 class="govuk-heading-l">Join our mailing list</h1>
-      <p class="govuk-body">Complete this form to stay up to date with our progress on GOV.UK Sign In.</p>
-      <p class="govuk-body">Once you’ve submitted the form, we’ll add you to our mailing list. You’ll get emails with updates about our work. We’ll also invite you to our cross-government show and tells.</p>
-      <form class="form" action="/mailing-list" method="post">
+{% block mainContent %}
+  {{ errorSummary ({
+    errors: errors,
+    hrefs: {
+      'personalName': '#personalName',
+      'organisationName': '#organisationName',
+      'contactEmail': '#contactEmail',
+      'serviceName': '#serviceName'
+    }
+  }) }}
+  <h1 class="govuk-heading-l">Join our mailing list</h1>
+  <p class="govuk-body">Complete this form to stay up to date with our progress on GOV.UK Sign In.</p>
+  <p class="govuk-body">Once you’ve submitted the form, we’ll add you to our mailing list. You’ll get emails with updates about our work. We’ll also invite you to our cross-government show and tells.</p>
+  <form class="form" action="/mailing-list" method="post">
 
-        {{ govukInput({
-          label: {
-            text: "Name"
-          },
-          name: "personalName",
-          id: "personalName",
-          classes: "govuk-input--width-20",
-          value: values.personalNameHolder,
-          errorMessage: {
-            text: errors.get('personalName')
-          } if errors and errors.has('personalName')
-        }) }}
+    {{ govukInput({
+      label: {
+        text: "Name"
+      },
+      name: "personalName",
+      id: "personalName",
+      classes: "govuk-input--width-20",
+      value: values.personalNameHolder,
+      errorMessage: {
+        text: errors.get('personalName')
+      } if errors and errors.has('personalName')
+    }) }}
 
-        {{ govukInput({
-          label: {
-            text: "Organisation name"
-          },
-          name: "organisationName",
-          id: "organisationName",
-          classes: "govuk-input--width-20",
-          value: values.organisationNameHolder,
-          errorMessage: {
-            text: errors.get('organisationName')
-          } if errors and errors.has('organisationName')
-        }) }}
+    {{ govukInput({
+      label: {
+        text: "Organisation name"
+      },
+      name: "organisationName",
+      id: "organisationName",
+      classes: "govuk-input--width-20",
+      value: values.organisationNameHolder,
+      errorMessage: {
+        text: errors.get('organisationName')
+      } if errors and errors.has('organisationName')
+    }) }}
 
-        {{ govukInput({
-          label: {
-            text: "Contact email "
-          },
-          name: "contactEmail",
-          id: "contactEmail",
-          classes: "govuk-input--width-20",
-          value: values.contactEmailHolder,
-          hint: {
-            text: "You must enter a government email address"
-          },
-          errorMessage: {
-            text: errors.get('contactEmail')
-          } if errors and errors.has('contactEmail')
-        }) }}
+    {{ govukInput({
+      label: {
+        text: "Contact email "
+      },
+      name: "contactEmail",
+      id: "contactEmail",
+      classes: "govuk-input--width-20",
+      value: values.contactEmailHolder,
+      hint: {
+        text: "You must enter a government email address"
+      },
+      errorMessage: {
+        text: errors.get('contactEmail')
+      } if errors and errors.has('contactEmail')
+    }) }}
 
-        {{ govukInput({
-          label: {
-            text: "Service name"
-          },
-          name: "serviceName",
-          id: "serviceName",
-          classes: "govuk-input--width-30",
-          value: values.serviceNamehHolder,
-          errorMessage: {
-            text: errors.get('serviceName')
-          } if errors and errors.has('serviceName')
-        }) }}
+    {{ govukInput({
+      label: {
+        text: "Service name"
+      },
+      name: "serviceName",
+      id: "serviceName",
+      classes: "govuk-input--width-30",
+      value: values.serviceNamehHolder,
+      errorMessage: {
+        text: errors.get('serviceName')
+      } if errors and errors.has('serviceName')
+    }) }}
 
-        <button class="govuk-button" data-module="govuk-button" id="submit" name="submit">
-          Submit
-        </button>
+    <button class="govuk-button" data-module="govuk-button" id="submit" name="submit">
+      Submit
+    </button>
 
-      </form>
-
-    </div>
-  </div>
+  </form>
 {% endblock %}

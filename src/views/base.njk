@@ -141,6 +141,14 @@
   </div>
 {% endblock %}
 
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    {% block mainContent %}{% endblock %}
+  </div>
+</div>
+{% endblock %}
+
 {% block footer %}
   <footer class="govuk-footer" role="contentinfo">
     <div class="govuk-width-container">
