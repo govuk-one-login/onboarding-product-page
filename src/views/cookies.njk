@@ -1,27 +1,20 @@
 {% extends "base.njk" %}
+{% from "macros/table.njk" import table %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% set pageTitle = "Cookies" %}
 {% set breadcrumbs = breadcrumbs(currentPageName = pageTitle) %}
 
 {% block mainContent %}
-  <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" id="save-success-banner" hidden="true">
-    <div class="govuk-notification-banner__header">
-      <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-        Success
-      </h2>
-    </div>
-    <div class="govuk-notification-banner__content">
-      <h3 class="govuk-notification-banner__heading">
-        Your cookie settings were saved
-      </h3>
-      <p id="policy-cookies-accepted-banner" class="govuk-body" style="display: none">You’ve accepted analytics cookies.</p>
-      <p id="policy-cookies-rejected-banner" class="govuk-body">You’ve rejected analytics cookies.</p>
-      <p class="govuk-body">You can change your cookie settings at any time from this page.</p>
-    </div>
-  </div>
+  {% call govukNotificationBanner({ type: "success", attributes: {id: "save-success-banner", hidden: ""} }) %}
+    <h3 class="govuk-notification-banner__heading">Your cookie settings were saved</h3>
+    <p id="policy-cookies-accepted-banner" class="govuk-body">You’ve accepted analytics cookies.</p>
+    <p id="policy-cookies-rejected-banner" class="govuk-body">You’ve rejected analytics cookies.</p>
+    <p class="govuk-body">You can change your cookie settings at any time from this page.</p>
+  {% endcall %}
 
   <h1 class="govuk-heading-l govuk-!-margin-top-0 govuk-!-margin-bottom-3">Cookies</h1>
 
@@ -38,22 +31,10 @@
   </p>
   <p class="govuk-body">You can change your cookie settings at any time from this page.</p>
 
-  <table class="govuk-table">
-    <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header govuk-body-s">Name</th>
-      <th scope="col" class="govuk-table__header govuk-body-s">Purpose</th>
-      <th scope="col" class="govuk-table__header govuk-body-s">Expires</th>
-    </tr>
-    </thead>
-    <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell govuk-body-s">cookies_preferences_set</td>
-      <td class="govuk-table__cell govuk-body-s">Saves your cookie consent settings</td>
-      <td class="govuk-table__cell govuk-body-s">1 year</td>
-    </tr>
-    </tbody>
-  </table>
+  {{ table(headClasses = "govuk-body-s", rowClasses = "govuk-body-s",
+    heads = ["Name", "Purpose", "Expires"],
+    rows = [["cookies_preferences_set", "Saves your cookie consent settings", "1 year"]]
+  ) }}
 
   <h2 class="govuk-heading-s">Analytics cookies (optional)</h2>
   <p class="govuk-body">
@@ -70,32 +51,26 @@
     <li>the device and browser you’re using</li>
   </ul>
 
-  <table class="govuk-table">
-    <thead class="govuk-table__head">
-    <tr class="govuk-table__row">
-      <th scope="col" class="govuk-table__header govuk-body-s">Name</th>
-      <th scope="col" class="govuk-table__header govuk-body-s">Purpose</th>
-      <th scope="col" class="govuk-table__header govuk-body-s">Expires</th>
-    </tr>
-    </thead>
-    <tbody class="govuk-table__body">
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell govuk-body-s">_ga</td>
-      <td class="govuk-table__cell govuk-body-s">Checks if you’ve visited GOV.UK Sign In before. This helps us count how many people visit our site.</td>
-      <td class="govuk-table__cell govuk-body-s">2 years</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell govuk-body-s">_gid</td>
-      <td class="govuk-table__cell govuk-body-s">Checks if you’ve visited GOV.UK Sign In before. This helps us count how many people visit our site.</td>
-      <td class="govuk-table__cell govuk-body-s">24 hours</td>
-    </tr>
-    <tr class="govuk-table__row">
-      <td class="govuk-table__cell govuk-body-s">_gat_gtag_[property_id]</td>
-      <td class="govuk-table__cell govuk-body-s">This helps us track how you use our site, for example how long you spend on a page.</td>
-      <td class="govuk-table__cell govuk-body-s">1 minute</td>
-    </tr>
-    </tbody>
-  </table>
+  {{ table(headClasses = "govuk-body-s", rowClasses = "govuk-body-s",
+    heads = ["Name", "Purpose", "Expires"],
+    rows = [
+      [
+        "_ga",
+        "Checks if you’ve visited GOV.UK Sign In before. This helps us count how many people visit our site.",
+        "2 years"
+      ],
+      [
+        "_gid",
+        "Checks if you’ve visited GOV.UK Sign In before. This helps us count how many people visit our site.",
+        "24 hours"
+      ],
+      [
+        "_gat_gtag_[property_id]",
+        "This helps us track how you use our site, for example how long you spend on a page.",
+        "1 minute"
+      ]
+    ]
+  ) }}
 
   {{ govukRadios({
     name: "cookie-preferences",
