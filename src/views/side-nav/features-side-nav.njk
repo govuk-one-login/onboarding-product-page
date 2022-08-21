@@ -2,7 +2,15 @@
 
 {% macro nav(active) %}
   {{ sideNavigation([
-    ["Current features", "features", "/features"],
-    ["Roadmap", "roadmap", "/features/roadmap"]
+    {
+      name: "Current features",
+      description: "features",
+      href: "/features"
+    },
+    {
+      name: "Roadmap",
+      description: "roadmap",
+      href: "/features/roadmap"
+    }
   ], active) }}
 {% endmacro %}

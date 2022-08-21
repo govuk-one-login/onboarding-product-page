@@ -2,8 +2,20 @@
 
 {% macro nav(active) %}
   {{ sideNavigation([
-    ["Technical documentation", "documentation", "/documentation"],
-    ["User journey maps", "journey-maps", "/documentation/user-journeys"],
-    ["Design recommendations: ‘create account to save progress’", "recommendations", "/documentation/design-recommendations"]
+    {
+      name: "Technical documentation",
+      description: "documentation",
+      href: "/documentation"
+    },
+    {
+      name: "User journey maps",
+      description: "journey-maps",
+      href: "/documentation/user-journeys"
+    },
+    {
+      name: "Design recommendations: ‘create account to save progress’",
+      description: "recommendations",
+      href: "/documentation/design-recommendations"
+    }
   ], active) }}
 {% endmacro %}
