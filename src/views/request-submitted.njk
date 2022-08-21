@@ -1,4 +1,5 @@
 {% extends "base.njk" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
 
 {% set showTopNav = false %}
 {% set homePath = "decide" %}
@@ -6,11 +7,10 @@
 {% set baseClasses = "govuk-!-padding-top-8" %}
 
 {% block mainContent %}
-  <div class="govuk-panel govuk-panel--confirmation govuk-!-margin-bottom-7">
-    <h1 class="govuk-panel__title">
-      Request submitted
-    </h1>
-  </div>
+  {{ govukPanel({
+    titleText: "Request submitted",
+    classes: "govuk-!-margin-bottom-7"
+  }) }}
 
   <p class="govuk-body">
     Thank you for requesting to join our private beta. We'll be in touch within five working days.

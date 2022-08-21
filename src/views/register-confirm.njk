@@ -1,15 +1,12 @@
 {% extends "base.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
 
 {% set pageTitle = "You have registered your interest" %}
 {% set breadcrumbs = breadcrumbs([{text: "Get started", href: "/getting-started"}], "Sign up to get access") %}
 
 {% block mainContent %}
-  <div class="govuk-panel govuk-panel--confirmation">
-    <h1 class="govuk-panel__title">
-      You have signed up for access to GOV.UK Sign In
-    </h1>
-  </div>
+  {{ govukPanel({ titleText: "You have signed up for access to GOV.UK Sign In" }) }}
 
   <div class="govuk-body">
     Thank you for telling us you’re interested in GOV.UK Sign In.

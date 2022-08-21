@@ -1,16 +1,13 @@
 {% extends "base.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
 
 {% set pageTitle = "Mailing list confirmation" %}
 {% set baseClasses = "govuk-!-padding-top-3 govuk-!-margin-bottom-1" %}
 {% set breadcrumbs = breadcrumbs(currentPageName = "Join our mailing list") %}
 
 {% block mainContent %}
-  <div class="govuk-panel govuk-panel--confirmation">
-    <h1 class="govuk-panel__title">
-      You have signed up to the GOV.UK Sign In mailing list
-    </h1>
-  </div>
+  {{ govukPanel({ titleText: "You have signed up to the GOV.UK Sign In mailing list" }) }}
 
   <p class="govuk-body govuk-!-margin-top-6">
     Thank you for signing up to receive email updates about GOV.UK Sign In.

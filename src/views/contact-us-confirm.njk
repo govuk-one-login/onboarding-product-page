@@ -1,13 +1,10 @@
 {% extends "base.njk" %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
 
 {% set pageTitle = "Message submitted" %}
 
 {% block mainContent %}
-  <div class="govuk-panel govuk-panel--confirmation">
-    <h1 class="govuk-panel__title">
-      Your message has been submitted
-    </h1>
-  </div>
+  {{ govukPanel({ titleText: "Your message has been submitted" }) }}
 
   <p class="govuk-body govuk-!-margin-top-7">
     Thank you for your message.
