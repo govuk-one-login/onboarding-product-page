@@ -147,8 +147,7 @@ var cookieBanner = function () {
     }
 
     function initGATagManager(hasGivenConsent) {
-        if (hasGivenConsent) {
-
+        if (hasGivenConsent && gaTrackingCode['value']) {
             const commentStart = document.createComment(' Google Tag Manager ')
             document.head.append(commentStart);
 
@@ -198,6 +197,6 @@ var cookieBanner = function () {
 };
 
 if (window) {
-    window.GOVSignin = window.GOVSignin || {};
-    window.GOVSignin.CookieBanner = cookieBanner();
+    window.GOVUKSignIn = window.GOVUKSignIn || {};
+    window.GOVUKSignIn.CookieBanner = cookieBanner();
 }
