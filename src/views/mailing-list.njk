@@ -1,33 +1,23 @@
-{% extends "base.njk" %}
-{% from "macros/breadcrumbs.njk" import breadcrumbs %}
-{% from "macros/error-summary.njk" import errorSummary %}
+{% extends "base-form.njk" %}
 {% import "macros/form.njk" as form with context %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
 
+{% set formAction = "/mailing-list" %}
 {% set pageTitle = "Join our mailing list" %}
 {% set breadcrumbs = breadcrumbs(currentPageName = pageTitle) %}
 
-{% block mainContent %}
-  {{ errorSummary ({
-    errors: errorMessages,
-    hrefs: {
-      personalName: "#personalName",
-      organisationName: "#organisationName",
-      contactEmail: "#contactEmail",
-      serviceName: "#serviceName"
-    }
-  }) }}
-
+{% block beforeForm %}
   <h1 class="govuk-heading-l">Join our mailing list</h1>
   <p class="govuk-body">Complete this form to stay up to date with our progress on GOV.UK Sign In.</p>
   <p class="govuk-body">
     Once you’ve submitted the form, we’ll add you to our mailing list. You’ll get emails with updates about our work.
     We’ll also invite you to our cross-government show and tells.
   </p>
+{% endblock %}
 
-  {% call form.generate("/mailing-list") %}
-    {{ form.textInput("Name", "personalName", "govuk-input--width-20") }}
-    {{ form.textInput("Organisation name", "organisationName", "govuk-input--width-20") }}
-    {{ form.emailInput("Contact email", id = "contactEmail", classes = "govuk-input--width-20") }}
-    {{ form.textInput("Service name", "serviceName", "govuk-input--width-30") }}
-  {% endcall %}
+{% block formInputs %}
+  {{ form.textInput("Name", "personalName", "govuk-input--width-20") }}
+  {{ form.textInput("Organisation name", "organisationName", "govuk-input--width-20") }}
+  {{ form.emailInput("Contact email", id = "contactEmail", classes = "govuk-input--width-20") }}
+  {{ form.textInput("Service name", "serviceName", "govuk-input--width-30") }}
 {% endblock %}

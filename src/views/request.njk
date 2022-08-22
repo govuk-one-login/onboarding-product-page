@@ -1,39 +1,18 @@
-{% extends "base.njk" %}
+{% extends "base-form.njk" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% import "macros/form.njk" as form with context %}
 
 {% set showTopNav = false %}
 {% set homePath = "decide" %}
 {% set pageTitle = "Request to join private beta" %}
 {% set backLink = govukBackLink({text: "Back", href: "/decide/private-beta"}) %}
 
-{% block mainContent %}
-  {% if errorMessages.size != 0 %}
-    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"
-         data-module="govuk-error-summary">
-      <h2 class="govuk-error-summary__title" id="error-summary-title">
-        There is a problem
-      </h2>
-      <div class="govuk-error-summary__body">
-        <ul class="govuk-list govuk-error-summary__list">
-          {% for field in fieldOrder %}
-            {% if errorMessages.get(field) %}
-              <li>
-                <a href="#{{ field }}">{{ errorMessages.get(field) }}</a>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  {% endif %}
-
+{% block beforeForm %}
   <h1 class="govuk-heading-l govuk-!-margin-bottom-7">Request to join private beta</h1>
+{% endblock %}
 
-  {% call form.generate() %}
-    {{ form.textInput("Name", "name") }}
-    {{ form.emailInput(hint = "Must be a government email address") }}
-    {{ form.textInput("Department", "department-name") }}
-    {{ form.textInput("Service name", "service-name") }}
-  {% endcall %}
+{% block formInputs %}
+  {{ form.textInput("Name", "name") }}
+  {{ form.emailInput(hint = "Must be a government email address") }}
+  {{ form.textInput("Department", "department-name") }}
+  {{ form.textInput("Service name", "service-name") }}
 {% endblock %}

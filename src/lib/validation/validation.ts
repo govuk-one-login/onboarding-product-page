@@ -21,21 +21,30 @@ export default class Validation {
     validate(form: Map<string, string>, requiredFields: Map<string, string>): Map<string, string> {
         const errors = new Map();
 
-        requiredFields.forEach((errorMessage, field) => {
-            if (this.fieldHasNoValue(field, form)) {
-                errors.set(field, errorMessage);
+        Array.from(requiredFields.keys()).forEach(field => {
+            const message = this.getErrorMessage(field, form, requiredFields);
+            if (message) {
+                errors.set(field, message);
             }
-        });
-
-        if (requiredFields.has('email') && !errors.has('email')) {
-            if (this.invalidEmailAddress(form)) {
-                errors.set('email', 'Enter an email address in the correct format, like name@gov.uk');
-            } else if (this.notGovernmentEmail(form)) {
-                errors.set('email', 'Enter a government email address');
-            }
-        }
+        })
 
         return errors;
+    }
+
+    getErrorMessage(field: string, form: Map<string, string>, errorMessages: Map<string, string>): string | undefined {
+        if (this.fieldHasNoValue(field, form)) {
+            return errorMessages.get(field)!;
+        }
+
+        if (field === 'email') {
+            if (this.invalidEmailAddress(form)) {
+                return 'Enter an email address in the correct format, like name@gov.uk';
+            }
+
+            if (this.notGovernmentEmail(form)) {
+                return 'Enter a government email address';
+            }
+        }
     }
 
     fieldHasNoValue(field: string, form: Map<string, string>): boolean {
@@ -62,4 +71,3 @@ export default class Validation {
         return Validation.instance;
     }
 }
-

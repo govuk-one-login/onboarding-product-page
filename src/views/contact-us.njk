@@ -1,30 +1,9 @@
-{% extends "base.njk" %}
-{% import "macros/form.njk" as form with context %}
+{% extends "base-form.njk" %}
 
 {% set pageTitle = "Contact us" %}
+{% set buttonText = "Submit form" %}
 
-{% block mainContent %}
-  {% if errorMessages.size != 0 %}
-    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert"
-         tabindex="-1"
-         data-module="govuk-error-summary">
-      <h2 class="govuk-error-summary__title" id="error-summary-title">
-        There is a problem
-      </h2>
-      <div class="govuk-error-summary__body">
-        <ul class="govuk-list govuk-error-summary__list">
-          {% for field in fieldOrder %}
-            {% if errorMessages.get(field) %}
-              <li>
-                <a href="#{{ field }}">{{ errorMessages.get(field) }}</a>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  {% endif %}
-
+{% block beforeForm %}
   <h1 class="govuk-heading-l govuk-!-margin-bottom-6">Contact us</h1>
 
   <p class="govuk-body">Use this form to:</p>
@@ -33,13 +12,13 @@
     <li>ask questions</li>
     <li>suggest improvements</li>
   </ul>
+{% endblock %}
 
-  {% call form.generate(buttonText = "Submit form") %}
-    {{ form.textInput("Name", "name") }}
-    {{ form.emailInput() }}
-    {{ form.textInput("Role", "role") }}
-    {{ form.textInput("Organisation", "organisation-name") }}
-    {{ form.textInput("Service name", "service-name") }}
-    {{ form.textAreaInput("How can we help?", "how-can-we-help") }}
-  {% endcall %}
+{% block formInputs %}
+  {{ form.textInput("Name", "name") }}
+  {{ form.emailInput() }}
+  {{ form.textInput("Role", "role") }}
+  {{ form.textInput("Organisation", "organisation-name") }}
+  {{ form.textInput("Service name", "service-name") }}
+  {{ form.textAreaInput("How can we help?", "how-can-we-help") }}
 {% endblock %}

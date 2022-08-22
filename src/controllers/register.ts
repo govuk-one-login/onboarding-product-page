@@ -4,13 +4,13 @@ import uuid from "../lib/uuid";
 import getTimestamp from "../lib/timestamp";
 import SheetsService from "../lib/sheets/SheetsService";
 
-let requiredFields = new Map<string, string>();
-requiredFields.set("email", "Enter your government email address");
-requiredFields.set("name", "Enter your name");
-requiredFields.set("service-name", "Enter the name of your service");
-requiredFields.set("organisation-name", "Enter your organisation name");
-requiredFields.set("mailing-list", "Select if you’d like to join the mailing list or not");
-
+const requiredFields = new Map<string, string>([
+    ["name", "Enter your name"],
+    ["organisation-name", "Enter your organisation name"],
+    ["email", "Enter your government email address"],
+    ["service-name", "Enter the name of your service"],
+    ["mailing-list", "Select if you’d like to join the mailing list or not"]
+]);
 
 export const get = function(req: Request, res: Response) {
     const errorMessages = new Map();

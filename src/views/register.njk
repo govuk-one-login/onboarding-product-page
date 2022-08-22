@@ -1,53 +1,32 @@
-{% extends "base.njk" %}
+{% extends "base-form.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
-{% import "macros/form.njk" as form with context %}
 
 {% set pageTitle = "Sign up to get access" %}
 {% set breadcrumbs = breadcrumbs([{text: "Get started", href: "/getting-started"}], pageTitle) %}
 
-{% block mainContent %}
-  {% if errorMessages.size != 0 %}
-    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"
-         data-module="govuk-error-summary">
-      <h2 class="govuk-error-summary__title" id="error-summary-title">
-        There is a problem
-      </h2>
-      <div class="govuk-error-summary__body">
-        <ul class="govuk-list govuk-error-summary__list">
-          {% for field in fieldOrder %}
-            {% if errorMessages.get(field) %}
-              <li>
-                <a href="#{{ field }}">{{ errorMessages.get(field) }}</a>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  {% endif %}
-
+{% block beforeForm %}
   <h1 class="govuk-heading-l">Sign up to get access</h1>
   <p class="govuk-body">Complete this form if you’re from a central government service team and want to try out GOV.UK Sign In.</p>
   <p class="govuk-body">Once you’ve submitted it, we’ll get in touch to learn more about your service and give you access to our test environment (or ‘sandbox’).</p>
+{% endblock %}
 
-  {% call form.generate() %}
-    {{ form.textInput("Name", "name", "govuk-!-width-two-thirds") }}
-    {{ form.textInput("Organisation name", "organisation-name", "govuk-!-width-two-thirds") }}
-    {{ form.emailInput("Contact email") }}
-    {{ form.textInput("Service name", "service-name", "govuk-!-width-full") }}
-    {{ form.radiosInput("Would you like to join our mailing list?", id = "mailing-list",
-      hint = "You’ll get occasional email updates about our work and invitations to our cross-government show and tells.",
-      items = [
-        {
-          text: "Yes",
-          value: "yes",
-          id: "mailing-list-yes"
-        },
-        {
-          text: "No",
-          value: "no",
-          id: "mailing-list-no"
-        }
-      ]) }}
-  {% endcall %}
+{% block formInputs %}
+  {{ form.textInput("Name", "name", "govuk-!-width-two-thirds") }}
+  {{ form.textInput("Organisation name", "organisation-name", "govuk-!-width-two-thirds") }}
+  {{ form.emailInput("Contact email") }}
+  {{ form.textInput("Service name", "service-name", "govuk-!-width-full") }}
+  {{ form.radiosInput("Would you like to join our mailing list?", id = "mailing-list",
+    hint = "You’ll get occasional email updates about our work and invitations to our cross-government show and tells.",
+    items = [
+      {
+        text: "Yes",
+        value: "yes",
+        id: "mailing-list-yes"
+      },
+      {
+        text: "No",
+        value: "no",
+        id: "mailing-list-no"
+      }
+    ]) }}
 {% endblock %}
