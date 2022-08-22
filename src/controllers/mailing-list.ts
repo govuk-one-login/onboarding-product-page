@@ -1,7 +1,7 @@
-import express, {NextFunction, Request, Response} from 'express';
-import SheetsService from "../lib/sheets/SheetsService";
 import * as EmailValidator from 'email-validator';
+import {Request, Response} from 'express';
 import {promises as fs} from 'fs';
+import SheetsService from "../lib/sheets/SheetsService";
 
 export const mailingList = async function(req: Request, res: Response) {
   const personalName = req.body.personalName;

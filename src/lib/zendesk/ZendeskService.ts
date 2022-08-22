@@ -1,11 +1,12 @@
 import ZendeskInterface from "./interface";
 
 export default class SheetsService implements ZendeskInterface {
+    private readonly username: string;
+    private readonly apiToken: string;
+    private readonly tag: string;
+    private readonly groupId: string;
+
     private implementation!: ZendeskInterface;
-    private username: string;
-    private apiToken: string;
-    private tag: string;
-    private groupId: string;
 
     constructor(username: string, apiToken: string, tag: string, groupId: string) {
         this.username = username;
@@ -28,7 +29,7 @@ export default class SheetsService implements ZendeskInterface {
         this.implementation = new service(this.username, this.apiToken, this.tag, this.groupId);
     }
 
-    async submit(form:  Map<string, string>): Promise<any> {
+    async submit(form: Map<string, string>): Promise<any> {
         return this.implementation.submit(form);
     }
 }
