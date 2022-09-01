@@ -1,73 +1,62 @@
 {% extends "base.njk" %}
 
-{% block pageTitle %}Private beta - GOV.UK Sign In{% endblock %}
-
-{% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing" %}
-{% set headerNavigationItemActiveGetStarted = "govuk-header__navigation-item--active" %}
+{% set pageTitle = "Private beta" %}
+{% set headerNavigationActiveItem = "get-started" %}
 
 {% block beforeContent %}
-  <div class="govuk-width-container">
-    <div class="govuk-breadcrumbs">
-      <ol class="govuk-breadcrumbs__list">
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link"  href="/getting-started" aria-current="page">Get started</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link"  href="#" aria-current="page">Private beta</a>
-        </li>
-      </ol>
-    </div>
+  <div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link"  href="/getting-started" aria-current="page">Get started</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link"  href="#" aria-current="page">Private beta</a>
+      </li>
+    </ol>
   </div>
 {% endblock %}
 
-{% block content %}
-  <div class="govuk-width-container">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">Find out more about private beta</h1>
-        <p class="govuk-body">GOV.UK Sign In is currently in private beta. This means we're making it available to a selection of service teams. This will help us learn how it works on a larger scale, with real users.</p>
-        <p class="govuk-body">We‘ll choose which services to work with on a case-by-case basis. We’ll invite services that help us learn about the features we’ll need as we scale up.</p>
-        <p class="govuk-body">This private beta is for the part of the service that lets users create accounts and sign in. It does not include identity checks.</p>
-        <h2 class="govuk-heading-m">What to expect</h2>
-        <p class="govuk-body">If you join the private beta, you’ll get:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>early access to GOV.UK Sign In for all your live traffic</li>
-          <li>the opportunity to feed into our plans and shape the future of our service</li>
-          <li>support from our team throughout</li>
-        </ul>
-        <p class="govuk-body">We’ll need you to:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>integrate with GOV.UK Sign In to allow your users to sign in to your service</li>
-          <li>give us regular feedback about your experiences of using and onboarding to GOV.UK Sign In - we’ll agree on how and how often you give feedback to make sure it works for both of us</li>
-        </ul>
-        <h2 class="govuk-heading-m">Who can join</h2>
-        <p class="govuk-body">To join the private beta, you need to:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>work in a central government department</li>
-          <li>have a service in beta or live</li>
-          <li>need to sign in your users only, not check their identity</li>
-          <li>be able to integrate with GOV.UK Sign In - this means you need access to developers who are comfortable working with the OpenID Connect (OIDC) protocol and the processes set out in our <a class="govuk-link" href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment">technical documentation</a></li>
-        </ul>
-        <h2 class="govuk-heading-m">The joining process</h2>
-        <p class="govuk-body">If you meet the beta criteria and would like to take part, <a class="govuk-link" href="/register">sign up to get access</a>.</p>
-        <p class="govuk-body">You can then speak to us about your service and access our test environment. If you decide GOV.UK Sign In meets your needs, email us to let us know you’d like to join the beta.</p>
-        <p class="govuk-body">After this, we’ll ask you to fill in a form and give us more detailed information about your service. This will include things like your user volumes and timelines.</p>
-        <p class="govuk-body">We’ll review the information you send and let you know within 2 weeks whether you can join the beta.</p>
-        <div class="govuk-inset-text">Please be aware that even if you meet the criteria, this does not guarantee that you’ll be able to take part. We need to choose services that we can learn the most from.</div>
-        <p class="govuk-body">Once you’ve been accepted, you’ll need to:</p>
-        <ul class="govuk-list govuk-list--bullet">
-          <li>sign our memorandum of understanding</li>
-          <li>provide some details to help us prepare for you to go live - this includes contact details and user support information</li>
-        </ul>
-        <p class="govuk-body">Then, we’ll give you access to our production environment so you can go live.</p>
-      </div>
-    </div>
-  </div>
+{% block mainContent %}
+  <h1 class="govuk-heading-l">Find out more about private beta</h1>
+  <p class="govuk-body">GOV.UK Sign In is currently in private beta. This means we're making it available to a selection of service teams. This will help us learn how it works on a larger scale, with real users.</p>
+  <p class="govuk-body">We‘ll choose which services to work with on a case-by-case basis. We’ll invite services that help us learn about the features we’ll need as we scale up.</p>
+  <p class="govuk-body">This private beta is for the part of the service that lets users create accounts and sign in. It does not include identity checks.</p>
+  <h2 class="govuk-heading-m">What to expect</h2>
+  <p class="govuk-body">If you join the private beta, you’ll get:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>early access to GOV.UK Sign In for all your live traffic</li>
+    <li>the opportunity to feed into our plans and shape the future of our service</li>
+    <li>support from our team throughout</li>
+  </ul>
+  <p class="govuk-body">We’ll need you to:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>integrate with GOV.UK Sign In to allow your users to sign in to your service</li>
+    <li>give us regular feedback about your experiences of using and onboarding to GOV.UK Sign In - we’ll agree on how and how often you give feedback to make sure it works for both of us</li>
+  </ul>
+  <h2 class="govuk-heading-m">Who can join</h2>
+  <p class="govuk-body">To join the private beta, you need to:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>work in a central government department</li>
+    <li>have a service in beta or live</li>
+    <li>need to sign in your users only, not check their identity</li>
+    <li>be able to integrate with GOV.UK Sign In - this means you need access to developers who are comfortable working with the OpenID Connect (OIDC) protocol and the processes set out in our <a class="govuk-link" href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment">technical documentation</a></li>
+  </ul>
+  <h2 class="govuk-heading-m">The joining process</h2>
+  <p class="govuk-body">If you meet the beta criteria and would like to take part, <a class="govuk-link" href="/register">sign up to get access</a>.</p>
+  <p class="govuk-body">You can then speak to us about your service and access our test environment. If you decide GOV.UK Sign In meets your needs, email us to let us know you’d like to join the beta.</p>
+  <p class="govuk-body">After this, we’ll ask you to fill in a form and give us more detailed information about your service. This will include things like your user volumes and timelines.</p>
+  <p class="govuk-body">We’ll review the information you send and let you know within 2 weeks whether you can join the beta.</p>
+  <div class="govuk-inset-text">Please be aware that even if you meet the criteria, this does not guarantee that you’ll be able to take part. We need to choose services that we can learn the most from.</div>
+  <p class="govuk-body">Once you’ve been accepted, you’ll need to:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>sign our memorandum of understanding</li>
+    <li>provide some details to help us prepare for you to go live - this includes contact details and user support information</li>
+  </ul>
+  <p class="govuk-body">Then, we’ll give you access to our production environment so you can go live.</p>
 {% endblock %}
-

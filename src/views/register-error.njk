@@ -1,41 +1,35 @@
 {% extends "base.njk" %}
 
-{% block pageTitle %}There is a problem registering your interest - GOV.UK Sign In{% endblock %}
-
-{% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing" %}
+{% set pageTitle = "There is a problem registering your interest" %}
 
 {% block beforeContent %}
-  <div class="govuk-width-container">
-    <div class="govuk-breadcrumbs">
-      <ol class="govuk-breadcrumbs__list">
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item">
-          <a class="govuk-breadcrumbs__link" href="/register">Register your Interest</a>
-        </li>
-        <li class="govuk-breadcrumbs__list-item" aria-current="page">
-          <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Error</a>
-        </li>
-      </ol>
-    </div>
+  <div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item">
+        <a class="govuk-breadcrumbs__link" href="/register">Register your Interest</a>
+      </li>
+      <li class="govuk-breadcrumbs__list-item" aria-current="page">
+        <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Error</a>
+      </li>
+    </ol>
   </div>
 {% endblock %}
 
 {% block content %}
-  <div class="govuk-width-container">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-l">Sorry, there is a problem with registering your interest</h1>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l">Sorry, there is a problem with registering your interest</h1>
 
-        <p class="govuk-body">Try again later.</p>
-        <p class="govuk-body">You will need to fill the form in again.</p>
+      <p class="govuk-body">Try again later.</p>
+      <p class="govuk-body">You will need to fill the form in again.</p>
 
-        <p class="govuk-body">Contact us at <a class="govuk-link" href="mailto:govuk-sign-in@digital.cabinet-office.gov.uk">govuk-sign-in@digital.cabinet-office.gov.uk</a> if this happens again.</p>
-      </div>
+      <p class="govuk-body">Contact us at <a class="govuk-link" href="mailto:govuk-sign-in@digital.cabinet-office.gov.uk">govuk-sign-in@digital.cabinet-office.gov.uk</a> if this happens again.</p>
     </div>
   </div>
 {% endblock %}

@@ -1,32 +1,23 @@
 {% extends "base.njk" %}
 
-{% block pageTitle %}Message submitted - GOV.UK Sign In{% endblock %}
+{% set pageTitle = "Message submitted" %}
 
-{% set mainClasses = "govuk-main-wrapper govuk-main-wrapper--auto-spacing" %}
-
-{% block content %}
-  <div class="govuk-width-container">
-    <div class="govuk-grid-row">
-      <div class="govuk-grid-column-two-thirds">
-        <div class="govuk-panel govuk-panel--confirmation">
-          <h1 class="govuk-panel__title">
-            Your message has been submitted
-          </h1>
-        </div>
-
-        <p class="govuk-body govuk-!-margin-top-7">
-          Thank you for your message.
-        </p>
-
-        <p class="govuk-body">
-          We'll try to get back to you in 2 working days.
-        </p>
-
-        <p class="govuk-body">
-          Return to the <a class="govuk-link" href="/">GOV.UK Sign In homepage</a>.
-        </p>
-
-      </div>
-    </div>
+{% block mainContent %}
+  <div class="govuk-panel govuk-panel--confirmation">
+    <h1 class="govuk-panel__title">
+      Your message has been submitted
+    </h1>
   </div>
+
+  <p class="govuk-body govuk-!-margin-top-7">
+    Thank you for your message.
+  </p>
+
+  <p class="govuk-body">
+    We'll try to get back to you in 2 working days.
+  </p>
+
+  <p class="govuk-body">
+    Return to the <a class="govuk-link" href="/">GOV.UK Sign In homepage</a>.
+  </p>
 {% endblock %}
