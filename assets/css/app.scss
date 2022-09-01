@@ -1,7 +1,6 @@
 $govuk-new-link-styles: true;
-@import '../../node_modules/govuk-frontend/govuk/all';
+@import "govuk-frontend/govuk/all";
 @import "modules/responsive-embed";
-
 @import "modules/borders";
 @import "modules/breadcrumbs";
 @import "modules/header";
