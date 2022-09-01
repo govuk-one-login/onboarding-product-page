@@ -1,3 +1,6 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
 Parameters:
   GitHubOrg:
     Type: String
@@ -7,6 +10,12 @@ Parameters:
     Description: Arn for the GitHub OIDC Provider.
     Default: ""
     Type: String
+  DeploymentBucketNamePrefix:
+    Type: String
+    Default: sam-deployment-artifacts
+  MonitoringStackNamePrefix:
+    Type: String
+    Default: di-product-page-monitor
 
 Conditions:
   CreateOIDCProvider: !Equals
@@ -24,66 +33,121 @@ Resources:
             Principal:
               Federated: !If
                 - CreateOIDCProvider
-                - !Ref GithubOidc
+                - !Ref GithubOIDC
                 - !Ref OIDCProviderArn
             Condition:
               StringLike:
                 token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOrg}/${RepositoryName}:*
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/CloudWatchSyntheticsFullAccess
       Policies:
-        - PolicyName: wcgw
+        - PolicyName: GitHubActions
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
               - Effect: Allow
-                Action:
-                  - "cloudformation:CreateChangeSet"
-                  - "cloudformation:DescribeChangeSet"
-                  - "cloudformation:DescribeStackEvents"
-                  - "cloudformation:DescribeStacks"
-                  - "cloudformation:ExecuteChangeSet"
-                  - "cloudformation:GetTemplateSummary"
-                  - "cloudwatch:DescribeAlarms"
-                  - "cloudwatch:PutMetricAlarm"
-                  - "iam:AttachRolePolicy"
-                  - "iam:CreateRole"
-                  - "iam:CreateTags"
-                  - "iam:GetRole"
-                  - "iam:getRolePolicy"
-                  - "iam:ListPolicies"
-                  - "iam:PassRole"
-                  - "iam:PutRolePolicy"
-                  - "iam:TagRole"
-                  - "logs:CreateLogGroup"
-                  - "logs:DescribeLogGroups"
-                  - "lambda:AddPermission"
-                  - "lambda:CreateFunction"
-                  - "lambda:DeleteFunction"
-                  - "lambda:GetFunction"
-                  - "lambda:GetFunctionConfiguration"
-                  - "lambda:GetLayerVersion"
-                  - "lambda:ListTags"
-                  - "lambda:PublishLayerVersion"
-                  - "lambda:PublishVersion"
-                  - "lambda:UpdateFunction"
-                  - "lambda:UpdateFunctionCode"
-                  - "lambda:UpdateFunctionConfiguration"
-                  - "s3:CreateBucket"
-                  - "s3:GetBucket"
-                  - "s3:GetObject"
-                  - "s3:PutLifecycleConfiguration"
-                  - "s3:PutObject"
-                  - "s3:*"
-                  - "sns:CreateTags"
-                  - "sns:CreateTopic"
-                  - "sns:GetTopicAttributes"
-                  - "sns:Subscribe"
-                  - "synthetics:CreateCanary"
-                  - "synthetics:DeleteCanary"
-                  - "synthetics:GetCanary"
-                  - "synthetics:StartCanary"
                 Resource: "*"
+                Action:
+                  - iam:ListPolicies
+                  - logs:DescribeLogGroups
 
-  GithubOidc:
+              - Effect: Allow
+                Resource:
+                  - !Sub arn:aws:s3:::${DeploymentBucketNamePrefix}-*
+                  - !Sub arn:aws:s3:::${MonitoringStackNamePrefix}*
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:DeleteObject
+                  - s3:GetBucket
+                  - s3:ListBucket
+                  - s3:CreateBucket
+                  - s3:PutBucketPublicAccessBlock
+                  - s3:PutLifecycleConfiguration
+
+              - Effect: Allow
+                Resource: !Sub arn:aws:iam::${AWS::AccountId}:role/${MonitoringStackNamePrefix}*
+                Action:
+                  - iam:TagRole
+                  - iam:GetRole
+                  - iam:PassRole
+                  - iam:CreateRole
+                  - iam:DeleteRole
+                  - iam:GetRolePolicy
+                  - iam:PutRolePolicy
+                  - iam:AttachRolePolicy
+                  - iam:DetachRolePolicy
+                  - iam:DeleteRolePolicy
+                  - iam:UpdateAssumeRolePolicy
+
+              - Effect: Allow
+                Resource: !Sub arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:function:${MonitoringStackNamePrefix}*
+                Action:
+                  - lambda:ListTags
+                  - lambda:TagResource
+                  - lambda:UntagResource
+                  - lambda:GetFunction
+                  - lambda:CreateFunction
+                  - lambda:DeleteFunction
+                  - lambda:AddPermission
+                  - lambda:RemovePermission
+                  - lambda:UpdateFunctionCode
+                  - lambda:UpdateFunctionConfiguration
+
+              - Effect: Allow
+                Resource: !Sub arn:aws:sns:${AWS::Region}:${AWS::AccountId}:${MonitoringStackNamePrefix}*
+                Action:
+                  - sns:CreateTags
+                  - sns:TagResource
+                  - sns:CreateTopic
+                  - sns:DeleteTopic
+                  - sns:Subscribe
+                  - sns:Unsubscribe
+                  - sns:GetTopicAttributes
+                  - sns:SetTopicAttributes
+                  - sns:ListSubscriptionsByTopic
+                  - sns:SetSubscriptionAttributes
+
+              - Effect: Allow
+                Resource: !Sub arn:aws:sqs:${AWS::Region}:${AWS::AccountId}:${MonitoringStackNamePrefix}*
+                Action:
+                  - sqs:CreateQueue
+                  - sqs:DeleteQueue
+                  - sqs:GetQueueAttributes
+                  - sqs:SetQueueAttributes
+
+              - Effect: Allow
+                Resource:
+                  - !Sub arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/${MonitoringStackNamePrefix}*/*
+                  - !Sub arn:aws:cloudformation:${AWS::Region}:aws:transform/Serverless-*
+                Action:
+                  - cloudformation:CreateChangeSet
+                  - cloudformation:ExecuteChangeSet
+                  - cloudformation:DescribeChangeSet
+                  - cloudformation:DescribeStacks
+                  - cloudformation:DescribeStackEvents
+                  - cloudformation:GetTemplateSummary
+
+              - Effect: Allow
+                Resource: !Sub arn:aws:cloudwatch:${AWS::Region}:${AWS::AccountId}:alarm:${MonitoringStackNamePrefix}*
+                Action:
+                  - cloudwatch:PutMetricAlarm
+                  - cloudwatch:DeleteAlarms
+
+              - Effect: Allow
+                Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${MonitoringStackNamePrefix}*
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:DeleteLogGroup
+                  - logs:PutRetentionPolicy
+
+              - Effect: Allow
+                Resource:
+                  - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/slack-*
+                  - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/canary-*
+                Action: ssm:GetParameters
+
+  GithubOIDC:
     Type: AWS::IAM::OIDCProvider
     Condition: CreateOIDCProvider
     Properties:
