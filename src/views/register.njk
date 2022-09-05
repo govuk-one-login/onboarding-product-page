@@ -1,26 +1,8 @@
 {% extends "base.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
 
 {% set pageTitle = "Sign up to get access" %}
-
-{% block beforeContent %}
-  <div class="govuk-breadcrumbs">
-    <ol class="govuk-breadcrumbs__list">
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK
-          services</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="/getting-started">Get started</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Sign up to get access</a>
-      </li>
-    </ol>
-  </div>
-{% endblock %}
+{% set breadcrumbs = breadcrumbs([{text: "Get started", href: "/getting-started"}], pageTitle) %}
 
 {% block mainContent %}
   {% if errorMessages.size != 0 %}

@@ -1,27 +1,10 @@
 {% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
 
 {% set pageTitle = "Design recommendations" %}
 {% set headerNavigationActiveItem = "documentation" %}
-{% set mainClasses = "govuk-main-wrapper-documentation documentation-design-recommendations" %}
-
-{% block beforeContent %}
-  <div class="govuk-breadcrumbs">
-    <ol class="govuk-breadcrumbs__list">
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="https://www.gov.uk/service-toolkit#gov-uk-services">GOV.UK services</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="/">GOV.UK Sign In</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="/documentation">Documentation</a>
-      </li>
-      <li class="govuk-breadcrumbs__list-item">
-        <a class="govuk-breadcrumbs__link" href="#main-content" aria-current="page">Design recommendations</a>
-      </li>
-    </ol>
-  </div>
-{% endblock %}
+{% set mainClasses = "documentation-wrapper documentation-design-recommendations" %}
+{% set breadcrumbs = breadcrumbs([{text: "Documentation", href: "/documentation"}], pageTitle) %}
 
 {% block content %}
   <div class="govuk-grid-row" style="position: relative;">
