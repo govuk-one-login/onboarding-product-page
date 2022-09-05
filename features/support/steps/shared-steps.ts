@@ -49,12 +49,17 @@ Then('their data is saved in the spreadsheet', async function () {
 });
 
 Then('the error message {string} must be displayed for the {string} field', async function (errorMessage, field) {
-    const errorLink = await this.page.$x(`//div[@class="govuk-error-summary"]//a[@href="#${field}"]`);
+    let errorLink;
+    if (field === 'mailing-list') {
+        errorLink = await this.page.$x(`//div[@class="govuk-error-summary"]//a[@href="#mailing-list-yes"]`);
+    } else {
+        errorLink = await this.page.$x(`//div[@class="govuk-error-summary"]//a[@href="#${field}"]`);
+    }
     await checkErrorMessageDisplayedAboveElement(this.page, errorLink, errorMessage, field);
 });
 
 Then('the error message {string} must be displayed for the {string} radios', async function (errorMessage, field) {
-    const errorLink = await this.page.$x(`//div[@class="govuk-error-summary"]//a[@href="#${field}-error"]`);
+    const errorLink = await this.page.$x(`//div[@class="govuk-error-summary"]//a[@href="#${field}"]`);
     await checkErrorMessageDisplayedAboveElement(this.page, errorLink, errorMessage, field);
 });
 

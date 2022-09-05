@@ -19,7 +19,11 @@
           {% for field in fieldOrder %}
             {% if errorMessages.get(field) %}
               <li>
-                <a href="#{{ field }}">{{ errorMessages.get(field) }}</a>
+                {% if field === 'mailing-list' %}
+                  <a href="#mailing-list-yes">{{ errorMessages.get(field) }}</a>
+                {% else %}
+                  <a href="#{{ field }}">{{ errorMessages.get(field) }}</a>
+                {% endif %}
               </li>
             {% endif %}
           {% endfor %}
