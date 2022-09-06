@@ -48,7 +48,7 @@
   .govuk-breadcrumbs__list-item::before {
     border-color: govuk-colour('white');
   }
-  
+
   .govuk-link:link,
   .govuk-link:visited {
     color: govuk-colour('white');
@@ -60,11 +60,11 @@
   }
 
   .govuk-link:focus {
-    color:  $govuk-text-colour;
+    color: $govuk-text-colour;
   }
 
   &__title {
-      @include govuk-font($size: 48, $weight: bold);
+    @include govuk-font($size: 48, $weight: bold);
   }
 
   &__description {
@@ -80,7 +80,7 @@
     margin-top: govuk-spacing(3);
     margin-bottom: govuk-spacing(3);
 
-      @include govuk-media-query(tablet) {
+    @include govuk-media-query(tablet) {
       margin-bottom: govuk-spacing(6);
     }
   }
@@ -89,7 +89,7 @@
   &__inline-image {
     text-align: center;
 
-      @include govuk-media-query(tablet) {
+    @include govuk-media-query(tablet) {
       display: none;
       visibility: hidden;
     }
@@ -105,7 +105,7 @@
     display: none;
     visibility: hidden;
 
-      @include govuk-media-query(tablet) {
+    @include govuk-media-query(tablet) {
       display: block;
       visibility: visible;
     }

@@ -2,7 +2,7 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% set pageTitle = "Contact us to get started" %}
-{% set backLink = govukBackLink({text: "Back", href: "/support"}) %}
+{% set backLink = govukBackLink({ text: "Back", href: "/support" }) %}
 
 {% block mainContent %}
   <h1 class="govuk-heading-l">
@@ -19,6 +19,8 @@
   </ul>
 
   <p class="govuk-body">
-    Or if you still have questions, you can contact us using our <a class="govuk-link" href="/contact-us ">support form</a> or via our <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a>.
+    Or if you still have questions, you can contact us using our
+    <a class="govuk-link" href="/contact-us ">support form</a> or via our
+    <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a>.
   </p>
 {% endblock %}
