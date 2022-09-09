@@ -42,12 +42,12 @@ router.get('/documentation/user-journeys', (req, res) => {
     res.render('documentation-user-journeys.njk');
 });
 
-router.get('/users-create-an-account-upfront-pdf-july-2022', (req, res) => {
-    res.sendFile(__dirname + "/files/Option1-Users-create-an-account-upfront-July-2022.pdf");
+router.get('/users-create-an-account-upfront-pdf-september-2022', (req, res) => {
+    res.sendFile(__dirname + "/files/GOVUK_Sign_In_user_journeys_Option_1-Users_create_an_account_upfront_09-2022.pdf");
 });
 
-router.get('/users-create-an-account-to-save-progress-pdf', (req, res) => {
-    res.sendFile(__dirname + "/files/users-create-an-account-to-save-progress.pdf");
+router.get('/users-create-an-account-to-save-progress-pdf-september-2022', (req, res) => {
+    res.sendFile(__dirname + "/files/GOVUK_Sign_In_user_journeys_Option_2-Users_create_an_account_to_save_progress_09-2022.pdf");
 });
 
 router.get('/documentation/design-recommendations', (req, res) => {
