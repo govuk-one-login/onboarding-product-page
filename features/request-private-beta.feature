@@ -6,7 +6,7 @@ Feature: A request private beta form so service teams can request access to the 
     When they select the Submit button
     Then their data is saved in the spreadsheet
     And they should be directed to the following page: "/decide/private-beta/request-submitted"
-    And they should see the text "Thank you for requesting to join our private beta. We'll be in touch within five working days."
+    And they should see the text "Thank you for requesting to join our private beta. We’ll be in touch within five working days."
 
   Scenario: The user doesn't complete the name field
 

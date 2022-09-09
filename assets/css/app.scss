@@ -29,18 +29,23 @@ $govuk-new-link-styles: true;
     div.feature-row {
       padding: 0 10px;
     }
+
     div.feature-column {
       border-bottom: 1px solid #b1b4b6;
     }
+
     div.govuk-grid-column-one-half {
       padding: 0;
     }
+
     div.govuk-panel {
       padding: 0;
     }
+
     div.govuk-grid-row-home-last {
       width: 66%;
     }
+
     div.home-feature-column-padding-left-10 {
       padding-left: 12px;
     }
@@ -56,6 +61,7 @@ div.feature-panel {
   border: 3px solid #F3F2F1;
   box-sizing: border-box;
 }
+
 .product-home-page {
 
   margin-bottom: 60px;
@@ -106,6 +112,7 @@ div.feature-panel {
     .govuk-button {
       margin-bottom: 12px;
     }
+
     .hero-alternative-action {
       display: block;
       margin-left: 0;
@@ -116,10 +123,6 @@ div.feature-panel {
 }
 
 #main-content.side-nav-wrapper {
-
-  padding-top: 60px;
-  margin-bottom: 10px;
-
   .sub-navigation__item {
     font-size: 16px;
     line-height: 1.25;
@@ -161,26 +164,29 @@ div.feature-panel {
 }
 
 @media (min-width: 640px) {
-  #main-content.side-nav-wrapper .govuk-grid-column-one-third  {
+  #main-content.side-nav-wrapper .govuk-grid-column-one-third {
     width: 25%;
   }
-  #main-content.side-nav-wrapper.documentation-wrapper .govuk-grid-column-one-third  {
+  #main-content.side-nav-wrapper.documentation-wrapper .govuk-grid-column-one-third {
     width: 32%;
   }
 }
 
 .documentation-design-recommendations {
   .documentation-contents-item {
-    &:before{
+    &:before {
       content: "—";
       margin-left: -20px;
       color: #505a5f;
     }
+
     margin-bottom: 5px;
+
     a {
       margin-left: 5px;
     }
   }
+
   .documentation-contents {
     list-style-type: none;
   }
@@ -277,6 +283,7 @@ div.feature-panel {
     }
   }
 }
+
 .govuk-width-container .govuk-phase-banner {
   margin-top: 10px;
   padding-bottom: 10px;
