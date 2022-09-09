@@ -1,6 +1,4 @@
-{% extends "base.njk" %}
-{% from "govuk/components/input/macro.njk" import govukInput %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "base-form.njk" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% set showTopNav = false %}
@@ -8,96 +6,13 @@
 {% set pageTitle = "Request to join private beta" %}
 {% set backLink = govukBackLink({text: "Back", href: "/decide/private-beta"}) %}
 
-{% block mainContent %}
-  {% if errorMessages.size != 0 %}
-    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1"
-         data-module="govuk-error-summary">
-      <h2 class="govuk-error-summary__title" id="error-summary-title">
-        There is a problem
-      </h2>
-      <div class="govuk-error-summary__body">
-        <ul class="govuk-list govuk-error-summary__list">
-          {% for field in fieldOrder %}
-            {% if errorMessages.get(field) %}
-              <li>
-                <a href="#{{ field }}">{{ errorMessages.get(field) }}</a>
-              </li>
-            {% endif %}
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  {% endif %}
-
+{% block beforeForm %}
   <h1 class="govuk-heading-l govuk-!-margin-bottom-7">Request to join private beta</h1>
+{% endblock %}
 
-  <form class="form" method="post" novalidate="novalidate">
-    {{ govukInput({
-      label: {
-        text: "Name"
-      },
-      id: "name",
-      name: "name",
-      spellcheck: false,
-      classes: "govuk-!-width-one-half",
-      value: values.get("name"),
-      errorMessage: {
-        text: errorMessages.get("name")
-      } if errorMessages and errorMessages.has("name")
-    }) }}
-
-    {{ govukInput({
-      label: {
-        text: "Email address"
-      },
-      hint: {
-        text: "Must be a government email address"
-      },
-      id: "email",
-      name: "email",
-      type: "email",
-      spellcheck: false,
-      autocomplete: "email",
-      classes: "govuk-!-width-two-thirds",
-      value: values.get("email"),
-      errorMessage: {
-        text: errorMessages.get("email")
-      } if errorMessages and errorMessages.has("email")
-    }) }}
-
-    {{ govukInput({
-      label: {
-        text: "Department"
-      },
-      id: "department-name",
-      name: "department-name",
-      spellcheck: false,
-      classes: "govuk-!-width-one-half",
-      value: values.get("department-name"),
-      errorMessage: {
-        text: errorMessages.get("department-name")
-      } if errorMessages and errorMessages.has("department-name")
-    }) }}
-
-    {{ govukInput({
-      label: {
-        text: "Service name"
-      },
-      id: "service-name",
-      name: "service-name",
-      spellcheck: false,
-      classes: "govuk-input govuk-!-width-one-half",
-      value: values.get("service-name"),
-      errorMessage: {
-        text: errorMessages.get("service-name")
-      } if errorMessages and errorMessages.has("service-name")
-    }) }}
-
-    {{ govukButton({
-      text: "Submit",
-      attributes: {
-        id: "submit"
-      }
-    }) }}
-  </form>
+{% block formInputs %}
+  {{ form.textInput("Name", "name") }}
+  {{ form.emailInput(hint = "Must be a government email address") }}
+  {{ form.textInput("Department", "department-name") }}
+  {{ form.textInput("Service name", "service-name") }}
 {% endblock %}

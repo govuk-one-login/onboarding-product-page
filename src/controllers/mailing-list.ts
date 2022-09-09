@@ -10,12 +10,12 @@ export const mailingList = async function(req: Request, res: Response) {
   const serviceName = req.body.serviceName;
   let errorMessages: Map<String, String> = new Map<String, String>();
 
-  const formValueHolder = {
-    personalNameHolder: personalName,
-    organisationNameHolder: organisationName,
-    contactEmailHolder: contactEmail,
-    serviceNameHolder: serviceName
-  }
+  const values = new Map<string, string>([
+    ["personalName", personalName],
+    ["organisationName", organisationName],
+    ["contactEmail", contactEmail],
+    ["serviceName", serviceName]
+  ]);
 
   const onlyLettersPattern = /^[a-zA-Z\-\s]{1,300}$/;
   const onlyLettersAndNumbersPattern = /^[a-zA-Z\-0-9_\s]{1,300}$/;
@@ -42,7 +42,7 @@ export const mailingList = async function(req: Request, res: Response) {
         // @ts-ignore
         return contactEmail.trim().endsWith(suffix) && suffix != "";
       });
-      
+
       if (!isEmailGovUK) {
         errorMessages.set('contactEmail', 'Enter a government email address');
       }
@@ -58,7 +58,7 @@ export const mailingList = async function(req: Request, res: Response) {
   }
 
   if(errorMessages.size != 0) {
-    res.render('mailing-list.njk', { errors: errorMessages, values: formValueHolder });
+    res.render('mailing-list.njk', { errorMessages: errorMessages, values: values });
   } else {
 
     let sheet = new SheetsService(process.env.MAILING_LIST_SPREADSHEET_ID as string);

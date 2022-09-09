@@ -49,7 +49,7 @@ Feature: A register form so users can sign up to get access to the GOV.UK Sign I
 
     Given  that the users enter alphanumeric characters into all of the fields in the register form except the mailing-list radio
     When they select the Submit button
-    Then the error message "Select if you’d like to join the mailing list or not" must be displayed for the "mailing-list" field
+    Then the error message "Select if you’d like to join the mailing list or not" must be displayed for the "mailing-list" radios
 
   Scenario: User selects no for the mailing list
 

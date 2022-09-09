@@ -1,0 +1,15 @@
+{% extends "base.njk" %}
+{% import "macros/form.njk" as form with context %}
+{% from "macros/error-summary.njk" import errorSummary %}
+
+{% block mainContent %}
+  {{ errorSummary(errorMessages) }}
+
+  {% block beforeForm %}{% endblock %}
+
+  {% call form.generate(formAction, buttonText, buttonId) %}
+    {% block formInputs %}{% endblock %}
+  {% endcall %}
+
+  {% block afterForm %}{% endblock %}
+{% endblock %}

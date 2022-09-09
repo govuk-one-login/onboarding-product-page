@@ -1,0 +1,92 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% macro generate(action, buttonText, buttonId) %}
+  <form class="form" method="post"{% if action %} action="{{ action }}"{% endif %} novalidate="novalidate">
+    {{ caller() }}
+
+    {{ govukButton({
+      text: buttonText | default("Submit"),
+      attributes: {
+        id: buttonId | default("submit")
+      }
+    }) }}
+  </form>
+{% endmacro %}
+
+{% macro textInput(label, id, classes = "govuk-!-width-one-half") %}
+  {{ govukInput({
+    label: {
+      text: label
+    },
+    id: id,
+    name: id,
+    spellcheck: false,
+    classes: classes,
+    value: values.get(id) if values,
+    errorMessage: {
+      text: errorMessages.get(id)
+    } if errorMessages and errorMessages.has(id)
+  }) }}
+{% endmacro %}
+
+{% macro emailInput(label = "Email address", hint = "You must enter a government email address",
+  classes = "govuk-!-width-two-thirds", id = "email") %}
+  {{ govukInput({
+    label: {
+      text: label
+    },
+    hint: {
+      text: hint
+    },
+    id: id,
+    name: id,
+    type: id,
+    spellcheck: false,
+    autocomplete: id,
+    classes: classes,
+    value: values.get(id) if values,
+    errorMessage: {
+      text: errorMessages.get(id)
+    } if errorMessages and errorMessages.has(id)
+  }) }}
+{% endmacro %}
+
+{% macro textAreaInput(label, id, rows = 5) %}
+  {{ govukTextarea({
+    label: {
+      text: label
+    },
+    id: id,
+    name: id,
+    rows: rows,
+    errorMessage: {
+      text: errorMessages.get(id)
+    } if errorMessages and errorMessages.has(id)
+  }) }}
+{% endmacro %}
+
+{% macro radiosInput(label, id, hint, items) %}
+  {{ govukRadios({
+    name: id,
+    idPrefix: id + "-option",
+    attributes: {
+      id: id
+    },
+    fieldset: {
+      legend: {
+        text: label
+      }
+    },
+    hint: {
+      text: hint
+    } if hint,
+    value: values.get(id) if values,
+    items: items,
+    errorMessage: {
+      text: errorMessages.get(id)
+    } if errorMessages and errorMessages.has(id)
+  }) }}
+{% endmacro %}

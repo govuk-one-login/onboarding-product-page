@@ -4,11 +4,12 @@ import Validation from "../lib/validation";
 import getTimestamp from "../lib/timestamp";
 import uuid from "../lib/uuid";
 
-let requiredFields = new Map<string, string>();
-requiredFields.set("email", "Enter your government email address");
-requiredFields.set("name", "Enter your name");
-requiredFields.set("service-name", "Enter the name of your service");
-requiredFields.set("department-name", "Enter your department");
+let requiredFields = new Map<string, string>([
+    ["name", "Enter your name"],
+    ["email", "Enter your government email address"],
+    ["department-name", "Enter your department"],
+    ["service-name", "Enter the name of your service"]
+]);
 
 export const showRequestForm = function (req: Request, res: Response) {
     const errorMessages = new Map();
