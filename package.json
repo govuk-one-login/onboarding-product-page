@@ -9,7 +9,7 @@
     "dev": "nodemon --inspect -r 'dotenv/config' src/app.ts",
     "minifyjs": "for script in dist/assets/*.js; do uglifyjs $script -cmo $script; done",
     "buildts": "tsc $(${CI:-false} && echo --sourceMap false)",
-    "buildsass": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js assets/css/app.scss dist/assets/app.css",
+    "buildsass": "node-sass --output-style compressed --importer node_modules/node-sass-package-importer/dist/cli.js assets/css/app.scss dist/assets/app.css $(${CI:-false} || echo --source-map true --source-map-contents)",
     "buildjs": "cp -vr assets/javascripts/* dist/assets/ && ${CI:-false} && npm run minifyjs || true",
     "buildgovuk": "cp -vr node_modules/govuk-frontend/govuk/assets/* node_modules/govuk-frontend/govuk/vendor/polyfills/Function/prototype/bind.js ./dist/assets/ && cp -v node_modules/govuk-frontend/govuk/all.js dist/assets/govuk-all.js",
     "buildlocalimages": "cp -v -r assets/images/* ./dist/assets/images",
