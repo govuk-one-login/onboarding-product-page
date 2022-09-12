@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-var cookieBanner = function () {
-    const PROD_HOSTNAME = 'sign-in.service.gov.uk';
+const cookieBanner = function () {
+    const PROD_HOSTNAME = "sign-in.service.gov.uk";
     const COOKIES_PREFERENCES_SET = "cookies_preferences_set";
 
     const cookiesAccepted = document.querySelector("#cookies-accepted");
@@ -30,7 +30,7 @@ var cookieBanner = function () {
             "click",
             function (event) {
                 event.preventDefault();
-                setCookie(COOKIES_PREFERENCES_SET, {"analytics": true});
+                setCookie(COOKIES_PREFERENCES_SET, {analytics: true});
                 showElement(cookiesAccepted);
                 hideElement(cookieBanner);
                 initGATagManager(true);
@@ -41,7 +41,7 @@ var cookieBanner = function () {
             "click",
             function (event) {
                 event.preventDefault();
-                setCookie(COOKIES_PREFERENCES_SET, {"analytics": false});
+                setCookie(COOKIES_PREFERENCES_SET, {analytics: false});
                 showElement(cookiesRejected);
                 hideElement(cookieBanner);
                 initGATagManager(false);
@@ -93,11 +93,11 @@ var cookieBanner = function () {
         const expiryDate = new Date(currentDate.setMonth(currentDate.getMonth() + 12));
 
         document.cookie =
-            name + "=" + JSON.stringify(value) +
-            getCookiesDomainAttribute() +
-            "; expires=" + expiryDate +
-            "; path=/" +
-            getCookiesSecureAttribute();
+            `${name}=${JSON.stringify(value)}` +
+            `${getCookiesDomainAttribute()}; ` +
+            `expires=${expiryDate}; ` +
+            "path=/" +
+            `${getCookiesSecureAttribute()}`;
     }
 
     function hideElement(el) {
@@ -114,7 +114,7 @@ var cookieBanner = function () {
 
     function cookiesPageInit() {
         const cookie = getCookieValue(COOKIES_PREFERENCES_SET);
-        var analyticsValue = false;
+        let analyticsValue = false;
 
         if (cookie) {
             analyticsValue = JSON.parse(cookie).analytics;
@@ -127,9 +127,9 @@ var cookieBanner = function () {
             "click",
             function (event) {
                 event.preventDefault();
-                const selectedPreference = document.querySelector("#radio-cookie-preferences input[type=\"radio\"]:checked").value;
+                const selectedPreference = document.querySelector('#radio-cookie-preferences input[type="radio"]:checked').value;
                 const analyticsEnabled = selectedPreference === "true";
-                setCookie(COOKIES_PREFERENCES_SET, {"analytics": analyticsEnabled});
+                setCookie(COOKIES_PREFERENCES_SET, {analytics: analyticsEnabled});
                 initGATagManager(analyticsEnabled);
 
                 showElement(document.querySelector("#save-success-banner"));
@@ -146,27 +146,24 @@ var cookieBanner = function () {
         );
     }
 
+    // Install Google Tag Manager
+    // https://developers.google.com/tag-platform/tag-manager/web
     function initGATagManager(hasGivenConsent) {
-        if (hasGivenConsent && gaTrackingCode['value']) {
-            const commentStart = document.createComment(' Google Tag Manager ')
+        if (hasGivenConsent && gaTrackingCode["value"]) {
+            const commentStart = document.createComment("Google Tag Manager");
             document.head.append(commentStart);
 
             const script = document.createElement("script");
-            script.text = "
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
-                j.async = true;
-                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', '" + gaTrackingCode.value + "');
-            ";
+            script.text =
+                "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':" +
+                "new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0]," +
+                "j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=" +
+                "'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);" +
+                `})(window,document,'script','dataLayer','"+gaTrackingCode.value+"');`;
 
             document.head.append(script);
 
-            const commentEnd = document.createComment(' End Google Tag Manager ')
+            const commentEnd = document.createComment("End Google Tag Manager");
             document.head.append(commentEnd);
         } else {
             deleteCookie("_gid");
@@ -176,10 +173,10 @@ var cookieBanner = function () {
     }
 
     function getCookieValue(cookieName) {
-        const cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            const name = cookies[i].split('=')[0].toLowerCase().trim();
-            const value = cookies[i].split('=')[1];
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            const name = cookies[i].split("=")[0].toLowerCase().trim();
+            const value = cookies[i].split("=")[1];
             if (name.indexOf(cookieName) !== -1) {
                 return value;
             }
@@ -188,7 +185,7 @@ var cookieBanner = function () {
     }
 
     function deleteCookie(name) {
-        document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     }
 
     return {

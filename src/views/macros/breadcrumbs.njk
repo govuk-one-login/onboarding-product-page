@@ -1,6 +1,6 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
-{% macro breadcrumbs(intermediateCrumbs, currentPageName) %}
+{% macro breadcrumbs(intermediateCrumbs, currentPageName, classes) %}
   {% set crumbs = [
     {
       text: "GOV.UK services",
@@ -16,15 +16,18 @@
     {% set crumbs = (crumbs.push(crumb), crumbs) %}
   {% endfor %}
 
-  {% set crumbs = (crumbs.push({
-    text: currentPageName,
-    href: "#main-content",
-    attributes: {
-      "aria-current": "page"
-    }
-  }), crumbs) %}
+  {% if currentPageName %}
+    {% set crumbs = (crumbs.push({
+      text: currentPageName,
+      href: "#main-content",
+      attributes: {
+        "aria-current": "page"
+      }
+    }), crumbs) %}
+  {% endif %}
 
   {{ govukBreadcrumbs({
-    items: crumbs
+    items: crumbs,
+    classes: classes
   }) }}
 {% endmacro %}

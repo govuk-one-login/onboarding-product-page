@@ -5,18 +5,19 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/app.js",
-    "local": "npm run build && node -r 'dotenv/config' dist/app.js",
-    "dev": "nodemon -r 'dotenv/config' src/app.ts",
-    "buildts": "tsc -p .",
-    "buildsass": "node-sass --importer node_modules/node-sass-package-importer/dist/cli.js assets/css/app.scss dist/assets/app.css",
-    "buildjs": "uglifyjs --verbose node_modules/govuk-frontend/govuk/all.js -o dist/assets/govuk-all.js && uglifyjs --verbose assets/javascripts/cookies.js -o dist/assets/cookies.js && cp -vr assets/javascripts/back-to-top.js ./dist/assets/back-to-top.js && cp -vr node_modules/govuk-frontend/govuk/vendor/polyfills/Function/prototype/bind.js ./dist/assets/bind.js",
-    "buildgovuk": "cp -v -r node_modules/govuk-frontend/govuk/assets/* ./dist/assets && echo \"Done!\"",
+    "local": "npm run build && node --inspect -r 'dotenv/config' dist/app.js",
+    "dev": "nodemon --inspect -r 'dotenv/config' src/app.ts",
+    "minifyjs": "for script in dist/assets/*.js; do uglifyjs $script -cmo $script; done",
+    "buildts": "tsc $(${CI:-false} && echo --sourceMap false)",
+    "buildsass": "node-sass --output-style compressed --importer $(npm ls -p node-sass-package-importer)/dist/cli.js --include-path $(npm ls -p govuk-frontend)/.. assets/css/app.scss dist/assets/app.css $(${CI:-false} || echo --source-map true --source-map-contents)",
+    "buildjs": "cp -vr assets/javascripts/* dist/assets/ && ${CI:-false} && npm run minifyjs || true",
+    "buildgovuk": "cp -vr $(npm ls -p govuk-frontend)/govuk/assets/* $(npm ls -p govuk-frontend)/govuk/vendor/polyfills/Function/prototype/bind.js ./dist/assets/ && cp -v $(npm ls -p govuk-frontend)/govuk/all.js dist/assets/govuk-all.js",
     "buildlocalimages": "cp -v -r assets/images/* ./dist/assets/images",
     "buildlocalfiles": "mkdirp ./dist/routes/files && cp -v -r files/* ./dist/routes/files",
-    "build": "npm run buildts && npm run buildsass && npm run buildjs && npm run buildgovuk && npm run buildlocalimages && npm run buildlocalfiles",
+    "build": "npm run buildts && npm run buildsass && npm run buildgovuk && npm run buildjs && npm run buildlocalimages && npm run buildlocalfiles",
     "test": "mocha --require ts-node/register --ui bdd src/**/*.spec.ts",
-    "cucumber": "./node_modules/.bin/cucumber-js --require-module ts-node/register --require features/support/test-setup.ts --require features/support/steps/**/*.ts --publish-quiet --tags 'not @wip'",
-    "cucumber-report": "npm run cucumbers -- --format html:test-report.html"
+    "cucumber": "cucumber-js --require-module ts-node/register --require features/support/test-setup.ts --require features/support/steps/**/*.ts --publish-quiet --tags 'not @wip'",
+    "cucumber-report": "npm run cucumber -- --format html:test-report.html"
   },
   "author": "",
   "license": "ISC",
@@ -56,7 +57,7 @@
     "puppeteer": "^15.5.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4",
-    "uglify": "^0.1.5"
+    "uglify-js": "^3.17.0"
   },
   "repository": {
     "type": "git",

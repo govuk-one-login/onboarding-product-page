@@ -9,7 +9,7 @@
 {% set breadcrumbs = breadcrumbs(currentPageName = pageTitle) %}
 
 {% block mainContent %}
-  {% call govukNotificationBanner({ type: "success", attributes: {id: "save-success-banner", hidden: ""} }) %}
+  {% call govukNotificationBanner({ type: "success", attributes: {id: "save-success-banner", hidden: "" } }) %}
     <h3 class="govuk-notification-banner__heading">Your cookie settings were saved</h3>
     <p id="policy-cookies-accepted-banner" class="govuk-body">You’ve accepted analytics cookies.</p>
     <p id="policy-cookies-rejected-banner" class="govuk-body">You’ve rejected analytics cookies.</p>
