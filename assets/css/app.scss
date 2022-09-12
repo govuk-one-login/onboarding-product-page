@@ -12,7 +12,7 @@ $govuk-new-link-styles: true;
 @import "modules/masthead";
 @import "modules/navigation";
 @import "modules/related-items";
-@import "modules/sub-navigation";
+@import "modules/side-navigation";
 
 @media (min-width: 415px) {
   div.feature-row {
@@ -123,17 +123,17 @@ div.feature-panel {
 }
 
 #main-content.side-nav-wrapper {
-  .sub-navigation__item {
+  .side-navigation__item {
     font-size: 16px;
     line-height: 1.25;
     padding-bottom: 5px;
   }
 
-  .sub-navigation__item:last-child {
+  .side-navigation__item:last-child {
     border-bottom: 1px $govuk-border-colour solid;
   }
 
-  .sub_navigation_list .sub-navigation__item {
+  .side-navigation__list .side-navigation__item {
     padding: 4px 0 7px 0;
   }
 

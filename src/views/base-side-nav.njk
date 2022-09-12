@@ -1,3 +1,19 @@
 {% extends "base.njk" %}
+{% from "side-nav/" + sideNav.name + "-side-nav.njk" import nav %}
 
 {% set mainClasses = ["side-nav-wrapper", mainClasses] | join(" ") %}
+
+{% block content %}
+  <div class="govuk-grid-row" style="position: relative;">
+    <div class="govuk-grid-column-one-third">
+      <nav class="side-navigation">
+        {{ nav(sideNav.active) }}
+      </nav>
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+      {% block mainContent %}{% endblock %}
+    </div>
+
+    {% block widgets %}{% endblock %}
+  </div>
+{% endblock %}

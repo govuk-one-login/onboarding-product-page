@@ -1,0 +1,21 @@
+{% from "../macros/side-navigation.njk" import sideNavigation %}
+
+{% macro nav(active) %}
+  {{ sideNavigation([
+    {
+      name: "Technical documentation",
+      description: "documentation",
+      href: "/documentation"
+    },
+    {
+      name: "User journey maps",
+      description: "journey-maps",
+      href: "/documentation/user-journeys"
+    },
+    {
+      name: "Design recommendations: ‘create account to save progress’",
+      description: "recommendations",
+      href: "/documentation/design-recommendations"
+    }
+  ], active) }}
+{% endmacro %}
