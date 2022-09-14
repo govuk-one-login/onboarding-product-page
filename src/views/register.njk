@@ -15,18 +15,10 @@
   {{ form.textInput("Organisation name", "organisation-name", "govuk-!-width-two-thirds") }}
   {{ form.emailInput("Contact email") }}
   {{ form.textInput("Service name", "service-name", "govuk-!-width-full") }}
-  {{ form.radiosInput("Would you like to join our mailing list?", id = "mailing-list",
+  {{ form.radiosInput("Would you like to join our mailing list?", name = "mailing-list",
     hint = "You’ll get occasional email updates about our work and invitations to our cross-government show and tells.",
     items = [
-      {
-        text: "Yes",
-        value: "yes",
-        id: "mailing-list-yes"
-      },
-      {
-        text: "No",
-        value: "no",
-        id: "mailing-list-no"
-      }
+      {text: "Yes", value: "yes"},
+      {text: "No", value: "no"}
     ]) }}
 {% endblock %}

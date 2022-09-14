@@ -1,4 +1,5 @@
 import { Given } from '@cucumber/cucumber';
+import {Page} from "puppeteer";
 
 Given('that the users enter alphanumeric characters into all of the fields', async function () {
     await this.goToPath('/register');
@@ -6,7 +7,7 @@ Given('that the users enter alphanumeric characters into all of the fields', asy
     await this.page.type('#organisation-name', 'Department of Sorcery');
     await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
     await this.page.type('#service-name', 'Unicorn Testing');
-    await this.page.click('#mailing-list-yes');
+    await selectMailingListOption(this.page, "yes");
 
 });
 
@@ -15,7 +16,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
     await this.page.type('#organisation-name', 'Department of Sorcery');
     await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
     await this.page.type('#service-name', 'Unicorn Testing');
-    await this.page.click('#mailing-list-yes');
+    await selectMailingListOption(this.page, "yes");
 });
 
 Given('that the users enter alphanumeric characters into all of the fields in the register form except the Organisation name field', async function () {
@@ -23,7 +24,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
     await this.page.type('#name', 'Tessa Ting');
     await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
     await this.page.type('#service-name', 'Unicorn Testing');
-    await this.page.click('#mailing-list-yes');
+    await selectMailingListOption(this.page, "yes");
 });
 
 Given('that the users enter alphanumeric characters into all of the fields in the register form except the Contact email field', async function () {
@@ -31,15 +32,15 @@ Given('that the users enter alphanumeric characters into all of the fields in th
     await this.page.type('#name', 'Tessa Ting');
     await this.page.type('#organisation-name', 'Department of Sorcery');
     await this.page.type('#service-name', 'Unicorn Testing');
-    await this.page.click('#mailing-list-yes');
+    await selectMailingListOption(this.page, "yes");
 });
 
 Given('that the users enter alphanumeric characters into all of the fields in the register form except the Service name field', async function () {
     await this.goToPath('/register');
     await this.page.type('#name', 'Tessa Ting');
     await this.page.type('#organisation-name', 'Department of Sorcery');
-    await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
-    await this.page.click('#mailing-list-yes');
+    await this.page.type('#email', 'tessa.ting@gov.uk');
+    await selectMailingListOption(this.page, "yes");
 });
 
 Given('that the user enters an invalid email address into the email field', async function () {
@@ -66,5 +67,10 @@ Given('that the users enter alphanumeric characters into all of the fields in th
     await this.page.type('#organisation-name', 'Department of Sorcery');
     await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
     await this.page.type('#service-name', 'Unicorn Testing');
-    await this.page.click('#mailing-list-no');
+    await selectMailingListOption(this.page, "no");
 });
+
+async function selectMailingListOption(page: Page, value: string) {
+    const radio = await page.$x(`//div[@id="mailing-list-options"]//input[@value="${value}"]`);
+    await radio[0].click();
+}
