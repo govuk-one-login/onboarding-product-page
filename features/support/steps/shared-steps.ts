@@ -1,82 +1,70 @@
-import { Given, Then, When } from '@cucumber/cucumber';
-import { strict as assert } from 'assert';
-import { Page } from 'puppeteer';
-import { checkUrl, getLink } from './shared-functions';
+import {Given, Then, When} from "@cucumber/cucumber";
+import {strict as assert} from "assert";
+import {Page} from "puppeteer";
+import {checkUrl, getLink} from "./shared-functions";
 
-Given('that the user is on the {string} page', async function (route: string) {
+Given("that the user is on the {string} page", async function (route: string) {
     await this.goToPath(route);
 });
 
-When('they click on the {string} link', async function (text: string) {
-    let links = await this.page.$x(`//a[contains(text(), "${text}")]`);
-    await Promise.all([
-        this.page.waitForNavigation({ timeout: 10000 }),
-        links[0].click()
-    ]);
+When("they click on the {string} link", async function (text: string) {
+    const links = await this.page.$x(`//a[contains(text(), "${text}")]`);
+    await Promise.all([this.page.waitForNavigation({timeout: 10000}), links[0].click()]);
 });
 
-When('they click on the {string} button-link', async function (text: string) {
-    let links = await this.page.$x(`//a[contains(text(), "${text}")][@class="govuk-button"]`);
-    await Promise.all([
-        this.page.waitForNavigation({ timeout: 10000 }),
-        links[0].click()
-    ]);
+When("they click on the {string} button-link", async function (text: string) {
+    const links = await this.page.$x(`//a[contains(text(), "${text}")][@class="govuk-button"]`);
+    await Promise.all([this.page.waitForNavigation({timeout: 10000}), links[0].click()]);
 });
 
-When('they click the {string} button', async function (name: string) {
-    let button = await this.page.$x(`//button[contains(text(), '${name}')]`);
-    await Promise.all([
-        this.page.waitForNavigation({timeout: 10000}),
-        button[0].click()
-    ]);
+When("they click the {string} button", async function (name: string) {
+    const button = await this.page.$x(`//button[contains(text(), '${name}')]`);
+    await Promise.all([this.page.waitForNavigation({timeout: 10000}), button[0].click()]);
 });
 
-When('they select the Submit button', async function () {
-    let button = await this.page.$x(`//button[contains(text(), 'Submit')]`);
-    await Promise.all([
-        this.page.waitForNavigation({timeout: 10000}),
-        button[0].click()
-    ]);
+When("they select the Submit button", async function () {
+    const button = await this.page.$x(`//button[contains(text(), 'Submit')]`);
+    await Promise.all([this.page.waitForNavigation({timeout: 10000}), button[0].click()]);
 });
 
-Then('they should be directed to the following page: {string}', async function (path) {
+Then("they should be directed to the following page: {string}", async function (path) {
     const expectedUrl = new URL(path, this.host);
     assert.equal(this.page.url(), expectedUrl.href);
 });
 
-Then('they should be directed to the following URL: {string}', async function (url) {
+Then("they should be directed to the following URL: {string}", async function (url) {
     assert.equal(this.page.url(), url);
 });
 
-Then('they should be directed to a page with the title {string}', async function (title: string) {
-    let actualTitle = await this.page.title();
+Then("they should be directed to a page with the title {string}", async function (title: string) {
+    const actualTitle = await this.page.title();
     assert.equal(actualTitle, title, `Page title was ${actualTitle}`);
 });
 
-Then('their data is saved in the spreadsheet', async function () {
+Then("their data is saved in the spreadsheet", async function () {
     // we can't check the sheet but if we're on the right page and can find some content then that's good enough
 });
 
-Then('the error message {string} must be displayed for the {string} field', async function (errorMessage, field) {
+Then("the error message {string} must be displayed for the {string} field", async function (errorMessage, field) {
     await checkErrorMessageDisplayedAboveElement(this.page, errorMessage, field);
 });
 
-Then('the error message {string} must be displayed for the {string} radios', async function (errorMessage, field) {
+Then("the error message {string} must be displayed for the {string} radios", async function (errorMessage, field) {
     await checkErrorMessageDisplayedAboveElement(this.page, errorMessage, field);
 });
 
-Then('they should see the text {string}', async function (text) {
-    let bodyText: string = await this.page.$eval('body', (element: any) => element.textContent)
-    assert.equal(bodyText.includes(text), true, `Body text does not contain "${text}"`)
+Then("they should see the text {string}", async function (text) {
+    const bodyText: string = await this.page.$eval("body", (element: any) => element.textContent);
+    assert.equal(bodyText.includes(text), true, `Body text does not contain "${text}"`);
 });
 
-Then('the {string} link will point to the following URL: {string}', async function (linkText, expectedUrl) {
-    let link = await getLink(this.page, linkText);
+Then("the {string} link will point to the following URL: {string}", async function (linkText, expectedUrl) {
+    const link = await getLink(this.page, linkText);
     await checkUrl(this.page, link, expectedUrl);
 });
 
-Then('the {string} link will point to the following page: {string}', async function (linkText, expectedPage) {
-    let link = await getLink(this.page, linkText);
+Then("the {string} link will point to the following page: {string}", async function (linkText, expectedPage) {
+    const link = await getLink(this.page, linkText);
     await checkUrl(this.page, link, expectedPage);
 });
 
@@ -91,5 +79,9 @@ async function checkErrorMessageDisplayedAboveElement(page: Page, errorMessage: 
     assert.notEqual(messageAboveElement.length, 0, `Expected to find the message "${errorMessage}" above the ${field} field.`);
 
     const actualMessageAboveSummary = await page.evaluate((el: {textContent: any}) => el.textContent, messageAboveElement[0]);
-    assert.equal(actualMessageAboveSummary.trim(), `Error: ${errorMessage}`, `Expected the message above the ${field} field to be "${errorMessage}"`);
+    assert.equal(
+        actualMessageAboveSummary.trim(),
+        `Error: ${errorMessage}`,
+        `Expected the message above the ${field} field to be "${errorMessage}"`
+    );
 }

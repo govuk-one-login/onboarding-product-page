@@ -11,7 +11,7 @@ export const submitForm = function (req: Request, res: Response) {
     const values = new Map<string, string>(Object.entries(req.body));
     const errorMessages = (req.app.get("validation") as Validation).validate(values, requiredFields);
 
-    if (errorMessages.has("support")) {
+    if (errorMessages.size > 0) {
         res.render("support.njk", {errorMessages: errorMessages});
         return;
     }
