@@ -1,7 +1,10 @@
 import {Request, Response} from "express";
 import Validation from "../lib/validation";
+import {createFieldMap, InputType} from "../types/form-fields";
 
-const requiredFields = new Map<string, string>([["support", "You must select an option to tell us what you need help with"]]);
+const requiredFields = createFieldMap([
+    {name: "support", inputType: InputType.Radios, missingValueMessage: "You must select an option to tell us what you need help with"}
+]);
 
 export const showForm = function (req: Request, res: Response) {
     res.render("support.njk");
@@ -11,7 +14,7 @@ export const submitForm = function (req: Request, res: Response) {
     const values = new Map<string, string>(Object.entries(req.body));
     const errorMessages = (req.app.get("validation") as Validation).validate(values, requiredFields);
 
-    if (errorMessages.has("support")) {
+    if (errorMessages.size > 0) {
         res.render("support.njk", {errorMessages: errorMessages});
         return;
     }
