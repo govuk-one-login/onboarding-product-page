@@ -68,12 +68,12 @@
   }) }}
 {% endmacro %}
 
-{% macro radiosInput(label, id, hint, items) %}
+{% macro radiosInput(label, name, hint, items) %}
   {{ govukRadios({
-    name: id,
-    idPrefix: id + "-option",
+    name: name,
+    idPrefix: name,
     attributes: {
-      id: id
+      id: name + "-options"
     },
     fieldset: {
       legend: {
@@ -83,10 +83,10 @@
     hint: {
       text: hint
     } if hint,
-    value: values.get(id) if values,
+    value: values.get(name) if values,
     items: items,
     errorMessage: {
-      text: errorMessages.get(id)
-    } if errorMessages and errorMessages.has(id)
+      text: errorMessages.get(name)
+    } if errorMessages and errorMessages.has(name)
   }) }}
 {% endmacro %}

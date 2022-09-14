@@ -2,7 +2,7 @@ import {Express} from "express-serve-static-core";
 import {configure, render} from "nunjucks";
 import * as path from "path";
 
-export default function (app: Express, viewPath = path.join(__dirname, "../../src/views")) {
+export default function (app: Express, viewPath: string = path.join(__dirname, "../../src/views")) {
     const govukViews = require.resolve("govuk-frontend").match(/.*govuk-frontend\//)?.[0];
 
     if (!govukViews) {
