@@ -10,7 +10,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
 Given('that the users enter alphanumeric characters into all of the fields in the contact us form except the name field', async function () {
     await this.goToPath('/contact-us');
     await this.page.type('#role', 'Chief Unicorn Tester');
-    await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
+    await this.page.type('#email', 'tessa.ting@gov.uk');
     await this.page.type('#service-name', 'Unicorn Testing');
     await this.page.type('#organisation-name', 'Department of Sorcery');
     await this.page.type('#how-can-we-help', "We'd like fairies to be able to sign up to get their unicorns tested.");
@@ -35,7 +35,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
 
 Given('that the users enter alphanumeric characters into all of the fields in the contact us form except the organisation-name field', async function () {
     await this.goToPath('/contact-us');
-    await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
+    await this.page.type('#email', 'tessa.ting@gov.uk');
     await this.page.type('#name', 'Tessa Ting');
     await this.page.type('#role', 'Chief Unicorn Tester');
     await this.page.type('#service-name', 'Unicorn Testing');
@@ -44,7 +44,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
 
 Given('that the users enter alphanumeric characters into all of the fields in the contact us form except the service-name field', async function () {
     await this.goToPath('/contact-us');
-    await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
+    await this.page.type('#email', 'tessa.ting@gov.uk');
     await this.page.type('#name', 'Tessa Ting');
     await this.page.type('#role', 'Chief Unicorn Tester');
     await this.page.type('#organisation-name', 'Department of Sorcery');
@@ -72,7 +72,7 @@ Then('their data is sent to Zendesk', async function () {
 });
 
 async function fillInUserInfoFields(page: Page) {
-    await page.type('#email', 'tessa.ting@foo-bar.gov.uk');
+    await page.type('#email', 'tessa.ting@gov.uk');
     await page.type('#name', 'Tessa Ting');
     await page.type('#role', 'Chief Unicorn Tester');
     await page.type('#service-name', 'Unicorn Testing');

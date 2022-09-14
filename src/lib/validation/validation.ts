@@ -1,5 +1,5 @@
-const emailValidator = require('./email-validator');
-import fs from 'fs';
+const emailValidator = require("./email-validator");
+import fs from "fs";
 
 export default class Validation {
     validEmailDomains: string[];
@@ -7,14 +7,14 @@ export default class Validation {
 
     constructor() {
         this.validEmailDomains = [];
-        console.log("Loading list of valid email domains.")
+        console.log("Loading list of valid email domains.");
         try {
-            let emails = fs.readFileSync("./valid-email-domains.txt", "utf-8")
-            this.validEmailDomains = emails.split("\n");
+            const emails = fs.readFileSync("./valid-email-domains.txt", "utf-8");
+            this.validEmailDomains = emails.trim().split("\n");
         } catch (error) {
             console.error("List of valid email domains could not be loaded.");
             console.error(error);
-            process.kill(process.pid, 'SIGTERM');
+            process.kill(process.pid, "SIGTERM");
         }
     }
 
@@ -26,48 +26,52 @@ export default class Validation {
             if (message) {
                 errors.set(field, message);
             }
-        })
+        });
 
         return errors;
     }
 
     getErrorMessage(field: string, form: Map<string, string>, errorMessages: Map<string, string>): string | undefined {
         if (this.fieldHasNoValue(field, form)) {
-            return errorMessages.get(field)!;
-        }
-
-        if (field === 'email') {
-            if (this.invalidEmailAddress(form)) {
-                return 'Enter an email address in the correct format, like name@gov.uk';
+            const errorMessage = errorMessages.get(field);
+            if (!errorMessage) {
+                throw `No validation message for field ${field}`;
             }
 
-            if (this.notGovernmentEmail(form)) {
-                return 'Enter a government email address';
+            return errorMessage;
+        }
+
+        if (field === "email") {
+            const email = form.get("email") as string;
+
+            if (this.invalidEmailAddress(email)) {
+                return "Enter an email address in the correct format, like name@gov.uk";
+            }
+
+            if (this.notGovernmentEmail(email)) {
+                return "Enter a government email address";
             }
         }
     }
 
     fieldHasNoValue(field: string, form: Map<string, string>): boolean {
-        return form.get(field) == '' || form.get(field) == undefined;
+        return form.get(field) == "" || form.get(field) == undefined;
     }
 
-    invalidEmailAddress(form: Map<string, string>): boolean {
-        return !emailValidator(form.get('email'))
+    invalidEmailAddress(email: string): boolean {
+        return !emailValidator(email);
     }
 
-    notGovernmentEmail(form: Map<string, string>): boolean {
-        // "" will match anything and we get that if there's an empty line at the end of valid-email-domains.txt
-        let match = this.validEmailDomains.find(suffix => {
-            // @ts-ignore
-            return form.get('email').trim().endsWith(suffix) && suffix != "";
-        });
-        return match == undefined;
+    notGovernmentEmail(email: string): boolean {
+        const emailDomain = email.trim().split("@")[1];
+        return this.validEmailDomains.find(domain => domain == emailDomain) === undefined;
     }
 
     static getInstance() {
         if (!Validation.instance) {
             Validation.instance = new Validation();
         }
+
         return Validation.instance;
     }
 }

@@ -5,7 +5,7 @@ Given('that the users enter alphanumeric characters into all of the fields', asy
     await this.goToPath('/register');
     await this.page.type('#name', 'Tessa Ting');
     await this.page.type('#organisation-name', 'Department of Sorcery');
-    await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
+    await this.page.type('#email', 'tessa.ting@gov.uk');
     await this.page.type('#service-name', 'Unicorn Testing');
     await selectMailingListOption(this.page, "yes");
 
@@ -14,7 +14,7 @@ Given('that the users enter alphanumeric characters into all of the fields', asy
 Given('that the users enter alphanumeric characters into all of the fields in the register form except the Name field', async function () {
     await this.goToPath('/register');
     await this.page.type('#organisation-name', 'Department of Sorcery');
-    await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
+    await this.page.type('#email', 'tessa.ting@gov.uk');
     await this.page.type('#service-name', 'Unicorn Testing');
     await selectMailingListOption(this.page, "yes");
 });
@@ -22,7 +22,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
 Given('that the users enter alphanumeric characters into all of the fields in the register form except the Organisation name field', async function () {
     await this.goToPath('/register');
     await this.page.type('#name', 'Tessa Ting');
-    await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
+    await this.page.type('#email', 'tessa.ting@gov.uk');
     await this.page.type('#service-name', 'Unicorn Testing');
     await selectMailingListOption(this.page, "yes");
 });
@@ -57,7 +57,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
     await this.goToPath('/register');
     await this.page.type('#name', 'Tessa Ting');
     await this.page.type('#organisation-name', 'Department of Sorcery');
-    await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
+    await this.page.type('#email', 'tessa.ting@gov.uk');
     await this.page.type('#service-name', 'Unicorn Testing');
 });
 
@@ -65,7 +65,7 @@ Given('that the users enter alphanumeric characters into all of the fields in th
     await this.goToPath('/register');
     await this.page.type('#name', 'Tessa Ting');
     await this.page.type('#organisation-name', 'Department of Sorcery');
-    await this.page.type('#email', 'tessa.ting@foo-bar.gov.uk');
+    await this.page.type('#email', 'tessa.ting@gov.uk');
     await this.page.type('#service-name', 'Unicorn Testing');
     await selectMailingListOption(this.page, "no");
 });
