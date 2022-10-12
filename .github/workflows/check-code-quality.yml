@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Run checkov
-        uses: alphagov/di-github-actions/code-quality/run-checkov@cd4a32275424a5722e009ac4e6b14f876f4d2c45
+        uses: alphagov/di-github-actions/code-quality/run-checkov@93f0649046c57c0d1ee359d2714c3330ff5f5c2d
 
   check-shell-scripts:
     name: Shell scripts
@@ -25,4 +25,12 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Run shell checks
-        uses: alphagov/di-github-actions/code-quality/check-shell-scripts@cd4a32275424a5722e009ac4e6b14f876f4d2c45
+        uses: alphagov/di-github-actions/code-quality/check-shell-scripts@93f0649046c57c0d1ee359d2714c3330ff5f5c2d
+
+  check-linting:
+    name: Linting
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check linting and formatting
+        uses: alphagov/di-github-actions/code-quality/check-linting@93f0649046c57c0d1ee359d2714c3330ff5f5c2d
