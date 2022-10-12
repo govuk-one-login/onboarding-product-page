@@ -12,22 +12,21 @@ Sample test message to post to the Canary SNS topic.
 
 ```json
 {
-  "NewStateValue": "OK",
-  "OldStateValue": "test"
+    "NewStateValue": "OK",
+    "OldStateValue": "test"
 }
-
 ```
 
-Sample test message to post directly to the Slack lambda function - this mimics the SNS message that triggers the lambda. 
+Sample test message to post directly to the Slack lambda function - this mimics the SNS message that triggers the lambda.
 
 ```json
 {
-  "Records": [
-    {
-      "Sns": {
-        "Message": "{\"NewStateValue\":\"OK\",\"OldStateValue\":\"test\"}"
-      }
-    }
-  ]
+    "Records": [
+        {
+            "Sns": {
+                "Message": "{\"NewStateValue\":\"OK\",\"OldStateValue\":\"test\"}"
+            }
+        }
+    ]
 }
 ```
