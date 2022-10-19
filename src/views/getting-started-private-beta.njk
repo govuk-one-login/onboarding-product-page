@@ -1,5 +1,6 @@
 {% extends "base.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set pageTitle = "Private beta" %}
 {% set headerNavigationActiveItem = "get-started" %}
@@ -31,8 +32,14 @@
     <li>be able to integrate with GOV.UK Sign In - this means you need access to developers who are comfortable working with the OpenID Connect (OIDC) protocol and the processes set out in our <a class="govuk-link" href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment">technical documentation</a></li>
   </ul>
   <h2 class="govuk-heading-m">The joining process</h2>
-  <p class="govuk-body">If you meet the beta criteria and would like to take part, <a class="govuk-link" href="/register">sign up to get access</a>.</p>
-  <p class="govuk-body">You can then speak to us about your service and access our test environment. If you decide GOV.UK Sign In meets your needs, email us to let us know you’d like to join the beta.</p>
+  <p class="govuk-body">If you meet the beta criteria and would like to take part, create an account to test the journey first.</p>
+  {{ govukButton({
+    text: "Create account",
+    href: "https://admin.sign-in.service.gov.uk/email-address",
+    isStartButton: true
+  }) }}
+  <p class="govuk-body">Or <a class="govuk-link" href="https://admin.sign-in.service.gov.uk/sign-in">sign in</a> if you already have one.</p>
+  <p class="govuk-body">Once you’re sure you want to join the beta, you can submit a request in your account.</p>
   <p class="govuk-body">After this, we’ll ask you to fill in a form and give us more detailed information about your service. This will include things like your user volumes and timelines.</p>
   <p class="govuk-body">We’ll review the information you send and let you know within 2 weeks whether you can join the beta.</p>
   <div class="govuk-inset-text">Please be aware that even if you meet the criteria, this does not guarantee that you’ll be able to take part. We need to choose services that we can learn the most from.</div>
