@@ -1,15 +1,15 @@
 import {Express} from "express-serve-static-core";
 import {configure, render} from "nunjucks";
-import * as path from "path";
+import {views} from "./resources";
 
-export default function (app: Express, viewPath: string = path.join(__dirname, "../../src/views")) {
+export default function (app: Express) {
     const govukViews = require.resolve("govuk-frontend").match(/.*govuk-frontend\//)?.[0];
 
     if (!govukViews) {
         throw "Couldn't load govuk-frontend module";
     }
 
-    configure([viewPath, govukViews], {
+    configure([views, govukViews], {
         autoescape: true,
         noCache: true,
         express: app

@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import Validation from "../lib/validation";
+import Validation from "../lib/validation/validation";
 
 const requiredFields = new Map<string, string>([["support", "You must select an option to tell us what you need help with"]]);
 

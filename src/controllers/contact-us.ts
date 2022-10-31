@@ -1,5 +1,5 @@
-import {Request, Response} from 'express';
-import Validation from "../lib/validation";
+import {Request, Response} from "express";
+import Validation from "../lib/validation/validation";
 import ZendeskService from "../lib/zendesk/ZendeskService";
 
 const requiredFields = new Map<string, string>([
@@ -12,14 +12,14 @@ const requiredFields = new Map<string, string>([
 ]);
 
 export const showForm = function (req: Request, res: Response) {
-    res.render('contact-us.njk');
-}
+    res.render("contact-us.njk");
+};
 
 export const submitForm = async function (req: Request, res: Response) {
     const values = new Map<string, string>();
     Object.keys(req.body).forEach(key => values.set(key, req.body[key].trim()));
 
-    const errorMessages = (req.app.get('validation') as Validation).validate(values, requiredFields);
+    const errorMessages = (req.app.get("validation") as Validation).validate(values, requiredFields);
     if (errorMessages.size == 0) {
         const zendesk = new ZendeskService(
             process.env.ZENDESK_USERNAME as string,
@@ -29,18 +29,18 @@ export const submitForm = async function (req: Request, res: Response) {
         );
         await zendesk.init();
         if (await zendesk.submit(values)) {
-            res.redirect('contact-us-submitted')
+            res.redirect("contact-us-submitted");
         } else {
-            res.redirect('contact-us-error')
+            res.redirect("contact-us-error");
         }
     } else {
-        res.render('contact-us.njk', {
+        res.render("contact-us.njk", {
             errorMessages: errorMessages,
-            values: values,
+            values: values
         });
     }
-}
+};
 
 export const confirmation = function (req: Request, res: Response) {
-    res.render('contact-us-confirm.njk');
-}
+    res.render("contact-us-confirm.njk");
+};
