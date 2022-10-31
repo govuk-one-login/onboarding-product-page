@@ -12,9 +12,8 @@
     "buildsass": "node-sass --output-style compressed --importer $(npm ls -p node-sass-package-importer)/dist/cli.js --include-path $(npm ls -p govuk-frontend)/.. assets/css/app.scss dist/assets/app.css $(${CI:-false} || echo --source-map true --source-map-contents)",
     "buildjs": "cp -vr assets/javascripts/* dist/assets/ && ${CI:-false} && npm run minifyjs || true",
     "buildgovuk": "cp -vr $(npm ls -p govuk-frontend)/govuk/assets/* $(npm ls -p govuk-frontend)/govuk/vendor/polyfills/Function/prototype/bind.js ./dist/assets/ && cp -v $(npm ls -p govuk-frontend)/govuk/all.js dist/assets/govuk-all.js",
-    "buildlocalimages": "cp -v -r assets/images/* ./dist/assets/images",
-    "buildlocalfiles": "mkdirp ./dist/routes/files && cp -v -r files/* ./dist/routes/files",
-    "build": "npm run buildts && npm run buildsass && npm run buildgovuk && npm run buildjs && npm run buildlocalimages && npm run buildlocalfiles",
+    "buildlocalimages": "cp -vr assets/images/* ./dist/assets/images",
+    "build": "npm run buildts && npm run buildsass && npm run buildgovuk && npm run buildjs && npm run buildlocalimages",
     "test": "mocha --require ts-node/register --ui bdd src/**/*.spec.ts",
     "cucumber": "cucumber-js --require-module ts-node/register --require features/support/test-setup.ts --require features/support/steps/**/*.ts --publish-quiet --tags 'not @wip'",
     "cucumber-report": "npm run cucumber -- --format html:test-report.html"

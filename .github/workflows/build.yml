@@ -32,7 +32,7 @@ jobs:
           retention-days: 7
           path: |
             dist
+            resources
             src/views
             package*.json
             manifest.yml
-            valid-email-domains.txt

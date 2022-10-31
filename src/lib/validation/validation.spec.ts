@@ -54,7 +54,7 @@ describe("Validation tests", function () {
     it("it accepts bl.uk as a valid email domain", async function () {
         const form = completedValidForm();
         form.set("email", "bookworm@bl.uk");
-        assert.equal(validator.validate(form, requiredFields).size, 0, "bl.uk is one of the domains in valid-email-domains.txt");
+        assert.equal(validator.validate(form, requiredFields).size, 0, "bl.uk is an allowed domain");
     });
 });
 

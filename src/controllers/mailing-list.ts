@@ -1,6 +1,7 @@
 import * as EmailValidator from 'email-validator';
 import {Request, Response} from 'express';
 import {promises as fs} from 'fs';
+import {allowedDomains} from "../config/resources";
 import SheetsService from "../lib/sheets/SheetsService";
 
 export const mailingList = async function(req: Request, res: Response) {
@@ -34,7 +35,7 @@ export const mailingList = async function(req: Request, res: Response) {
     errorMessages.set('contactEmail', 'Enter an email address in the correct format, like name@example.gov.uk');
   } else {
     try {
-      const emails = await fs.readFile("./valid-email-domains.txt", "utf-8");
+      const emails = await fs.readFile(allowedDomains, "utf-8");
       let validEmailDomains = [];
       validEmailDomains = emails.split("\n");
 
