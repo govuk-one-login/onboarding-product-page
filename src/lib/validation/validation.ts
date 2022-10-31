@@ -1,6 +1,6 @@
-const emailValidator = require("./email-validator");
 import fs from "fs";
 import {allowedDomains} from "../../config/resources";
+import emailValidator from "./email-validator";
 
 export default class Validation {
     validEmailDomains: string[];

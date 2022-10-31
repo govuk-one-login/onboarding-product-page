@@ -1,6 +1,7 @@
+import bodyParser from "body-parser";
 import express, {NextFunction, Request, Response} from "express";
 import configureViews from "./config/configureViews";
-import Validation from "./lib/validation";
+import Validation from "./lib/validation/validation";
 import contactUs from "./routes/contact-us";
 import decide from "./routes/decide";
 import mailingList from "./routes/mailing-list";
@@ -10,8 +11,6 @@ import site from "./routes/site";
 import support from "./routes/support";
 
 const app = express();
-const bodyParser = require("body-parser");
-
 app.set("validation", Validation.getInstance());
 app.use("/dist", express.static("./dist/assets"));
 app.use(express.static("./dist"));

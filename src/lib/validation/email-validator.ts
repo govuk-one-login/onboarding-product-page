@@ -1,9 +1,6 @@
-"use strict";
-
-// npm dependencies
 const rfc822Validator = require("rfc822-validate");
 
-module.exports = (email: string) => {
+export default (email: string) => {
     if (!rfc822Validator(email)) {
         return false;
     } else {

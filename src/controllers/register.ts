@@ -1,8 +1,8 @@
 import {Request, Response} from "express";
-import Validation from "../lib/validation";
 import uuid from "../lib/uuid";
 import getTimestamp from "../lib/timestamp";
 import SheetsService from "../lib/sheets/SheetsService";
+import Validation from "../lib/validation/validation";
 
 const requiredFields = new Map<string, string>([
     ["name", "Enter your name"],
