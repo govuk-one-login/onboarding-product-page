@@ -1,5 +1,5 @@
 import fs from "fs";
-import {allowedDomains} from "../../config/resources";
+import {config} from "../../config/resources";
 import emailValidator from "./email-validator";
 
 export default class Validation {
@@ -10,7 +10,7 @@ export default class Validation {
         this.validEmailDomains = [];
         console.log("Loading list of valid email domains...");
         try {
-            const emails = fs.readFileSync(allowedDomains, "utf-8");
+            const emails = fs.readFileSync(config.allowedDomains, "utf-8");
             this.validEmailDomains = emails.trim().split("\n");
         } catch (error) {
             console.error("List of valid email domains could not be loaded.");

@@ -34,5 +34,6 @@ jobs:
             dist
             resources
             src/views
+            assets/images
             package*.json
             manifest.yml
