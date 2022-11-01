@@ -1,6 +1,7 @@
 import bodyParser from "body-parser";
 import express, {NextFunction, Request, Response} from "express";
 import configureViews from "./config/configureViews";
+import {distribution} from "./config/resources";
 import Validation from "./lib/validation/validation";
 import contactUs from "./routes/contact-us";
 import decide from "./routes/decide";
@@ -12,8 +13,9 @@ import support from "./routes/support";
 
 const app = express();
 app.set("validation", Validation.getInstance());
-app.use("/dist", express.static("./dist/assets"));
-app.use(express.static("./dist"));
+
+app.use("/assets", express.static(distribution.assets));
+app.use("/assets/images", express.static(distribution.images));
 
 app.use(express.urlencoded()); // to support URL-encoded bodies
 app.use(
