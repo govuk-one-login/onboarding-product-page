@@ -84,4 +84,10 @@ async function checkErrorMessageDisplayedAboveElement(page: Page, errorMessage: 
         `Error: ${errorMessage}`,
         `Expected the message above the ${field} field to be "${errorMessage}"`
     );
+
+    Then("{string} product page is called 100000 times", async function (route: string) {
+        for (let i = 0; i < 100000; i++) {
+            await this.goToPath(route);
+        }
+    });
 }
