@@ -68,6 +68,12 @@ Then("the {string} link will point to the following page: {string}", async funct
     await checkUrl(this.page, link, expectedPage);
 });
 
+Then("{string} product page is called {int} times", async function (route: string, counter: number) {
+    for (let i = 0; i < counter; i++) {
+        await this.goToPath(route);
+    }
+});
+
 async function checkErrorMessageDisplayedAboveElement(page: Page, errorMessage: string, field: string) {
     const errorLink = await page.$x(`//div[@class="govuk-error-summary"]//a[@href="#${field}"]`);
     assert.notEqual(errorLink.length, 0, `Expected to find the message "${errorMessage}" in the error summary.`);
@@ -84,10 +90,4 @@ async function checkErrorMessageDisplayedAboveElement(page: Page, errorMessage: 
         `Error: ${errorMessage}`,
         `Expected the message above the ${field} field to be "${errorMessage}"`
     );
-
-    Then("{string} product page is called 100000 times", async function (route: string) {
-        for (let i = 0; i < 100000; i++) {
-            await this.goToPath(route);
-        }
-    });
 }

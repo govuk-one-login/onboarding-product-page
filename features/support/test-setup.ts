@@ -4,6 +4,8 @@ import {Browser} from "puppeteer";
 
 const puppeteer = require("puppeteer");
 const {setWorldConstructor, World} = require("@cucumber/cucumber");
+const {setDefaultTimeout} = require('@cucumber/cucumber');
+setDefaultTimeout(60*60*60* 1000);
 
 let browser: Browser;
 
