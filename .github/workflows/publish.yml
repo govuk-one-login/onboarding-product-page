@@ -25,7 +25,6 @@ jobs:
       cf-username: ${{ secrets.CF_USERNAME }}
       cf-password: ${{ secrets.CF_PASSWORD }}
       register-spreadsheet-id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
-      request-spreadsheet-id: ${{ secrets.REQUEST_SPREADSHEET_ID }}
       mailing-list-spreadsheet-id: ${{ secrets.MAILING_LIST_SPREADSHEET_ID }}
 
   run-acceptance-tests:
@@ -54,5 +53,4 @@ jobs:
       zendesk-username: ${{ secrets.ZENDESK_USERNAME }}
       zendesk-api-token: ${{ secrets.ZENDESK_API_TOKEN }}
       register-spreadsheet-id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
-      request-spreadsheet-id: ${{ secrets.REQUEST_SPREADSHEET_ID }}
       mailing-list-spreadsheet-id: ${{ secrets.MAILING_LIST_SPREADSHEET_ID }}

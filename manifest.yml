@@ -10,9 +10,6 @@ applications:
       REGISTER_SHEET_DATA_RANGE: Register!A1
       REGISTER_SHEET_HEADER_RANGE: Register!A1:Y1
       REGISTER_SPREADSHEET_ID: ((register-spreadsheet-id))
-      REQUEST_SHEET_DATA_RANGE: "'Request to join private beta'!A1"
-      REQUEST_SHEET_HEADER_RANGE: "'Request to join private beta'!A1:F1"
-      REQUEST_SPREADSHEET_ID: ((request-spreadsheet-id))
       MAILING_LIST_SHEET_DATA_RANGE: "'user who have requested to join the mailing list '!A1"
       MAILING_LIST_SHEET_HEADER_RANGE: "'user who have requested to join the mailing list '!A1:D1"
       MAILING_LIST_SPREADSHEET_ID: ((mailing-list-spreadsheet-id))

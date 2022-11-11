@@ -14,7 +14,6 @@ on:
     secrets:
       cf-username: { required: true }
       cf-password: { required: true }
-      request-spreadsheet-id: { required: true }
       register-spreadsheet-id: { required: true }
       mailing-list-spreadsheet-id: { required: true }
       zendesk-api-token: { required: false }
@@ -56,7 +55,6 @@ jobs:
           instances: ${{ inputs.instances }}
           rolling-deployment: ${{ inputs.rolling-deployment }}
           variables: |
-            request-spreadsheet-id = ${{ secrets.request-spreadsheet-id }}
             register-spreadsheet-id = ${{ secrets.register-spreadsheet-id }}
             mailing-list-spreadsheet-id = ${{ secrets.mailing-list-spreadsheet-id }}
             zendesk-api-token = ${{ secrets.zendesk-api-token }}
