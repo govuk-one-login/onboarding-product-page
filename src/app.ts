@@ -4,7 +4,6 @@ import configureViews from "./config/configureViews";
 import {distribution} from "./config/resources";
 import Validation from "./lib/validation/validation";
 import contactUs from "./routes/contact-us";
-import decide from "./routes/decide";
 import mailingList from "./routes/mailing-list";
 import redirects from "./routes/redirects";
 import register from "./routes/register";
@@ -31,7 +30,6 @@ app.use("/", register);
 app.use("/", contactUs);
 app.use("/", site);
 app.use("/", redirects);
-app.use("/decide", decide);
 app.use("/", support);
 app.use("/", mailingList);
 
