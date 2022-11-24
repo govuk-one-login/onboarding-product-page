@@ -44,7 +44,7 @@
     </span>
       </div>
       <div class="hero__aside-image">
-        <img src="/assets/images/product-illustration_govuk_signin.png" alt="" role="presentation">
+        <img src="/assets/images/product-illustration_govuk_signin.png" alt="" role="presentation" id="heroMainImage">
       </div>
       </div>
     </div>
@@ -170,3 +170,7 @@
     </div>
   </div>
 {% endset %}
+
+{% block scripts %}
+  <script type="module" src="/assets/javascripts/easter-egg.js"></script>
+{% endblock %}
