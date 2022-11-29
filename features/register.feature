@@ -1,4 +1,4 @@
-Feature: A register form so users can sign up to get access to the GOV.UK Sign In demo
+Feature: A register form so users can sign up to get access to the GOV.UK One Login demo
 
   Scenario: User subscribes to mailing list and fills in the form correctly
 
@@ -6,7 +6,7 @@ Feature: A register form so users can sign up to get access to the GOV.UK Sign I
     When they select the Submit button
     Then their data is saved in the spreadsheet
     And they should be directed to the following page: "/register-confirm"
-    And they should see the text "You have signed up for access to GOV.UK Sign In"
+    And they should see the text "You have signed up for access to GOV.UK One Login"
 
 
   Scenario: The user doesn't complete the name field
@@ -57,4 +57,4 @@ Feature: A register form so users can sign up to get access to the GOV.UK Sign I
     When they select the Submit button
     Then their data is saved in the spreadsheet
     And they should be directed to the following page: "/register-confirm"
-    And they should see the text "You have signed up for access to GOV.UK Sign In"
+    And they should see the text "You have signed up for access to GOV.UK One Login"
