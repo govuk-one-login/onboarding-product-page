@@ -30,3 +30,6 @@ Sample test message to post directly to the Slack lambda function - this mimics 
     ]
 }
 ```
+## Deployment
+
+Deployment is taken care of by a GitHub action.
