@@ -9,12 +9,12 @@ Feature: A support page which directs users to the correct type of support
     Then they should be directed to the following URL: "https://signin.account.gov.uk/contact-us?supportType=PUBLIC"
 
   Scenario: the user is from a new service team
-    When the user selects the "I work in a government service team and we want to start using GOV.UK Sign In" radio button
+    When the user selects the "I work in a government service team and we want to start using GOV.UK One Login" radio button
     And they click the "Continue" button
     Then they should be directed to the following page: "/contact-us-details"
 
   Scenario: the user is from a service team having issues
-    When the user selects the "I work in a government service team that is setting up or already using GOV.UK Sign In" radio button
+    When the user selects the "I work in a government service team that is setting up or already using GOV.UK One Login" radio button
     And they click the "Continue" button
     Then they should be directed to the following page: "/contact-us"
 

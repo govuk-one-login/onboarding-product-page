@@ -6,7 +6,7 @@ Feature: A mailing list form so users can subscribe to mailing list
     When they select the Submit button
     Then their data is saved in the spreadsheet
     And they should be directed to the following page: "/mailing-list/confirmation"
-    And they should see the text "You have signed up to the GOV.UK Sign In mailing list"
+    And they should see the text "You have signed up to the GOV.UK One Login mailing list"
 
   Scenario: The user doesn't complete the name field
 
