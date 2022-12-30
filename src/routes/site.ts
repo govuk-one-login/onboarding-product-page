@@ -62,4 +62,8 @@ router.get("/getting-started/private-beta", (req, res) => {
     res.render("getting-started-private-beta.njk");
 });
 
+router.get("/service-unavailable", (req, res) => {
+    res.render("service-unavailable.njk");
+});
+
 export default router;
