@@ -65,7 +65,7 @@ Resources:
       Description: A lambda function that takes a Canary SNS message and sends it to Slack
       CodeUri: lambda
       Handler: sns-to-slack.canarySnsToSlackHandler
-      Runtime: nodejs16.x
+      Runtime: nodejs18.x
       Environment:
         Variables:
           SLACK_CHANNEL: !Sub "{{resolve:ssm:${SlackChannelParamName}}}"
