@@ -1,6 +1,7 @@
 name: Build
 
 on: workflow_call
+permissions: read-all
 
 concurrency:
   group: build-${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
@@ -15,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Install Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           cache: 'npm'
 
@@ -26,7 +27,7 @@ jobs:
         run: npm run build
 
       - name: Archive distribution artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: product-pages
           retention-days: 7
