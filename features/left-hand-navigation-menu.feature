@@ -10,4 +10,4 @@ Feature: A navigation menu on the left hand side of some pages
       | page                                    | link                                                        |
       | "/documentation"                        | "Technical documentation"                                   |
       | "/documentation/user-journeys"          | "User journey maps"                                         |
-      | "/documentation/design-recommendations" | "Design recommendations: ‘create account to save progress’" |
+      | "/documentation/design-recommendations" | "Design recommendations: ‘create a GOV.UK One Login to save progress’" |
