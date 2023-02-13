@@ -6,9 +6,7 @@ on:
     branches: [ main ]
     paths: [ 'monitoring/**' ]
 
-concurrency:
-  group: deploy-smoke-tests
-
+concurrency: deploy-smoke-tests
 permissions: read-all
 
 jobs:

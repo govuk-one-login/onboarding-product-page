@@ -20,13 +20,14 @@ on:
       zendesk-username: { required: false }
       zendesk-group-id: { required: false }
     outputs:
+      environment:
+        description: "The environment name the app was deployed to"
+        value: ${{ inputs.environment }}
       deployment-url:
         description: "The PaaS deployment URL"
         value: ${{ jobs.deploy.outputs.deployment-url }}
 
-concurrency:
-  group: deploy-${{ github.head_ref || github.ref_name }}
-
+concurrency: deploy-${{ inputs.environment }}-${{ github.head_ref || github.ref_name }}
 permissions: read-all
 
 jobs:

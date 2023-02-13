@@ -8,9 +8,7 @@ on:
   pull_request:
     types: [ closed ]
 
-concurrency:
-  group: deploy-${{ github.head_ref || github.ref_name }}
-
+concurrency: deploy-preview-${{ github.head_ref || github.ref_name }}
 permissions: read-all
 
 jobs:
