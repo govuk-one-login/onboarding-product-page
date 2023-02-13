@@ -37,3 +37,11 @@ jobs:
     steps:
       - name: Check linting and formatting
         uses: alphagov/di-github-actions/code-quality/check-linting@0d0014de496fbdf3bee8bedd5e524ad9391b7f5f
+
+  check-vulnerabilities:
+    name: Vulnerabilities
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Run security audit
+        uses: alphagov/di-github-actions/code-quality/run-security-audit@0d0014de496fbdf3bee8bedd5e524ad9391b7f5f
