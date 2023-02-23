@@ -68,4 +68,12 @@ router.get("/service-unavailable", (req, res) => {
     res.render("service-unavailable.njk");
 });
 
+router.get("/documentation/design-recommendations/save-progress", (req, res) => {
+    res.render("documentation-save-progress.njk");
+});
+
+router.get("/documentation/design-recommendations/change-credentials", (req, res) => {
+    res.render("documentation-change-credentials.njk");
+});
+
 export default router;
