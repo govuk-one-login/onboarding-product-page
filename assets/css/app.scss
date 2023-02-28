@@ -292,3 +292,31 @@ div.feature-panel {
   margin-bottom: 10px;
   border-bottom: none;
 }
+
+.gray-background-container {
+  background-color: govuk-colour("light-grey");
+  padding: 25px 25px 3px 25px;
+}
+
+.documentation-design-change-credentials .gray-background-container .govuk-body {
+  font-size: 17px;
+}
+
+.labeled-images-container {
+  clear: both;
+  div {
+    width: 40%;
+    float: left;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .labeled-images-container-right {
+    padding-left: 25px;
+  }
+}
+
+.clear-float {
+  clear: both;
+}
