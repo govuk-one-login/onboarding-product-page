@@ -1,6 +1,7 @@
 name: Deploy branch
 
 on: workflow_dispatch
+permissions: read-all
 
 jobs:
   build:

@@ -18,7 +18,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Run checkov
-        uses: alphagov/di-github-actions/code-quality/run-checkov@c6ee88734260ae374365bbe2b76ebe2553b3df19
+        uses: alphagov/di-github-actions/code-quality/run-checkov@0d0014de496fbdf3bee8bedd5e524ad9391b7f5f
         with:
           skip-checks: CKV_SECRET_6
 
@@ -28,7 +28,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Run shell checks
-        uses: alphagov/di-github-actions/code-quality/check-shell-scripts@c6ee88734260ae374365bbe2b76ebe2553b3df19
+        uses: alphagov/di-github-actions/code-quality/check-shell-scripts@0d0014de496fbdf3bee8bedd5e524ad9391b7f5f
 
   check-linting:
     name: Linting
@@ -36,4 +36,12 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Check linting and formatting
-        uses: alphagov/di-github-actions/code-quality/check-linting@c6ee88734260ae374365bbe2b76ebe2553b3df19
+        uses: alphagov/di-github-actions/code-quality/check-linting@0d0014de496fbdf3bee8bedd5e524ad9391b7f5f
+
+  check-vulnerabilities:
+    name: Vulnerabilities
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Run security audit
+        uses: alphagov/di-github-actions/code-quality/run-security-audit@0d0014de496fbdf3bee8bedd5e524ad9391b7f5f

@@ -4,10 +4,9 @@ on:
   workflow_call:
     inputs:
       host: { required: true, type: string }
+      environment: { required: true, type: string }
 
-concurrency:
-  group: deploy-${{ github.head_ref || github.ref_name }}
-
+concurrency: deploy-${{ inputs.environment }}-${{ github.head_ref || github.ref_name }}
 permissions: read-all
 
 jobs:

@@ -20,13 +20,14 @@ on:
       zendesk-username: { required: false }
       zendesk-group-id: { required: false }
     outputs:
+      environment:
+        description: "The environment name the app was deployed to"
+        value: ${{ inputs.environment }}
       deployment-url:
         description: "The PaaS deployment URL"
         value: ${{ jobs.deploy.outputs.deployment-url }}
 
-concurrency:
-  group: deploy-${{ github.head_ref || github.ref_name }}
-
+concurrency: deploy-${{ inputs.environment }}-${{ github.head_ref || github.ref_name }}
 permissions: read-all
 
 jobs:
@@ -46,7 +47,7 @@ jobs:
 
       - name: Push to PaaS
         id: push-to-paas
-        uses: alphagov/di-github-actions/paas/deploy-app@c6ee88734260ae374365bbe2b76ebe2553b3df19
+        uses: alphagov/di-github-actions/paas/deploy-app@0d0014de496fbdf3bee8bedd5e524ad9391b7f5f
         with:
           url: ${{ inputs.url }}
           app-name-prefix: ${{ inputs.app-name-prefix }}

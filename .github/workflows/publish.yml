@@ -1,6 +1,7 @@
 name: Publish
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
 
@@ -35,6 +36,7 @@ jobs:
     uses: ./.github/workflows/run-acceptance-tests.yml
     with:
       host: ${{ needs.deploy-test.outputs.deployment-url }}
+      environment: ${{ needs.deploy-test.outputs.environment }}
 
   deploy-production:
     name: Publish
