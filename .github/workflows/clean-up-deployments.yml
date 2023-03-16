@@ -17,7 +17,7 @@ jobs:
     environment: preview
     steps:
       - name: PaaS login
-        uses: alphagov/di-github-actions/paas/log-in-to-paas@0d0014de496fbdf3bee8bedd5e524ad9391b7f5f
+        uses: alphagov/di-github-actions/paas/log-in-to-paas@850483e1476abd3f77a74f75a33b0b2871c29955
         with:
           cf-org-name: gds-digital-identity-onboarding
           cf-space-name: product-pages-preview
@@ -25,6 +25,6 @@ jobs:
           cf-password: ${{ secrets.CF_PASSWORD }}
 
       - name: Delete stale apps
-        uses: alphagov/di-github-actions/paas/delete-stale-apps@0d0014de496fbdf3bee8bedd5e524ad9391b7f5f
+        uses: alphagov/di-github-actions/paas/delete-stale-apps@850483e1476abd3f77a74f75a33b0b2871c29955
         with:
           age-threshold-days: 30
