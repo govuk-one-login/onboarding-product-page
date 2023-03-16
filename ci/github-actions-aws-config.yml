@@ -1,29 +1,25 @@
-AWSTemplateFormatVersion: '2010-09-09'
-Transform: AWS::Serverless-2016-10-31
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Config to deploy to AWS from GitHub Actions
 
 Parameters:
   GitHubOrg:
     Type: String
-  RepositoryName:
+    Default: alphagov
+  GitHubRepo:
     Type: String
-  OIDCProviderArn:
-    Description: Arn for the GitHub OIDC Provider.
-    Default: ""
+    Default: di-onboarding-product-page
+  CreateOIDCProvider:
     Type: String
-  DeploymentBucketNamePrefix:
-    Type: String
-    Default: sam-deployment-artifacts
+    Default: false
   MonitoringStackNamePrefix:
     Type: String
-    Default: di-product-page-monitor
+    Default: product-page-monitoring
 
 Conditions:
-  CreateOIDCProvider: !Equals
-    - !Ref OIDCProviderArn
-    - ""
+  CreateOIDCProvider: !Equals [ !Ref CreateOIDCProvider, "true" ]
 
 Resources:
-  Role:
+  GitHubActionsRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -33,17 +29,17 @@ Resources:
             Principal:
               Federated: !If
                 - CreateOIDCProvider
-                - !Ref GithubOIDC
-                - !Ref OIDCProviderArn
+                - !Ref GithubOIDCProvider
+                - !Sub arn:aws:iam::${AWS::AccountId}:oidc-provider/token.actions.githubusercontent.com
             Condition:
               StringLike:
-                token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOrg}/${RepositoryName}:*
+                token.actions.githubusercontent.com:sub: !Sub repo:${GitHubOrg}/${GitHubRepo}:*
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/CloudWatchSyntheticsFullAccess
       Policies:
         - PolicyName: GitHubActions
           PolicyDocument:
-            Version: "2012-10-17"
+            Version: 2012-10-17
             Statement:
               - Effect: Allow
                 Resource: "*"
@@ -53,8 +49,8 @@ Resources:
 
               - Effect: Allow
                 Resource:
-                  - !Sub arn:aws:s3:::${DeploymentBucketNamePrefix}-*
-                  - !Sub arn:aws:s3:::${MonitoringStackNamePrefix}*
+                 - !Sub ${GitHubDeploymentArtifactsBucket.Arn}/*
+                 - !Sub arn:aws:s3:::${MonitoringStackNamePrefix}*
                 Action:
                   - s3:GetObject
                   - s3:PutObject
@@ -99,6 +95,7 @@ Resources:
                 Action:
                   - sns:CreateTags
                   - sns:TagResource
+                  - sns:UntagResource
                   - sns:CreateTopic
                   - sns:DeleteTopic
                   - sns:Subscribe
@@ -147,7 +144,19 @@ Resources:
                   - !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/canary-*
                 Action: ssm:GetParameters
 
-  GithubOIDC:
+  GitHubDeploymentArtifactsBucket:
+    # checkov:skip=CKV_AWS_18: "Ensure the S3 bucket has access logging enabled"
+    # checkov:skip=CKV_AWS_19: "Ensure the S3 bucket has server-side-encryption enabled"
+    # checkov:skip=CKV_AWS_21: "Ensure the S3 bucket has versioning enabled"
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        RestrictPublicBuckets: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        BlockPublicAcls: true
+
+  GithubOIDCProvider:
     Type: AWS::IAM::OIDCProvider
     Condition: CreateOIDCProvider
     Properties:
@@ -158,5 +167,7 @@ Resources:
         - 6938fd4d98bab03faadb97b34396831e3780aea1
 
 Outputs:
-  Role:
-    Value: !GetAtt Role.Arn
+  GitHubActionsRoleARN:
+    Value: !GetAtt GitHubActionsRole.Arn
+  GitHubDeploymentArtifactsBucket:
+    Value: !Ref GitHubDeploymentArtifactsBucket

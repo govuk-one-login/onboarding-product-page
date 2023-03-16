@@ -176,7 +176,6 @@ Resources:
 
   ProductPageCanaryAlarm:
     Type: AWS::CloudWatch::Alarm
-    DependsOn: ProductPageCanary
     Properties:
       AlarmDescription: "Product page canary: 1 failure in the last 5 minutes"
       AlarmActions: [ !Ref ProductPageCanarySnsTopic ]
