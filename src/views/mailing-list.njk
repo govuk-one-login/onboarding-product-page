@@ -18,6 +18,6 @@
 {% block formInputs %}
   {{ form.textInput("Name", "personalName", "govuk-input--width-20") }}
   {{ form.textInput("Organisation name", "organisationName", "govuk-input--width-20") }}
-  {{ form.emailInput("Contact email", id = "contactEmail", classes = "govuk-input--width-20") }}
+  {{ form.emailInput(id = "contactEmail", classes = "govuk-input--width-20") }}
   {{ form.textInput("Service name", "serviceName", "govuk-input--width-30") }}
 {% endblock %}
