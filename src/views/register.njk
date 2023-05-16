@@ -13,7 +13,7 @@
 {% block formInputs %}
   {{ form.textInput("Name", "name", "govuk-!-width-two-thirds") }}
   {{ form.textInput("Organisation name", "organisation-name", "govuk-!-width-two-thirds") }}
-  {{ form.emailInput("Contact email") }}
+  {{ form.emailInput() }}
   {{ form.textInput("Service name", "service-name", "govuk-!-width-full") }}
   {{ form.radiosInput("Would you like to join our mailing list?", name = "mailing-list",
     hint = "You’ll get occasional email updates about our work and invitations to our cross-government show and tells.",
