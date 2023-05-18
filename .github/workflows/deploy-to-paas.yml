@@ -11,6 +11,7 @@ on:
       rolling-deployment: { required: false, type: boolean, default: false }
       google-tag-id: { required: false, type: string, default: GTM-PFTQ6G2 }
       use-stub-zendesk: { required: false, type: boolean, default: true }
+      show-test-banner: { required: false, type: boolean, default: false }
     secrets:
       cf-username: { required: true }
       cf-password: { required: true }
@@ -65,3 +66,4 @@ jobs:
             zendesk-group-id = ${{ secrets.zendesk-group-id }}
             use-stub-zendesk = ${{ inputs.use-stub-zendesk }}
             google-tag-id = ${{ inputs.google-tag-id }}
+            show-test-banner = ${{ inputs.show-test-banner }}

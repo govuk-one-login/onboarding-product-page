@@ -24,6 +24,7 @@ jobs:
       environment: test
       cf-space-name: product-pages-test
       url: https://di-product-page-test.london.cloudapps.digital
+      show-test-banner: true
     secrets:
       cf-username: ${{ secrets.CF_USERNAME }}
       cf-password: ${{ secrets.CF_PASSWORD }}
