@@ -20,3 +20,4 @@ applications:
       ZENDESK_USERNAME: ((zendesk-username))
       ZENDESK_API_TOKEN: ((zendesk-api-token))
       GOOGLE_TAG_ID: ((google-tag-id))
+      SHOW_TEST_BANNER: ((show-test-banner))
