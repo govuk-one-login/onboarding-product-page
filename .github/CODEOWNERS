@@ -1,1 +1,5 @@
-*		@alphagov/digital-identity-onboarding-tech-leads
+# Global
+*                           @alphagov/di-sse-approvers          @alphagov/di-sse-frontend
+
+# Content
+/src/views/			@alphagov/di-sse-content			@alphagov/di-sse-approvers
