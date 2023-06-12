@@ -28,10 +28,6 @@ router.get("/contact-us-details", (req, res) => {
     res.render("contact-us-details.njk");
 });
 
-router.get("/features", (req, res) => {
-    res.render("features.njk");
-});
-
 router.get("/features/roadmap", (req, res) => {
     res.render("roadmap.njk");
 });
