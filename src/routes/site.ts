@@ -28,7 +28,7 @@ router.get("/contact-us-details", (req, res) => {
     res.render("contact-us-details.njk");
 });
 
-router.get("/features/roadmap", (req, res) => {
+router.get("/about/roadmap", (req, res) => {
     res.render("roadmap.njk");
 });
 
@@ -70,6 +70,10 @@ router.get("/documentation/design-recommendations/save-progress", (req, res) => 
 
 router.get("/documentation/design-recommendations/change-credentials", (req, res) => {
     res.render("documentation-change-credentials.njk");
+});
+
+router.get("/about", (req, res) => {
+    res.render("about.njk");
 });
 
 export default router;

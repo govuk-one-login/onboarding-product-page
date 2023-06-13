@@ -7,7 +7,7 @@ router.get("/decide", (req, res) => {
 });
 
 router.get("/decide/timescales", (req, res) => {
-    res.redirect(301, "/features/roadmap");
+    res.redirect(301, "/about/roadmap");
 });
 
 router.get("/decide/user-journeys", (req, res) => {

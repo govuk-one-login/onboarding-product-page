@@ -1,0 +1,34 @@
+{% from "../macros/side-navigation.njk" import sideNavigation %}
+
+{% macro nav(active) %}
+  {{ sideNavigation([
+    {
+      name: "About GOV.UK One Login",
+      description: "about",
+      href: "/about"
+    },
+    {
+      name: "Signing users in",
+      description: "signing-users-in",
+      href: "/about/signing-users-in",
+      isChild: true
+    },
+    {
+      name: "Checking users’ identities",
+      description: "checking-users-identities",
+      href: "/about/checking-users-identities",
+      isChild: true
+    },
+    {
+      name: "The signed in experience",
+      description: "the-signed-in-experience",
+      href: "/about/signed-in-experience",
+      isChild: true
+    },
+    {
+      name: "Roadmap",
+      description: "roadmap",
+      href: "/about/roadmap"
+    }
+  ], active) }}
+{% endmacro %}
