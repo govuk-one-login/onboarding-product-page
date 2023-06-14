@@ -80,4 +80,8 @@ router.get("/about/signing-users-in", (req, res) => {
     res.render("about/signing-users-in.njk");
 });
 
+router.get("/about/checking-users-identities", (req, res) => {
+    res.render("about/checking-users-identities.njk");
+});
+
 export default router;
