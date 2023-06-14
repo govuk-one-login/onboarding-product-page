@@ -84,4 +84,8 @@ router.get("/about/checking-users-identities", (req, res) => {
     res.render("about/checking-users-identities.njk");
 });
 
+router.get("/about/signed-in-experience", (req, res) => {
+    res.render("about/signed-in-experience.njk");
+});
+
 export default router;

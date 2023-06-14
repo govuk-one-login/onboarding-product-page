@@ -1,0 +1,60 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "The signed in experience" %}
+{% set headerNavigationActiveItem = "about" %}
+{% set sideNav = {name: "about", active: "the-signed-in-experience"} %}
+{% set breadcrumbs = breadcrumbs([{text: "About GOV.UK One Login", href: "/about"}]) %}
+
+{% set yourServicesImageAltText %}
+  The heading is “[Your services]”. Text underneath says “[You’re signed in as name@email.com]'. This displays an example email address in bold font.
+  Under this is a sub-heading called “[Your accounts]”. Underneath is a box which describes how you can manage your updates and email subscriptions. The box heading is “[GOV.UK email subscriptions]”. The text underneath says “See and manage the updates you get about GOV.UK pages you’re interested in”. Then there is a hyperlink which says “[Go to your GOV.UK email subscriptions]” This does not link through to another page since the link is indicative only. Underneath there is some datestamp text which says: “[Last used: 10 October 2022]”
+  Under this is another sub-heading called “[Other services you’ve used]”. Beneath this are two boxes which show two potential services that a user could be using. The first box has a link inside it called “[Sign your mortgage deed]” and text below it which says “[Last used: 14 May 2018]”. The second box has a link inside it called “[Request a basic DBS check]” and underneath there is some datestamp text which says “[Last used: 14 May 2018]”
+  Then there is a grey box which has a sub-heading called “[Services you can use with GOV.UK One Login]” The text underneath says “[GOV.UK One Login is new. At the moment you can only use it to access some government services]”. Then an expandable section with a link which says “[Services you can use with GOV.UK One Login]”. There are two paragraphs of text underneath. The first paragraph says “[GOV.UK One Login does not work with all government accounts and services yet (for example Government Gateway or Universal Credit). The second paragraph says “[In the future, you’ll be able to use GOV.UK One Login to access all services on GOV.UK]”.
+{% endset %}
+
+{% set securityImageAltText %}
+  The heading is “[Security]”. Underneath is a first box with three sections. The first section of this box has a title which says “[Your sign in details]”. The second section says “[Email address]” which is in bold font, followed by an indicative email address “[name@email.com]”. Underneath is a link to the wording “[Change]”. The third section says “[Password]” in bold font, followed by a line of asterisks to display the position of an indicative and confidential password. Underneath is a link to the wording “[Change]”.
+  Then there is second box with two sections. The first section has a title which says “[How you get security codes]” and is displayed in bold font. Underneath is text which says “[We use security codes to make sure it’s you when you sign in]”. The second section has a title which says “[Test message]” and is displayed in bold font. Underneath is text which says “[Phone number ending with 0406]” and underneath is a link to the wording “[Change]”.
+  Then there is a third box with a title which says “[Delete your GOV.UK One Login]” and is displayed in bold font. Underneath is some descriptor text which says “[This will permanently delete your GOV.UK One Login. You’ll no longer be able to access the services you’ve used with it. Underneath is a hyperlink which says “[Delete your GOV.UK One Login]”.
+{% endset %}
+
+{% block mainContent %}
+  <h1 class="govuk-heading-l">The signed in experience</h1>
+  <p class="govuk-body">When a user creates a GOV.UK One Login to access a service, they also get a space where they can manage their details and see other services they’ve used.</p>
+  <p class="govuk-body">Users can be signed in to this space and access it whether they’re signed in to your service or not.</p>
+  <h2 class="govuk-heading-m">What users can do in their GOV.UK One Login</h2>
+  <h3 class="govuk-heading-s">Update credentials</h3>
+  <p class="govuk-body">Users can change their:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>email address</li>
+    <li>password</li>
+    <li>phone number</li>
+  </ul>
+  <p class="govuk-body">We’ve got some recommended content to help you <a class="govuk-link" href="/documentation/design-recommendations/change-credentials">show users where to change their GOV.UK One Login credentials</a>.</p>
+  <h3 class="govuk-heading-s">Delete their GOV.UK One Login</h3>
+  <p class="govuk-body">Users can delete their GOV.UK One Login.</p>
+  <p class="govuk-body">If they do this, we’ll delete their records from all our live service databases within GOV.UK One Login, including their:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>sign in details</li>
+    <li>saved identity information</li>
+  </ul>
+  <p class="govuk-body">They’ll no longer be able to use their GOV.UK One Login to access your service.</p>
+  <p class="govuk-body">We’ll keep some data about what the user has done with their GOV.UK One Login for auditing and monitoring reasons.</p>
+  <h3 class="govuk-heading-s">See and access their services in one place</h3>
+  <p class="govuk-body">When a user signs in to your service with their GOV.UK One Login, a link to your service or to your GOV.UK start page appears in the ‘Your services’ section.</p>
+  <p class="govuk-body">This means they can easily access all the services they’ve used with their GOV.UK One Login from one place.</p>
+  <p class="govuk-body">Users can continue to access your service through familiar routes, like landing on a GOV.UK start page.</p>
+  <h2 class="govuk-heading-m">See a user’s GOV.UK One Login space</h2>
+  <p class="govuk-body">Here are the two main pages that make up a user’s GOV.UK One Login space. They can get to this space if you link to it from your service, following our <a class="govuk-link" href="/documentation/design-recommendations/change-credentials">design recommendations for letting users change credentials</a>.</p>
+  <div class="govuk-!-margin-bottom-5 govuk-!-padding-top-2 labeled-images-container">
+    <div>
+      <img src="/assets/images/OneLogin-Your-services.svg" alt="{{yourServicesImageAltText}}">
+      <p class="govuk-body govuk-!-font-weight-bold govuk-!-padding-top-3">Your services page example</p>
+    </div>
+    <div class="labeled-images-container-right">
+      <img src="/assets/images/OneLogin-Security.svg" alt="{{securityImageAltText}}">
+      <p class="govuk-body govuk-!-font-weight-bold govuk-!-padding-top-3">Security page example</p>
+    </div>
+  </div>
+{% endblock %}
