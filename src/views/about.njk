@@ -1,0 +1,47 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "About" %}
+{% set headerNavigationActiveItem = "about" %}
+{% set sideNav = {name: "about", active: "about"} %}
+{% set breadcrumbs = breadcrumbs() %}
+
+{% block mainContent %}
+  <h1 class="govuk-heading-l">About GOV.UK One Login</h1>
+  <p class="govuk-body">GOV.UK One Login lets your users sign in and prove their identity so they can access your service quickly and easily.</p>
+  <p class="govuk-body">It will ultimately allow users to access any government service using the same email address and password.</p>
+  <p class="govuk-body">By using GOV.UK One Login:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>your service will not need to build and maintain your own sign in and identity checking systems</li>
+    <li>your users will not need to manage multiple sets of sign in details, or go through lengthy identity checks for every government service they use</li>
+  </ul>
+  <h2 class="govuk-heading-m">The user-facing parts of GOV.UK One Login</h2>
+  <h3 class="govuk-heading-s">Users can sign in</h3>
+  <p class="govuk-body">Users can sign in to your service using GOV.UK One Login, with their username, password and two-factor authentication.</p>
+  <p class="govuk-body">You can add this sign in functionality into your service on its own. You do not have to use the identity checks functionality if you do not need it.</p>
+  <p class="govuk-body"><a class="govuk-link" href="/about/signing-users-in">Find out more about signing users in</a>.</p>
+  <h3 class="govuk-heading-s">Users can prove their identity</h3>
+  <p class="govuk-body">Users can prove their identity so you know they are who they say they are.</p>
+  <p class="govuk-body">If you want to add identity checks, you must also have the ‘sign in’ functionality.</p>
+  <p class="govuk-body"><a class="govuk-link" href="/about/checking-users-identities">Find out more about checking users’ identities</a>.</p>
+  <h3 class="govuk-heading-s">Users create a reusable GOV.UK One Login</h3>
+  <p class="govuk-body">Users have a space where they can manage their GOV.UK One Login, among other things.</p>
+  <p class="govuk-body">This is generated automatically when a user first creates a GOV.UK One Login to access a service.</p>
+  <p class="govuk-body"><a class="govuk-link" href="/about/signed-in-experience">Find out more about a user’s signed in experience</a>.</p>
+  <h3 class="govuk-heading-s">User support</h3>
+  <p class="govuk-body">Support for your users is available during office hours via a support form. We aim to reply within 2 working days.</p>
+  <h2 class="govuk-heading-m">Features for your service team</h2>
+  <h3 class="govuk-heading-s">Free to use</h3>
+  <p class="govuk-body">GOV.UK One Login is centrally funded. This means it’s free for government services to use for the duration of this spending review period (up to 2025).</p>
+  <h3 class="govuk-heading-s">Documentation</h3>
+  <p class="govuk-body">You can follow our <a class="govuk-link" href="/documentation">technical and design documentation</a> to:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>understand the OpenID Connect (OIDC) authentication protocol we’re using</li>
+    <li>see how user data is shared</li>
+    <li>test GOV.UK One Login with your service in our integration environment</li>
+    <li>see how to integrate the GOV.UK One Login user journey with your service</li>
+  </ul>
+  <h3 class="govuk-heading-s">Support</h3>
+  <p class="govuk-body">Support for your service is available during office hours via a <a class="govuk-link" href="/contact-us ">support form</a> and <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a>. We aim to reply within 2 working days.</p>
+  <p class="govuk-body">If you go live with GOV.UK One Login, our technical team is available 24/7 for urgent incidents.</p>
+{% endblock %}
