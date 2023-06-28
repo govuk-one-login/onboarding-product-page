@@ -88,4 +88,8 @@ router.get("/about/signed-in-experience", (req, res) => {
     res.render("about/signed-in-experience.njk");
 });
 
+router.get("/documentation/design-recommendations/let-users-navigate-sign-out", (req, res) => {
+    res.render("documentation-let-users-navigate.njk");
+});
+
 export default router;
