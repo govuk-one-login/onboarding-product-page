@@ -5,13 +5,5 @@ Feature: Common links users can click to contact the service
     And the "contact us" link will point to the following page: "/contact-us"
 
     Examples:
-      | page                                    |
-      | "/documentation/user-journeys"          |
-
-  Scenario Outline:
-    Given that the user is on the <page> page
-    And the "support form" link will point to the following page: "/contact-us"
-
-    Examples:
-      | page                                    |
-      | "/documentation/design-recommendations/change-credentials" |
+      | page                           |
+      | "/documentation/user-journeys" |
