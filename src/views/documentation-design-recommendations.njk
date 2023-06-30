@@ -4,7 +4,7 @@
 {% set pageTitle = "Design recommendations" %}
 {% set headerNavigationActiveItem = "documentation" %}
 {% set sideNav = {name: "documentation", active: "recommendations"} %}
-{% set breadcrumbs = breadcrumbs([{text: "Documentation", href: "/documentation"}], pageTitle) %}
+{% set breadcrumbs = breadcrumbs([{text: "Documentation", href: "/documentation"}]) %}
 
 {% block mainContent %}
   <h1 class="govuk-heading-l">Design recommendations</h1>
@@ -17,8 +17,12 @@
   <p class="govuk-body">The designs have all been tested with users. Contact us if you’d like more details on the research.</p>
   <h2 class="govuk-heading-m">List of recommendations</h2>
   <p class="govuk-body">
-    <a class="govuk-link" href="/documentation/design-recommendations/save-progress">Let users create an account to save progress</a><br>
+    <a class="govuk-link" href="/documentation/design-recommendations/save-progress">Let users create a GOV.UK One Login to save progress</a><br>
     How to let users complete part of your journey, then create an account so they can come back and finish it later. Includes page screenshots and confirmation email content.
+  </p>
+  <p class="govuk-body">
+    <a class="govuk-link" href="/documentation/design-recommendations/let-users-navigate-sign-out">Let users navigate to their GOV.UK One Login and sign out easily</a><br>
+    How to let users go to their GOV.UK One Login from within your service and give them a consistent way to sign out.
   </p>
   <p class="govuk-body">
     <a class="govuk-link" href="/documentation/design-recommendations/change-credentials">Show users where to change their GOV.UK One Login credentials</a><br>
