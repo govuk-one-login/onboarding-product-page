@@ -1,0 +1,82 @@
+{% extends "base-form.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitle = "Register to get started with GOV.UK One Login" %}
+{% set headerNavigationActiveItem = "get-started" %}
+{% set breadcrumbs = breadcrumbs([{text: "Get started", href: "/register-to-get-started"}]) %}
+
+{% block beforeForm %}
+  <h1 class="govuk-heading-l">Register to get started with GOV.UK One Login</h1>
+  <p class="govuk-body">Complete this form if you want to register to try out GOV.UK One Login.</p>
+  <p class="govuk-body">Once we understand your initial needs, we’ll get in touch to learn more about your service, then give you access to our integration environment.</p>
+  <h2 class="govuk-heading-m">About you</h2>
+{% endblock %}
+
+{% block formInputs %}
+  {{ form.textInput("First name", "firstName", "govuk-!-width-two-thirds") }}
+  {{ form.textInput("Last name", "lastName", "govuk-!-width-two-thirds") }}
+  {{ form.emailInput(hint = "You must enter your government email address - we will only contact people with official government email addresses", classes = "govuk-!-width-full") }}
+  {{ form.textInput("Role", "role", "govuk-!-width-full", hint = "Tell us your role within the service team, for example delivery or project manager, technical architect or test engineer") }}
+  {{ form.textInput("Organisation name", "organisationName", "govuk-!-width-full", hint = "Enter the name of your government department, agency or other public body and also the name of your sponsor department") }}
+  {{ form.radiosInput("Organisation type", name = "organisationType",
+    items = [
+      {text: "Government department or Ministry", value: "governmentDepartmentOrMinistry"},
+      {text: "Executive Agency", value: "executiveAgency"},
+      {text: "Arms length body", value: "armsLengthBody"},
+      {text: "Other", value: "other"}
+    ]) }}
+  <h2 class="govuk-heading-m">About your service</h2>
+  {{ form.textInput("Service name", "serviceName", "govuk-!-width-full", hint = "Enter the name of your service as used on your service start page. If you are working on a new service that has not launched yet, enter its working title") }}
+  {{ form.textAreaInput("Service description", "serviceDescription", "Describe your service, what it does, who it helps and why? Also tell us if it’s a new service that has not launched yet") }}
+  {{ form.textInput("Link to your service (optional)", "linkToYourService", "govuk-!-width-full", hint = "If you have one, enter the URL to your service start page or a link to a prototype or user journey map - including any passwords") }}
+  {{ form.radiosInput("Total annual number of users of your service", name = "totalAnnualNumberOfUsersOfYourService",
+    items = [
+      {text: "1 to 1,000", value: "range1To1000"},
+      {text: "1,001 to 50,000", value: "range1001To50000"},
+      {text: "50,001 to 250,000", value: "range50001To250000"},
+      {text: "250,001 to 1 million", value: "range250001To1Million"},
+      {text: "Over 1 million users", value: "rangeOver1Million"}
+    ]) }}
+  {{ form.textInput("Estimated date for your service to go live with GOV.UK One Login", "estimatedServiceGoLiveDate", "govuk-!-width-one-third", hint = "Give us your proposed month and year - for example June 2025") }}
+  {{ form.radiosInput("What would you like to access and test?", name = "accessAndTest",
+    items = [
+      {
+        text: "Authentication only",
+        value: "authenticationOnly",
+        hint: {
+          text: "Signing users in"
+        }
+      },
+      {
+        text: "Authentication and identity checking",
+        value: "authenticationAndIdentity",
+        hint: {
+          text: "Signing users in and checking their identities"
+        }
+      }
+    ]) }}
+  {% set helpOtherHtml %}
+    {{ form.textAreaInput("Could you explain what you’d like help with?", "likeHelpWith") }}
+  {% endset -%}
+  {{ form.checkboxesInput("What would you like help with?", "helpWith", "Tick all that apply - this will help us understand your initial needs", [
+    {text: "Getting access to our integration environment to test GOV.UK One Login", value: "gettingAccess", checked: gettingAccess},
+    {text: "Having a technical discussion with your tech team", value: "havingTechnicalDiscussion", checked: havingTechnicalDiscussion},
+    {text: "Walking through the onboarding process", value: "walkingThrough", checked: walkingThrough},
+    {text: "Understanding the GOV.UK One Login programme in more detail", value: "understandingProgramme", checked: understandingProgramme},
+    {text: "Other", value: "other", conditional: {html: helpOtherHtml}, checked: other}
+  ], selectedItems) }}
+  {{ form.radiosInput("Do you have any other services you’d like to talk to us about?", name = "anyOtherServicesToTalkAbout", hint = "We’ll ask you more about any additional services when we contact you",
+    items = [
+      {text: "Yes", value: "yes"},
+      {text: "No", value: "no"}
+    ]) }}
+  <h2 class="govuk-heading-m">Updates</h2>
+  {{ form.radiosInput("Would you like to get updates about GOV.UK One Login?", name = "getUpdatesAboutOneLogin", hint = "You’ll get occasional email updates about our work and invitations to our cross-government show and tells. You may also be invited to participate in future user research if you’d like to",
+    items = [
+      {text: "Yes", value: "yes"},
+      {text: "No", value: "no"}
+    ]) }}
+  <h2 class="govuk-heading-m">Read our privacy notice</h2>
+  <p class="govuk-body">By continuing, you confirm that you agree to our <a class="govuk-link" href="/privacy-policy">privacy notice</a>. It sets out how we use your personal information.</p>
+{% endblock %}

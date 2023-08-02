@@ -71,3 +71,50 @@ export const confirm = function (req: Request, res: Response) {
 export const error = function (req: Request, res: Response) {
     res.render("register-error.njk");
 };
+
+export const showRegisterToGetStartedForm = function (req: Request, res: Response) {
+    res.render("register-to-get-started.njk");
+};
+
+const requiredFieldsRegister = new Map<string, string>([
+    ["firstName", "Enter your first name"],
+    ["lastName", "Enter your last name"],
+    ["email", "Enter your government email address"],
+    ["role", "Enter your role or job title"],
+    ["organisationName", "Enter your organisation name"],
+    ["organisationType", "Select one option"],
+    ["serviceName", "Enter the name of your service"],
+    ["serviceDescription", "Enter a short description of your service"],
+    ["totalAnnualNumberOfUsersOfYourService", "Select one option"],
+    ["estimatedServiceGoLiveDate", "Enter a month and year"],
+    ["accessAndTest", "Select one option"],
+    ["helpWith", "Select one or more options"],
+    ["anyOtherServicesToTalkAbout", "Select one option"],
+    ["getUpdatesAboutOneLogin", "Select one option"]
+]);
+
+export const submitRegisterToGetStartedForm = async function (req: Request, res: Response) {
+    const values = new Map<string, string>(Object.entries(req.body));
+    if (req.body.helpWith) {
+        values.delete("helpWith");
+    }
+    values.forEach((value, key) => values.set(key, value.trim()));
+    if (req.body.helpWith) {
+        values.set("helpWith", req.body.helpWith);
+    }
+    const errorMessages = (req.app.get("validation") as Validation).validate(values, requiredFieldsRegister);
+    if (req.body.helpWith) {
+        if ((req.body.helpWith === "other" || req.body.helpWith.includes("other")) && req.body.likeHelpWith === "") {
+            errorMessages.set("likeHelpWith", "Enter a short description of what you need help with");
+        }
+    }
+    if (errorMessages.size == 0) {
+        res.send("Form successfully submitted");
+    } else {
+        res.render("register-to-get-started.njk", {
+            errorMessages: errorMessages,
+            values: values,
+            selectedItems: req.body.helpWith
+        });
+    }
+};
