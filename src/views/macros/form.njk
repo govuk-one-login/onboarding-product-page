@@ -2,6 +2,7 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
 {% macro generate(action, buttonText, buttonId) %}
   <form class="form" method="post"{% if action %} action="{{ action }}"{% endif %} novalidate="novalidate">
@@ -16,10 +17,13 @@
   </form>
 {% endmacro %}
 
-{% macro textInput(label, id, classes = "govuk-!-width-one-half") %}
+{% macro textInput(label, id, classes = "govuk-!-width-one-half", hint = "") %}
   {{ govukInput({
     label: {
       text: label
+    },
+    hint: {
+      text: hint
     },
     id: id,
     name: id,
@@ -54,14 +58,18 @@
   }) }}
 {% endmacro %}
 
-{% macro textAreaInput(label, id, rows = 5) %}
+{% macro textAreaInput(label, id, hint, rows = 5) %}
   {{ govukTextarea({
     label: {
       text: label
     },
+    hint: {
+      text: hint
+    },
     id: id,
     name: id,
     rows: rows,
+    value: values.get(id) if values,
     errorMessage: {
       text: errorMessages.get(id)
     } if errorMessages and errorMessages.has(id)
@@ -88,5 +96,25 @@
     errorMessage: {
       text: errorMessages.get(name)
     } if errorMessages and errorMessages.has(name)
+  }) }}
+{% endmacro %}
+
+{% macro checkboxesInput(label, id, hint, items, checkedItems) %}
+  {{ govukCheckboxes({
+    fieldset: {
+      legend: {
+        text: label
+      }
+    } if label,
+    hint: {
+      text: hint
+    },
+    id: id,
+    name: id,
+    items: items,
+    values: checkedItems,
+    errorMessage: {
+      text: errorMessages.get(id)
+    } if errorMessages and errorMessages.has(id)
   }) }}
 {% endmacro %}
