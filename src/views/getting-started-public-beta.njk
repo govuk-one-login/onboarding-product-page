@@ -1,0 +1,40 @@
+{% extends "base.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "Public beta" %}
+{% set headerNavigationActiveItem = "get-started" %}
+{% set breadcrumbs = breadcrumbs([{text: "Get started", href: "/getting-started"}], pageTitle) %}
+
+{% block mainContent %}
+  <h1 class="govuk-heading-l">Find out more about our public beta</h1>
+  <p class="govuk-body">GOV.UK One Login is currently in public beta. This means we’re making it available to any eligible government service that needs to use it.</p>
+  <h2 class="govuk-heading-m">Who can use GOV.UK One Login</h2>
+  <p class="govuk-body">GOV.UK One Login is available to services:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>run by central government departments</li>
+    <li>in beta or live</li>
+    <li>for the general public or specialist groups, for example teachers</li>
+    <li>that need to sign in their users or check their identities</li>
+    <li>that can integrate with GOV.UK One Login - this means you need access to developers who are comfortable working with the OpenID Connect (OIDC) protocol and the processes set out in our <a class="govuk-link" href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment">technical documentation</a></li>
+  </ul>
+  <p class="govuk-body">GOV.UK One Login is not currently available to the NHS, police or local authorities.</p>
+  <p class="govuk-body">If you’re not sure if you can use GOV.UK One Login, you can <a class="govuk-link" href="/support">contact the team</a>.</p>
+  <h2 class="govuk-heading-m">What to expect</h2>
+  <p class="govuk-body">If you join the beta, you’ll:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>get access to GOV.UK One Login for all your live traffic</li>
+    <li>be able to sign in your users and check their identities if you need to</li>
+    <li>get support from our team throughout</li>
+  </ul>
+  <p class="govuk-body">We’ll need you to:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>integrate with GOV.UK One Login to allow your users to sign in to your service and check their identities if you need to</li>
+    <li>give us regular feedback about your experiences of using and onboarding to GOV.UK One Login - we’ll agree on how and how often you give feedback to make sure it works for both of us</li>
+  </ul>
+  <h2 class="govuk-heading-m">The joining process</h2>
+  <p class="govuk-body">If you meet our joining criteria and would like to take part, <a class="govuk-link" href="/register">register your interest</a>.</p>
+  <p class="govuk-body">You can then speak to us about your service and access our integration environment to see how GOV.UK One Login works with your service. If you decide GOV.UK One Login meets your needs, email us to confirm you’d like to join the beta.</p>
+  <p class="govuk-body">We’ll guide you through the process of getting your service live with GOV.UK One Login, agree a go live date and tell you what we need from you. For example, we need to know about your fraud approach and user support set-up.</p>
+  <p class="govuk-body">You’ll also need to sign our Memorandum of Understanding (MoU) before you can go live with GOV.UK One Login.</p>
+  <p class="govuk-body">If you have any questions, <a class="govuk-link" href="/support">contact the team</a>.</p>
+{% endblock %}

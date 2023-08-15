@@ -19,11 +19,11 @@ router.get("/decide/design-patterns", (req, res) => {
 });
 
 router.get("/decide/private-beta", (req, res) => {
-    res.redirect(301, "/getting-started/private-beta");
+    res.redirect(301, "/getting-started/public-beta");
 });
 
 router.get("/decide/private-beta/request-form", async (req, res) => {
-    res.redirect(301, "/getting-started/private-beta");
+    res.redirect(301, "/getting-started/public-beta");
 });
 
 export default router;
