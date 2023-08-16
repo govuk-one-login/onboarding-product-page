@@ -7,8 +7,8 @@ applications:
       - google-service-account
     env:
       USE_STUB_SHEETS: false
-      REGISTER_SHEET_DATA_RANGE: Register!A1
-      REGISTER_SHEET_HEADER_RANGE: Register!A1:Y1
+      REGISTER_SHEET_DATA_RANGE: Getstarted!A1
+      REGISTER_SHEET_HEADER_RANGE: Getstarted!A1:Y1
       REGISTER_SPREADSHEET_ID: ((register-spreadsheet-id))
       MAILING_LIST_SHEET_DATA_RANGE: "'user who have requested to join the mailing list '!A1"
       MAILING_LIST_SHEET_HEADER_RANGE: "'user who have requested to join the mailing list '!A1:D1"

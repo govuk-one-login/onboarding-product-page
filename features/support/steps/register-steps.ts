@@ -1,90 +1,77 @@
-import {Given} from "@cucumber/cucumber";
+import {When, Then} from "@cucumber/cucumber";
 import {Page} from "puppeteer";
+import {enterTextIntoTextInput, checkErrorMessageDisplayedForField, clickSubmitButton} from "./shared-functions";
 
-Given("that the users enter alphanumeric characters into all of the fields", async function () {
-    await this.goToPath("/register");
-    await this.page.type("#name", "Tessa Ting");
-    await this.page.type("#organisation-name", "Department of Sorcery");
-    await this.page.type("#email", "tessa.ting@gov.uk");
-    await this.page.type("#service-name", "Unicorn Testing");
-    await selectMailingListOption(this.page, "yes");
+const fields = {
+    "first name": "firstName",
+    "last name": "lastName",
+    email: "email",
+    role: "role",
+    "organisation name": "organisationName",
+    "organisation type": "organisationType",
+    "service name": "serviceName",
+    "service description": "serviceDescription",
+    "total annual number of users of your service": "totalAnnualNumberOfUsersOfYourService",
+    "estimated date for your service to go live": "estimatedServiceGoLiveDate",
+    "what would you like to access and test": "accessAndTest",
+    "what would you like help with": "helpWith",
+    "explain what you would like help with": "likeHelpWith",
+    "any other services you would like to talk to us about": "anyOtherServicesToTalkAbout",
+    "would you like to get updates": "getUpdatesAboutOneLogin"
+};
+
+When("they submit the {} {string}", async function (fieldName, value) {
+    await enterTextIntoTextInput(this.page, value, fields[fieldName as keyof typeof fields]);
+    await clickSubmitButton(this.page);
 });
 
-Given("that the users enter alphanumeric characters into all of the fields in the register form except the Name field", async function () {
-    await this.goToPath("/register");
-    await this.page.type("#organisation-name", "Department of Sorcery");
-    await this.page.type("#email", "tessa.ting@gov.uk");
-    await this.page.type("#service-name", "Unicorn Testing");
-    await selectMailingListOption(this.page, "yes");
+When("they try to submit the form without selecting any value from the radio button", async function () {
+    await clickSubmitButton(this.page);
 });
 
-Given(
-    "that the users enter alphanumeric characters into all of the fields in the register form except the Organisation name field",
-    async function () {
-        await this.goToPath("/register");
-        await this.page.type("#name", "Tessa Ting");
-        await this.page.type("#email", "tessa.ting@gov.uk");
-        await this.page.type("#service-name", "Unicorn Testing");
-        await selectMailingListOption(this.page, "yes");
-    }
-);
-
-Given(
-    "that the users enter alphanumeric characters into all of the fields in the register form except the Contact email field",
-    async function () {
-        await this.goToPath("/register");
-        await this.page.type("#name", "Tessa Ting");
-        await this.page.type("#organisation-name", "Department of Sorcery");
-        await this.page.type("#service-name", "Unicorn Testing");
-        await selectMailingListOption(this.page, "yes");
-    }
-);
-
-Given(
-    "that the users enter alphanumeric characters into all of the fields in the register form except the Service name field",
-    async function () {
-        await this.goToPath("/register");
-        await this.page.type("#name", "Tessa Ting");
-        await this.page.type("#organisation-name", "Department of Sorcery");
-        await this.page.type("#email", "tessa.ting@gov.uk");
-        await selectMailingListOption(this.page, "yes");
-    }
-);
-
-Given("that the user enters an invalid email address into the email field", async function () {
-    await this.goToPath("/register");
-    await this.page.type("#email", "1 Station Road, Newtown, Countyshire AB1 2CD");
+When("they try to submit the form without selecting any value from the checkbox list", async function () {
+    await clickSubmitButton(this.page);
 });
 
-Given("that the user enters a non-government email address into the email field", async function () {
-    await this.goToPath("/register");
-    await this.page.type("#email", "bill@microsoft.com");
+Then("the error message with the text {string} must be displayed for the {} field", async function (errorMessage, fieldName) {
+    const errorLink = await this.page.$x(`//div[@class="govuk-error-summary"]//a[@href="#${fields[fieldName as keyof typeof fields]}"]`);
+    await checkErrorMessageDisplayedForField(this.page, errorLink, errorMessage, fields[fieldName as keyof typeof fields]);
 });
 
-Given(
-    "that the users enter alphanumeric characters into all of the fields in the register form except the mailing-list radio",
+When(
+    "they select the Other value and do not enter any text into the Could you explain what you’d like help with? textfield and try to submit the form",
     async function () {
-        await this.goToPath("/register");
-        await this.page.type("#name", "Tessa Ting");
-        await this.page.type("#organisation-name", "Department of Sorcery");
-        await this.page.type("#email", "tessa.ting@gov.uk");
-        await this.page.type("#service-name", "Unicorn Testing");
+        const otherCheckboxInput = await this.page.$("#helpWith-5");
+        if (!otherCheckboxInput) {
+            throw new Error(`Could not find element with id helpWith-5`);
+        }
+        await otherCheckboxInput.click();
+        await clickSubmitButton(this.page);
     }
 );
 
-Given(
-    "that the users enter alphanumeric characters into all of the fields in the register form and select no for the mailing list",
-    async function () {
-        await this.goToPath("/register");
-        await this.page.type("#name", "Tessa Ting");
-        await this.page.type("#organisation-name", "Department of Sorcery");
-        await this.page.type("#email", "tessa.ting@gov.uk");
-        await this.page.type("#service-name", "Unicorn Testing");
-        await selectMailingListOption(this.page, "no");
-    }
-);
-
-async function selectMailingListOption(page: Page, value: string) {
-    const radio = await page.$x(`//div[@id="mailing-list-options"]//input[@value="${value}"]`);
+async function selectOption(page: Page, option: string, value: string) {
+    const radio = await page.$x(`//div[@id="${option}-options"]//input[@value="${value}"]`);
     await radio[0].click();
 }
+
+When("they fill in correct data in all the mandatory input fields, select buttons, and check lists", async function () {
+    await this.page.type("#firstName", "Testfirstname");
+    await this.page.type("#lastName", "Testlastname");
+    await this.page.type("#email", "test@gov.uk");
+    await this.page.type("#role", "Test role");
+    await this.page.type("#organisationName", "Test organisation");
+    await selectOption(this.page, "organisationType", "governmentDepartmentOrMinistry");
+    await this.page.type("#serviceName", "Test Service");
+    await this.page.type("#serviceDescription", "Test Service description");
+    await selectOption(this.page, "totalAnnualNumberOfUsersOfYourService", "range1To1000");
+    await this.page.type("#estimatedServiceGoLiveDate", "June 2025");
+    await selectOption(this.page, "accessAndTest", "authenticationOnly");
+    const checkboxInput = await this.page.$("#helpWith");
+    if (!checkboxInput) {
+        throw new Error(`Could not find element with id helpWith`);
+    }
+    await checkboxInput.click();
+    await selectOption(this.page, "anyOtherServicesToTalkAbout", "yes");
+    await selectOption(this.page, "getUpdatesAboutOneLogin", "YES");
+});
