@@ -6,21 +6,10 @@
 {% set breadcrumbs = breadcrumbs([{text: "Get started", href: "/getting-started"}], "Sign up to get access") %}
 
 {% block mainContent %}
-  {{ govukPanel({ titleText: "You have signed up for access to GOV.UK One Login" }) }}
-
-  <div class="govuk-body">
-    Thank you for telling us you’re interested in GOV.UK One Login.
-  </div>
-
+  {{ govukPanel({ titleText: "You have registered to get started with GOV.UK One Login" }) }}
+  <div class="govuk-body">Thank you for telling us you’re interested in using GOV.UK One Login.</div>
   <h2 class="govuk-heading-m">What next</h2>
-
-  <p class="govuk-body">
-    We’ll get in touch within 5 working days to find out more about your service and give you access to the test environment.
-  </p>
-  <p class="govuk-body">
-    If you have questions in the meantime, contact us using our <a class="govuk-link" href="/support">support form</a> or <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a>.
-  </p>
-  <p class="govuk-body">
-    <a class="govuk-link" href="/">Back to homepage</a>.
-  </p>
+  <p class="govuk-body">We’ll get in touch within 5 working days to find out more about your service.</p>
+  <p class="govuk-body">If you have questions in the meantime, contact us using our <a class="govuk-link" href="/support">support form</a> or <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a>.</p>
+  <p class="govuk-body"><a class="govuk-link" href="/">Back to homepage</a>.</p>
 {% endblock %}
