@@ -13,6 +13,13 @@ import support from "./routes/support";
 const app = express();
 app.set("validation", Validation.getInstance());
 
+app.use((req, res, next) => {
+    res.append("Access-Control-Allow-Origin", ["*"]);
+    res.append("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
+    res.append("Access-Control-Allow-Headers", "Content-Type");
+    next();
+});
+
 app.use("/assets", express.static(distribution.assets));
 app.use("/assets/images", express.static(distribution.images));
 
