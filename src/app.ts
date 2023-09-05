@@ -13,8 +13,6 @@ import support from "./routes/support";
 
 const app = express();
 
-const helmet = Helmet();
-
 app.set("validation", Validation.getInstance());
 
 app.use((req, res, next) => {
@@ -24,7 +22,22 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(helmet);
+app.use(
+    Helmet({
+        referrerPolicy: {
+            policy: ["origin", "unsafe-url"]
+        },
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+                connectSrc: ["*"],
+                styleSrc: ["'self'", "'unsafe-inline'"],
+                imgSrc: ["'self'"]
+            }
+        }
+    })
+);
 
 app.use("/assets", express.static(distribution.assets));
 app.use("/assets/images", express.static(distribution.images));
