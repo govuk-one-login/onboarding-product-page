@@ -19,7 +19,7 @@ export default function Helmet() {
                 imgSrc: ["'self'", "data:", "https://www.googletagmanager.com", "https://www.google-analytics.com"],
                 objectSrc: ["'none'"],
                 connectSrc: ["'self'", "https://www.google-analytics.com"],
-                formAction: ["'self'"]
+                formAction: ["'self'", "https://signin.account.gov.uk/contact-us"]
             }
         },
         dnsPrefetchControl: {
