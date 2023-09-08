@@ -1,5 +1,6 @@
 import bodyParser from "body-parser";
 import express, {NextFunction, Request, Response} from "express";
+import Helmet from "./config/helmet";
 import configureViews from "./config/configureViews";
 import {distribution} from "./config/resources";
 import Validation from "./lib/validation/validation";
@@ -19,6 +20,8 @@ app.use((req, res, next) => {
     res.append("Access-Control-Allow-Headers", "Content-Type");
     next();
 });
+
+app.use(Helmet());
 
 app.use("/assets", express.static(distribution.assets));
 app.use("/assets/images", express.static(distribution.images));
