@@ -27,6 +27,7 @@
     "google-auth-library": "^8.5.2",
     "googleapis": "^91.0.0",
     "govuk-frontend": "^4.5.0",
+    "helmet": "^7.0.0",
     "nunjucks": "^3.2.3",
     "rfc822-validate": "^1.0.0",
     "uuid": "^8.3.2"
