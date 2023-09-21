@@ -132,3 +132,4 @@ test-report.html
 /monitoring/.aws-sam/
 /.aws-sam/
 /ci/.aws-sam/
+/xunit.xml
