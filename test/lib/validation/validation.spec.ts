@@ -1,5 +1,5 @@
 import {assert} from "chai";
-import Validation from "./validation";
+import Validation from "../../../src/lib/validation/validation";
 
 let validator: Validation;
 
