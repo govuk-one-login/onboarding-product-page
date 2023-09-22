@@ -10,4 +10,5 @@
     - ### Sheets
         - Make sure a `googleCredentials.json` file is in the root of the project. These are the credentials for a service account which has been granted access to the spreadsheet identified by `SPREADSHEET_ID`
 2. Run `npm install`
+
 3. Run `npm run local`
