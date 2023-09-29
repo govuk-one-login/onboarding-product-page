@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios";
 import ZendeskInterface from "../interface";
 
 export default class RealZendeskService implements ZendeskInterface {
@@ -14,39 +14,53 @@ export default class RealZendeskService implements ZendeskInterface {
         this.groupId = groupId;
     }
 
-    async submit(form:  Map<string, string>): Promise<boolean> {
-        const URL = 'https://govuk.zendesk.com'
+    async submit(form: Map<string, string>): Promise<boolean> {
+        const URL = "https://govuk.zendesk.com";
+        let ticketIdentifier;
 
-        let data = {
-            "ticket": {
-                "group_id": this.groupId,
-                "tags": [this.tag],
-                "subject": `${form.get('organisation-name')} | ${form.get('service-name')} | ${form.get('name')}`,
-                "requester": {"name": form.get('name'), "email": form.get('email')},
-                "comment": {
-                    "value": `Organisation: ${form.get('organisation-name')}\nService: ${form.get('service-name')}\n${form.get('name')} (${form.get('role')})\n\n${form.get('how-can-we-help')}`
-                }
-            }
+        if (form.get("ticket-identifier")) {
+            ticketIdentifier = `\n\n[Ticket Identifier]\n${form.get("ticket-identifier")}`;
+        } else {
+            ticketIdentifier = "";
         }
 
-        let instance = await axios.create({
+        const data = {
+            ticket: {
+                group_id: this.groupId,
+                tags: [this.tag],
+                subject: `${form.get("organisation-name")} | ${form.get("service-name")} | ${form.get("name")}`,
+                requester: {name: form.get("name"), email: form.get("email")},
+                comment: {
+                    value: `[Contact form support]\n${form.get("contact-form-support")}\n\n[Name]\n${form.get(
+                        "name"
+                    )}\n\n[Role]\n${form.get("role")}\n\n[Organisation name]\n${form.get(
+                        "organisation-name"
+                    )}\n\n[Service name]\n${form.get("service-name")}\n\n[How can we help?]\n${form.get(
+                        "how-can-we-help"
+                    )} ${ticketIdentifier}`
+                }
+            }
+        };
+
+        const instance = await axios.create({
             baseURL: URL,
             headers: {
-                "Authorization": "Basic " + new Buffer(`${this.email}/token:${this.apiToken}`).toString('base64'),
+                Authorization: "Basic " + new Buffer(`${this.email}/token:${this.apiToken}`).toString("base64"),
                 "Content-Type": "application/json"
             }
         });
-
+        // eslint-disable-next-line
         let sent: boolean = true;
 
-        await instance.post('/api/v2/tickets.json', data)
+        await instance
+            .post("/api/v2/tickets.json", data)
             .then(function (response) {
-                console.log(response)
+                console.log(response);
                 sent = true;
             })
             .catch(function (response) {
-                sent = false
-                console.log(response)
+                sent = false;
+                console.log(response);
             });
         return sent;
     }

@@ -15,6 +15,7 @@ applications:
       MAILING_LIST_SPREADSHEET_ID: ((mailing-list-spreadsheet-id))
       ZENDESK_API_URL: https://govuk.zendesk.com/api/v2
       ZENDESK_TAG: sign_in_service_teams
+      ZENDESK_TAG_ONE_LOGIN_ADMIN_TOOL: self_service_admin
       USE_STUB_ZENDESK: ((use-stub-zendesk))
       ZENDESK_GROUP_ID: ((zendesk-group-id))
       ZENDESK_USERNAME: ((zendesk-username))
