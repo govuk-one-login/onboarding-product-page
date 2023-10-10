@@ -6,7 +6,7 @@
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% set pageTitle = "Cookies" %}
-{% set breadcrumbs = breadcrumbs(currentPageName = pageTitle) %}
+{% set breadcrumbs = breadcrumbs(currentPageName = "Cookies notice for the GOV.UK One Login website") %}
 
 {% block mainContent %}
   {% call govukNotificationBanner({ type: "success", attributes: {id: "save-success-banner", hidden: "" } }) %}
@@ -16,7 +16,7 @@
     <p class="govuk-body">You can change your cookie settings at any time from this page.</p>
   {% endcall %}
 
-  <h1 class="govuk-heading-l govuk-!-margin-top-0 govuk-!-margin-bottom-3">Cookies</h1>
+  <h1 class="govuk-heading-l govuk-!-margin-top-0 govuk-!-margin-bottom-3">Cookies notice for the GOV.UK One Login website</h1>
 
   <p class="govuk-body">GOV.UK One Login puts small files (known as ‘cookies’) on to your computer.</p>
   <p class="govuk-body">Cookies are used to remember the notifications you’ve seen so we don’t show them again.</p>
@@ -25,7 +25,7 @@
 
   <h2 class="govuk-heading-s">Our introductory message</h2>
   <p class="govuk-body">
-    You may see a pop-up welcome message when you first visit GOV.UK One Login. This message will ask whether you
+    You may see a pop-up welcome message when you first visit the GOV.UK One Login website. This message will ask whether you
     want to accept or reject analytics cookies. Once you’ve saved your preferences, we’ll store a cookie on your
     computer to remember them.
   </p>
@@ -38,13 +38,13 @@
 
   <h2 class="govuk-heading-s">Analytics cookies (optional)</h2>
   <p class="govuk-body">
-    With your permission, we use Google Analytics to collect data about how you use GOV.UK One Login. This information
+    With your permission, we use Google Analytics to collect data about how you use the GOV.UK One Login website. This information
     helps us to improve the website.
   </p>
   <p class="govuk-body">Google is not allowed to use or share our analytics data with anyone.</p>
   <p class="govuk-body">Google Analytics stores anonymised information about:</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>how you got to GOV.UK One Login</li>
+    <li>how you got to the GOV.UK One Login website</li>
     <li>the pages you visit</li>
     <li>how long you spend on each page</li>
     <li>what you click on while you’re visiting the site</li>
@@ -56,12 +56,12 @@
     rows = [
       [
         "_ga",
-        "Checks if you’ve visited GOV.UK One Login before. This helps us count how many people visit our site.",
+        "Checks if you’ve visited the GOV.UK One Login website before. This helps us count how many people visit our site.",
         "2 years"
       ],
       [
         "_gid",
-        "Checks if you’ve visited GOV.UK One Login before. This helps us count how many people visit our site.",
+        "Checks if you’ve visited the GOV.UK One Login website before. This helps us count how many people visit our site.",
         "24 hours"
       ],
       [
