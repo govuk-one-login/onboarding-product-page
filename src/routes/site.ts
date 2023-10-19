@@ -92,4 +92,8 @@ router.get("/documentation/design-recommendations/let-users-navigate-sign-out", 
     res.render("documentation-let-users-navigate.njk");
 });
 
+router.get("/about/checking-users-identities/evidence-types", (req, res) => {
+    res.render("about/evidence-types.njk");
+});
+
 export default router;
