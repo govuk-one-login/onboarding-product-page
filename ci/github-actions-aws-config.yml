@@ -4,10 +4,10 @@ Description: Config to deploy to AWS from GitHub Actions
 Parameters:
   GitHubOrg:
     Type: String
-    Default: alphagov
+    Default: govuk-one-login
   GitHubRepo:
     Type: String
-    Default: di-onboarding-product-page
+    Default: onboarding-product-page
   CreateOIDCProvider:
     Type: String
     Default: false
