@@ -54,35 +54,33 @@ Resources:
     Type: AWS::Route53::HostedZone
     Condition: Subdomain
     Properties:
-      Name: !Sub ${Subdomain}${Domain}
+      Name: !Sub ${Domain}
 
   EmailIdentity:
     Type: AWS::SES::EmailIdentity
     Properties:
-      EmailIdentity: !Sub product.${Subdomain}${Domain}
+      EmailIdentity: !Sub product.${Domain}
       DkimAttributes:
         SigningEnabled: true
 
   Certificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
-      DomainName: !Sub "product.${Subdomain}${Domain}"
+      DomainName: !Sub "product.${Domain}"
       ValidationMethod: DNS
       DomainValidationOptions:
-        - DomainName: !Sub "product.${Subdomain}${Domain}"
-          HostedZoneId: !If [ TopNode, !Ref ApexHostedZone, !Ref 
-SubdomainHostedZone ]
+        - DomainName: !Sub "product.${Domain}"
+          HostedZoneId: !If [ TopNode, !Ref ApexHostedZone, !Ref SubdomainHostedZone ]
 
   WildcardCertificate:
     Type: AWS::CertificateManager::Certificate
     Condition: Subdomain
     Properties:
-      DomainName: !Sub "*.product.${Subdomain}${Domain}"
+      DomainName: !Sub "*.product.${Domain}"
       ValidationMethod: DNS
       DomainValidationOptions:
-        - DomainName: !Sub "*.product.${Subdomain}${Domain}"
-          HostedZoneId: !If [ TopNode, !Ref ApexHostedZone, !Ref 
-SubdomainHostedZone ]
+        - DomainName: !Sub "*.product.${Domain}"
+          HostedZoneId: !If [ TopNode, !Ref ApexHostedZone, !Ref SubdomainHostedZone ]
 
   # The GOV.UK nameservers for service.gov.uk route traffic for
   # sign-in.service.gov.uk and all its subdomains to its zone apex.
@@ -196,7 +194,7 @@ https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-routing-traffic-fo
 
 Outputs:
   Domain:
-    Value: !Sub product.${Subdomain}${Domain}
+    Value: !Sub product.${Domain}
     Export:
       Name: DNS-Domain
   CertificateARN:
@@ -209,7 +207,7 @@ Outputs:
     Export:
       Name: DNS-SubdomainCertificateARN
   EmailIdentityARN:
-    Value: !Sub arn:${AWS::Partition}:ses:${AWS::Region}:${AWS::AccountId}:identity/product.${Subdomain}${Domain}
+    Value: !Sub arn:${AWS::Partition}:ses:${AWS::Region}:${AWS::AccountId}:identity/.${Domain}
     Export:
       Name: DNS-EmailIdentityARN
   HostedZoneID:

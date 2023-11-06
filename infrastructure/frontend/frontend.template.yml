@@ -5,7 +5,7 @@ Transform: AWS::LanguageExtensions
 Parameters:
   ImageURI:
     Type: String
-    Default: "494650018671.dkr.ecr.eu-west-2.amazonaws.com/self-service/frontend:SSE-2824"
+    Default: "494650018671.dkr.ecr.eu-west-2.amazonaws.com/self-service/frontend:64f1f66e9e18532faccc3c1fcf127dc57cb8044b"
     Description: The URI of the ECR image to use for the container
   ContainerPort:
     Type: Number
@@ -70,10 +70,10 @@ Resources:
       ExecutionRoleArn: !GetAtt ExecutionRole.Arn
       Cpu: 256
       Memory: 1024
-      Family: !Sub ${DeploymentName}-frontend-product
+      Family: !Sub ${DeploymentName}-product
       NetworkMode: awsvpc
       ContainerDefinitions:
-        - Name: self-service-frontend-product
+        - Name: self-service-product
           Image: !Ref ImageURI
           ReadonlyRootFilesystem: false
           Environment:
@@ -201,7 +201,7 @@ Resources:
   FargateCluster:
     Type: AWS::ECS::Cluster
     Properties:
-      ClusterName: !Sub ${DeploymentName}-frontend-product
+      ClusterName: !Sub ${DeploymentName}-product
       ClusterSettings:
         - Name: containerInsights
           Value: enabled
@@ -210,14 +210,14 @@ Resources:
     Type: AWS::ECS::Service
     DependsOn: ApplicationLoadBalancerListener
     Properties:
-      ServiceName: self-service-frontend-product
+      ServiceName: self-service-product
       Cluster: !GetAtt FargateCluster.Arn
       TaskDefinition: !Ref TaskDefinition
       PropagateTags: SERVICE
       LaunchType: FARGATE
       DesiredCount: 1
       LoadBalancers:
-        - ContainerName: self-service-frontend-product
+        - ContainerName: self-service-product
           ContainerPort: !Ref ContainerPort
           TargetGroupArn: !Ref ApplicationTargetGroup
       NetworkConfiguration:
@@ -631,7 +631,7 @@ Resources:
     Properties:
       Type: A
       Name: !Sub
-        - product.${Name}${Domain}
+        - product.${Domain}
         - Name: !If [ Subdomain, !Sub "${DeploymentName}.", ""]
           Domain: !ImportValue DNS-Domain
       HostedZoneId: !ImportValue DNS-HostedZoneID
