@@ -1,5 +1,7 @@
 # Global
-*                           @alphagov/di-sse-approvers          @alphagov/di-sse-frontend
+*                   @alphagov/di-sse-approvers          @alphagov/di-sse-frontend
+*                   @govuk-one-login/sse-approvers      @govuk-one-login/sse-frontend
 
 # Content
 /src/views/			@alphagov/di-sse-content			@alphagov/di-sse-approvers
+/src/views/			@govuk-one-login/sse-content	    @govuk-one-login/sse-approvers

@@ -64,11 +64,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alphagov/di-onboarding-product-page.git"
+    "url": "git+https://github.com/govuk-one-login/onboarding-product-page.git"
   },
   "keywords": [],
   "bugs": {
-    "url": "https://github.com/alphagov/di-onboarding-product-page/issues"
+    "url": "https://github.com/govuk-one-login/onboarding-product-page/issues"
   },
   "homepage": "https://www.sign-in.service.gov.uk/"
 }
