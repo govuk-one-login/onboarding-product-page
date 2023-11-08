@@ -1,11 +1,10 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: DI Product Tool frontend
+Description: DI Self-service Product Pages frontend
 Transform: AWS::LanguageExtensions
 
 Parameters:
   ImageURI:
     Type: String
-    Default: "494650018671.dkr.ecr.eu-west-2.amazonaws.com/self-service/frontend:64f1f66e9e18532faccc3c1fcf127dc57cb8044b"
     Description: The URI of the ECR image to use for the container
   ContainerPort:
     Type: Number
@@ -70,10 +69,10 @@ Resources:
       ExecutionRoleArn: !GetAtt ExecutionRole.Arn
       Cpu: 256
       Memory: 1024
-      Family: !Sub ${DeploymentName}-product
+      Family: !Sub ${DeploymentName}-productpages-frontend
       NetworkMode: awsvpc
       ContainerDefinitions:
-        - Name: self-service-product
+        - Name: productpages-frontend
           Image: !Ref ImageURI
           ReadonlyRootFilesystem: false
           Environment:
@@ -85,18 +84,6 @@ Resources:
               Value: !Ref GoogleTagID
             - Name: SESSION_SECRET
               Value: "{{resolve:secretsmanager:/self-service/frontend/session-secret}}"
-            #- Name: SESSIONS_TABLE
-              #Value:
-                #Fn::ImportValue: !Sub ${DeploymentName}-DynamoDB-SessionsTableName
-            #- Name: API_BASE_URL
-              #Value:
-                #Fn::ImportValue: !Sub ${DeploymentName}-API-BaseURL
-            #- Name: COGNITO_USER_POOL_ID
-              #Value:
-                #Fn::ImportValue: !Sub ${DeploymentName}-Cognito-UserPoolID
-            #- Name: COGNITO_CLIENT_ID
-              #Value:
-                #Fn::ImportValue: !Sub ${DeploymentName}-Cognito-UserPoolClientID
             - Name: DT_LOGLEVELCON
               Value: INFO
           PortMappings:
@@ -165,43 +152,11 @@ Resources:
             Condition:
               ArnLike:
                 aws:SourceArn: !Sub arn:aws:ecs:${AWS::Region}:${AWS::AccountId}:*
-      #Policies:
-        # https://github.com/ca98am79/connect-dynamodb#iam-permissions
-        #- PolicyName: SessionStorageTable
-          #PolicyDocument:
-            #Version: 2012-10-17
-            #Statement:
-              #- Effect: Allow
-                #Action:
-                  #- dynamodb:Scan
-                  #- dynamodb:GetItem
-                  #- dynamodb:PutItem
-                  #- dynamodb:UpdateItem
-                  #- dynamodb:DeleteItem
-                  #- dynamodb:DescribeTable
-                #Resource:
-                  #Fn::ImportValue: !Sub ${DeploymentName}-DynamoDB-SessionsTableARN
-        #- PolicyName: Cognito
-          #PolicyDocument:
-            #Version: 2012-10-17
-            #Statement:
-              #- Effect: Allow
-                #Action:
-                  #- cognito-idp:AdminCreateUser
-                  #- cognito-idp:AdminInitiateAuth
-                  #- cognito-idp:AdminUpdateUserAttributes
-                  #- cognito-idp:AdminSetUserMFAPreference
-                  #- cognito-idp:AdminRespondToAuthChallenge
-                  #- cognito-idp:AdminGetUser
-                  #- cognito-idp:AddCustomAttributes
-                  #- cognito-idp:UpdateUserPoolClient
-                #Resource:
-                  #Fn::ImportValue: !Sub ${DeploymentName}-Cognito-UserPoolARN
-
+ 
   FargateCluster:
     Type: AWS::ECS::Cluster
     Properties:
-      ClusterName: !Sub ${DeploymentName}-product
+      ClusterName: !Sub ${DeploymentName}-productpages-frontend
       ClusterSettings:
         - Name: containerInsights
           Value: enabled
@@ -210,14 +165,14 @@ Resources:
     Type: AWS::ECS::Service
     DependsOn: ApplicationLoadBalancerListener
     Properties:
-      ServiceName: self-service-product
+      ServiceName: productpages-frontend
       Cluster: !GetAtt FargateCluster.Arn
       TaskDefinition: !Ref TaskDefinition
       PropagateTags: SERVICE
       LaunchType: FARGATE
       DesiredCount: 1
       LoadBalancers:
-        - ContainerName: self-service-product
+        - ContainerName: productpages-frontend
           ContainerPort: !Ref ContainerPort
           TargetGroupArn: !Ref ApplicationTargetGroup
       NetworkConfiguration:
@@ -229,7 +184,7 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       VpcId: !ImportValue VPC-ID
-      GroupDescription: Frontend container service access
+      GroupDescription: Product Pages Frontend container service access
       SecurityGroupIngress:
         - Description: Allow traffic from the application load balancer
           SourceSecurityGroupId: !GetAtt ApplicationSecurityGroup.GroupId
@@ -238,7 +193,7 @@ Resources:
           ToPort: !Ref ContainerPort
       Tags:
         - Key: Name
-          Value: !Sub ${DeploymentName}-frontend-container-service-product
+          Value: !Sub ${DeploymentName}-frontend-container-service-productpages
 
   #--- Application load balancing ---#
 
@@ -247,7 +202,7 @@ Resources:
     Properties:
       Type: application
       Scheme: internet-facing
-      Name: !Sub ${DeploymentName}-app-product
+      Name: !Sub ${DeploymentName}-app-productpages
       Subnets: !Split [ ",", !ImportValue VPC-InternetSubnets ]
       SecurityGroups: [ !Ref ApplicationSecurityGroup ]
       LoadBalancerAttributes:
@@ -267,7 +222,7 @@ Resources:
       LoadBalancerArn: !Ref ApplicationLoadBalancer
       Certificates:
         - CertificateArn:
-            Fn::ImportValue: !If [ Subdomain, DNS-SubdomainCertificateARN, DNS-CertificateARN ]
+            Fn::ImportValue: !If [ Subdomain, DNS-SubdomainCertificateARN, DNS-SubdomainCertificateARN ]
       DefaultActions:
         - TargetGroupArn: !Ref ApplicationTargetGroup
           Type: forward
@@ -275,7 +230,7 @@ Resources:
   ApplicationTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: !Sub ${DeploymentName}-ecs-product
+      Name: !Sub ${DeploymentName}-ecs-productpages
       VpcId: !ImportValue VPC-ID
       Port: !Ref ContainerPort
       Protocol: HTTP
@@ -285,7 +240,7 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       VpcId: !ImportValue VPC-ID
-      GroupDescription: Frontend application load balancer
+      GroupDescription: Product Pages Frontend application load balancer
       SecurityGroupIngress:
         - Description: Allow secure traffic from the internet
           CidrIp: 0.0.0.0/0     # Any IPv4 address
@@ -294,7 +249,7 @@ Resources:
           ToPort: 443
       Tags:
         - Key: Name
-          Value: !Sub ${DeploymentName}-frontend-application-load-balancer-product
+          Value: !Sub ${DeploymentName}-frontend-application-load-balancer-productpages
 
   ApplicationSecurityGroupEgress:
     Type: AWS::EC2::SecurityGroupEgress
@@ -631,7 +586,7 @@ Resources:
     Properties:
       Type: A
       Name: !Sub
-        - product.${Domain}
+        - productpages.${Name}${Domain}
         - Name: !If [ Subdomain, !Sub "${DeploymentName}.", ""]
           Domain: !ImportValue DNS-Domain
       HostedZoneId: !ImportValue DNS-HostedZoneID
