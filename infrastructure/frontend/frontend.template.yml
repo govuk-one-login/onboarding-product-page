@@ -1,0 +1,620 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: DI Self-service Product Pages frontend
+Transform: AWS::LanguageExtensions
+
+Parameters:
+  ImageURI:
+    Type: String
+    Description: The URI of the ECR image to use for the container
+  ContainerPort:
+    Type: Number
+    Default: 3000
+  LogGroupPrefix:
+    Type: String
+    AllowedPattern: ^.*[^\/]$
+    Default: /aws/vendedlogs
+  DeploymentName:
+    Type: String
+    MaxLength: 28
+    AllowedPattern: ^.*[^-]$
+    Default: self-service
+    Description: A unique prefix to identify the deployment; used when importing or exporting values from related stacks
+  ShowTestBanner:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /self-service/frontend/show-test-banner
+  GoogleTagID:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /self-service/frontend/google-tag-id
+  PermissionsBoundary:
+    Type: String
+    Default: ""
+    Description: The ARN of the permissions boundary to apply when creating IAM roles
+  Environment:
+    Description: "The name of the environment to deploy to."
+    Type: "String"
+    Default: dev
+    AllowedValues:
+      - "dev"
+      - "build"
+      - "staging"
+      - "integration"
+      - "production"
+
+Mappings:
+  # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
+  ElasticLoadBalancer:
+    eu-west-2:
+      AccountID: 652711504416
+  TxMAAccountARN:
+    Environment:
+      dev: 'arn:aws:iam::494650018671:root'
+      build: 'arn:aws:iam::399055180839:root'
+      staging: 'arn:aws:iam::178023842775:root'
+      integration: 'arn:aws:iam::729485541398:root'
+      production: 'arn:aws:iam::451773080033:root'
+
+Conditions:
+  Subdomain: !Not [ !Equals [ !Ref DeploymentName, self-service ] ]
+  UsePermissionsBoundary: !Not [ !Equals [ !Ref PermissionsBoundary, "" ] ]
+
+Resources:
+
+  #--- Fargate / ECS ---#
+
+  TaskDefinition:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      RequiresCompatibilities: [ FARGATE ]
+      TaskRoleArn: !GetAtt TaskRole.Arn
+      ExecutionRoleArn: !GetAtt ExecutionRole.Arn
+      Cpu: 256
+      Memory: 1024
+      Family: !Sub ${DeploymentName}-productpages-frontend
+      NetworkMode: awsvpc
+      ContainerDefinitions:
+        - Name: productpages-frontend
+          Image: !Ref ImageURI
+          ReadonlyRootFilesystem: false
+          Environment:
+            - Name: PORT
+              Value: !Ref ContainerPort
+            - Name: TEST_BANNER
+              Value: !Ref ShowTestBanner
+            - Name: GOOGLE_TAG_ID
+              Value: !Ref GoogleTagID
+            - Name: SESSION_SECRET
+              Value: "{{resolve:secretsmanager:/self-service/frontend/session-secret}}"
+            - Name: DT_LOGLEVELCON
+              Value: INFO
+          PortMappings:
+            - ContainerPort: !Ref ContainerPort
+          HealthCheck:
+            Command: [ "CMD", "wget", "--spider", !Sub "http://localhost:${ContainerPort}" ]
+          LogConfiguration:
+            # https://docs.docker.com/config/containers/logging/awslogs/
+            LogDriver: awslogs
+            Options:
+              # Consider lines not starting with whitespace as a multi-line log message boundary
+              awslogs-multiline-pattern: ^[^\s}]+.*$
+              awslogs-group: !Sub ${LogGroupPrefix}/${DeploymentName}/frontend
+              awslogs-stream-prefix: ecs
+              awslogs-create-group: true
+              awslogs-region: !Ref AWS::Region
+
+  ExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Description: Grant the Fargate and ECS container agents permissions to make AWS API calls and access ECR
+      PermissionsBoundary: !If [ UsePermissionsBoundary, !Ref PermissionsBoundary, !Ref AWS::NoValue ]
+      ManagedPolicyArns: [ arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy ]
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service: ecs-tasks.amazonaws.com
+      Policies:
+        - PolicyName: CreateLogGroup
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: logs:CreateLogGroup
+                Resource: !Sub arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${LogGroupPrefix}/${DeploymentName}/frontend*
+        - PolicyName: GetDynatraceSecret
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action: secretsmanager:GetSecretValue
+                Resource: arn:aws:secretsmanager:eu-west-2:216552277552:secret:*
+              - Effect: Allow
+                Action: secretsmanager:ListSecrets
+                Resource: arn:aws:secretsmanager:eu-west-2:216552277552:secret:*
+              - Effect: Allow
+                Action: kms:Decrypt
+                Resource: arn:aws:kms:eu-west-2:216552277552:key/*
+
+
+
+  TaskRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Description: Allow the Frontend application tasks to access AWS services
+      PermissionsBoundary: !If [ UsePermissionsBoundary, !Ref PermissionsBoundary, !Ref AWS::NoValue ]
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Principal:
+              Service: [ ecs-tasks.amazonaws.com ]
+            Condition:
+              ArnLike:
+                aws:SourceArn: !Sub arn:aws:ecs:${AWS::Region}:${AWS::AccountId}:*
+ 
+  FargateCluster:
+    Type: AWS::ECS::Cluster
+    Properties:
+      ClusterName: !Sub ${DeploymentName}-productpages-frontend
+      ClusterSettings:
+        - Name: containerInsights
+          Value: enabled
+
+  ContainerService:
+    Type: AWS::ECS::Service
+    DependsOn: ApplicationLoadBalancerListener
+    Properties:
+      ServiceName: productpages-frontend
+      Cluster: !GetAtt FargateCluster.Arn
+      TaskDefinition: !Ref TaskDefinition
+      PropagateTags: SERVICE
+      LaunchType: FARGATE
+      DesiredCount: 1
+      LoadBalancers:
+        - ContainerName: productpages-frontend
+          ContainerPort: !Ref ContainerPort
+          TargetGroupArn: !Ref ApplicationTargetGroup
+      NetworkConfiguration:
+        AwsvpcConfiguration:
+          Subnets: !Split [ ",", !ImportValue VPC-ProtectedSubnets ]
+          SecurityGroups: [ !GetAtt ContainerServiceSecurityGroup.GroupId ]
+
+  ContainerServiceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !ImportValue VPC-ID
+      GroupDescription: Product Pages Frontend container service access
+      SecurityGroupIngress:
+        - Description: Allow traffic from the application load balancer
+          SourceSecurityGroupId: !GetAtt ApplicationSecurityGroup.GroupId
+          IpProtocol: tcp
+          FromPort: !Ref ContainerPort
+          ToPort: !Ref ContainerPort
+      Tags:
+        - Key: Name
+          Value: !Sub ${DeploymentName}-frontend-container-service-productpages
+
+  #--- Application load balancing ---#
+
+  ApplicationLoadBalancer:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties:
+      Type: application
+      Scheme: internet-facing
+      Name: !Sub ${DeploymentName}-app-productpages
+      Subnets: !Split [ ",", !ImportValue VPC-InternetSubnets ]
+      SecurityGroups: [ !Ref ApplicationSecurityGroup ]
+      LoadBalancerAttributes:
+        - Key: routing.http.drop_invalid_header_fields.enabled
+          Value: true
+        - Key: access_logs.s3.enabled
+          Value: true
+        - Key: access_logs.s3.bucket
+          Value: !ImportValue ELB-AccessLogsBucket
+
+  ApplicationLoadBalancerListener:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties:
+      Port: 443
+      Protocol: HTTPS
+      SslPolicy: ELBSecurityPolicy-TLS13-1-2-2021-06
+      LoadBalancerArn: !Ref ApplicationLoadBalancer
+      Certificates:
+        - CertificateArn:
+            Fn::ImportValue: !If [ Subdomain, DNS-SubdomainCertificateARN, DNS-SubdomainCertificateARN ]
+      DefaultActions:
+        - TargetGroupArn: !Ref ApplicationTargetGroup
+          Type: forward
+
+  ApplicationTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      Name: !Sub ${DeploymentName}-ecs-productpages
+      VpcId: !ImportValue VPC-ID
+      Port: !Ref ContainerPort
+      Protocol: HTTP
+      TargetType: ip
+
+  ApplicationSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !ImportValue VPC-ID
+      GroupDescription: Product Pages Frontend application load balancer
+      SecurityGroupIngress:
+        - Description: Allow secure traffic from the internet
+          CidrIp: 0.0.0.0/0     # Any IPv4 address
+          IpProtocol: tcp
+          FromPort: 443         # HTTPS
+          ToPort: 443
+      Tags:
+        - Key: Name
+          Value: !Sub ${DeploymentName}-frontend-application-load-balancer-productpages
+
+  ApplicationSecurityGroupEgress:
+    Type: AWS::EC2::SecurityGroupEgress
+    Properties:
+      GroupId: !GetAtt ApplicationSecurityGroup.GroupId
+      Description: Allow traffic to the frontend container service
+      DestinationSecurityGroupId: !GetAtt ContainerServiceSecurityGroup.GroupId
+      IpProtocol: tcp
+      FromPort: !Ref ContainerPort
+      ToPort: !Ref ContainerPort
+
+  #--- Logging ---#
+
+  AccessLogsBucket:
+    # checkov:skip=CKV_AWS_18:Ensure the S3 bucket has access logging enabled
+    # checkov:skip=CKV_AWS_21:Ensure the S3 bucket has versioning enabled
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub
+        - ${DeploymentName}-application-access-logs-${ID}
+        - ID: !Select [ 0, !Split [ "-", !Select [ 2, !Split [ "/", !Ref AWS::StackId ] ] ] ]
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
+  AccessLogsBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref AccessLogsBucket
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: s3:PutObject
+            Resource: !Sub ${AccessLogsBucket.Arn}/AWSLogs/${AWS::AccountId}/*
+            Principal:
+              AWS: !FindInMap [ ElasticLoadBalancer, !Ref AWS::Region, AccountID ]
+
+  TxMASQSProducerAuditEventQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      MessageRetentionPeriod: 1209600 # 14 days in seconds
+      QueueName: !Sub '${AWS::StackName}-AuditEventQueue'
+      KmsMasterKeyId: !Ref TxMASQSProducerAuditEventQueueEncryptionKeyAlias
+      RedriveAllowPolicy:
+        redrivePermission: denyAll
+      RedrivePolicy:
+        deadLetterTargetArn: !GetAtt TxMAAuditEventDeadLetterQueue.Arn
+        maxReceiveCount: 10
+      Tags:
+        - Key: 'AuthoredBy'
+          Value: 'TxMA'
+        - Key: 'ProducerType'
+          Value: 'SQS'
+
+  TxMASQSProducerAuditEventQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - !Ref TxMASQSProducerAuditEventQueue
+      PolicyDocument:
+        Statement:
+          - Sid: 'AllowReadByTxMAAccount'
+            Effect: Allow
+            Principal:
+              AWS: !FindInMap [ TxMAAccountARN, Environment, !Ref 'Environment' ]
+            Action:
+              - 'sqs:ChangeMessageVisibility'
+              - 'sqs:ReceiveMessage'
+              - 'sqs:DeleteMessage'
+              - 'sqs:GetQueueAttributes'
+            Resource: !GetAtt TxMASQSProducerAuditEventQueue.Arn
+
+  TxMASQSAllowQueuePolicy:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - !Ref TxMASQSProducerAuditEventQueue
+      PolicyDocument:
+        Statement:
+          - Sid: 'AllowAccessToAdmin'
+            Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action:
+              - 'sqs:ChangeMessageVisibility'
+              - 'sqs:ReceiveMessage'
+              - 'sqs:DeleteMessage'
+              - 'sqs:GetQueueAttributes'
+              - 'sqs:SendMessage'
+              - 'sqs:GetQueueUrl'
+            Resource: !GetAtt TxMASQSProducerAuditEventQueue.Arn
+
+  TxMAAuditEventDeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      MessageRetentionPeriod: 1209600 # 14 days in seconds
+      QueueName: !Sub '${AWS::StackName}-AuditEventDeadLetterQueue'
+      KmsMasterKeyId: !Ref TxMASQSProducerAuditEventQueueEncryptionKeyAlias
+      Tags:
+        - Key: 'AuthoredBy'
+          Value: 'TxMA'
+        - Key: 'ProducerType'
+          Value: 'SQS'
+
+  TxMASQSProducerAuditEventQueueEncryptionKey:
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Symmetric key used to encrypt TxMA audit messages at rest in SQS
+      EnableKeyRotation: true
+      KeySpec: SYMMETRIC_DEFAULT
+      KeyPolicy:
+        Version: '2012-10-17'
+        Statement:
+          - Sid: 'Enable root account access'
+            Effect: Allow
+            Principal:
+              AWS: !Sub 'arn:aws:iam::${AWS::AccountId}:root'
+            Action:
+              - 'kms:*'
+            Resource: '*'
+          - Sid: 'Allow Lambda Access'
+            Effect: Allow
+            Principal:
+              Service: 'lambda.amazonaws.com'
+            Action:
+              - kms:Encrypt
+              - kms:Decrypt
+              - kms:ReEncrypt
+              - kms:GenerateDataKey
+            Resource: '*'
+          - Sid: 'Allow decryption of events by TxMA'
+            Effect: Allow
+            Principal:
+              AWS: !FindInMap [ TxMAAccountARN, Environment, !Ref 'Environment' ]
+            Action:
+              - 'kms:decrypt'
+            Resource: '*'
+      Tags:
+        - Key: 'AuthoredBy'
+          Value: 'TxMA'
+        - Key: 'ProducerType'
+          Value: 'SQS'
+
+  TxMASQSProducerAuditEventQueueEncryptionKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: !Sub alias/${AWS::StackName}/AuditEventEncryptionKey
+      TargetKeyId: !Ref TxMASQSProducerAuditEventQueueEncryptionKey
+
+  KMSARNParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub '/${AWS::StackName}/KMSARN'
+      Type: String
+      Value: !Sub '${TxMASQSProducerAuditEventQueueEncryptionKey.Arn}'
+      Description: ARN of the KMS key used for encryption.
+      Tags:
+        AuthoredBy: TxMA
+        ProducerType: SQS
+
+  SQSQueueARNParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub '/${AWS::StackName}/QueueARN'
+      Type: String
+      Value: !Sub '${TxMASQSProducerAuditEventQueue.Arn}'
+      Description: ARN of the queue to submit events to.
+      Tags:
+        AuthoredBy: TxMA
+        ProducerType: SQS
+
+  SQSQueueNameParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub '/${AWS::StackName}/QueueName'
+      Type: String
+      Value: !Sub '${TxMASQSProducerAuditEventQueue.QueueName}'
+      Description: Name of the queue to submit events to.
+      Tags:
+        AuthoredBy: TxMA
+        ProducerType: SQS
+
+  SQSQueueURLParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub '/${AWS::StackName}/QueueURL'
+      Type: String
+      Value: !Sub '${TxMASQSProducerAuditEventQueue.QueueUrl}'
+      Description: URL of the queue to submit events to.
+      Tags:
+        AuthoredBy: TxMA
+        ProducerType: SQS
+
+  FrontendWebAcl:
+    Type: 'AWS::WAFv2::WebACL'
+    Properties:
+      Name: !Sub '${AWS::StackName}-${Environment}-acl'
+      Scope: REGIONAL
+      Description: Web ACL for Application Load Balancer
+      DefaultAction:
+        Allow:
+          CustomRequestHandling:
+            InsertHeaders:
+              - Name: info
+                Value: waf-allowed
+      VisibilityConfig:
+        SampledRequestsEnabled: true
+        CloudWatchMetricsEnabled: true
+        MetricName: !Sub '${AWS::StackName}-${Environment}-metric'
+      Tags:
+        - Key: Name
+          Value: !Sub '${AWS::StackName}-${Environment}'
+      Rules:
+        - Name: AWS-CRS
+          Priority: 0
+          Statement:
+            ManagedRuleGroupStatement:
+              VendorName: AWS
+              Name: AWSManagedRulesCommonRuleSet
+              ExcludedRules:
+                - Name: CrossSiteScripting_BODY
+                - Name: CrossSiteScripting_COOKIE
+                - Name: CrossSiteScripting_QUERYARGUMENTS
+                - Name: CrossSiteScripting_URIPATH
+                - Name: EC2MetaDataSSRF_BODY
+                - Name: EC2MetaDataSSRF_COOKIE
+                - Name: EC2MetaDataSSRF_QUERYARGUMENTS
+                - Name: EC2MetaDataSSRF_URIPATH
+                - Name: GenericLFI_BODY
+                - Name: GenericLFI_QUERYARGUMENTS
+                - Name: GenericLFI_URIPATH
+                - Name: GenericRFI_BODY
+                - Name: GenericRFI_QUERYARGUMENTS
+                - Name: GenericRFI_URIPATH
+                - Name: NoUserAgent_HEADER
+                - Name: RestrictedExtensions_QUERYARGUMENTS
+                - Name: RestrictedExtensions_URIPATH
+                - Name: SizeRestrictions_BODY
+                - Name: SizeRestrictions_Cookie_HEADER
+                - Name: SizeRestrictions_QUERYSTRING
+                - Name: SizeRestrictions_URIPATH
+                - Name: UserAgent_BadBots_HEADER
+          OverrideAction:
+            None: {}
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: !Sub '${AWS::StackName}-${Environment}-aws-crs-metric'
+        - Name: Bad-Inputs
+          Priority: 1
+          Statement:
+            ManagedRuleGroupStatement:
+              VendorName: AWS
+              Name: AWSManagedRulesKnownBadInputsRuleSet
+              ExcludedRules:
+                - Name: ExploitablePaths_URIPATH
+                - Name: Host_localhost_HEADER
+                - Name: JavaDeserializationRCE_BODY
+                - Name: JavaDeserializationRCE_HEADER
+                - Name: JavaDeserializationRCE_QUERYSTRING
+                - Name: JavaDeserializationRCE_URIPATH
+                # - Name: Log4JRCE
+                - Name: PROPFIND_METHOD
+          OverrideAction:
+            None: {}
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: !Sub '${AWS::StackName}-${Environment}-bad-inputs-metric'
+        - Name: Anonymous-IpList
+          Priority: 2
+          Statement:
+            ManagedRuleGroupStatement:
+              VendorName: AWS
+              Name: AWSManagedRulesAnonymousIpList
+              ExcludedRules:
+                - Name: AnonymousIPList
+                - Name: HostingProviderIPList
+          OverrideAction:
+            None: {}
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: !Sub '${AWS::StackName}-${Environment}-anonymous-iplist-metric'
+        - Name: SQLInject-RuleSet
+          Priority: 3
+          Statement:
+            ManagedRuleGroupStatement:
+              VendorName: AWS
+              Name: AWSManagedRulesSQLiRuleSet
+              ExcludedRules:
+                - Name: SQLiExtendedPatterns_QUERYARGUMENTS
+                - Name: SQLi_BODY
+                - Name: SQLi_COOKIE
+                - Name: SQLi_QUERYARGUMENTS
+                - Name: SQLi_URIPATH
+          OverrideAction:
+            None: {}
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: !Sub '${AWS::StackName}-${Environment}-SQLinjection-ruleset-metric'
+        - Name: RateBased-CountIpRule
+          Priority: 4
+          Statement:
+            RateBasedStatement:
+              Limit: 100
+              AggregateKeyType: IP
+          Action:
+            Count: { }
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: true
+            MetricName: !Sub "${AWS::StackName}-${Environment}-RateBased-CountIp-ruleset-metric"
+            SampledRequestsEnabled: true
+
+  FrontendWebACLAssociation:
+    Type: AWS::WAFv2::WebACLAssociation
+    Properties:
+      ResourceArn: !Sub
+        - '${ResourceArn}'
+        - ResourceArn: !Ref ApplicationLoadBalancer
+      WebACLArn: !Sub
+        - '${WebACLArn}'
+        - WebACLArn: !GetAtt FrontendWebAcl.Arn
+
+  #--- DNS ---#
+
+  DNSRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Type: A
+      Name: !Sub
+        - productpages.${Name}${Domain}
+        - Name: !If [ Subdomain, !Sub "${DeploymentName}.", ""]
+          Domain: !ImportValue DNS-Domain
+      HostedZoneId: !ImportValue DNS-HostedZoneID
+      AliasTarget:
+        DNSName: !GetAtt ApplicationLoadBalancer.DNSName
+        HostedZoneId: !GetAtt ApplicationLoadBalancer.CanonicalHostedZoneID
+        EvaluateTargetHealth: false
+
+Outputs:
+  AdminToolURL:
+    Value: !Sub https://${DNSRecord}
+  KMSARN:
+    Description: 'ARN of the KMS key used for encryption.'
+    Value: !Sub '${TxMASQSProducerAuditEventQueueEncryptionKey.Arn}'
+    Export:
+      Name: !Sub '${AWS::StackName}-KMSARN'
+  QueueARN:
+    Description: 'ARN of the queue to submit events to.'
+    Value: !Sub '${TxMASQSProducerAuditEventQueue.Arn}'
+    Export:
+      Name: !Sub '${AWS::StackName}-QueueARN'
+  QueueName:
+    Description: 'Name of the queue to submit events to.'
+    Value: !Sub '${TxMASQSProducerAuditEventQueue.QueueName}'
+    Export:
+      Name: !Sub '${AWS::StackName}-QueueName'
+  QueueURL:
+    Description: 'URL of the queue to submit events to.'
+    Value: !Sub '${TxMASQSProducerAuditEventQueue.QueueUrl}'
+    Export:
+      Name: !Sub '${AWS::StackName}-QueueURL'
