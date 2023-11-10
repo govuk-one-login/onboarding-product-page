@@ -1,0 +1,71 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "How users can prove their identity" %}
+{% set headerNavigationActiveItem = "about" %}
+{% set sideNav = {name: "about", active: "how-users-can-prove-their-identity"} %}
+{% set breadcrumbs = breadcrumbs([{text: "About GOV.UK One Login", href: "/about"}]) %}
+
+{% block mainContent %}
+  <h1 class="govuk-heading-l">How users can prove their identity</h1>
+  <p class="govuk-body">There are multiple ways we can check a user’s identity. Users need to both:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>say who they are, for example by telling us their name, date birth and recent address history</li>
+    <li>prove that they are that person, for example making sure they look like their picture on their photo ID, or answering some security questions</li>
+  </ul>
+  <h2 class="govuk-heading-m">Evidence users can provide</h2>
+  <p class="govuk-body">The evidence a user can provide determines the route the user takes through GOV.UK One Login and how they prove their identity.</p>
+  <p class="govuk-body">Users can currently prove their identity with GOV.UK One Login using their:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>web browser and the GOV.UK ID Check app</li>
+    <li>web browser and at the Post Office</li>
+    <li>web browser to answer security questions</li>
+  </ul>
+  <h2 class="govuk-heading-m">Using the GOV.UK ID Check app</h2>
+  <p class="govuk-body">Users can prove their identity using the GOV.UK ID Check app.</p>
+  <p class="govuk-body">We’ll check that:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>their ID documents are real</li>
+    <li>they’re a real person (also known as a ‘liveness’ check)</li>
+    <li>they’re the same person as in the document photos (also known as a ‘likeness’ check)</li>
+  </ul>
+  <p class="govuk-body">Users will need one of the following types of photo ID:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>UK or Northern Ireland photocard driving licence</li>
+    <li>any passport with a biometric chip</li>
+    <li>UK biometric residence permit (BRP)</li>
+    <li>UK biometric residence card (BRC)</li>
+    <li>UK Frontier Worker permit</li>
+  </ul>
+  <h2 class="govuk-heading-m">Online and at a Post Office</h2>
+  <p class="govuk-body">Users will be asked to:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>enter details from their photo ID on GOV.UK</li>
+    <li>go to a Post Office to have their photo ID scanned</li>
+  </ul>
+  <p class="govuk-body">Users will need one of the following types of photo ID:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>UK passport</li>
+    <li>non-UK passport</li>
+    <li>UK or Northern Ireland photocard driving licence</li>
+    <li>European Union (EU) photocard driving licence</li>
+    <li>UK biometric residence permit (BRP)</li>
+    <li>national identity photocard from an EU country, Norway, Iceland or Liechtenstein</li>
+  </ul>
+  <h2 class="govuk-heading-m">Answering security questions online</h2>
+  <p class="govuk-body">Users answer security questions online (also known as knowledge-based verification questions) about things like their mobile phone contract and bank account.</p>
+  <p class="govuk-body">The questions asked are based on their credit record and are answers only they should know.</p>
+  <p class="govuk-body">Users will need one of the following types of photo ID:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>UK passport</li>
+    <li>UK or Northern Ireland photocard driving licence</li>
+  </ul>
+  <h2 class="govuk-heading-m">Users who cannot prove their identity</h2>
+  <p class="govuk-body">Right now, GOV.UK One Login lets users prove their identity using a limited range of evidence, and doesn’t offer a completely offline route. This means it does not work for everyone yet.</p>
+  <p class="govuk-body">We’re continuing to work on how to make the service more inclusive. In future we'll:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>expand the types of evidence we accept so people can prove their identity without needing a photo ID</li>
+    <li>add security questions from more sources, such as other government departments, so users with limited credit records can answer those questions</li>
+  </ul>
+  <p class="govuk-body">You'll need to decide how to handle users who cannot use GOV.UK One Login, for example by offering them another way to prove their identity.</p>
+{% endblock %}

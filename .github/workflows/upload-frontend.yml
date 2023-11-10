@@ -1,0 +1,38 @@
+name: Upload Frontend to secure pipelines
+
+on:
+  workflow_call:
+    inputs:
+      environment: { required: true, type: string }
+      artifact-name: { required: true, type: string }
+
+concurrency: deploy-product-frontend-secure-pipelines-${{ inputs.environment }}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ steps.deploy.outputs.pipeline-url }}
+
+    steps:
+      - name: Deploy Product
+        id: deploy-product
+        uses: govuk-one-login/github-actions/secure-pipelines/deploy-fargate@407381405d22479808a226de506ad19ba22fd3f5
+        timeout-minutes: 20
+        with:
+          aws-role-arn: ${{ vars.PRODUCT_PAGES_FRONTEND_DEPLOYMENT_ROLE_ARN }}
+          artifact-bucket-name: ${{ vars.PRODUCT_PAGES_FRONTEND_ARTIFACT_SOURCE_BUCKET_NAME }}
+          container-signing-key-arn: ${{ vars.PRODUCT_PAGES_CONTAINER_SIGNING_KEY_ARN }}
+          ecr-repository: ${{ vars.PRODUCT_PAGES_FRONTEND_ECR_REPOSITORY_NAME }}
+          pipeline-name: ${{ vars.PRODUCT_PAGES_FRONTEND_PIPELINE_NAME }}
+          dockerfile: Dockerfile
+          template: infrastructure/frontend/frontend.template.yml
+          artifact-name: ${{ inputs.artifact-name }}
+          artifact-path: express/dist

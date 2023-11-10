@@ -2,22 +2,13 @@
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
 
 {% set pageTitle = "Accessibility statement" %}
-{% set breadcrumbs = breadcrumbs(currentPageName = pageTitle) %}
+{% set breadcrumbs = breadcrumbs(currentPageName = "Accessibility statement for the GOV.UK One Login website") %}
 
 {% block mainContent %}
-  <h1 class="govuk-heading-l">
-    Accessibility statement for GOV.UK One Login
-  </h1>
+  <h1 class="govuk-heading-l">Accessibility statement for the GOV.UK One Login website</h1>
 
-  <p class="govuk-body">
-    GOV.UK One Login is part of the wider GOV.UK website. There’s a separate accessibility statement for the main GOV.UK website.
-  </p>
-
-  <p class="govuk-body">
-    This accessibility statement only contains information about the
-    <a href="/" class="govuk-link">GOV.UK One Login website</a>.
-  </p>
-
+  <p class="govuk-body">GOV.UK One Login and the GOV.UK One Login admin tool are part of the wider GOV.UK website. There’s a separate accessibility statement for the main GOV.UK website.</p>
+  <p class="govuk-body">This accessibility statement only contains information about the <a href="/" class="govuk-link"> GOV.UK One Login website</a> and the <a href="https://admin.sign-in.service.gov.uk/">GOV.UK One Login admin tool</a>.</p>
   <p class="govuk-body">
     This accessibility statement explains:
   <ul class="govuk-list govuk-list--bullet">
@@ -56,7 +47,7 @@
   </h2>
 
   <p class="govuk-body">
-    The GOV.UK One Login website was last tested on 4 October 2021. The test was carried out by the Digital Accessibility Centre (DAC), who produced an accessibility audit report on 13 October 2021.
+    The GOV.UK One Login website was last tested in July 2022. The test was carried out by the Digital Accessibility Centre (DAC), who produced an accessibility audit report on 13 October 2021.
   </p>
 
   <p class="govuk-body">
@@ -64,7 +55,7 @@
   </p>
 
   <p class="govuk-body">
-    Since then we have continued to carry out manual testing against WCAG 2.1.
+    The GOV.UK One Login admin tool was last tested in October 2022 by the GOV.UK One Login programme. We carried out automated and manual testing against the Web Content Accessibility Guidelines WCAG 2.1.
   </p>
 
   <h2 class="govuk-heading-m">
@@ -79,11 +70,22 @@
     This included:
   <ul class="govuk-list govuk-list--bullet">
     <li>making link text more descriptive</li>
-    <li>marking fields in our registration form as optional</li>
+    <li>labelling form fields correctly</li>
+    <li>fixing some ‘skip’ links that did not take users to the correct destination</li>
   </ul>
   </p>
 
-   <p class="govuk-body">
+
+  <p class="govuk-body">On the GOV.UK One Login admin tool, following our own internal testing, we have fixed outstanding A and AA issues.</p>
+
+  <p class="govuk-body">This included:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>making it clear when a user is activating, hovering or focusing over the ‘Show password’ button </li>
+    <li>adding a linked error message and error summary to the Redirect URI field on the ‘Change your redirect URIs’ page</li>
+  </ul>
+
+
+  <p class="govuk-body">
     We are continuing to look at fixing the accessibility issues on the 
     <a href="https://status.account.gov.uk/" class="govuk-link">GOV.UK One Login's status page</a> which 
     was added in May 2023. You can <a href="#non-compliances-section" class="govuk-link">
@@ -189,6 +191,6 @@
   </h2>
 
   <p class="govuk-body">
-    This statement was prepared on 16 May 2023. It was last reviewed on 16 May 2023.
+    This statement was prepared on 16 May 2023. It was last reviewed on 18 October 2023.
   </p>
 {% endblock %}
