@@ -5,7 +5,7 @@ Transform: AWS::LanguageExtensions
 Parameters:
   ImageURI:
     Type: String
-    Default: "494650018671.dkr.ecr.eu-west-2.amazonaws.com/self-service/frontend:64f1f66e9e18532faccc3c1fcf127dc57cb8044b"
+    Default: ""
     Description: The URI of the ECR image to use for the container
   ContainerPort:
     Type: Number
@@ -73,7 +73,7 @@ Resources:
       Family: !Sub ${DeploymentName}-product
       NetworkMode: awsvpc
       ContainerDefinitions:
-        - Name: self-service-product
+        - Name: self-service-paas
           Image: !Ref ImageURI
           ReadonlyRootFilesystem: false
           Environment:
@@ -201,7 +201,7 @@ Resources:
   FargateCluster:
     Type: AWS::ECS::Cluster
     Properties:
-      ClusterName: !Sub ${DeploymentName}-product
+      ClusterName: !Sub ${DeploymentName}-paas
       ClusterSettings:
         - Name: containerInsights
           Value: enabled
@@ -210,14 +210,14 @@ Resources:
     Type: AWS::ECS::Service
     DependsOn: ApplicationLoadBalancerListener
     Properties:
-      ServiceName: self-service-product
+      ServiceName: self-service-paas
       Cluster: !GetAtt FargateCluster.Arn
       TaskDefinition: !Ref TaskDefinition
       PropagateTags: SERVICE
       LaunchType: FARGATE
       DesiredCount: 1
       LoadBalancers:
-        - ContainerName: self-service-product
+        - ContainerName: self-service-paas
           ContainerPort: !Ref ContainerPort
           TargetGroupArn: !Ref ApplicationTargetGroup
       NetworkConfiguration:
@@ -238,7 +238,7 @@ Resources:
           ToPort: !Ref ContainerPort
       Tags:
         - Key: Name
-          Value: !Sub ${DeploymentName}-frontend-container-service-product
+          Value: !Sub ${DeploymentName}-frontend-container-service-paas
 
   #--- Application load balancing ---#
 
@@ -247,7 +247,7 @@ Resources:
     Properties:
       Type: application
       Scheme: internet-facing
-      Name: !Sub ${DeploymentName}-app-product
+      Name: !Sub ${DeploymentName}-app-paas
       Subnets: !Split [ ",", !ImportValue VPC-InternetSubnets ]
       SecurityGroups: [ !Ref ApplicationSecurityGroup ]
       LoadBalancerAttributes:
@@ -275,7 +275,7 @@ Resources:
   ApplicationTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: !Sub ${DeploymentName}-ecs-product
+      Name: !Sub ${DeploymentName}-ecs-paas
       VpcId: !ImportValue VPC-ID
       Port: !Ref ContainerPort
       Protocol: HTTP
@@ -294,7 +294,7 @@ Resources:
           ToPort: 443
       Tags:
         - Key: Name
-          Value: !Sub ${DeploymentName}-frontend-application-load-balancer-product
+          Value: !Sub ${DeploymentName}-frontend-application-load-balancer-paas
 
   ApplicationSecurityGroupEgress:
     Type: AWS::EC2::SecurityGroupEgress
@@ -631,7 +631,7 @@ Resources:
     Properties:
       Type: A
       Name: !Sub
-        - product.${Domain}
+        - ${Name}${Domain}
         - Name: !If [ Subdomain, !Sub "${DeploymentName}.", ""]
           Domain: !ImportValue DNS-Domain
       HostedZoneId: !ImportValue DNS-HostedZoneID

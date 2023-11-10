@@ -21,6 +21,7 @@ while [[ -n $1 ]]; do
     -o | --params | --parameters | --parameter-overrides)
       while [[ $2 ]] && ! [[ $2 =~ $OPTION_REGEX ]]; do
         shift && PARAMS+=("$1")
+        shift
       done
       ;;
     -s3 | --prefix | --s3-prefix) shift && S3_PREFIX=$1 ;;
@@ -102,7 +103,7 @@ sam deploy \
   ${TEMPLATE:+--template "$TEMPLATE"} \
   ${FORCE_UPLOAD:+--force-upload} \
   ${TAGS:+--tags "${TAGS[@]}"} \
-  #${PARAMS:+--parameter-overrides "${PARAMS[@]}"} \
+  ${PARAMS:+--parameter-overrides "${PARAMS[@]}"} \
   ${CONFIG_FILE:+--config-file "$CONFIG_FILE"} \
   ${CONFIG_ENV:+--config-env "$CONFIG_ENV"} \
   ${GUIDED:+--guided}

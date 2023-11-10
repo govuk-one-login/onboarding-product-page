@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: Self-Service DNS and domain configuration
+Description: PaaS DNS and domain configuration
 
 Parameters:
   Domain:
@@ -24,22 +24,16 @@ Parameters:
     Default: ""
 
 Conditions:
+  Subdomain: !Equals [ !Ref Subdomain, "development" ]
   Subdomain: !Not [ !Condition TopNode ]
-  TopNode: !Equals [ !Ref Subdomain, "" ]
-  DevelopmentNameServers: !Not [ !Equals [ !Join [ "", !Ref 
-DevelopmentNameServers ], "" ] ]
-  BuildNameServers: !Not [ !Equals [ !Join [ "", !Ref BuildNameServers ], 
-"" ] ]
-  StagingNameServers: !Not [ !Equals [ !Join [ "", !Ref StagingNameServers 
-], "" ] ]
-  IntegrationNameServers: !Not [ !Equals [ !Join [ "", !Ref 
-IntegrationNameServers ], "" ] ]
-  DelegateSubdomains: !And [ !Condition TopNode, !Condition 
-SubdomainNameServers ]
-  SubdomainNameServers: !Or [ !Condition DevelopmentNameServers, 
-!Condition BuildNameServers,
-                              !Condition StagingNameServers, !Condition 
-IntegrationNameServers ]
+  TopNode: !Equals [ !Ref Subdomain, "development" ]
+  DevelopmentNameServers: !Not [ !Equals [ !Join [ "", !Ref DevelopmentNameServers ], "" ] ]
+  BuildNameServers: !Not [ !Equals [ !Join [ "", !Ref BuildNameServers ], "" ] ]
+  StagingNameServers: !Not [ !Equals [ !Join [ "", !Ref StagingNameServers ], "" ] ]
+  IntegrationNameServers: !Not [ !Equals [ !Join [ "", !Ref IntegrationNameServers ], "" ] ]
+  DelegateSubdomains: !And [ !Condition TopNode, !Condition SubdomainNameServers ]
+  SubdomainNameServers: !Or [ !Condition DevelopmentNameServers, !Condition BuildNameServers,
+                              !Condition StagingNameServers, !Condition IntegrationNameServers ]
 
 Resources:
   ApexHostedZone:
@@ -54,41 +48,39 @@ Resources:
     Type: AWS::Route53::HostedZone
     Condition: Subdomain
     Properties:
-      Name: !Sub ${Domain}
+      Name: !Sub ${Subdomain}${Domain}
 
   EmailIdentity:
     Type: AWS::SES::EmailIdentity
     Properties:
-      EmailIdentity: !Sub product.${Domain}
+      EmailIdentity: !Sub product.${Subdomain}${Domain}
       DkimAttributes:
         SigningEnabled: true
 
   Certificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
-      DomainName: !Sub "product.${Domain}"
+      DomainName: !Sub "product.${Subdomain}${Domain}"
       ValidationMethod: DNS
       DomainValidationOptions:
-        - DomainName: !Sub "product.${Domain}"
+        - DomainName: !Sub "product.${Subdomain}${Domain}"
           HostedZoneId: !If [ TopNode, !Ref ApexHostedZone, !Ref SubdomainHostedZone ]
 
   WildcardCertificate:
     Type: AWS::CertificateManager::Certificate
     Condition: Subdomain
     Properties:
-      DomainName: !Sub "*.product.${Domain}"
+      DomainName: !Sub "*.admin.${Subdomain}${Domain}"
       ValidationMethod: DNS
       DomainValidationOptions:
-        - DomainName: !Sub "*.product.${Domain}"
+        - DomainName: !Sub "*.admin.${Subdomain}${Domain}"
           HostedZoneId: !If [ TopNode, !Ref ApexHostedZone, !Ref SubdomainHostedZone ]
 
   # The GOV.UK nameservers for service.gov.uk route traffic for
   # sign-in.service.gov.uk and all its subdomains to its zone apex.
   # The zone apex then routes requests to the appropriate targets.
-  # GOV.UK DNS 
-https://github.com/alphagov/govuk-dns-tf/blob/main/zones/service.gov.uk.yaml
-  # 
-https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html
+  # GOV.UK DNS https://github.com/alphagov/govuk-dns-tf/blob/main/zones/service.gov.uk.yaml
+  # https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html
   DomainApexRecords:
     Type: AWS::Route53::RecordSetGroup
     Condition: TopNode
@@ -99,8 +91,7 @@ https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-c
           Type: A
           AliasTarget:
             # Z2FDTNDATAQYW2 is the hosted zone for CloudFront
-            # 
-https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-aliastarget.html
+            # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-aliastarget.html
             HostedZoneId: Z2FDTNDATAQYW2
             DNSName: dbd28k6th0aos.cloudfront.net.  # PaaS CDN
             EvaluateTargetHealth: false
@@ -133,8 +124,7 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ro
           TTL: 172800
 
   # Delegating responsibility for subdomains to hosted zones
-  # 
-https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-routing-traffic-for-subdomains.html
+  # https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-routing-traffic-for-subdomains.html
   SubdomainDelegationRecords:
     Type: AWS::Route53::RecordSetGroup
     Condition: DelegateSubdomains
@@ -143,7 +133,7 @@ https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-routing-traffic-fo
       RecordSets:
         - !If
           - DevelopmentNameServers
-          - Name: !Sub development.${Domain}
+          - Name: !Sub product.${Domain}
             ResourceRecords: !Ref DevelopmentNameServers
             Type: NS
             TTL: 172800
@@ -194,7 +184,7 @@ https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-routing-traffic-fo
 
 Outputs:
   Domain:
-    Value: !Sub product.${Domain}
+    Value: !Sub product.${Subdomain}${Domain}
     Export:
       Name: DNS-Domain
   CertificateARN:
@@ -207,7 +197,7 @@ Outputs:
     Export:
       Name: DNS-SubdomainCertificateARN
   EmailIdentityARN:
-    Value: !Sub arn:${AWS::Partition}:ses:${AWS::Region}:${AWS::AccountId}:identity/.${Domain}
+    Value: !Sub arn:${AWS::Partition}:ses:${AWS::Region}:${AWS::AccountId}:identity/product.${Subdomain}${Domain}
     Export:
       Name: DNS-EmailIdentityARN
   HostedZoneID:
