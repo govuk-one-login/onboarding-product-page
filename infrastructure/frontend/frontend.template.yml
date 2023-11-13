@@ -55,6 +55,7 @@ Mappings:
 
 Conditions:
   Subdomain: !Not [ !Equals [ !Ref DeploymentName, self-service ] ]
+  NonDevEnv: !Equals [ !Ref DeploymentName, self-service ]
   UsePermissionsBoundary: !Not [ !Equals [ !Ref PermissionsBoundary, "" ] ]
 
 Resources:
@@ -222,7 +223,7 @@ Resources:
       LoadBalancerArn: !Ref ApplicationLoadBalancer
       Certificates:
         - CertificateArn:
-            Fn::ImportValue: !If [ Subdomain, DNS-SubdomainCertificateARN, DNS-SubdomainCertificateARN ]
+            Fn::ImportValue: DNS-wwwDomainCertificateARN
       DefaultActions:
         - TargetGroupArn: !Ref ApplicationTargetGroup
           Type: forward
@@ -586,14 +587,27 @@ Resources:
     Properties:
       Type: A
       Name: !Sub
-        - productpages.${Name}${Domain}
+        - ${Name}${Domain}
         - Name: !If [ Subdomain, !Sub "${DeploymentName}.", ""]
-          Domain: !ImportValue DNS-Domain
+          Domain: !If [ Subdomain, !ImportValue DNS-Domain, !ImportValue DNS-SignIn-Domain] 
       HostedZoneId: !ImportValue DNS-HostedZoneID
       AliasTarget:
         DNSName: !GetAtt ApplicationLoadBalancer.DNSName
         HostedZoneId: !GetAtt ApplicationLoadBalancer.CanonicalHostedZoneID
         EvaluateTargetHealth: false
+
+  WwwAliasRecord:
+    Type: AWS::Route53::RecordSet
+    Condition: NonDevEnv
+    DependsOn: DNSRecord
+    Properties:
+      Type: CNAME
+      TTL: 172800
+      Name: !Sub
+        - www.${Domain}
+        - Domain: !ImportValue DNS-SignIn-Domain
+      HostedZoneId: !ImportValue DNS-HostedZoneID
+      ResourceRecords: [ !ImportValue DNS-SignIn-Domain ]
 
 Outputs:
   AdminToolURL:
