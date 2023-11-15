@@ -1,9 +1,6 @@
 name: Build
 
-on:
-  push:
-    branches:
-      - 'SSE-3012'
+on: workflow_call
       
 permissions: read-all
 
