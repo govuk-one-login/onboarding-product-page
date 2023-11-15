@@ -38,3 +38,4 @@ jobs:
             assets/images
             package*.json
             manifest.yml
+
