@@ -1,6 +1,10 @@
 name: Build
 
-on: workflow_call
+on:
+  push:
+    branches:
+      - 'SSE-3012'
+      
 permissions: read-all
 
 concurrency:
