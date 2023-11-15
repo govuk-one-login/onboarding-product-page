@@ -41,4 +41,4 @@ jobs:
         with:
           name: ${{ inputs.artifact-name }}
           retention-days: 7
-          path: express/dist
+          path: express
