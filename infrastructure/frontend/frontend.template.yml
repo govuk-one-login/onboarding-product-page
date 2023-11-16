@@ -70,10 +70,10 @@ Resources:
       ExecutionRoleArn: !GetAtt ExecutionRole.Arn
       Cpu: 256
       Memory: 1024
-      Family: !Sub ${DeploymentName}-productpages-frontend
+      Family: !Sub ${DeploymentName}-productpage-frontend
       NetworkMode: awsvpc
       ContainerDefinitions:
-        - Name: productpages-frontend
+        - Name: productpage-frontend
           Image: !Ref ImageURI
           ReadonlyRootFilesystem: false
           Environment:
@@ -157,7 +157,7 @@ Resources:
   FargateCluster:
     Type: AWS::ECS::Cluster
     Properties:
-      ClusterName: !Sub ${DeploymentName}-productpages-frontend
+      ClusterName: !Sub ${DeploymentName}-productpage-frontend
       ClusterSettings:
         - Name: containerInsights
           Value: enabled
@@ -166,14 +166,14 @@ Resources:
     Type: AWS::ECS::Service
     DependsOn: ApplicationLoadBalancerListener
     Properties:
-      ServiceName: productpages-frontend
+      ServiceName: productpage-frontend
       Cluster: !GetAtt FargateCluster.Arn
       TaskDefinition: !Ref TaskDefinition
       PropagateTags: SERVICE
       LaunchType: FARGATE
       DesiredCount: 1
       LoadBalancers:
-        - ContainerName: productpages-frontend
+        - ContainerName: productpage-frontend
           ContainerPort: !Ref ContainerPort
           TargetGroupArn: !Ref ApplicationTargetGroup
       NetworkConfiguration:
@@ -194,7 +194,7 @@ Resources:
           ToPort: !Ref ContainerPort
       Tags:
         - Key: Name
-          Value: !Sub ${DeploymentName}-frontend-container-service-productpages
+          Value: !Sub ${DeploymentName}-frontend-container-service-productpage
 
   #--- Application load balancing ---#
 
@@ -203,7 +203,7 @@ Resources:
     Properties:
       Type: application
       Scheme: internet-facing
-      Name: !Sub ${DeploymentName}-app-productpages
+      Name: !Sub ${DeploymentName}-app-productpage
       Subnets: !Split [ ",", !ImportValue VPC-InternetSubnets ]
       SecurityGroups: [ !Ref ApplicationSecurityGroup ]
       LoadBalancerAttributes:
@@ -231,7 +231,7 @@ Resources:
   ApplicationTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: !Sub ${DeploymentName}-ecs-productpages
+      Name: !Sub ${DeploymentName}-ecs-productpage
       VpcId: !ImportValue VPC-ID
       Port: !Ref ContainerPort
       Protocol: HTTP
@@ -250,7 +250,7 @@ Resources:
           ToPort: 443
       Tags:
         - Key: Name
-          Value: !Sub ${DeploymentName}-frontend-application-load-balancer-productpages
+          Value: !Sub ${DeploymentName}-frontend-application-load-balancer-productpage
 
   ApplicationSecurityGroupEgress:
     Type: AWS::EC2::SecurityGroupEgress
