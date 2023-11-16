@@ -85,16 +85,6 @@ router.get("/about/checking-users-identities", (req, res) => {
 });
 
 router.get("/about/signed-in-experience", (req, res) => {
-    console.log("----- Migration data START -----");
-    console.log("REGISTER_SPREADSHEET_ID: ", process.env.REGISTER_SPREADSHEET_ID);
-    console.log("VCAP_SERVICES: ", process.env.VCAP_SERVICES);
-    console.log("ZENDESK_GROUP_ID: ", process.env.ZENDESK_GROUP_ID);
-    console.log("ZENDESK_USERNAME: ", process.env.ZENDESK_USERNAME);
-    console.log("ZENDESK_API_TOKEN: ", process.env.ZENDESK_API_TOKEN);
-    console.log("SHOW_TEST_BANNER: ", process.env.SHOW_TEST_BANNER);
-    console.log("GOOGLE_TAG_ID: ", process.env.GOOGLE_TAG_ID);
-    console.log("USE_STUB_ZENDESK: ", process.env.USE_STUB_ZENDESK);
-    console.log("------ Migration data END -----");
     res.render("about/signed-in-experience.njk");
 });
 
