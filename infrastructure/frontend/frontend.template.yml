@@ -79,10 +79,12 @@ Resources:
           Environment:
             - Name: PORT
               Value: !Ref ContainerPort
-            - Name: TEST_BANNER
+            - Name: SHOW_TEST_BANNER
               Value: !Ref ShowTestBanner
             - Name: GOOGLE_TAG_ID
               Value: !Ref GoogleTagID
+            - Name: ADMIN_TOOL_URL
+              Value: "{{resolve:ssm:/product-pages/frontend/admin-tool-url}}"
             - Name: USE_STUB_SHEETS
               Value: "{{resolve:ssm:/product-pages/frontend/use-stub-sheets}}"
             - Name: REGISTER_SHEET_DATA_RANGE

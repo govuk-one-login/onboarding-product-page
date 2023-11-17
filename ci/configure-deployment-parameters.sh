@@ -21,6 +21,8 @@ declare -A PARAMETERS=(
   [use_stub_zendesk]=$PARAMETER_NAME_PREFIX/frontend/use-stub-zendesk
   [vcap_services]=$PARAMETER_NAME_PREFIX/frontend/vcap-services
   [google_tag_id]=$PARAMETER_NAME_PREFIX/frontend/google-tag-id
+  [admin_tool_url]=$PARAMETER_NAME_PREFIX/frontend/admin-tool-url
+  [show_test_banner]=$PARAMETER_NAME_PREFIX/frontend/show-test-banner
 
 )
 
@@ -66,6 +68,10 @@ function check-frontend-params {
   check-parameter-set "${parameter}" || write-parameter-value "$parameter" "{}"
   parameter=${PARAMETERS[google_tag_id]}
   check-parameter-set "${parameter}" || write-parameter-value "$parameter" "GTM-W38DXV2"
+  parameter=${PARAMETERS[show_test_banner]}
+  check-parameter-set "${parameter}" || write-parameter-value "$parameter" "$([[ $ACCOUNT == production ]] && echo false || echo true)"
+  parameter=${PARAMETERS[admin_tool_url]}
+  check-parameter-set "${parameter}" || write-parameter-value "$parameter" "https://admin.sign-in.service.gov.uk"
 
 }
 
