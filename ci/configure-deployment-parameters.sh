@@ -5,7 +5,7 @@ set -eu
 
 ./aws.sh get-current-account-name
 PARAMETER_NAME_PREFIX=/product-pages
-MANUAL_SECRETS=(zendesk_api_token)
+MANUAL_SECRETS=(zendesk_api_token zendesk_group_id zendesk_username register_spreadsheet_id vcap_services)
 
 declare -A PARAMETERS=(
 
@@ -19,8 +19,9 @@ declare -A PARAMETERS=(
   [zendesk_tag_one_login_admin_tool]=$PARAMETER_NAME_PREFIX/frontend/zendesk-tag-one-login-admin-tool
   [test_banner]=$PARAMETER_NAME_PREFIX/frontend/show-test-banner
   [use_stub_zendesk]=$PARAMETER_NAME_PREFIX/frontend/use-stub-zendesk
-  [vcap_services]=$PARAMETER_NAME_PREFIX/frontend/vcap-services
   [google_tag_id]=$PARAMETER_NAME_PREFIX/frontend/google-tag-id
+  [admin_tool_url]=$PARAMETER_NAME_PREFIX/frontend/admin-tool-url
+  [show_test_banner]=$PARAMETER_NAME_PREFIX/frontend/show-test-banner
 
 )
 
@@ -32,6 +33,8 @@ declare -A SECRETS=(
   # spreadsheet
   [register_spreadsheet_id]=$PARAMETER_NAME_PREFIX/frontend/register-spreadsheet-id
   [mailing_list_spreadsheet_id]=$PARAMETER_NAME_PREFIX/frontend/mailing-list-spreadsheet-id
+  #  vcap
+  [vcap_services]=$PARAMETER_NAME_PREFIX/frontend/vcap-services
 
 )
 
@@ -62,10 +65,12 @@ function check-frontend-params {
   check-parameter-set "${parameter}" || write-parameter-value "$parameter" "true"
   parameter=${PARAMETERS[use_stub_zendesk]}
   check-parameter-set "${parameter}" || write-parameter-value "$parameter" "true"
-  parameter=${PARAMETERS[vcap_services]}
-  check-parameter-set "${parameter}" || write-parameter-value "$parameter" "{}"
   parameter=${PARAMETERS[google_tag_id]}
-  check-parameter-set "${parameter}" || write-parameter-value "$parameter" "GTM-W38DXV2"
+  check-parameter-set "${parameter}" || write-parameter-value "$parameter" "GTM-PFTQ6G2"
+  parameter=${PARAMETERS[show_test_banner]}
+  check-parameter-set "${parameter}" || write-parameter-value "$parameter" "$([[ $ACCOUNT == production ]] && echo false || echo true)"
+  parameter=${PARAMETERS[admin_tool_url]}
+  check-parameter-set "${parameter}" || write-parameter-value "$parameter" "https://admin.sign-in.service.gov.uk"
 
 }
 
