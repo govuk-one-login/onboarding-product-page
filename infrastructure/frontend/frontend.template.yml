@@ -589,7 +589,7 @@ Resources:
       Name: !Sub
         - ${Name}${Domain}
         - Name: !If [ Subdomain, !Sub "${DeploymentName}.", ""]
-          Domain: !If [ Subdomain, !ImportValue DNS-Domain, !ImportValue DNS-SignIn-Domain] 
+          Domain: !ImportValue DNS-SignIn-Domain
       HostedZoneId: !ImportValue DNS-HostedZoneID
       AliasTarget:
         DNSName: !GetAtt ApplicationLoadBalancer.DNSName
