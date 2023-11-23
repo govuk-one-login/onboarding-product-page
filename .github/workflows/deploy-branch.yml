@@ -1,24 +1,37 @@
-name: Deploy branch
+name: Preview
+run-name: Deploy preview [${{ github.head_ref || github.ref_name }}]
 
-on: workflow_dispatch
-permissions: read-all
+on:
+  workflow_dispatch:
+  #pull_request:
+  push:
+    branches: [ main ]
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
-  build:
-    name: Build
-    uses: ./.github/workflows/build.yml
+  build-frontend:
+    name: build-Frontend
+    permissions: { }
+    uses: ./.github/workflows/build-frontend.yml
 
-  deploy-preview:
-    name: Preview
-    needs: build
-    uses: ./.github/workflows/deploy-to-paas.yml
+  push-frontend-image:
+    name: push-Frontend
+    needs: build-frontend
+    uses: ./.github/workflows/build-frontend-image.yml
     with:
-      environment: preview
-      cf-space-name: product-pages-preview
-      app-name-prefix: di-pp-prev
-      show-test-banner: true
-    secrets:
-      cf-username: ${{ secrets.CF_USERNAME }}
-      cf-password: ${{ secrets.CF_PASSWORD }}
-      register-spreadsheet-id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
-      mailing-list-spreadsheet-id: ${{ secrets.MAILING_LIST_SPREADSHEET_ID }}
+      artifact-name: ${{ needs.build-frontend.outputs.artifact-name }}
+
+  deploy-frontend:
+    name: deploy-Frontend
+    needs: [ push-frontend-image]
+    uses: ./.github/workflows/deploy-component.yml
+    with:
+      name: Frontend
+      deployment-url-output: ProductToolURL
+      template: infrastructure/frontend/frontend.template.yml
+      parameters: |
+        ImageURI=${{ needs.push-frontend-image.outputs.image-uri }}
+        LogGroupPrefix=/self-service/preview
