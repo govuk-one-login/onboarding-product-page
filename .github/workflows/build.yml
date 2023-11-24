@@ -1,6 +1,7 @@
 name: Build
 
 on: workflow_call
+      
 permissions: read-all
 
 concurrency:
@@ -38,3 +39,4 @@ jobs:
             assets/images
             package*.json
             manifest.yml
+
