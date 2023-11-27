@@ -22,7 +22,6 @@ jobs:
         uses: govuk-one-login/github-actions/beautify-branch-name@76002c5611dfa14b5874430ea85f4272cb8ee106
         id: get-stack-name
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           usage: Stack name
           prefix: preview-${{ inputs.component }}
           length-limit: 128
