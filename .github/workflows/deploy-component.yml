@@ -51,7 +51,7 @@ jobs:
           stack-name-prefix: preview-pp-${{ inputs.name }}
           artifact-name: ${{ inputs.artifact }}
           template: ${{ inputs.template }}
-          s3-prefix: sse-preview-pp
+          s3-prefix: sse-preview
           tags: |-
             sse:component=${{ inputs.name }}
             sse:stack-type=preview-pp
