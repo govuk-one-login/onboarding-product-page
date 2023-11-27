@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   # pull_request:
   push:
-    branches: [ test ]
+    branches: [ SSE-3012test ]
 
 permissions:
   id-token: write
