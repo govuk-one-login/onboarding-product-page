@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Get stack name
-        uses: govuk-one-login/github-actions/beautify-branch-name@76002c5611dfa14b5874430ea85f4272cb8ee106
+        uses: govuk-one-login/github-actions/beautify-branch-name@tests
         id: get-stack-name
         with:
           usage: Stack name
@@ -27,7 +27,7 @@ jobs:
           length-limit: 128
 
       - name: Delete stack
-        uses: govuk-one-login/github-actions/sam/delete-stacks@76002c5611dfa14b5874430ea85f4272cb8ee106
+        uses: govuk-one-login/github-actions/sam/delete-stacks@tests
         with:
           aws-role-arn: ${{ vars.DEPLOYMENT_ROLE_ARN }}
           stack-names: ${{ steps.get-stack-name.outputs.pretty-branch-name }}
