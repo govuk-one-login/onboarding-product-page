@@ -1,0 +1,33 @@
+name: Delete a SAM stack
+
+on:
+  workflow_call:
+    inputs:
+      component: { required: true, type: string }
+
+concurrency: deploy-${{ inputs.component }}-development-${{ github.head_ref || github.ref_name }}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Delete
+    runs-on: ubuntu-latest
+    environment: development
+
+    steps:
+      - name: Get stack name
+        uses: govuk-one-login/github-actions/beautify-branch-name@e5319de01c8d46c70f4d89d3e0fdde16ce94f97f
+        id: get-stack-name
+        with:
+          usage: Stack name
+          prefix: preview-${{ inputs.component }}
+          length-limit: 128
+
+      - name: Delete stack
+        uses: govuk-one-login/github-actions/sam/delete-stacks@e5319de01c8d46c70f4d89d3e0fdde16ce94f97f
+        with:
+          aws-role-arn: ${{ vars.DEPLOYMENT_ROLE_ARN }}
+          stack-names: ${{ steps.get-stack-name.outputs.pretty-branch-name }}
