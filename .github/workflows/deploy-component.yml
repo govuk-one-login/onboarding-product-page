@@ -36,8 +36,8 @@ jobs:
         uses: govuk-one-login/github-actions/beautify-branch-name@62863904d9aef239c1214f8e2d58577f38c9bb76
         id: get-deployment-name
         with:
-          length-limit: 28
-          prefix: preview-pp
+          length-limit: 26
+          prefix: preview
           verbose: false
 
       - name: Deploy stack
@@ -48,7 +48,7 @@ jobs:
           sam-deployment-bucket: ${{ vars.DEPLOYMENT_ARTIFACTS_BUCKET }}
           delete-failed-stack: ${{ !inputs.disable-rollback }}
           disable-rollback: ${{ inputs.disable-rollback }}
-          stack-name-prefix: preview-pp-${{ inputs.name }}
+          stack-name-prefix: preview-${{ inputs.name }}-pp
           artifact-name: ${{ inputs.artifact }}
           template: ${{ inputs.template }}
           s3-prefix: sse-preview
