@@ -37,7 +37,7 @@ jobs:
         id: get-deployment-name
         with:
           length-limit: 28
-          prefix: preview
+          prefix: preview-pp
           verbose: false
 
       - name: Deploy stack
@@ -48,13 +48,13 @@ jobs:
           sam-deployment-bucket: ${{ vars.DEPLOYMENT_ARTIFACTS_BUCKET }}
           delete-failed-stack: ${{ !inputs.disable-rollback }}
           disable-rollback: ${{ inputs.disable-rollback }}
-          stack-name-prefix: preview-${{ inputs.name }}
+          stack-name-prefix: preview-pp-${{ inputs.name }}
           artifact-name: ${{ inputs.artifact }}
           template: ${{ inputs.template }}
-          s3-prefix: sse-preview
+          s3-prefix: sse-preview-pp
           tags: |-
             sse:component=${{ inputs.name }}
-            sse:stack-type=preview
+            sse:stack-type=preview-pp
             sse:application=self-service
             sse:deployment-source=github-actions
           parameters: |-
