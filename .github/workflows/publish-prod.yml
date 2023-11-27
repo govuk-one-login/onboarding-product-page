@@ -1,0 +1,24 @@
+name: Publish Product pages to AWS (PROD)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ release ]
+
+permissions: read-all
+
+jobs:
+  build-frontend:
+    name: Build Frontend
+    uses: ./.github/workflows/build.yml
+
+  deploy-frontend:
+    name: Deploy Frontend
+    needs: [ build-frontend ]
+    uses: ./.github/workflows/upload-frontend.yml
+    permissions:
+      id-token: write
+      contents: read
+    with:
+      environment: build-secure-pipelines
+      artifact-name: ${{ needs.build-frontend.outputs.artifact-name || inputs.frontend-artifact }}
