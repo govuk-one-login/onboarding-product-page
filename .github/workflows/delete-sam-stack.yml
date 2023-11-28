@@ -23,7 +23,7 @@ jobs:
         id: get-stack-name
         with:
           usage: Stack name
-          prefix: preview-${{ inputs.component }}
+          prefix: preview-${{ inputs.component }}-pp
           length-limit: 128
 
       - name: Delete stack
