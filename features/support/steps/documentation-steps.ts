@@ -8,15 +8,19 @@ Then("the left-hand navigation menu is displayed", async function () {
     );
     assertElementFound(technicalDocumentation, "Technical documentation");
     const userJourneyMaps = await this.page.$x(
-        `//nav[@class="side-navigation"]/ul[contains(@class, "govuk-list")]//a[@href="/documentation/user-journeys"][text()="User journey maps"]`
+        `//nav[@class="side-navigation"]/ul[contains(@class, "govuk-list")]//a[@href="/documentation/user-journeys"][text()="Sign in user journey maps"]`
     );
-    assertElementFound(userJourneyMaps, "User journey maps");
+    assertElementFound(userJourneyMaps, "Sign in user journey maps");
+    const identityJourneys = await this.page.$x(
+        `//nav[@class="side-navigation"]/ul[contains(@class, "govuk-list")]//a[@href="/documentation/identity-journeys"][text()="Proving identity journey maps"]`
+    );
+    assertElementFound(identityJourneys, "Proving identity journey maps");
     const designRecommendations = await this.page.$x(
         `//nav[@class="side-navigation"]/ul[contains(@class, "govuk-list")]//a[@href="/documentation/design-recommendations"][contains(text(), "Design recommendations")]`
     );
     assertElementFound(designRecommendations, "Design recommendations");
 });
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function assertElementFound(element: any, description: string): void {
     assert.equal(element.length, 1, `Couldn't find ${description} link in menu`);
 }

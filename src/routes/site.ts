@@ -96,4 +96,8 @@ router.get("/about/checking-users-identities/evidence-types", (req, res) => {
     res.render("about/evidence-types.njk");
 });
 
+router.get("/documentation/identity-journeys", (req, res) => {
+    res.render("documentation-identity-journeys.njk");
+});
+
 export default router;
