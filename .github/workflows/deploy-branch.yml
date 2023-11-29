@@ -4,7 +4,7 @@ run-name: Deploy preview [${{ github.head_ref || github.ref_name }}]
 on:
   workflow_dispatch:
   pull_request:
-     types: [ open ]
+    types: [ open ]
 
 permissions:
   id-token: write
