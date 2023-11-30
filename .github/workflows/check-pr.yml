@@ -12,11 +12,11 @@ jobs:
     name: Build
     uses: ./.github/workflows/build-frontend.yml
 
-  push-frontend-image:
-    name: frontend
-    uses: ./.github/workflows/build-frontend-image.yml
-    with:
-      artifact-name: ${{ needs.build-frontend.outputs.artifact-name }}
+  #push-frontend-image:
+    #name: frontend
+    #uses: ./.github/workflows/build-frontend-image.yml
+    #with:
+      #artifact-name: ${{ needs.build-frontend.outputs.artifact-name }}
 
   run-unit-tests:
     name: Run tests
