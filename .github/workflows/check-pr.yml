@@ -37,3 +37,8 @@ jobs:
   run-unit-tests:
     name: Run tests
     uses: ./.github/workflows/run-unit-tests.yml
+
+  run-acceptance-tests:
+    name: run tests
+    needs: deploy-frontend
+    uses: ./.github/workflows/run-acceptance-tests.yml
