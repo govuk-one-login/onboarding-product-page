@@ -13,8 +13,8 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  id-token: read
-  contents: read
+  id-token: write
+  contents: write
 
 jobs:
   build:
