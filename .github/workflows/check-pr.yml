@@ -10,31 +10,8 @@ jobs:
 
   build:
     name: Build
-    uses: ./.github/workflows/build.yml
+    uses: ./.github/workflows/build-frontend.yml
 
   run-unit-tests:
     name: Run tests
     uses: ./.github/workflows/run-unit-tests.yml
-
-  deploy-preview:
-    name: Preview
-    needs: build
-    uses: ./.github/workflows/deploy-to-paas.yml
-    with:
-      environment: preview
-      cf-space-name: product-pages-preview
-      app-name-prefix: di-pp-prev
-      show-test-banner: true
-    secrets:
-      cf-username: ${{ secrets.CF_USERNAME }}
-      cf-password: ${{ secrets.CF_PASSWORD }}
-      register-spreadsheet-id: ${{ secrets.REGISTER_SPREADSHEET_ID }}
-      mailing-list-spreadsheet-id: ${{ secrets.MAILING_LIST_SPREADSHEET_ID }}
-
-  run-acceptance-tests:
-    name: Run tests
-    needs: deploy-preview
-    uses: ./.github/workflows/run-acceptance-tests.yml
-    with:
-      host: ${{ needs.deploy-preview.outputs.deployment-url }}
-      environment: ${{ needs.deploy-preview.outputs.environment }}
