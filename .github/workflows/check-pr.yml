@@ -12,6 +12,10 @@ jobs:
     name: Build
     uses: ./.github/workflows/build-frontend.yml
 
+  build-frontend-image:
+    name: Build-image
+    uses: ./.github/workflows/build-frontend-image.yml
+
   run-unit-tests:
     name: Run tests
     uses: ./.github/workflows/run-unit-tests.yml
