@@ -2,7 +2,7 @@ name: Unit tests
 
 on: workflow_call
 permissions: #read-all
-  id-token: read
+  id-token: write
   contents: read
 
 concurrency:
