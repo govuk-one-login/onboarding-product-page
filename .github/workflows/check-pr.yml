@@ -8,15 +8,17 @@ jobs:
     name: Code quality
     uses: ./.github/workflows/check-code-quality.yml
 
-  build:
-    name: Build
+  build-frontend:
+    name: build-Frontend
+    permissions: { }
     uses: ./.github/workflows/build-frontend.yml
 
-  #push-frontend-image:
-    #name: frontend
-    #uses: ./.github/workflows/build-frontend-image.yml
-    #with:
-      #artifact-name: ${{ needs.build-frontend.outputs.artifact-name }}
+  push-frontend-image:
+    name: push-Frontend
+    needs: build-frontend
+    uses: ./.github/workflows/build-frontend-image.yml
+    with:
+      artifact-name: ${{ needs.build-frontend.outputs.artifact-name }}
 
   run-unit-tests:
     name: Run tests
