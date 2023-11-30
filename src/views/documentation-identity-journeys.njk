@@ -1,0 +1,22 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "Proving identity journey maps" %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "identity-journeys"} %}
+{% set breadcrumbs = breadcrumbs([{text: "Documentation", href: "/documentation"}]) %}
+
+{% block mainContent %}
+  <h1 class="govuk-heading-l">Proving identity journey maps</h1>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-half">
+      <p class="govuk-body">We have detailed journey process maps which explain the end to end process of how your users flow through the entire GOV.UK One Login product.</p>
+      <p class="govuk-body">The process maps are split into all the different journey stages.</p>
+      <p class="govuk-body">They are designed to give you an overview of the end to end GOV.UK One Login journey.</p>
+      <p class="govuk-body govuk-!-font-weight-bold"><a href="https://www.figma.com/file/Blgax3iTYjKDkVYCP4G9HS/PROTOTYPE%3A-GOV.UK-One-Login-process-journey-maps?type=design&node-id=0%3A1&mode=design&t=S1eLlNPhFhiKPg9L-1" class="govuk-link" rel="noreferrer noopener" target="_blank">Go to proving identity journey maps (opens in a new tab)</a></p>
+    </div>
+    <div class="govuk-grid-column-one-half">
+      <img src="/assets/images/Journey-flows-thumbnail.png" alt=" " style="width: 100%; height: auto;">
+    </div>
+  </div>
+{% endblock %}
