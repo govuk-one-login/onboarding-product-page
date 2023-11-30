@@ -6,9 +6,9 @@ permissions:
   contents: read
 
 jobs:
-  #code-quality:
-    #name: Code quality
-    #uses: ./.github/workflows/check-code-quality.yml
+  code-quality:
+    name: Code quality
+    uses: ./.github/workflows/check-code-quality.yml
 
   build-frontend:
     name: build-Frontend
