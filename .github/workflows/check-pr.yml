@@ -42,3 +42,6 @@ jobs:
     name: run tests
     needs: deploy-frontend
     uses: ./.github/workflows/run-acceptance-tests.yml
+    with:
+      host: ${{ needs.deploy-preview.outputs.deployment-url }}
+      environment: ${{ needs.deploy-preview.outputs.environment }}
