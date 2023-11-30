@@ -12,7 +12,7 @@ jobs:
     name: Build
     uses: ./.github/workflows/build-frontend.yml
 
-  build-frontend-image:
+  build:
     name: Build-image
     uses: ./.github/workflows/build-frontend-image.yml
 
