@@ -22,6 +22,18 @@ jobs:
     with:
       artifact-name: ${{ needs.build-frontend.outputs.artifact-name }}
 
+  deploy-frontend:
+    name: deploy-Frontend
+    needs: [ push-frontend-image]
+    uses: ./.github/workflows/deploy-component.yml
+    with:
+      name: Frontend
+      deployment-url-output: ProductToolURL
+      template: infrastructure/frontend/frontend.template.yml
+      parameters: |
+        ImageURI=${{ needs.push-frontend-image.outputs.image-uri }}
+        LogGroupPrefix=/self-service/preview
+
   run-unit-tests:
     name: Run tests
     uses: ./.github/workflows/run-unit-tests.yml
