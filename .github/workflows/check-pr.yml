@@ -33,14 +33,17 @@ jobs:
 
   code-quality:
     name: Code quality
+    needs: [ deploy-frontend ]
     uses: ./.github/workflows/check-code-quality.yml
 
   run-unit-tests:
     name: Run tests
+    needs: [ deploy-frontend ]
     uses: ./.github/workflows/run-unit-tests.yml
 
   run-acceptance-tests:
     name: Run tests
+    needs: [ deploy-frontend ]
     uses: ./.github/workflows/run-acceptance-tests.yml
     with:
       host: ${{ needs.deploy-frontend.outputs.deployment-url }}
