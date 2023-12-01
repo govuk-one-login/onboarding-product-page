@@ -38,3 +38,10 @@ jobs:
     name: Run tests
     uses: ./.github/workflows/run-unit-tests.yml
 
+  run-acceptance-tests:
+    name: Run tests
+    uses: ./.github/workflows/run-acceptance-tests.yml
+    with:
+      host: ${{ needs.deploy-frontend.outputs.deployment-url }}
+      environment: ${{ needs.deploy-frontend.outputs.environment }}
+
