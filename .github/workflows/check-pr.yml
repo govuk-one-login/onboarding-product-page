@@ -6,9 +6,6 @@ permissions:
   contents: read
 
 jobs:
-  code-quality:
-    name: Code quality
-    uses: ./.github/workflows/check-code-quality.yml
 
   build-frontend:
     name: build-Frontend
@@ -33,6 +30,10 @@ jobs:
       parameters: |
         ImageURI=${{ needs.push-frontend-image.outputs.image-uri }}
         LogGroupPrefix=/self-service/preview
+
+  code-quality:
+    name: Code quality
+    uses: ./.github/workflows/check-code-quality.yml
 
   run-unit-tests:
     name: Run tests
