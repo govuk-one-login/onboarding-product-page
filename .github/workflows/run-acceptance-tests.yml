@@ -40,7 +40,8 @@ jobs:
           shopt -s globstar
           features=(features/**/*.feature)
           
-          cd ../express && npm install && cd .. && npm run build-express
+          npm install --prefix /express
+          npm run build-express --prefix /express
           
           cd .. && npm run local > /dev/null &
           
