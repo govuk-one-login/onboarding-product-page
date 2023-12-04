@@ -3,14 +3,13 @@ name: Acceptance tests
 on:
   workflow_call:
     inputs:
+      host: { required: true, type: string }
       environment: { required: true, type: string }
 
-permissions: { }
-concurrency: acceptance-test-${{ inputs.environment }}-${{ github.head_ref || github.ref_name }}
-
-defaults:
-  run:
-    shell: bash
+concurrency: deploy-${{ inputs.environment }}-${{ github.head_ref || github.ref_name }}
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   run-acceptance-tests:
@@ -23,34 +22,12 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          cache: npm
+          cache: 'npm'
 
       - name: Install Node dependencies
-        run: npm install --include-workspace-root
+        run: npm install
 
       - name: Run cucumber tests
-        id: run-tests
-        shell: bash
-        timeout-minutes: 10
         env:
-          REPORT: ${{ runner.temp }}/acceptance-tests.report
           HOST: http://localhost:3000
-          #STUB_API: true
-        run: |
-          shopt -s globstar
-          features=(features/**/*.feature)
-          
-          npm install 
-          npm run build-express 
-          
-          cd .. && npm run local > /dev/null &
-          
-          while ! curl --output /dev/null --silent --head --fail $HOST; do sleep 1 && echo -n .; done;
-          
-          for feature in "${features[@]}"; do
-            [[ ${idx:-} ]] && idx=$((idx + 1)) && echo | tee heading || idx=1
-            echo "#--- [$idx/${#features[@]}] ${feature#*/} ---#" | tee -a heading && echo >> heading
-            npm run cucumber -- --format summary:results "$feature" || cat heading results >> "$REPORT"
-          done
-          
-          [[ -s $REPORT ]] && exit 1 || exit 0
+        run: npm run cucumber
