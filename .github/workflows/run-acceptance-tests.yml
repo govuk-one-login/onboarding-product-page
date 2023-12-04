@@ -29,5 +29,5 @@ jobs:
 
       - name: Run cucumber tests
         env:
-          HOST: ${{ inputs.host }}
+          HOST: ${{ inputs.deployment-url-output }}
         run: npm run cucumber
