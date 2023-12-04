@@ -16,9 +16,6 @@ jobs:
   run-acceptance-tests:
     name: Acceptance
     runs-on: ubuntu-latest
-    defaults:
-      run: { working-directory: acceptance-tests }
-
     steps:
       - name: Pull repository
         uses: actions/checkout@v3
@@ -38,7 +35,7 @@ jobs:
         env:
           REPORT: ${{ runner.temp }}/acceptance-tests.report
           HOST: http://localhost:3000
-          STUB_API: true
+          #STUB_API: true
         run: |
           shopt -s globstar
           features=(features/**/*.feature)
