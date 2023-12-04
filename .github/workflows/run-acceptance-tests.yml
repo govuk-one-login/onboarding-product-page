@@ -29,5 +29,5 @@ jobs:
 
       - name: Run cucumber tests
         env:
-          HOST: https://preview-test.development.sign-in.service.gov.uk
+          HOST: ${{ inputs.host }}
         run: npm run cucumber
