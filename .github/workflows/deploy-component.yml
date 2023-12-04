@@ -68,6 +68,6 @@ jobs:
           NAME: ${{ inputs.deployment-url-output }}
           OUTPUTS: ${{ steps.deploy.outputs.stack-outputs }}
         run: |
-          url=$(jq --raw-output ".$NAME" <<< "$OUTPUTS")
+          url=$(jq --raw-output ".$NAME" <<< "$OUTPUTS.AdminToolURL")
           printf "🌐 Deployment URL\n%s" "$url" >> "$GITHUB_STEP_SUMMARY"
           echo "url=$url" >> "$GITHUB_OUTPUT"
