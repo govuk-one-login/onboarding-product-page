@@ -45,6 +45,7 @@ app.use("/", mailingList);
 
 app.locals.googleTagId = process.env.GOOGLE_TAG_ID;
 app.locals.showTestBanner = process.env.SHOW_TEST_BANNER === "true";
+app.locals.adminToolUrl = process.env.ADMIN_TOOL_URL || "https://admin.sign-in.service.gov.uk";
 
 app.use((req: Request, res: Response) => {
     res.status(404).render("404.njk");
