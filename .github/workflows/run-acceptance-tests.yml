@@ -2,9 +2,9 @@ name: Acceptance tests
 
 on:
   workflow_call:
-    inputs:
-      host: { required: true, type: string }
-      environment: { required: true, type: string }
+    #inputs:
+      #host: { required: true, type: string }
+      #environment: { required: true, type: string }
 
 concurrency: deploy-${{ inputs.environment }}-${{ github.head_ref || github.ref_name }}
 permissions:
@@ -27,11 +27,10 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
-      - name: Verify HOST variable
-        run: | 
-          echo "HOST: ${{ needs.deploy-frontend.outputs.deployment-url-output }}"
+      #- name: Verify HOST variable
+        #run: | 
+          #echo "HOST: ${{ needs.deploy-frontend.outputs.deployment-url-output }}"
 
-      - name: Run cucumber tests
-        env:
-          HOST: ${{ needs.deploy-frontend.outputs.deployment-url-output}}
-        run: npm run cucumber
+      - name: Run Cucumber Tests
+        run: |
+          npm run cucumber --env PRODUCT_TOOL_URL="${{ needs.deploy-Frontend.outputs.ProductToolURL }}"
