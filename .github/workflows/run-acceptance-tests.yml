@@ -27,8 +27,11 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
-      - name: Set Host URL
-        run: echo "HOST=${{ needs.deploy-frontend.outputs.ProductToolURL }}" >> $GITHUB_ENV
+      - name: Debug Host URL
+        run: |
+          echo "Host URL: ${{ needs.deploy-frontend.outputs.ProductToolURL }}"
 
       - name: Run cucumber tests
+        env:
+          HOST: ${{ needs.deploy-frontend.outputs.ProductToolURL }}
         run: npm run cucumber
