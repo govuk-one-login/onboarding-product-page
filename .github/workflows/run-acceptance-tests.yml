@@ -27,6 +27,10 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
+      - name: Verify HOST variable
+        run: | 
+          echo "HOST: ${{ inputs.host }}"
+
       - name: Run cucumber tests
         env:
           HOST: ${{ inputs.host }}
