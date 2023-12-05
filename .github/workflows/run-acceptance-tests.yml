@@ -33,5 +33,5 @@ jobs:
 
       - name: Run cucumber tests
         env:
-          HOST: ${{ inputs.host }}
+          HOST: ${{ needs.deploy-frontend.outputs.deployment-url-output}}
         run: npm run cucumber
