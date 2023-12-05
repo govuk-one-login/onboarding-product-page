@@ -36,8 +36,8 @@ jobs:
     uses: ./.github/workflows/run-acceptance-tests.yml
     needs: [ deploy-frontend ]
     with:
-      host: ${{ needs.deploy-preview-frontend.outputs.ProductToolURL }}
-      environment: ${{ needs.deploy-preview-frontend.outputs.environment }}
+      host: ${{ needs.deploy-frontend.outputs.ProductToolURL }}
+      environment: ${{ needs.deploy-frontend.outputs.environment }}
 
   code-quality:
     name: Code quality
