@@ -36,7 +36,7 @@ jobs:
 
       - name: Run cucumber tests
         env:
-          HOST: https://preview-${{ github.head_ref || github.ref_name }}.development.sign-in.service.gov.uk" >> $GITHUB_ENV
+          HOST: https://preview-${{ github.head_ref || github.ref_name }}.development.sign-in.service.gov.uk
         run: npm run cucumber
 
 
