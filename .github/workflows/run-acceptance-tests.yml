@@ -34,8 +34,9 @@ jobs:
       - name: Set HOST based on branch
         run: echo "HOST=https://preview-${{ github.head_ref || github.ref_name }}.development.sign-in.service.gov.uk" >> $GITHUB_ENV
 
-      - name: Run Cucumber Tests
-        run: |
-          npm run cucumber --env PRODUCT_TOOL_URL="${{ needs.deploy-Frontend.outputs.ProductToolURL }}"
+      - name: Run cucumber tests
+        env:
+          HOST: ${{ inputs.host }}
+        run: npm run cucumber
 
 
