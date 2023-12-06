@@ -37,4 +37,5 @@ jobs:
 
       - name: Run Cucumber Tests
         run: |
-          npm run cucumber --env PRODUCT_TOOL_URL="${{ needs.deploy-Frontend.outputs.ProductToolURL }}"
+          #npm run cucumber --env PRODUCT_TOOL_URL="${{ needs.deploy-Frontend.outputs.ProductToolURL }}"
+          npm run cucumber --env PRODUCT_TOOL_URL="https://preview-${{ github.head_ref || github.ref_name }}.development.sign-in.service.gov.uk"
