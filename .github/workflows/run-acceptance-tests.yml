@@ -27,16 +27,11 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
-      #- name: Verify HOST variable
-        #run: | 
-          #echo "HOST: ${{ needs.deploy-frontend.outputs.deployment-url-output }}"
-
-      - name: Set HOST based on branch
-        run: echo "HOST=https://preview-${{ github.head_ref || github.ref_name }}.development.sign-in.service.gov.uk" >> $GITHUB_ENV
-
       - name: Run cucumber tests
         env:
-          HOST: https://preview-${{ github.head_ref || github.ref_name }}.development.sign-in.service.gov.uk" >> $GITHUB_ENV
-        run: npm run cucumber
+          HOST: ${{ inputs.host }}
+        run: |
+          echo "HOST = $HOST"
+          npm run cucumber
 
 
