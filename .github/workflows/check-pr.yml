@@ -25,7 +25,7 @@ jobs:
     uses: ./.github/workflows/deploy-component.yml
     with:
       name: Frontend
-      deployment-url-output: "AdminToolURL"
+      deployment-url-output: "ProductToolURL"
       template: infrastructure/frontend/frontend.template.yml
       parameters: |
         ImageURI=${{ needs.push-frontend-image.outputs.image-uri }}
