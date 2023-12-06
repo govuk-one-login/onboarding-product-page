@@ -28,6 +28,5 @@ COPY . .
 USER node
 
 # Define the command to run your application
-CMD STUB_API=${STUB_API:-false} npm start
-#CMD [ "npm", "run", "local" ]
+CMD [ "npm", "run", "local" ]
 HEALTHCHECK CMD wget --spider http://localhost:$PORT
