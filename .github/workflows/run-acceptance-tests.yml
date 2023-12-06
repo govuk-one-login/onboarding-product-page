@@ -31,12 +31,12 @@ jobs:
         #run: | 
           #echo "HOST: ${{ needs.deploy-frontend.outputs.deployment-url-output }}"
 
-      #- name: Set HOST based on branch
-        #run: echo "HOST=https://preview-${{ github.head_ref || github.ref_name }}.development.sign-in.service.gov.uk" >> $GITHUB_ENV
+      - name: Set HOST based on branch
+        run: echo "HOST=https://preview-${{ github.head_ref || github.ref_name }}.development.sign-in.service.gov.uk" >> $GITHUB_ENV
 
       - name: Run cucumber tests
         env:
-          HOST: ${{ https://preview-main.development.sign-in.service.gov.uk/ }}
+          HOST: https://preview-${{ github.head_ref || github.ref_name }}.development.sign-in.service.gov.uk" >> $GITHUB_ENV
         run: npm run cucumber
 
 
