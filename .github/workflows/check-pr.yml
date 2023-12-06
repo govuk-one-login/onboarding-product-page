@@ -7,10 +7,18 @@ permissions:
 
 jobs:
 
+  code-quality:
+    name: Code quality
+    uses: ./.github/workflows/check-code-quality.yml
+
   build-frontend:
     name: build-Frontend
     permissions: { }
     uses: ./.github/workflows/build-frontend.yml
+
+  run-unit-tests:
+    name: Run tests
+    uses: ./.github/workflows/run-unit-tests.yml
 
   push-frontend-image:
     name: push-Frontend
@@ -39,7 +47,5 @@ jobs:
       host: ${{ needs.deploy-frontend.outputs.ProductToolURL }}
       environment: ${{ needs.deploy-frontend.outputs.environment }}
 
-  code-quality:
-    name: Code quality
-    uses: ./.github/workflows/check-code-quality.yml
+
 
