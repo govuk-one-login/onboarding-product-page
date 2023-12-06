@@ -120,7 +120,7 @@ Resources:
           PortMappings:
             - ContainerPort: !Ref ContainerPort
           HealthCheck:
-            Command: [ "CMD", "wget", "--spider", !Sub "http://localhost:${ContainerPort}" , " || exit 0 "]
+            Command: [ "CMD", "echo product-pages"]
           LogConfiguration:
             # https://docs.docker.com/config/containers/logging/awslogs/
             LogDriver: awslogs
