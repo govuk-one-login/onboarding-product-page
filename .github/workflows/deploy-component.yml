@@ -11,7 +11,7 @@ on:
       disable-rollback: { required: false, type: boolean, default: false }
     outputs:
       ProductToolURL: 
-        value: ${{ jobs.get-deployment-url.outputs.url}}
+        value: ${{ jobs.deploy.outputs.deployment-url}}
       stack-name:
         description: "The deployed stack name"
         value: ${{ jobs.deploy.outputs.stack-name }}
@@ -28,6 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       stack-name: ${{ steps.deploy.outputs.stack-name }}
+      deployment-url: ${{ steps.get-deployment-url.outputs.url }}
 
     environment:
       name: development
