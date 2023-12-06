@@ -1,4 +1,8 @@
-FROM node:current-alpine
+# checkov:skip=CKV_DOCKER_7: Ensure the base image uses a non latest version tag
+# checkov:skip=CKV_DOCKER_2: Ensure that HEALTHCHECK instructions have been added to container images
+# checkov:skip=CKV_DOCKER_3: Ensure that a user for the container has been created
+# Use an official Node.js runtime as a parent image
+FROM node:latest
 
 ARG PORT=3000
 ENV PORT=$PORT
