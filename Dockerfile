@@ -26,4 +26,4 @@ COPY . .
 
 # Define the command to run your application
 CMD [ "npm", "run", "local" ]
-HEALTHCHECK CMD exit 0
+HEALTHCHECK CMD echo productPages
