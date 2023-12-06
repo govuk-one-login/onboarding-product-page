@@ -2,9 +2,9 @@ name: Acceptance tests
 
 on:
   workflow_call:
-    #inputs:
-      #host: { required: true, type: string }
-      #environment: { required: true, type: string }
+    inputs:
+      host: { required: true, type: string }
+      environment: { required: true, type: string }
 
 concurrency: deploy-${{ inputs.environment }}-${{ github.head_ref || github.ref_name }}
 permissions:
