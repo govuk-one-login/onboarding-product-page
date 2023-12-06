@@ -25,8 +25,6 @@ COPY .env.example .env
 # Copy the rest of your application code to the container
 COPY . .
 
-USER node
-
 # Define the command to run your application
 CMD [ "npm", "run", "local" ]
 HEALTHCHECK CMD wget --spider http://localhost:$PORT
