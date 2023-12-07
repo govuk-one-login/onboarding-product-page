@@ -37,9 +37,11 @@ jobs:
       template: infrastructure/frontend/frontend.template.yml
       parameters: |
         ImageURI=${{ needs.push-frontend-image.outputs.image-uri }}
+        LogGroupPrefix=/self-service/preview
 
   run-acceptance-tests:
     name: Run tests
+    needs: deploy-preview
     uses: ./.github/workflows/run-acceptance-tests.yml
     needs: [ deploy-frontend ]
     with:
