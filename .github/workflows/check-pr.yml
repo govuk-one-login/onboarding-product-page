@@ -40,7 +40,7 @@ jobs:
         LogGroupPrefix=/self-service/preview
 
   run-acceptance-tests:
-    name: Run acceptance tests
+    name: Run tests
     uses: ./.github/workflows/run-acceptance-tests.yml
     needs: [ deploy-frontend ]
     with:
