@@ -1,3 +1,4 @@
+
 name: Delete Preview Branches
 
 on:
@@ -17,7 +18,6 @@ jobs:
     - name: List and Delete Previews Branches
       run: |
         previews_branches=$(git for-each-ref --format '%(refname:short)' refs/heads/*previews)
-
         # Check if there are any previews branches
         if [ -n "$previews_branches" ]; then
           for branch in $previews_branches; do
