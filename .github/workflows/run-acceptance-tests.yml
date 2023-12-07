@@ -7,7 +7,9 @@ on:
       environment: { required: true, type: string }
 
 concurrency: deploy-${{ inputs.environment }}-${{ github.head_ref || github.ref_name }}
-permissions: read-all
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
   run-acceptance-tests:
