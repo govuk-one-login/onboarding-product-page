@@ -1,12 +1,11 @@
 name: Clean-up-deployment
-
-run-name:  Delete stacks
+run-name: ${{ github.event.pull_request.title || format('Delete deployment [{0}]', github.head_ref || github.ref_name) }}
 
 on:
   workflow_dispatch:
-  schedule:
-     #Every weekday at 10am
-    - cron: '0 10 * * 1-5'
+  push:
+  #pull_request:
+    branches: [ ssetest ]
 
 permissions:
   id-token: write
