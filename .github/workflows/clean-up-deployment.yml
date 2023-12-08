@@ -2,11 +2,9 @@ name: Clean-up-deployment
 run-name:  Delete stacks 
 on:
   workflow_dispatch:
-  push:
-    branches: [ ssetest ]
-  #schedule:
-    # Every weekday at 10am
-    #- cron: '0 10 * * 1-5'
+  schedule:
+     #Every weekday at 10am
+    - cron: '0 10 * * 1-5'
 
 permissions:
   id-token: write
