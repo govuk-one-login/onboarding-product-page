@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
   #pull_request:
-    #branches: [ ssetest ]
+    branches: [ main ]
 
 permissions:
   id-token: write
