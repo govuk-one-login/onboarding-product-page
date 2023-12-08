@@ -1,6 +1,6 @@
 name: Clean-up-deployment
 
-run-name:  Delete stacks 
+run-name:  Delete stacks
 
 on:
   workflow_dispatch:
