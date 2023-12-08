@@ -640,7 +640,7 @@ Resources:
       ResourceRecords: [ !ImportValue DNS-SignIn-Domain ]
 
 Outputs:
-  AdminToolURL:
+  ProductToolURL:
     Value: !Sub https://${DNSRecord}
   KMSARN:
     Description: 'ARN of the KMS key used for encryption.'

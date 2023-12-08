@@ -5,6 +5,7 @@
 {% set pageTitle = "Get started" %}
 {% set headerNavigationActiveItem = "get-started" %}
 {% set breadcrumbs = breadcrumbs(currentPageName = pageTitle) %}
+{% set registerButtonLink %}{{ adminToolUrl }}/register{% endset %}
 
 {% block mainContent %}
   <h1 class="govuk-heading-l">Get started with GOV.UK One Login</h1>
@@ -22,9 +23,9 @@
   <p class="govuk-body">You'll need a government email address and a mobile phone number to set up an account.</p>
   {{ govukButton({
     text: "Create admin tool account",
-    href: "https://admin.sign-in.service.gov.uk/register"
+    href: registerButtonLink
   }) }}
-  <span class="govuk-body" id="sign-in-admin-tool-container"> or <a class="govuk-link" href="https://admin.sign-in.service.gov.uk/sign-in">sign in</a></span>
+  <span class="govuk-body" id="sign-in-admin-tool-container"> or <a class="govuk-link" href="{{ adminToolUrl }}/sign-in">sign in</a></span>
   <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-7 govuk-!-margin-bottom-4">
   <h2 class="govuk-heading-m">Contact us</h2>
   <p class="govuk-body">Use our <a class="govuk-link" href="/support">online form</a> to report problems, ask questions or suggest improvements.</p>
