@@ -1,0 +1,19 @@
+name: Clean-up-deployment
+run-name: ${{ github.event.pull_request.title || format('Delete deployment [{0}]', github.head_ref || github.ref_name) }}
+
+on:
+  workflow_dispatch:
+  push:
+  #pull_request:
+    branches: [ ssetest ]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+   delete-frontend:
+    name: Frontend
+    uses: ./.github/workflows/delete-sam-stack.yml
+    with:
+      component: Frontend
