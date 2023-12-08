@@ -1,11 +1,10 @@
 name: Clean-up-deployment
-run-name:  Delete stale deployments #${{ github.event.pull_request.title || format('Delete deployment [{0}]', github.head_ref || github.ref_name) }}
-
+run-name:  Delete stale deployments 
 on:
   workflow_dispatch:
   push:
   #pull_request:
-    branches: [ ssetest ]
+    branches: [ main ]
 
 permissions:
   id-token: write
