@@ -2,7 +2,7 @@
 # checkov:skip=CKV_DOCKER_2: Ensure that HEALTHCHECK instructions have been added to container images
 # checkov:skip=CKV_DOCKER_3: Ensure that a user for the container has been created
 # Use an official Node.js runtime as a parent image
-FROM node:20.5.1-alpine
+FROM node:current-alpine
 
 ARG PORT=3000
 ENV PORT=$PORT
@@ -16,7 +16,7 @@ COPY *.json ./
 
 # Install project dependencies
 ENV PUPPETEER_SKIP_DOWNLOAD true
-RUN apt-get update && apt-get install -y chromium
+#RUN apt-get update && apt-get install -y chromium
 RUN npm install
 
 # Copy the .env.example file to .env
