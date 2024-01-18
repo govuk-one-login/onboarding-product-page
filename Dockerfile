@@ -4,6 +4,10 @@
 # Use an official Node.js runtime as a parent image
 FROM node:latest
 
+ARG PORT=3000
+ENV PORT=$PORT
+EXPOSE $PORT
+
 # Set the working directory in the container
 WORKDIR /app
 
@@ -26,3 +30,5 @@ COPY . .
 
 # Define the command to run your application
 CMD [ "npm", "run", "local" ]
+
+HEALTHCHECK CMD wget --spider http://localhost:$PORT
