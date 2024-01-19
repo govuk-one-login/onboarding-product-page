@@ -479,7 +479,6 @@ Resources:
         ProducerType: SQS
 
   #--- DNS ---#
-
   DNSRecord:
     Type: AWS::Route53::RecordSet
     Properties:
