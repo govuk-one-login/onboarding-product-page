@@ -55,12 +55,16 @@ export default class RealZendeskService implements ZendeskInterface {
         await instance
             .post("/api/v2/tickets.json", data)
             .then(function (response) {
-                console.log(response);
+                console.log("Zendesk service response status: ", response.status);
+                console.log("Zendesk service response status text: ", response.statusText);
                 sent = true;
             })
             .catch(function (response) {
                 sent = false;
-                console.log(response);
+                console.log("Zendesk service response code: ", response.code);
+                console.log("Zendesk service response status: ", response.response.status);
+                console.log("Zendesk service response status text: ", response.response.statusText);
+                console.log("Zendesk service response data error: ", response.response.data.error);
             });
         return sent;
     }
