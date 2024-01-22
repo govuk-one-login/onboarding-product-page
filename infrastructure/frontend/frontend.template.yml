@@ -68,8 +68,8 @@ Resources:
       RequiresCompatibilities: [ FARGATE ]
       TaskRoleArn: !GetAtt TaskRole.Arn
       ExecutionRoleArn: !GetAtt ExecutionRole.Arn
-      Cpu: 256
-      Memory: 1024
+      Cpu: 1024
+      Memory: 4096
       Family: !Sub ${DeploymentName}-productpage-frontend
       NetworkMode: awsvpc
       ContainerDefinitions:
@@ -479,7 +479,6 @@ Resources:
         ProducerType: SQS
 
   #--- DNS ---#
-
   DNSRecord:
     Type: AWS::Route53::RecordSet
     Properties:

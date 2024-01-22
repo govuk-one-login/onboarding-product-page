@@ -46,7 +46,7 @@ export const submitForm = async function (req: Request, res: Response) {
         if (await zendesk.submit(values)) {
             res.redirect("contact-us-submitted");
         } else {
-            res.redirect("contact-us-error");
+            res.redirect("service-unavailable");
         }
     } else {
         res.render("contact-us.njk", {
