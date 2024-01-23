@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build SAM application
-        uses: govuk-one-login/github-actions/sam/build-application@850483e1476abd3f77a74f75a33b0b2871c29955
+        uses: govuk-one-login/github-actions/sam/build-application@850483e1476abd3f77a74f75a33b0b2871c29955 # 16/03/2023
         with:
           enable-beta-features: true
           sam-template-file: monitoring/smoke-tests.yaml
@@ -33,7 +33,7 @@ jobs:
           aws-region: eu-west-2
 
       - name: Deploy SAM stack
-        uses: govuk-one-login/github-actions/sam/deploy-stack@850483e1476abd3f77a74f75a33b0b2871c29955
+        uses: govuk-one-login/github-actions/sam/deploy-stack@850483e1476abd3f77a74f75a33b0b2871c29955 # 16/03/2023
         with:
           sam-deployment-bucket: ${{ secrets.GHA_SAM_DEPLOYMENT_BUCKET }}
           stack-name: product-page-monitoring
