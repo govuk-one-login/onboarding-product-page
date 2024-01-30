@@ -156,6 +156,10 @@ div.feature-panel {
     border-bottom: 1px $govuk-border-colour solid;
   }
 
+  .govuk-grid-row {
+    position: relative;
+  }
+
 }
 
 @media (min-width: 640px) {
@@ -345,4 +349,8 @@ div.feature-panel {
   position: relative;
   top: 10px;
   left: 3px;
+}
+
+.white-space-nowrap {
+  white-space: nowrap;
 }

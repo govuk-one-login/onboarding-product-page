@@ -1,3 +1,19 @@
 .image {
   max-width: 100%;
 }
+
+.images {
+  &__width_100 {
+    width: 100%;
+    height: auto;
+  }
+
+  &__width_42 {
+    width: 42%;
+    height: auto;
+  }
+
+  &__vertical_align_top {
+    vertical-align: top;
+  }
+}
