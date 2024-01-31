@@ -26,6 +26,10 @@ Parameters:
   ContainerPort:
     Type: Number
     Default: 3000
+  LogGroupPrefix:
+    Type: String
+    AllowedPattern: ^.*[^\/]$
+    Default: /aws/vendedlogs
   ShowTestBanner:
     Type: AWS::SSM::Parameter::Value<String>
     Default: /product-pages/frontend/show-test-banner
