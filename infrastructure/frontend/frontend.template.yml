@@ -15,7 +15,7 @@ Parameters:
     Default: /aws/vendedlogs
   DeploymentName:
     Type: String
-    MaxLength: 28
+    MaxLength: 25
     AllowedPattern: ^.*[^-]$
     Default: self-service
     Description: A unique prefix to identify the deployment; used when importing or exporting values from related stacks
@@ -233,7 +233,7 @@ Resources:
     Properties:
       Type: application
       Scheme: internet-facing
-      Name: !Sub ${DeploymentName}-app-productpage
+      Name: !Sub ${DeploymentName}-app-pp
       Subnets: !Split [ ",", !ImportValue VPC-InternetSubnets ]
       SecurityGroups: [ !Ref ApplicationSecurityGroup ]
       LoadBalancerAttributes:
@@ -261,7 +261,7 @@ Resources:
   ApplicationTargetGroup:
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
-      Name: !Sub ${DeploymentName}-ecs-productpage
+      Name: !Sub ${DeploymentName}-ecs-pp
       VpcId: !ImportValue VPC-ID
       Port: !Ref ContainerPort
       Protocol: HTTP
