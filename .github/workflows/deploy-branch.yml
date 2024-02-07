@@ -34,4 +34,3 @@ jobs:
       template: infrastructure/frontend/frontend.template.yml
       parameters: |
         ImageURI=${{ needs.push-frontend-image.outputs.image-uri }}
-        LogGroupPrefix=/self-service/preview
