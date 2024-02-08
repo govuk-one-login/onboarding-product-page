@@ -143,6 +143,12 @@ Resources:
               Value: "{{resolve:secretsmanager:/product-pages/frontend/zendesk-api-token}}"
             - Name: DT_LOGLEVELCON
               Value: INFO
+            - Name: USE_STUB_SERVICENOW
+              Value: "{{resolve:ssm:/product-pages/frontend/use-stub-servicenow}}"
+            - Name: SERVICENOW_AUTH_CREDENTIALS
+              Value: "{{resolve:secretsmanager:/product-pages/frontend/servicenow-auth-credentials}}"
+            - Name: SERVICENOW_URL
+              Value: "{{resolve:secretsmanager:/product-pages/frontend/servicenow-url}}"
           PortMappings:
             - ContainerPort: !Ref ContainerPort
           HealthCheck:
