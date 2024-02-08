@@ -101,7 +101,7 @@ Resources:
       ContainerDefinitions:
         - Name: productpage-frontend
           Image: !Ref ImageURI
-          ReadonlyRootFilesystem: true
+          ReadonlyRootFilesystem: false
           Environment:
             - Name: PORT
               Value: !Ref ContainerPort
@@ -149,31 +149,6 @@ Resources:
               Value: "{{resolve:secretsmanager:/product-pages/frontend/servicenow-auth-credentials}}"
             - Name: SERVICENOW_URL
               Value: "{{resolve:secretsmanager:/product-pages/frontend/servicenow-url}}"
-          Secrets:
-            - !If
-              - DynatraceLoggingEnabled
-              - Name: DT_TENANT
-                ValueFrom: !Join
-                  - ''
-                  - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
-                    - ':DT_TENANT::'
-              - !Ref AWS::NoValue
-            - !If
-              - DynatraceLoggingEnabled
-              - Name: DT_TENANTTOKEN
-                ValueFrom: !Join
-                  - ''
-                  - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
-                    - ':DT_TENANTTOKEN::'
-              - !Ref AWS::NoValue
-            - !If
-              - DynatraceLoggingEnabled
-              - Name: DT_CONNECTION_POINT
-                ValueFrom: !Join
-                  - ''
-                  - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
-                    - ':DT_CONNECTION_POINT::'
-              - !Ref AWS::NoValue
           PortMappings:
             - ContainerPort: !Ref ContainerPort
           HealthCheck:
