@@ -22,3 +22,6 @@ applications:
       ZENDESK_API_TOKEN: ((zendesk-api-token))
       GOOGLE_TAG_ID: ((google-tag-id))
       SHOW_TEST_BANNER: ((show-test-banner))
+      SERVICENOW_URL: ((servicenow-url))
+      SERVICENOW_AUTH_CREDENTIALS: ((servicenow-auth-credentials))
+      USE_STUB_SERVICENOW: ((use-stub-servicenow))

@@ -5,7 +5,7 @@ set -eu
 
 ./aws.sh get-current-account-name
 PARAMETER_NAME_PREFIX=/product-pages
-MANUAL_SECRETS=(zendesk_api_token zendesk_group_id zendesk_username register_spreadsheet_id vcap_services)
+MANUAL_SECRETS=(zendesk_api_token zendesk_group_id zendesk_username register_spreadsheet_id vcap_services servicenow_auth_credentials servicenow_url)
 
 declare -A PARAMETERS=(
 
@@ -22,6 +22,7 @@ declare -A PARAMETERS=(
   [google_tag_id]=$PARAMETER_NAME_PREFIX/frontend/google-tag-id
   [admin_tool_url]=$PARAMETER_NAME_PREFIX/frontend/admin-tool-url
   [show_test_banner]=$PARAMETER_NAME_PREFIX/frontend/show-test-banner
+  [use_stub_servicenow]=$PARAMETER_NAME_PREFIX/frontend/use-stub-servicenow
 
 )
 
@@ -35,6 +36,9 @@ declare -A SECRETS=(
   [mailing_list_spreadsheet_id]=$PARAMETER_NAME_PREFIX/frontend/mailing-list-spreadsheet-id
   #  vcap
   [vcap_services]=$PARAMETER_NAME_PREFIX/frontend/vcap-services
+  # servicenow
+  [servicenow_auth_credentials]=$PARAMETER_NAME_PREFIX/frontend/servicenow-auth-credentials
+  [servicenow_url]=$PARAMETER_NAME_PREFIX/frontend/servicenow-url
 
 )
 
@@ -71,6 +75,8 @@ function check-frontend-params {
   check-parameter-set "${parameter}" || write-parameter-value "$parameter" "$([[ $ACCOUNT == production ]] && echo false || echo true)"
   parameter=${PARAMETERS[admin_tool_url]}
   check-parameter-set "${parameter}" || write-parameter-value "$parameter" "https://admin.sign-in.service.gov.uk"
+  parameter=${PARAMETERS[use_stub_servicenow]}
+  check-parameter-set "${parameter}" || write-parameter-value "$parameter" "false"
 
 }
 
