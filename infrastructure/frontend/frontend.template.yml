@@ -227,7 +227,7 @@ Resources:
           - Sid: audit-policy
             DataIdentifier:
               - arn:aws:dataprotection::aws:data-identifier/EmailAddress
-              - arn:aws:dataprotection::aws:data-identifier/IpAddress
+              # - arn:aws:dataprotection::aws:data-identifier/IpAddress
               # - arn:aws:dataprotection::aws:data-identifier/Address
               # - arn:aws:dataprotection::aws:data-identifier/AwsSecretKey
               # - arn:aws:dataprotection::aws:data-identifier/OpenSshPrivateKey
