@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import Validation from "../lib/validation/validation";
 import ZendeskService from "../lib/zendesk/ZendeskService";
 import crypto from "crypto";
+import ServicenowService from "../lib/servicenow/ServicenowService";
 
 const requiredFields = new Map<string, string>([
     ["name", "Enter your name"],
@@ -42,8 +43,12 @@ export const submitForm = async function (req: Request, res: Response) {
             process.env.ZENDESK_GROUP_ID as string
         );
 
+        const servicenow = new ServicenowService();
+        await servicenow.init();
         await zendesk.init();
-        if (await zendesk.submit(values)) {
+        const zendeskSubmit = await zendesk.submit(values);
+        const servicenowSubmit = await servicenow.submit(values);
+        if (zendeskSubmit && servicenowSubmit) {
             res.redirect("contact-us-submitted");
         } else {
             res.redirect("service-unavailable");
