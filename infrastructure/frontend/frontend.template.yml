@@ -54,11 +54,11 @@ Rules:
 Mappings:
   EnvironmentConfiguration:
     local:
-      logGroupPrefix: /self-service/product-pages/frontend
+      logGroupPrefix: /self-service/pp/frontend
       dynatraceLoggingEnabled: false # Local builds do not support dynatrace
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     dev:
-      logGroupPrefix: /self-service/product-pages/frontend
+      logGroupPrefix: /self-service/pp/frontend
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     build:
