@@ -228,30 +228,30 @@ Resources:
             DataIdentifier:
               - arn:aws:dataprotection::aws:data-identifier/EmailAddress
               - arn:aws:dataprotection::aws:data-identifier/IpAddress
-              - arn:aws:dataprotection::aws:data-identifier/Address
-              - arn:aws:dataprotection::aws:data-identifier/AwsSecretKey
-              - arn:aws:dataprotection::aws:data-identifier/OpenSshPrivateKey
-              - arn:aws:dataprotection::aws:data-identifier/PgpPrivateKey
-              - arn:aws:dataprotection::aws:data-identifier/PkcsPrivateKey
-              - arn:aws:dataprotection::aws:data-identifier/PuttyPrivateKey
+              # - arn:aws:dataprotection::aws:data-identifier/Address
+              # - arn:aws:dataprotection::aws:data-identifier/AwsSecretKey
+              # - arn:aws:dataprotection::aws:data-identifier/OpenSshPrivateKey
+              # - arn:aws:dataprotection::aws:data-identifier/PgpPrivateKey
+              # - arn:aws:dataprotection::aws:data-identifier/PkcsPrivateKey
+              # - arn:aws:dataprotection::aws:data-identifier/PuttyPrivateKey
             Operation:
               Audit:
                 FindingsDestination:
                   CloudWatchLogs:
                     LogGroup: !Ref LogAuditLogGroup
-          # - Sid: redact-policy
-          #   DataIdentifier:
-          #     - arn:aws:dataprotection::aws:data-identifier/EmailAddress
-          #     - arn:aws:dataprotection::aws:data-identifier/IpAddress
-          #     - arn:aws:dataprotection::aws:data-identifier/Address
-          #     - arn:aws:dataprotection::aws:data-identifier/AwsSecretKey
-          #     - arn:aws:dataprotection::aws:data-identifier/OpenSshPrivateKey
-          #     - arn:aws:dataprotection::aws:data-identifier/PgpPrivateKey
-          #     - arn:aws:dataprotection::aws:data-identifier/PkcsPrivateKey
-          #     - arn:aws:dataprotection::aws:data-identifier/PuttyPrivateKey
-          #   Operation:
-          #     Deidentify:
-          #       MaskConfig: { }
+          - Sid: redact-policy
+            DataIdentifier:
+              - arn:aws:dataprotection::aws:data-identifier/EmailAddress
+              # - arn:aws:dataprotection::aws:data-identifier/IpAddress
+              # - arn:aws:dataprotection::aws:data-identifier/Address
+              # - arn:aws:dataprotection::aws:data-identifier/AwsSecretKey
+              # - arn:aws:dataprotection::aws:data-identifier/OpenSshPrivateKey
+              # - arn:aws:dataprotection::aws:data-identifier/PgpPrivateKey
+              # - arn:aws:dataprotection::aws:data-identifier/PkcsPrivateKey
+              # - arn:aws:dataprotection::aws:data-identifier/PuttyPrivateKey
+            Operation:
+              Deidentify:
+                MaskConfig: { }
 
   ExecutionRole:
     Type: AWS::IAM::Role
