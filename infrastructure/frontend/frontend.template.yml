@@ -52,19 +52,6 @@ Rules:
           Must not specify DeploymentName parameter when Environment is not "local"
 
 Mappings:
-  EnvironmentConfiguration:
-    local:
-      logGroupPrefix: /self-service/product-pages/frontend
-    dev:
-      logGroupPrefix: /self-service/product-pages/frontend
-    build:
-      logGroupPrefix: /self-service/product-pages/frontend
-    staging:
-      logGroupPrefix: /self-service/product-pages/frontend
-    integration:
-      logGroupPrefix: /self-service/product-pages/frontend
-    production:
-      logGroupPrefix: /self-service/product-pages/frontend
   # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
   ElasticLoadBalancer:
     eu-west-2:
@@ -169,7 +156,7 @@ Resources:
     Properties:
       LogGroupName: !Join
         - "/"
-        - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, logGroupPrefix ]
+        - - '/onboarding-product-pages/frontend'
           - !If [ IsLocal, !Ref DeploymentName, !Ref AWS::NoValue ]
           - 'audit'
       RetentionInDays: 14
@@ -180,9 +167,9 @@ Resources:
     Properties:
       LogGroupName: !Join
         - "/"
-        - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, logGroupPrefix ]
+        - - '/aws/ecs'
+          - 'onboarding-product-pages/frontend'
           - !If [ IsLocal, !Ref DeploymentName, !Ref AWS::NoValue ]
-          - 'ecr'
       RetentionInDays: 14
       DataProtectionPolicy:
         Name: data-protection-policy-frontend
