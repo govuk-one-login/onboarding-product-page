@@ -52,6 +52,31 @@ Rules:
           Must not specify DeploymentName parameter when Environment is not "local"
 
 Mappings:
+  EnvironmentConfiguration:
+    local:
+      logGroupPrefix: /self-service/pp/frontend
+      dynatraceLoggingEnabled: false # Local builds do not support dynatrace
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+    dev:
+      logGroupPrefix: /self-service/pp/frontend
+      dynatraceLoggingEnabled: true
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+    build:
+      logGroupPrefix: /self-service/product-pages/frontend
+      dynatraceLoggingEnabled: true
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+    staging:
+      logGroupPrefix: /self-service/product-pages/frontend
+      dynatraceLoggingEnabled: true
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+    integration:
+      logGroupPrefix: /self-service/product-pages/frontend
+      dynatraceLoggingEnabled: true
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+    production:
+      logGroupPrefix: /self-service/product-pages/frontend
+      dynatraceLoggingEnabled: true
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
   # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
   ElasticLoadBalancer:
     eu-west-2:
@@ -70,6 +95,7 @@ Conditions:
   NonDevEnv: !Equals [ !Ref DeploymentName, self-service ]
   UsePermissionsBoundary: !Not [ !Equals [ !Ref PermissionsBoundary, "" ] ]
   IsLocal: !Equals [ !Ref Environment, "local" ]
+  DynatraceLoggingEnabled: !Equals [ !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceLoggingEnabled ], true ]
 
 Resources:
 
@@ -136,6 +162,31 @@ Resources:
               Value: "{{resolve:secretsmanager:/product-pages/frontend/servicenow-auth-credentials}}"
             - Name: SERVICENOW_URL
               Value: "{{resolve:secretsmanager:/product-pages/frontend/servicenow-url}}"
+          Secrets:
+            - !If
+              - DynatraceLoggingEnabled
+              - Name: DT_TENANT
+                ValueFrom: !Join
+                  - ''
+                  - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
+                    - ':DT_TENANT::'
+              - !Ref AWS::NoValue
+            - !If
+              - DynatraceLoggingEnabled
+              - Name: DT_TENANTTOKEN
+                ValueFrom: !Join
+                  - ''
+                  - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
+                    - ':DT_TENANTTOKEN::'
+              - !Ref AWS::NoValue
+            - !If
+              - DynatraceLoggingEnabled
+              - Name: DT_CONNECTION_POINT
+                ValueFrom: !Join
+                  - ''
+                  - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
+                    - ':DT_CONNECTION_POINT::'
+              - !Ref AWS::NoValue
           PortMappings:
             - ContainerPort: !Ref ContainerPort
           HealthCheck:
