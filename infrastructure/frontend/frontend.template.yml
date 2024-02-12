@@ -88,7 +88,7 @@ Resources:
       ContainerDefinitions:
         - Name: productpage-frontend
           Image: !Ref ImageURI
-          ReadonlyRootFilesystem: true
+          ReadonlyRootFilesystem: false
           Environment:
             - Name: PORT
               Value: !Ref ContainerPort
