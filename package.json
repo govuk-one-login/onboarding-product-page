@@ -17,7 +17,8 @@
     "test:cov": "nyc --reporter=lcov npm run test --reporter mocha-sonarqube-reporter --exit",
     "sonar": "sonar-scanner",
     "cucumber": "cucumber-js --require-module ts-node/register --require features/support/test-setup.ts --require features/support/steps/**/*.ts --publish-quiet --tags 'not @wip'",
-    "cucumber-report": "npm run cucumber -- --format html:test-report.html"
+    "cucumber-report": "npm run cucumber -- --format html:test-report.html",
+    "build-docker": "docker build --tag product-pages-frontend --file Dockerfile-dev .."
   },
   "author": "",
   "license": "ISC",
