@@ -4,30 +4,27 @@
 # Use an official Node.js runtime as a parent image
 FROM node:latest
 
-# Expose any necessary ports (if your application requires it)
-ARG PORT=3000
-ENV PORT=$PORT
-EXPOSE $PORT
-
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the application code, see .dockerignore for exclusions
-COPY . .
-
-# Copy the .env.example file to .env @TODO questionable at best
-COPY .env.example .env
+# Copy the package.json and package-lock.json files to the container
+COPY *.json ./
 
 # Install project dependencies
 ENV PUPPETEER_SKIP_DOWNLOAD true
 RUN apt-get update && apt-get install -y chromium
-RUN npm install && npm run build
+RUN npm install
 
-# Add the Dynatrace OneAgent
+# Copy the .env.example file to .env
+COPY .env.example .env
+
+# Copy the rest of your application code to the container
+COPY . .
 COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules:nodejs / /
 ENV LD_PRELOAD /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 
-USER node
-CMD npm start
+# Expose any necessary ports (if your application requires it)
+# EXPOSE 3000
 
-HEALTHCHECK CMD wget --spider http://localhost:$PORT
+# Define the command to run your application
+CMD [ "npm", "run", "local" ]
