@@ -20,8 +20,6 @@ COPY .env.example .env
 
 # Copy the rest of your application code to the container
 COPY . .
-COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules:nodejs / /
-ENV LD_PRELOAD /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 
 # Expose any necessary ports (if your application requires it)
 # EXPOSE 3000
