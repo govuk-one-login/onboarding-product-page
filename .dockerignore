@@ -1,0 +1,14 @@
+# Hidden files & directories
+.github
+.idea
+
+# Dependencies build as required
+node_modules/
+jspm_packages/
+
+# Test & infrastructure files
+infrastructure/
+monitoring/
+ci/
+test/
+features/
