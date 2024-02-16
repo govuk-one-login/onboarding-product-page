@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   pull_request:
     types: [ closed ]
- 
+
 permissions:
   id-token: write
   contents: read
