@@ -344,7 +344,7 @@ Resources:
     Properties:
       Type: application
       Scheme: internet-facing
-      Name: !Sub ${DeploymentName}-app-productpage
+      Name: !Sub ${DeploymentName}-app-pp
       Subnets: !Split [ ",", !ImportValue VPC-InternetSubnets ]
       SecurityGroups: [ !Ref ApplicationSecurityGroup ]
       LoadBalancerAttributes:
