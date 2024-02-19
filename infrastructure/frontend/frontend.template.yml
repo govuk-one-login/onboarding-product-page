@@ -54,27 +54,21 @@ Rules:
 Mappings:
   EnvironmentConfiguration:
     local:
-      logGroupPrefix: /self-service/pp/frontend
       dynatraceLoggingEnabled: false # Local builds do not support dynatrace
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     dev:
-      logGroupPrefix: /self-service/pp/frontend
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     build:
-      logGroupPrefix: /self-service/product-pages/frontend
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     staging:
-      logGroupPrefix: /self-service/product-pages/frontend
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     integration:
-      logGroupPrefix: /self-service/product-pages/frontend
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     production:
-      logGroupPrefix: /self-service/product-pages/frontend
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
   # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
