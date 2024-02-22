@@ -54,23 +54,23 @@ Rules:
 Mappings:
   EnvironmentConfiguration:
     local:
-      cslsLoggingEnabled: true
-      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
+      dynatraceLoggingEnabled: false # Local builds do not support dynatrace
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     dev:
-      cslsLoggingEnabled: true
-      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
+      dynatraceLoggingEnabled: true
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     build:
-      cslsLoggingEnabled: false
-      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
+      dynatraceLoggingEnabled: true
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     staging:
-      cslsLoggingEnabled: false
-      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
+      dynatraceLoggingEnabled: true
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     integration:
-      cslsLoggingEnabled: false
-      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
+      dynatraceLoggingEnabled: true
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     production:
-      cslsLoggingEnabled: false
-      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
+      dynatraceLoggingEnabled: true
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
   # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
   ElasticLoadBalancer:
     eu-west-2:
@@ -90,6 +90,7 @@ Conditions:
   UsePermissionsBoundary: !Not [ !Equals [ !Ref PermissionsBoundary, "" ] ]
   CslsLoggingEnabled: !Equals [ !FindInMap [ EnvironmentConfiguration, !Ref Environment, cslsLoggingEnabled ], true ]
   IsLocal: !Equals [ !Ref Environment, "local" ]
+  DynatraceLoggingEnabled: !Equals [ !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceLoggingEnabled ], true ]
 
 Resources:
 
@@ -108,7 +109,7 @@ Resources:
       ContainerDefinitions:
         - Name: productpage-frontend
           Image: !Ref ImageURI
-          ReadonlyRootFilesystem: false
+          ReadonlyRootFilesystem: true
           Environment:
             - Name: PORT
               Value: !Ref ContainerPort
@@ -156,6 +157,31 @@ Resources:
               Value: "{{resolve:secretsmanager:/product-pages/frontend/servicenow-auth-credentials}}"
             - Name: SERVICENOW_URL
               Value: "{{resolve:secretsmanager:/product-pages/frontend/servicenow-url}}"
+          Secrets:
+            - !If
+              - DynatraceLoggingEnabled
+              - Name: DT_TENANT
+                ValueFrom: !Join
+                  - ''
+                  - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
+                    - ':DT_TENANT::'
+              - !Ref AWS::NoValue
+            - !If
+              - DynatraceLoggingEnabled
+              - Name: DT_TENANTTOKEN
+                ValueFrom: !Join
+                  - ''
+                  - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
+                    - ':DT_TENANTTOKEN::'
+              - !Ref AWS::NoValue
+            - !If
+              - DynatraceLoggingEnabled
+              - Name: DT_CONNECTION_POINT
+                ValueFrom: !Join
+                  - ''
+                  - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
+                    - ':DT_CONNECTION_POINT::'
+              - !Ref AWS::NoValue
           PortMappings:
             - ContainerPort: !Ref ContainerPort
           HealthCheck:

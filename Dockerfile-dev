@@ -23,10 +23,6 @@ ENV PUPPETEER_SKIP_DOWNLOAD true
 RUN apt-get update && apt-get install -y chromium
 RUN npm install && npm run build
 
-# Add the Dynatrace OneAgent
-COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules:nodejs / /
-ENV LD_PRELOAD /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
-
 USER node
 CMD npm start
 
