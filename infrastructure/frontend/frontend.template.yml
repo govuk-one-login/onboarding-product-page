@@ -54,21 +54,33 @@ Rules:
 Mappings:
   EnvironmentConfiguration:
     local:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: false # Local builds do not support dynatrace
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     dev:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     build:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     staging:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     integration:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     production:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
   # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
@@ -89,8 +101,10 @@ Conditions:
   NonDevEnv: !Equals [ !Ref DeploymentName, self-service ]
   UsePermissionsBoundary: !Not [ !Equals [ !Ref PermissionsBoundary, "" ] ]
   CslsLoggingEnabled: !Equals [ !FindInMap [ EnvironmentConfiguration, !Ref Environment, cslsLoggingEnabled ], true ]
-  IsLocal: !Equals [ !Ref Environment, "local" ]
   DynatraceLoggingEnabled: !Equals [ !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceLoggingEnabled ], true ]
+  IsLocal: !Equals [ !Ref Environment, "local" ]
+  EnableFullWaf: !Not [ !Equals [ !Ref Environment, "local" ] ]
+
 
 Resources:
 
@@ -480,18 +494,21 @@ Resources:
             SampledRequestsEnabled: true
             CloudWatchMetricsEnabled: true
             MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesAmazonIpReputationList
-        - Name: AWS-AWSManagedRulesAnonymousIpList
-          Priority: 3
-          Statement:
-            ManagedRuleGroupStatement:
-              VendorName: AWS
-              Name: AWSManagedRulesAnonymousIpList
-          OverrideAction:
-            None: { }
-          VisibilityConfig:
-            SampledRequestsEnabled: true
-            CloudWatchMetricsEnabled: true
-            MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesAnonymousIpList
+        - !If
+          - EnableFullWaf
+          - Name: AWS-AWSManagedRulesAnonymousIpList
+            Priority: 3
+            Statement:
+              ManagedRuleGroupStatement:
+                VendorName: AWS
+                Name: AWSManagedRulesAnonymousIpList
+            OverrideAction:
+              None: { }
+            VisibilityConfig:
+              SampledRequestsEnabled: true
+              CloudWatchMetricsEnabled: true
+              MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesAnonymousIpList
+          - !Ref AWS::NoValue
         - Name: AWS-AWSManagedRulesCommonRuleSet
           Priority: 4
           Statement:
