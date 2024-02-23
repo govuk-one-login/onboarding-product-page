@@ -2,8 +2,13 @@ import {Given, Then, When} from "@cucumber/cucumber";
 import {strict as assert} from "assert";
 import {Page} from "puppeteer";
 import {checkUrl, getLink} from "./shared-functions";
+import AxePuppeteer from "@axe-core/puppeteer";
 
 Given("that the user is on the {string} page", async function (route: string) {
+    await this.goToPath(route);
+});
+Given(/^user navigated to '(.*)' of '(.*)'$/, async function (pageName: string, route: string) {
+    console.log(`User Navigated to ${pageName} page`);
     await this.goToPath(route);
 });
 
@@ -66,6 +71,10 @@ Then("the {string} link will point to the following URL: {string}", async functi
 Then("the {string} link will point to the following page: {string}", async function (linkText, expectedPage) {
     const link = await getLink(this.page, linkText);
     await checkUrl(this.page, link, expectedPage);
+});
+Then(/^there should be no accessibility violations$/, async function () {
+    const results = await new AxePuppeteer(this.page).withTags(["wcag21aa", "wcag22aa"]).analyze();
+    assert.equal(results.violations.length, 0, "Accessibility Violations Detected : " + JSON.stringify(results.violations));
 });
 
 async function checkErrorMessageDisplayedAboveElement(page: Page, errorMessage: string, field: string) {
