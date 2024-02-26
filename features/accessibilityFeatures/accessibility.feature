@@ -1,11 +1,4 @@
 Feature: All product pages must meet the accessibility standards
-  Government services are legally required to be accessible.
-  This means services must comply with the international WCAG 2.1 AA
-  accessibility standard. This requirement has applied to all new and
-  existing public sector websites since 2020, and to native applications since June 2021.
-  The Government Digital Service (GDS) is working on how to assess the new success criteria in WCAG 2.2 and will start
-  monitoring for the extra criteria in October 2024. Until October 2024 we will monitor accessibility of websites and
-  apps to WCAG 2.1 level AA.
 
   Below page names have added for reference to relevant page
   @accessible
@@ -39,6 +32,3 @@ Feature: All product pages must meet the accessibility standards
       | Cookies                                                                      | /cookies                                                 |
       | Register to get started with GOV.UK One Login                                | /register                                                |
       | Contact us                                                                   | /contact-us                                              |
-
-
-
