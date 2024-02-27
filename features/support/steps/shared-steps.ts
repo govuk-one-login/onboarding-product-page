@@ -2,8 +2,13 @@ import {Given, Then, When} from "@cucumber/cucumber";
 import {strict as assert} from "assert";
 import {Page} from "puppeteer";
 import {checkUrl, getLink} from "./shared-functions";
+import AxePuppeteer from "@axe-core/puppeteer";
 
 Given("that the user is on the {string} page", async function (route: string) {
+    await this.goToPath(route);
+});
+Given(/^user navigated to '(.*)' of '(.*)'$/, async function (pageName: string, route: string) {
+    console.log(`User Navigated to ${pageName} page`);
     await this.goToPath(route);
 });
 
@@ -54,6 +59,7 @@ Then("the error message {string} must be displayed for the {string} radios", asy
 });
 
 Then("they should see the text {string}", async function (text) {
+    // eslint-disable-next-line
     const bodyText: string = await this.page.$eval("body", (element: any) => element.textContent);
     assert.equal(bodyText.includes(text), true, `Body text does not contain "${text}"`);
 });
@@ -67,17 +73,21 @@ Then("the {string} link will point to the following page: {string}", async funct
     const link = await getLink(this.page, linkText);
     await checkUrl(this.page, link, expectedPage);
 });
+Then(/^there should be no accessibility violations$/, async function () {
+    const results = await new AxePuppeteer(this.page).withTags(["wcag21aa", "wcag22aa"]).analyze();
+    assert.equal(results.violations.length, 0, "Accessibility Violations Detected : " + JSON.stringify(results.violations));
+});
 
 async function checkErrorMessageDisplayedAboveElement(page: Page, errorMessage: string, field: string) {
     const errorLink = await page.$x(`//div[@class="govuk-error-summary"]//a[@href="#${field}"]`);
     assert.notEqual(errorLink.length, 0, `Expected to find the message "${errorMessage}" in the error summary.`);
-
+    // eslint-disable-next-line
     const actualMessageInSummary = await page.evaluate((el: {textContent: any}) => el.textContent, errorLink[0]);
     assert.equal(actualMessageInSummary, errorMessage, `Expected text of the link to be "${errorMessage}"`);
 
     const messageAboveElement = await page.$x(`//p[@class="govuk-error-message"][@id="${field}-error"]`);
     assert.notEqual(messageAboveElement.length, 0, `Expected to find the message "${errorMessage}" above the ${field} field.`);
-
+    // eslint-disable-next-line
     const actualMessageAboveSummary = await page.evaluate((el: {textContent: any}) => el.textContent, messageAboveElement[0]);
     assert.equal(
         actualMessageAboveSummary.trim(),
