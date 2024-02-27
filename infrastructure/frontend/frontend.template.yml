@@ -54,21 +54,33 @@ Rules:
 Mappings:
   EnvironmentConfiguration:
     local:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: false # Local builds do not support dynatrace
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     dev:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     build:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     staging:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     integration:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     production:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceProductionVariables
   # https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html
@@ -88,8 +100,11 @@ Conditions:
   Subdomain: !Not [ !Equals [ !Ref DeploymentName, self-service ] ]
   NonDevEnv: !Equals [ !Ref DeploymentName, self-service ]
   UsePermissionsBoundary: !Not [ !Equals [ !Ref PermissionsBoundary, "" ] ]
-  IsLocal: !Equals [ !Ref Environment, "local" ]
+  CslsLoggingEnabled: !Equals [ !FindInMap [ EnvironmentConfiguration, !Ref Environment, cslsLoggingEnabled ], true ]
   DynatraceLoggingEnabled: !Equals [ !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceLoggingEnabled ], true ]
+  IsLocal: !Equals [ !Ref Environment, "local" ]
+  EnableFullWaf: !Not [ !Equals [ !Ref Environment, "local" ] ]
+
 
 Resources:
 
@@ -249,6 +264,15 @@ Resources:
             Operation:
               Deidentify:
                 MaskConfig: { }
+
+  FrontendLogCslsSubscriptionFilter:
+    Type: AWS::Logs::SubscriptionFilter
+    Condition: CslsLoggingEnabled
+    Properties:
+      LogGroupName: !Ref FrontendLogsGroup
+      FilterName: "ECS logs for Frontend Service"
+      FilterPattern: ""
+      DestinationArn: !FindInMap [ EnvironmentConfiguration, !Ref Environment, clslSubscriptionFilterArn ]
 
   ExecutionRole:
     Type: AWS::IAM::Role
@@ -432,6 +456,174 @@ Resources:
             Resource: !Sub ${AccessLogsBucket.Arn}/AWSLogs/${AWS::AccountId}/*
             Principal:
               AWS: !FindInMap [ ElasticLoadBalancer, !Ref AWS::Region, AccountID ]
+
+  LoadBalancerWebACL:
+    # checkov:skip=CKV_AWS_192:Ensure WAF prevents message lookup in Log4j2
+    Type: AWS::WAFv2::WebACL
+    Properties:
+      Name: !Sub ${AWS::StackName}-${Environment}-LoadBalancerWebACL
+      Scope: REGIONAL
+      Description: This is WebACL to protect the API and Load Balancers
+      DefaultAction:
+        Allow: { }
+      VisibilityConfig:
+        SampledRequestsEnabled: true
+        CloudWatchMetricsEnabled: true
+        MetricName: !Sub ${AWS::StackName}-${Environment}-FrontendWebACLMetric
+      Rules:
+        - Name: AWS-AWSManagedRulesKnownBadInputsRuleSet
+          Priority: 1
+          Statement:
+            ManagedRuleGroupStatement:
+              VendorName: AWS
+              Name: AWSManagedRulesKnownBadInputsRuleSet
+          OverrideAction:
+            Count: { }
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesKnownBadInputsRuleSet
+        - Name: AWS-AWSManagedRulesAmazonIpReputationList
+          Priority: 2
+          Statement:
+            ManagedRuleGroupStatement:
+              VendorName: AWS
+              Name: AWSManagedRulesAmazonIpReputationList
+          OverrideAction:
+            Count: { }
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesAmazonIpReputationList
+        - !If
+          - EnableFullWaf
+          - Name: AWS-AWSManagedRulesAnonymousIpList
+            Priority: 3
+            Statement:
+              ManagedRuleGroupStatement:
+                VendorName: AWS
+                Name: AWSManagedRulesAnonymousIpList
+            OverrideAction:
+              None: { }
+            VisibilityConfig:
+              SampledRequestsEnabled: true
+              CloudWatchMetricsEnabled: true
+              MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesAnonymousIpList
+          - !Ref AWS::NoValue
+        - Name: AWS-AWSManagedRulesCommonRuleSet
+          Priority: 4
+          Statement:
+            ManagedRuleGroupStatement:
+              VendorName: AWS
+              Name: AWSManagedRulesCommonRuleSet
+          OverrideAction:
+            Count: { }
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesCommonRuleSet
+        - Name: AWS-AWSManagedRulesAdminProtectionRuleSet
+          Priority: 5
+          Statement:
+            ManagedRuleGroupStatement:
+              VendorName: AWS
+              Name: AWSManagedRulesAdminProtectionRuleSet
+          OverrideAction:
+            Count: { }
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesAdminProtectionRuleSet
+        - Name: SQLInject-RuleSet
+          Priority: 6
+          Statement:
+            ManagedRuleGroupStatement:
+              VendorName: AWS
+              Name: AWSManagedRulesSQLiRuleSet
+          OverrideAction:
+            Count: { }
+          VisibilityConfig:
+            SampledRequestsEnabled: true
+            CloudWatchMetricsEnabled: true
+            MetricName: !Sub '${AWS::StackName}-${Environment}-SQLinjection-ruleset-metric'
+        - Name: RateBased-CountIpRule
+          Priority: 9
+          Statement:
+            RateBasedStatement:
+              Limit: 100
+              AggregateKeyType: IP
+          Action:
+            Count: { }
+          VisibilityConfig:
+            CloudWatchMetricsEnabled: true
+            MetricName: !Sub "${AWS::StackName}-${Environment}-RateBased-CountIp-ruleset-metric"
+            SampledRequestsEnabled: true
+
+  LoadBalancerWebACLAssociation:
+    Type: AWS::WAFv2::WebACLAssociation
+    Properties:
+      WebACLArn: !GetAtt LoadBalancerWebACL.Arn
+      ResourceArn: !Ref ApplicationLoadBalancer
+
+  WafLogGroup:
+    # checkov:skip=CKV_AWS_158:Ensure that CloudWatch Log Group is encrypted by KMS
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Join
+        - "-"
+        - - 'aws-waf-logs'
+          - 'onboarding-product-pages-frontend'
+          - !If [ IsLocal, !Ref DeploymentName, !Ref AWS::NoValue ]
+      RetentionInDays: 14
+      DataProtectionPolicy:
+        Name: data-protection-policy-product-pages-loadbalancer
+        Description: Data Protection for Cloudwatch Logs
+        Version: '2021-06-01'
+        Statement:
+          - Sid: audit-policy
+            DataIdentifier:
+              - arn:aws:dataprotection::aws:data-identifier/EmailAddress
+              - arn:aws:dataprotection::aws:data-identifier/IpAddress
+              - arn:aws:dataprotection::aws:data-identifier/Address
+              - arn:aws:dataprotection::aws:data-identifier/AwsSecretKey
+              - arn:aws:dataprotection::aws:data-identifier/OpenSshPrivateKey
+              - arn:aws:dataprotection::aws:data-identifier/PgpPrivateKey
+              - arn:aws:dataprotection::aws:data-identifier/PkcsPrivateKey
+              - arn:aws:dataprotection::aws:data-identifier/PuttyPrivateKey
+            Operation:
+              Audit:
+                FindingsDestination:
+                  CloudWatchLogs:
+                    LogGroup: !Ref LogAuditLogGroup
+          - Sid: redact-policy
+            DataIdentifier:
+              - arn:aws:dataprotection::aws:data-identifier/EmailAddress
+              - arn:aws:dataprotection::aws:data-identifier/IpAddress
+              - arn:aws:dataprotection::aws:data-identifier/Address
+              - arn:aws:dataprotection::aws:data-identifier/AwsSecretKey
+              - arn:aws:dataprotection::aws:data-identifier/OpenSshPrivateKey
+              - arn:aws:dataprotection::aws:data-identifier/PgpPrivateKey
+              - arn:aws:dataprotection::aws:data-identifier/PkcsPrivateKey
+              - arn:aws:dataprotection::aws:data-identifier/PuttyPrivateKey
+            Operation:
+              Deidentify:
+                MaskConfig: { }
+
+  WafLoggingConfiguration:
+    Type: AWS::WAFv2::LoggingConfiguration
+    Properties:
+      ResourceArn: !GetAtt LoadBalancerWebACL.Arn
+      LogDestinationConfigs:
+        - !GetAtt WafLogGroup.Arn
+
+  WafLogCslsSubscriptionFilter:
+    Type: AWS::Logs::SubscriptionFilter
+    Condition: CslsLoggingEnabled
+    Properties:
+      LogGroupName: !Ref WafLogGroup
+      FilterName: "Waf logs for Frontend"
+      FilterPattern: ""
+      DestinationArn: !FindInMap [ EnvironmentConfiguration, !Ref Environment, clslSubscriptionFilterArn ]
 
   TxMASQSProducerAuditEventQueue:
     Type: AWS::SQS::Queue
