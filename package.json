@@ -16,7 +16,7 @@
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' nyc mocha --require ts-node/register --ui bdd 'test/**/*.spec.ts'",
     "test:cov": "nyc --reporter=lcov npm run test --reporter mocha-sonarqube-reporter --exit",
     "sonar": "sonar-scanner",
-    "cucumber": "cucumber-js --require-module ts-node/register --require features/support/test-setup.ts --require features/support/steps/**/*.ts --tags 'not @wip'",
+    "cucumber": "cucumber-js --require-module ts-node/register --require features/support/test-setup.ts --require features/support/steps/**/*.ts --publish-quiet --tags 'not @wip'",
     "cucumber-report": "npm run cucumber -- --format html:test-report.html",
     "accessible-tests": "npm run cucumber -- --tags @accessible",
     "build-docker": "docker build --tag product-pages-frontend --file Dockerfile-dev .."
@@ -61,7 +61,7 @@
     "nodemon": "^3.0.1",
     "nyc": "^15.1.0",
     "prettier": "^2.7.1",
-    "puppeteer": "^15.5.0",
+    "puppeteer": "^21.5.0",
     "sass": "^1.55.0",
     "sinon": "^17.0.1",
     "sonar-scanner": "^3.1.0",
