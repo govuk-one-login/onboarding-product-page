@@ -104,6 +104,8 @@ Conditions:
   DynatraceLoggingEnabled: !Equals [ !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceLoggingEnabled ], true ]
   IsLocal: !Equals [ !Ref Environment, "local" ]
   IsProd: !Equals [ !Ref Environment, "production" ]
+  EnableFullWaf: !Not [ !Equals [ !Ref Environment, "local" ] ]
+
 
 Resources:
 
