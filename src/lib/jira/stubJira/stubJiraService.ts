@@ -1,19 +1,23 @@
-import JiraService from "../interface";
+import { randomUUID } from "crypto";
+import { JiraPostResponse, JiraService } from "../interface";
 
 export default class StubJiraService implements JiraService {
-    private readonly projectId: string;
-    private readonly issueType: string;
+    private readonly jiraBoardUrl: string
+    private readonly projectKey: string
 
-    constructor(projectId: string, issueType: string) {
-        console.log("StubJiraServiceConstructor");
-        this.projectId = projectId;
-        this.issueType = issueType;
+    constructor(boardUrl: string, projectKey: string){
+        this.jiraBoardUrl = boardUrl
+        this.projectKey = projectKey
     }
 
-    async appendValues(form: Map<string, string>, dataRange: string, headerRange: string): Promise<void> {
-        return new Promise<void>(resolve => {
-            console.log(`Pretending to save data to sheet "${this.projectId} and ${this.issueType}"`);
-            resolve();
-        });
+    async postJiraTicket(ticketPayload: Map<string, string>): Promise<JiraPostResponse>{
+        console.log(`Pretending to post Jira ticket to boardUrl: '${this.jiraBoardUrl}'`)
+        console.log('Ticket payload: ', ticketPayload)
+        const ticketId = randomUUID()
+        return {
+            id: ticketId, 
+            key: this.projectKey, 
+            self: `${this.jiraBoardUrl}/${ticketId}`
+        }
     }
 }
