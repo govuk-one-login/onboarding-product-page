@@ -3,6 +3,7 @@ import uuid from "../lib/uuid";
 import getTimestamp from "../lib/timestamp";
 import SheetsService from "../lib/sheets/SheetsService";
 import Validation from "../lib/validation/validation";
+import JiraTicketService from "../lib/jira/JiraTicketService";
 
 export const confirm = function (req: Request, res: Response) {
     res.render("register-confirm.njk");
@@ -121,9 +122,17 @@ export const post = async function (req: Request, res: Response) {
                 console.log(reason);
                 redirectTo = "/register-error";
             });
-
         console.log("Saved to sheets");
-        res.redirect(redirectTo);
+
+    if( process.env.JIRA_INTERGRATION === "true") {
+        console.log('Using Jira integration')
+        const jiraService = new JiraTicketService(values)
+        await jiraService.sendJiraTicket().catch((err) => {
+            console.error(err)
+            redirectTo = "/register-error"
+        })
+    }
+    res.redirect(redirectTo);
     } else {
         res.render("register.njk", {
             errorMessages: errorMessages,
