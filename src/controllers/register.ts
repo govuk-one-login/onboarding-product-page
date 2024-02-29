@@ -124,7 +124,7 @@ export const post = async function (req: Request, res: Response) {
             });
         console.log("Saved to sheets");
 
-    if( process.env.JIRA_INTERGRATION === "true") {
+    if( process.env.JIRA_INTEGRATION === "true") {
         console.log('Using Jira integration')
         const jiraService = new JiraTicketService(values)
         await jiraService.sendJiraTicket().catch((err) => {
