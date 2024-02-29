@@ -1,5 +1,5 @@
 export interface JiraService {
-    postJiraTicket: (TicketPayload: Map<string, string>) => Promise<JiraPostResponse>;
+    postJiraTicket: (ticketPayload: Map<string, string>) => Promise<JiraPostResponse>;
 }
 
 export type JiraPostResponse = {
@@ -7,3 +7,8 @@ export type JiraPostResponse = {
     key: string;
     self: string;
 };
+
+
+export interface JiraInterface {
+    sendJiraTicket: () => Promise<void>
+}
