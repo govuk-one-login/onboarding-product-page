@@ -124,15 +124,15 @@ export const post = async function (req: Request, res: Response) {
             });
         console.log("Saved to sheets");
 
-    if( process.env.JIRA_INTEGRATION === "true") {
-        console.log('Using Jira integration')
-        const jiraService = new JiraTicketService(values)
-        await jiraService.sendJiraTicket().catch((err) => {
-            console.error(err)
-            redirectTo = "/register-error"
-        })
-    }
-    res.redirect(redirectTo);
+        if (process.env.JIRA_INTEGRATION === "true") {
+            console.log("Using Jira integration");
+            const jiraService = new JiraTicketService(values);
+            await jiraService.sendJiraTicket().catch(err => {
+                console.error(err);
+                redirectTo = "/register-error";
+            });
+        }
+        res.redirect(redirectTo);
     } else {
         res.render("register.njk", {
             errorMessages: errorMessages,
