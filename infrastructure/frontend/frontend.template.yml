@@ -504,7 +504,7 @@ Resources:
                 VendorName: AWS
                 Name: AWSManagedRulesAnonymousIpList
             OverrideAction:
-              None: { }
+              Count: { }
             VisibilityConfig:
               SampledRequestsEnabled: true
               CloudWatchMetricsEnabled: true

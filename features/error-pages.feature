@@ -1,8 +1,5 @@
 Feature: error pages
 
-  As a Service team user
-  I want to be notified about an error
-
   Scenario: The user enters a URL that does not exist and is shown 404 error page
 
     Given that the user is on the "/non-existent-error-page" page
