@@ -69,3 +69,14 @@
   </ul>
   <p class="govuk-body">You'll need to decide how to handle users who cannot use GOV.UK One Login, for example by offering them another way to prove their identity.</p>
 {% endblock %}
+{% block scripts %}
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2About,
+    contentId:"860fa641-1fa0-4470-9fb7-585f1a76bffb",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
+{% endblock %}
