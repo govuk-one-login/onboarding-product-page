@@ -58,3 +58,14 @@
     </div>
   </div>
 {% endblock %}
+{% block scripts %}
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2About,
+    contentId:"c30cf568-41db-4bab-9837-1acd7be0f4af",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
+{% endblock %}
