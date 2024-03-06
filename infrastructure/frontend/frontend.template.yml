@@ -115,6 +115,7 @@ Conditions:
   CslsLoggingEnabled: !Equals [ !FindInMap [ EnvironmentConfiguration, !Ref Environment, cslsLoggingEnabled ], true ]
   DynatraceLoggingEnabled: !Equals [ !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceLoggingEnabled ], true ]
   IsLocal: !Equals [ !Ref Environment, "local" ]
+  IsProd: !Equals [ !Ref Environment, "production" ]
   EnableFullWaf: !Not [ !Equals [ !Ref Environment, "local" ] ]
 
 
@@ -153,8 +154,8 @@ Resources:
               Value: !Ref UniversalAnalyticsDisabled
             - Name: ADMIN_TOOL_URL
               Value: "{{resolve:ssm:/product-pages/frontend/admin-tool-url}}"
-            - Name: USE_STUB_SHEETS
-              Value: "{{resolve:ssm:/product-pages/frontend/use-stub-sheets}}"
+            - Name: USE_STUB_SHEETS # Variable protection enabled
+              Value: !If [ IsProd, 'false', "{{resolve:ssm:/product-pages/frontend/use-stub-sheets}}" ]
             - Name: REGISTER_SHEET_DATA_RANGE
               Value: "{{resolve:ssm:/product-pages/frontend/register-sheet-data-range}}"
             - Name: REGISTER_SHEET_HEADER_RANGE
@@ -185,8 +186,8 @@ Resources:
               Value: "{{resolve:secretsmanager:/product-pages/frontend/zendesk-api-token}}"
             - Name: DT_LOGLEVELCON
               Value: INFO
-            - Name: USE_STUB_SERVICENOW
-              Value: "{{resolve:ssm:/product-pages/frontend/use-stub-servicenow}}"
+            - Name: USE_STUB_SERVICENOW # Variable protection enabled
+              Value: !If [ IsProd, 'false', "{{resolve:ssm:/product-pages/frontend/use-stub-servicenow}}" ]
             - Name: SERVICENOW_AUTH_CREDENTIALS
               Value: "{{resolve:secretsmanager:/product-pages/frontend/servicenow-auth-credentials}}"
             - Name: SERVICENOW_URL
