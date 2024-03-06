@@ -3,12 +3,12 @@
 cd "$(dirname "${BASH_SOURCE[0]}")"
 set -eu
 
-./aws.sh get-current-account-name
+ACCOUNT=$(../aws.sh get-current-account-name)
 PARAMETER_NAME_PREFIX=/product-pages
+MANUAL_PARAMETERS=(google_analytics_gtm_container_id universal_analytics_gtm_container_id)
 MANUAL_SECRETS=(zendesk_api_token zendesk_group_id zendesk_username register_spreadsheet_id vcap_services servicenow_auth_credentials servicenow_url)
 
 declare -A PARAMETERS=(
-
   [use_stub_sheets]=$PARAMETER_NAME_PREFIX/frontend/use-stub-sheets
   [register_sheet_data_range]=$PARAMETER_NAME_PREFIX/frontend/register-sheet-data-range
   [register_sheet_header_range]=$PARAMETER_NAME_PREFIX/frontend/register-sheet-header-range
@@ -20,6 +20,10 @@ declare -A PARAMETERS=(
   [test_banner]=$PARAMETER_NAME_PREFIX/frontend/show-test-banner
   [use_stub_zendesk]=$PARAMETER_NAME_PREFIX/frontend/use-stub-zendesk
   [google_tag_id]=$PARAMETER_NAME_PREFIX/frontend/google-tag-id
+  [google_analytics_gtm_container_id]=$PARAMETER_NAME_PREFIX/frontend/google-analytics-4-gtm-container-id
+  [universal_analytics_gtm_container_id]=$PARAMETER_NAME_PREFIX/frontend/universal-analytics-gtm-container-id
+  [google_analytics_disabled]=$PARAMETER_NAME_PREFIX/frontend/google-analytics-4-disabled
+  [universal_analytics_disabled]=$PARAMETER_NAME_PREFIX/frontend/universal-analytics-disabled
   [admin_tool_url]=$PARAMETER_NAME_PREFIX/frontend/admin-tool-url
   [show_test_banner]=$PARAMETER_NAME_PREFIX/frontend/show-test-banner
   [use_stub_servicenow]=$PARAMETER_NAME_PREFIX/frontend/use-stub-servicenow
@@ -71,6 +75,11 @@ function check-frontend-params {
   check-parameter-set "${parameter}" || write-parameter-value "$parameter" "true"
   parameter=${PARAMETERS[google_tag_id]}
   check-parameter-set "${parameter}" || write-parameter-value "$parameter" "GTM-PFTQ6G2"
+  parameter=${PARAMETERS[universal_analytics_disabled]}
+  check-parameter-set "$parameter" || write-parameter-value "$parameter" "false"
+  parameter=${PARAMETERS[google_analytics_disabled]}
+  check-parameter-set "$parameter" ||
+    write-parameter-value "$parameter" "$([[ $ACCOUNT == production ]] && echo true || echo false)"
   parameter=${PARAMETERS[show_test_banner]}
   check-parameter-set "${parameter}" || write-parameter-value "$parameter" "$([[ $ACCOUNT == production ]] && echo false || echo true)"
   parameter=${PARAMETERS[admin_tool_url]}
@@ -167,6 +176,7 @@ function check-deployment-parameters {
 
   # set param
   check-frontend-params
+  check-manual-parameters
 
   # Display
   print-parameters
