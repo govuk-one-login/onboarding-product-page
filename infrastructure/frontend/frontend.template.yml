@@ -32,6 +32,18 @@ Parameters:
   GoogleTagID:
     Type: AWS::SSM::Parameter::Value<String>
     Default: /product-pages/frontend/google-tag-id
+  GoogleAnalytics4GtmContainerId:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /product-pages/frontend/google-analytics-4-gtm-container-id
+  UniversalAnalyticsGtmContainerId:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /product-pages/frontend/universal-analytics-gtm-container-id
+  GoogleAnalytics4Disabled:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /product-pages/frontend/google-analytics-4-disabled
+  UniversalAnalyticsDisabled:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /product-pages/frontend/universal-analytics-disabled
   PermissionsBoundary:
     Type: String
     Default: ""
@@ -131,6 +143,14 @@ Resources:
               Value: !Ref ShowTestBanner
             - Name: GOOGLE_TAG_ID
               Value: !Ref GoogleTagID
+            - Name: GOOGLE_ANALYTICS_4_GTM_CONTAINER_ID
+              Value: !Ref GoogleAnalytics4GtmContainerId
+            - Name: UNIVERSAL_ANALYTICS_GTM_CONTAINER_ID
+              Value: !Ref UniversalAnalyticsGtmContainerId
+            - Name: GA4_DISABLED
+              Value: !Ref GoogleAnalytics4Disabled
+            - Name: UA_DISABLED
+              Value: !Ref UniversalAnalyticsDisabled
             - Name: ADMIN_TOOL_URL
               Value: "{{resolve:ssm:/product-pages/frontend/admin-tool-url}}"
             - Name: USE_STUB_SHEETS
