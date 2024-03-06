@@ -9,12 +9,20 @@
 {% set breadcrumbs = breadcrumbs(currentPageName = "Cookies notice for the GOV.UK One Login website") %}
 
 {% block mainContent %}
-  {% call govukNotificationBanner({ type: "success", attributes: {id: "save-success-banner", hidden: "" } }) %}
+  {% set html %}
     <h3 class="govuk-notification-banner__heading">Your cookie settings were saved</h3>
     <p id="policy-cookies-accepted-banner" class="govuk-body">You’ve accepted analytics cookies.</p>
     <p id="policy-cookies-rejected-banner" class="govuk-body">You’ve rejected analytics cookies.</p>
     <p class="govuk-body">You can change your cookie settings at any time from this page.</p>
-  {% endcall %}
+  {% endset %}
+  {{ govukNotificationBanner({
+    html: html,
+    type: "success",
+    attributes : {
+      id: "save-success-banner"
+    },
+    classes: "govuk-!-display-none"
+  }) }}
 
   <h1 class="govuk-heading-l govuk-!-margin-top-0 govuk-!-margin-bottom-3">Cookies notice for the GOV.UK One Login website</h1>
 
@@ -105,4 +113,20 @@
       id: "save-cookie-settings"
     }
   }) }}
+{% endblock %}
+
+{% block analyticscripts %}
+  <script src="/assets/javascripts/analytics-cookie-consent.js"></script>
+{% endblock %}
+
+{% block scripts %}
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2Policies,
+    contentId:"b9efaa5f-ea79-497f-bfff-4ce3801b41e7",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
 {% endblock %}
