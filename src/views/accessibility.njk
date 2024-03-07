@@ -194,3 +194,14 @@
     This statement was prepared on 16 May 2023. It was last reviewed on 18 October 2023.
   </p>
 {% endblock %}
+{% block scripts %}
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2Policies,
+    contentId:"7b431194-9369-478e-bbcd-d4023e5deb71",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
+{% endblock %}
