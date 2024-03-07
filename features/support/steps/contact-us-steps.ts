@@ -4,7 +4,11 @@ import {Page} from "puppeteer";
 Given("that the users enter alphanumeric characters into all of the fields in the contact us form", async function () {
     await this.goToPath("/contact-us");
     await fillInUserInfoFields(this.page);
-    await this.page.type("#how-can-we-help", "We'd like fairies to be able to sign up to get their unicorns tested.");
+    await this.page.type(
+        "#how-can-we-help",
+        "Test Requests will get deleted quite often, if you have any questions about these requests please contact #di-self-service-team of" +
+            "\nPod: Adoption \nTeam: Self-service"
+    );
 });
 
 Given(
@@ -90,9 +94,9 @@ Then("their data is sent to Zendesk", async function () {
 });
 
 async function fillInUserInfoFields(page: Page) {
-    await page.type("#email", "tessa.ting@gov.uk");
-    await page.type("#name", "Tessa Ting");
-    await page.type("#role", "Chief Unicorn Tester");
-    await page.type("#service-name", "Unicorn Testing");
-    await page.type("#organisation-name", "Department of Sorcery");
+    await page.type("#email", "test.automation@gov.uk");
+    await page.type("#name", "Test Automation");
+    await page.type("#role", "Test Automation Testing");
+    await page.type("#service-name", "Automation Testing");
+    await page.type("#organisation-name", "Department of Testing SSE");
 }
