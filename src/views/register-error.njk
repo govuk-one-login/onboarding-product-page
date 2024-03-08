@@ -16,3 +16,14 @@
     </div>
   </div>
 {% endblock %}
+{% block scripts %}
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2Register,
+    contentId:"2a7ae899-845f-4e4c-8c11-2a7771af9dbf",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
+{% endblock %}
