@@ -115,15 +115,17 @@ export const post = async function (req: Request, res: Response) {
 
         let redirectTo = "/register-confirm";
 
-        const sheetsService: SheetsService = new SheetsService(process.env.REGISTER_SPREADSHEET_ID as string);
-        await sheetsService.init().catch(() => (redirectTo = "/register-error"));
-        await sheetsService
-            .appendValues(values, process.env.REGISTER_SHEET_DATA_RANGE as string, process.env.REGISTER_SHEET_HEADER_RANGE as string)
-            .catch(reason => {
-                console.log(reason);
-                redirectTo = "/register-error";
-            });
-        console.log("Saved to sheets");
+        if (process.env.GOOGLE_SHEETS_INTEGRATION_ENABLED !== "false") {
+            const sheetsService: SheetsService = new SheetsService(process.env.REGISTER_SPREADSHEET_ID as string);
+            await sheetsService.init().catch(() => (redirectTo = "/register-error"));
+            await sheetsService
+                .appendValues(values, process.env.REGISTER_SHEET_DATA_RANGE as string, process.env.REGISTER_SHEET_HEADER_RANGE as string)
+                .catch(reason => {
+                    console.log(reason);
+                    redirectTo = "/register-error";
+                });
+            console.log("Saved to sheets");
+        }
 
         if (process.env.JIRA_INTEGRATION_ENABLED === "true") {
             console.log("Using Jira integration");
