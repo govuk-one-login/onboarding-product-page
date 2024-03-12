@@ -138,6 +138,22 @@ export default class RealJiraService implements JiraService {
         }
     }
 
+    private ticketServiceDescription(ticketPayload: Map<string, string>): JiraStructuredContent {
+        return this.formatTicketJiraParagraph(ticketPayload.get("serviceDescription"));
+    }
+
+    private formatTicketJiraParagraph(value: string | undefined): JiraStructuredContent {
+        return {
+            version: 1,
+            type: "doc",
+            content: [
+                {
+                    type: "paragraph",
+                    content: [{type: "text", text: value}]
+                }
+            ]
+        };
+    }
 
     private formatCustomFieldWithValue(value: string | undefined, customFieldID: string): JiraCustomFieldChoice {
         return {
@@ -160,7 +176,9 @@ export default class RealJiraService implements JiraService {
                 description: this.ticketDescription(ticketPayload),
                 customfield_11542: this.ticketTotalAnnualNumberOfUsersOfYourService(ticketPayload),
                 customfield_11530: ticketPayload.get("organisationName"),
-                customfield_11541: this.ticketOrganisationType(ticketPayload)
+                customfield_11541: this.ticketOrganisationType(ticketPayload),
+                customfield_11532: ticketPayload.get("serviceName"),
+                customfield_11533: this.ticketServiceDescription(ticketPayload)
             }
         };
     }
