@@ -224,7 +224,9 @@ export default class RealJiraService implements JiraService {
                 customfield_11545: ticketPayload.get("linkToYourService"),
                 customfield_11546: ticketPayload.get("estimatedServiceGoLiveDate"),
                 customfield_11543: this.ticketHelpRequestedWith(ticketPayload),
-                customfield_11544: this.tickerHelpRequestedWithOther(ticketPayload)
+                customfield_11544: this.tickerHelpRequestedWithOther(ticketPayload),
+                customfield_11539: ticketPayload.get("id"),
+                customfield_11540: ticketPayload.get("submission-date")
             }
         };
     }
