@@ -1,7 +1,7 @@
 import axios from "axios";
 import {JIRA_BOARD_URL, JIRA_ISSUE_TYPE, JIRA_PROJECT_KEY} from "../../../config/jiraConfig";
 import {getRequiredEnv} from "../../util/getRequiredEnv";
-import {JiraPostResponse, JiraService, JiraStructuredContent, JiraTicketContentSection} from "../interface";
+import {JiraPostResponse, JiraService, JiraStructuredContent, JiraTicketContentSection, JiraCustomFieldPayload} from "../interface";
 
 export default class RealJiraService implements JiraService {
     private readonly jiraBoardUrl: string;
@@ -102,6 +102,33 @@ export default class RealJiraService implements JiraService {
         };
     }
 
+    private ticketTotalAnnualNumberOfUsersOfYourService(ticketPayload: Map<string, string>): JiraCustomFieldPayload | null {
+        const totalAnnualNumberOfUsersOfYourService = ticketPayload.get("totalAnnualNumberOfUsersOfYourService");
+
+        switch (totalAnnualNumberOfUsersOfYourService) {
+            case "1 to 1,000":
+                return this.formatCustomFieldWithValue("1 to 1,000", "12102");
+            case "1,001 to 50,000":
+                return this.formatCustomFieldWithValue("1,001 to 50,000", "12103");
+            case "50,001 to 250,000":
+                return this.formatCustomFieldWithValue("50,001 to 250,000", "12104");
+            case "250,001 to 1 million":
+                return this.formatCustomFieldWithValue("250,001 to 1 million", "12105");
+            case "Over 1 million users":
+                return this.formatCustomFieldWithValue("Over 1 million users", "12106");
+            default:
+                return null;
+        }
+    }
+
+    private formatCustomFieldWithValue(value: string | undefined, customFieldID: string): JiraCustomFieldChoice {
+        return {
+            self: `https://govukverify.atlassian.net/rest/api/3/customFieldOption/${customFieldID}`,
+            value: value,
+            id: customFieldID
+        };
+    }
+
     private formatJiraTicket(ticketPayload: Map<string, string>): Record<string, unknown> {
         return {
             fields: {
@@ -112,7 +139,8 @@ export default class RealJiraService implements JiraService {
                     key: this.projectKey
                 },
                 summary: this.ticketSummary(ticketPayload),
-                description: this.ticketDescription(ticketPayload)
+                description: this.ticketDescription(ticketPayload),
+                customfield_11542: this.ticketTotalAnnualNumberOfUsersOfYourService(ticketPayload)
             }
         };
     }
