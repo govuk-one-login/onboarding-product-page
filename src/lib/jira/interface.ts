@@ -7,6 +7,13 @@ export type JiraPostResponse = {
     key: string;
     self: string;
 };
+
+export type JiraStructuredContent = {
+    version: number;
+    type: string;
+    content: JiraTicketContentSection[];
+};
+
 export type JiraCustomFieldPayload = JiraCustomFieldChoice;
 
 export type JiraCustomFieldChoice = {

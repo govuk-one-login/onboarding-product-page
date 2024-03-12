@@ -1,7 +1,14 @@
 import axios from "axios";
 import {JIRA_BOARD_URL, JIRA_ISSUE_TYPE, JIRA_PROJECT_KEY} from "../../../config/jiraConfig";
 import {getRequiredEnv} from "../../util/getRequiredEnv";
-import {JiraPostResponse, JiraService, JiraStructuredContent, JiraTicketContentSection, JiraCustomFieldPayload} from "../interface";
+import {
+    JiraPostResponse,
+    JiraService,
+    JiraStructuredContent,
+    JiraTicketContentSection,
+    JiraCustomFieldPayload,
+    JiraCustomFieldChoice
+} from "../interface";
 
 export default class RealJiraService implements JiraService {
     private readonly jiraBoardUrl: string;
@@ -142,6 +149,18 @@ export default class RealJiraService implements JiraService {
         return this.formatTicketJiraParagraph(ticketPayload.get("serviceDescription"));
     }
 
+    private ticketServiceIntegrationType(ticketPayload: Map<string, string>): JiraCustomFieldChoice | null {
+        const accessType = ticketPayload.get("accessAndTest");
+
+        if (accessType === "auth only") {
+            return this.formatCustomFieldWithValue("Authentication only", "12096");
+        } else if (accessType === "auth and identity") {
+            return this.formatCustomFieldWithValue("Authentication and identity checking", "12097");
+        } else {
+            return null;
+        }
+    }
+
     private formatTicketJiraParagraph(value: string | undefined): JiraStructuredContent {
         return {
             version: 1,
@@ -178,7 +197,8 @@ export default class RealJiraService implements JiraService {
                 customfield_11530: ticketPayload.get("organisationName"),
                 customfield_11541: this.ticketOrganisationType(ticketPayload),
                 customfield_11532: ticketPayload.get("serviceName"),
-                customfield_11533: this.ticketServiceDescription(ticketPayload)
+                customfield_11533: this.ticketServiceDescription(ticketPayload),
+                customfield_11538: this.ticketServiceIntegrationType(ticketPayload)
             }
         };
     }

@@ -84,6 +84,11 @@ const testFormattedJiraPayload = {
                     content: [{type: "text", text: "Great coffee sent direct to you"}]
                 }
             ]
+        },
+        customfield_11538: {
+            self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/12096",
+            value: "Authentication only",
+            id: "12096"
         }
     }
 };
