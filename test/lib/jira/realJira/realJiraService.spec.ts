@@ -73,6 +73,17 @@ const testFormattedJiraPayload = {
             self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/12098",
             value: "Government department or Ministry",
             id: "12098"
+        },
+        customfield_11532: "CoffeeTest",
+        customfield_11533: {
+            version: 1,
+            type: "doc",
+            content: [
+                {
+                    type: "paragraph",
+                    content: [{type: "text", text: "Great coffee sent direct to you"}]
+                }
+            ]
         }
     }
 };
