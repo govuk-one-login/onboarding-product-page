@@ -149,6 +149,28 @@ export default class RealJiraService implements JiraService {
         return this.formatTicketJiraParagraph(ticketPayload.get("serviceDescription"));
     }
 
+    private tickerHelpRequestedWithOther(ticketPayload: Map<string, string>): JiraStructuredContent {
+        return this.formatTicketJiraParagraph(ticketPayload.get("likeHelpWith"));
+    }
+
+    private ticketHelpRequestedWith(ticketPayload: Map<string, string>): JiraCustomFieldChoice[] {
+        const gettingAccess = ticketPayload.get("gettingAccess");
+        const havingTechnicalDiscussion = ticketPayload.get("havingTechnicalDiscussion");
+        const walkingThrough = ticketPayload.get("walkingThrough");
+        const understandingProgramme = ticketPayload.get("understandingProgramme");
+        const otherHelp = ticketPayload.get("likeHelpWith");
+
+        return [
+            ...(gettingAccess ? [this.formatCustomFieldWithValue("Access to the integration environment", "12107")] : []),
+            ...(havingTechnicalDiscussion ? [this.formatCustomFieldWithValue("Technical discussion", "12108")] : []),
+            ...(walkingThrough ? [this.formatCustomFieldWithValue("Walk through of onboarding process", "12109")] : []),
+            ...(understandingProgramme
+                ? [this.formatCustomFieldWithValue("Understand the GOV.UK One Login programme in more detail", "12110")]
+                : []),
+            ...(otherHelp ? [this.formatCustomFieldWithValue("Other", "12111")] : [])
+        ];
+    }
+
     private ticketServiceIntegrationType(ticketPayload: Map<string, string>): JiraCustomFieldChoice | null {
         const accessType = ticketPayload.get("accessAndTest");
 
@@ -200,7 +222,9 @@ export default class RealJiraService implements JiraService {
                 customfield_11533: this.ticketServiceDescription(ticketPayload),
                 customfield_11538: this.ticketServiceIntegrationType(ticketPayload),
                 customfield_11545: ticketPayload.get("linkToYourService"),
-                customfield_11546: ticketPayload.get("estimatedServiceGoLiveDate")
+                customfield_11546: ticketPayload.get("estimatedServiceGoLiveDate"),
+                customfield_11543: this.ticketHelpRequestedWith(ticketPayload),
+                customfield_11544: this.tickerHelpRequestedWithOther(ticketPayload)
             }
         };
     }
