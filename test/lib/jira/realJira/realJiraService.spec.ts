@@ -123,7 +123,9 @@ const testFormattedJiraPayload = {
                     content: [{type: "text", text: "I'd like help with some other thing too"}]
                 }
             ]
-        }
+        },
+        customfield_11539: "6eae99dc-b728-4a65-add2-1c68271e0e8e",
+        customfield_11540: "2024-02-29T10:42:12.830"
     }
 };
 
