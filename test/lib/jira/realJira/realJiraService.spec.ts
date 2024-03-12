@@ -62,6 +62,11 @@ const testFormattedJiraPayload = {
                     ]
                 }
             ]
+        },
+        customfield_11542: {
+            self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/12106",
+            value: "Over 1 million users",
+            id: "12106"
         }
     }
 };
