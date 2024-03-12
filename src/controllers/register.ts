@@ -3,6 +3,8 @@ import uuid from "../lib/uuid";
 import getTimestamp from "../lib/timestamp";
 import SheetsService from "../lib/sheets/SheetsService";
 import Validation from "../lib/validation/validation";
+import JiraTicketService from "../lib/jira/JiraTicketService";
+import axios from "axios";
 
 export const confirm = function (req: Request, res: Response) {
     res.render("register-confirm.njk");
@@ -121,8 +123,24 @@ export const post = async function (req: Request, res: Response) {
                 console.log(reason);
                 redirectTo = "/register-error";
             });
-
         console.log("Saved to sheets");
+
+        if (process.env.JIRA_INTEGRATION_ENABLED === "true") {
+            console.log("Using Jira integration");
+            try {
+                const jiraService = new JiraTicketService(values);
+                await jiraService.sendJiraTicket();
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    console.error("Jira Post request failed with status code: ", error.status);
+                    console.error("Axios Error, errorMessages Object: ", error.response?.data?.errorMessages);
+                    console.error("Axios Error, errors Object: ", error.response?.data?.errors);
+                } else {
+                    console.error("Jira Integration error: ", error);
+                }
+                redirectTo = "/register-error";
+            }
+        }
         res.redirect(redirectTo);
     } else {
         res.render("register.njk", {

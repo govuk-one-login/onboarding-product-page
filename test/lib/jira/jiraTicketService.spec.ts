@@ -1,7 +1,7 @@
 import axios from "axios";
 import sinon from "sinon";
 import JiraTicketService from "../../../src/lib/jira/JiraTicketService";
-import {testApiKey, testBoardUrl, testFormSubmission, testIssueType, testProjectKey, testUserName} from "./testConstants";
+import {testApiKey, testFormSubmission, testUserName} from "./testConstants";
 
 let axiosStub: sinon.SinonStub;
 let consoleSpy: sinon.SinonSpy;
@@ -40,9 +40,6 @@ describe("JiraService tests", () => {
 
     it("uses the real service when USE_STUB_JIRA is set to false", async () => {
         process.env.USE_STUB_JIRA = "false";
-        process.env.JIRA_BOARD_URL = testBoardUrl;
-        process.env.JIRA_PROJECT_KEY = testProjectKey;
-        process.env.JIRA_ISSUE_TYPE = testIssueType;
         process.env.JIRA_USER_NAME = testUserName;
         process.env.JIRA_API_KEY = testApiKey;
         const realJiraService = new JiraTicketService(testFormSubmission);
