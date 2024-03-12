@@ -43,3 +43,6 @@ type JiraTicketContentPayloadMarks = {
     };
 };
 
+export interface JiraInterface {
+    sendJiraTicket: () => Promise<void>;
+}
