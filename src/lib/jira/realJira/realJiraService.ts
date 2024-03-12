@@ -121,6 +121,24 @@ export default class RealJiraService implements JiraService {
         }
     }
 
+    private ticketOrganisationType(ticketPayload: Map<string, string>): JiraCustomFieldPayload | null {
+        const organisationType = ticketPayload.get("organisationType");
+
+        switch (organisationType) {
+            case "Government department or Ministry":
+                return this.formatCustomFieldWithValue("Government department or Ministry", "12098");
+            case "Executive Agency":
+                return this.formatCustomFieldWithValue("Executive Agency", "12099");
+            case "Arms length body":
+                return this.formatCustomFieldWithValue("Arms length body", "12100");
+            case "Other":
+                return this.formatCustomFieldWithValue("Other", "12101");
+            default:
+                return null;
+        }
+    }
+
+
     private formatCustomFieldWithValue(value: string | undefined, customFieldID: string): JiraCustomFieldChoice {
         return {
             self: `https://govukverify.atlassian.net/rest/api/3/customFieldOption/${customFieldID}`,
@@ -140,7 +158,9 @@ export default class RealJiraService implements JiraService {
                 },
                 summary: this.ticketSummary(ticketPayload),
                 description: this.ticketDescription(ticketPayload),
-                customfield_11542: this.ticketTotalAnnualNumberOfUsersOfYourService(ticketPayload)
+                customfield_11542: this.ticketTotalAnnualNumberOfUsersOfYourService(ticketPayload),
+                customfield_11530: ticketPayload.get("organisationName"),
+                customfield_11541: this.ticketOrganisationType(ticketPayload)
             }
         };
     }
