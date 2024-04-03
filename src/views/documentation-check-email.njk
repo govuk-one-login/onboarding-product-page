@@ -1,0 +1,16 @@
+{% extends "base.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% set pageTitle = "Email address sent" %}
+
+{% block mainContent %}
+  {{ govukPanel({ titleText: "Email address sent" }) }}
+  <h2 class="govuk-heading-m">What happens next</h2>
+  <p class="govuk-body">We'll now check your email address to make sure we can share the prototype with you.</p>
+  <p class="govuk-body">We'll be in touch within a day.</p>
+  {{ govukButton({
+    text: "Go back to documentation",
+    href: "/documentation/end-to-end-prototype/identity-journeys"
+  }) }}
+{% endblock %}
