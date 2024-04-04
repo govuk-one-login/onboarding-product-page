@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import {resources} from "../config/resources";
-import {processPrototypeEmailForm} from "../controllers/prototype";
+import {requestPrototypeAccess} from "../controllers/html-prototype-access";
 
 const router = express.Router();
 
@@ -109,7 +109,7 @@ router.get("/documentation/end-to-end-prototype/enter-email-address", (req, res)
     res.render("documentation-enter-email-address.njk");
 });
 
-router.post("/documentation/end-to-end-prototype/enter-email-address", processPrototypeEmailForm);
+router.post("/documentation/end-to-end-prototype/enter-email-address", requestPrototypeAccess);
 
 router.get("/documentation/end-to-end-prototype/check-email", (req, res) => {
     res.render("documentation-check-email.njk");
