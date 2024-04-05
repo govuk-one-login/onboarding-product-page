@@ -13,14 +13,3 @@
   <p class="govuk-body">If you have questions in the meantime, contact us using our <a class="govuk-link" href="/support">support form</a> or <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a>.</p>
   <p class="govuk-body"><a class="govuk-link" href="/">Back to homepage</a>.</p>
 {% endblock %}
-{% block scripts %}
-  {{ga4OnPageLoad({
-    statusCode:"200",
-    englishPageTitle: pageTitle,
-    taxonomyLevel1: taxonomyLevel1,
-    taxonomyLevel2: taxonomyLevel2Register,
-    contentId:"ff47f88e-4444-4374-9a93-487f40017e8e",
-    loggedInStatus:false,
-    dynamic:false
-  })}}
-{% endblock %}
