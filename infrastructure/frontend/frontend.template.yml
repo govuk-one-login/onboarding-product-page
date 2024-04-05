@@ -136,6 +136,8 @@ Resources:
           Image: !Ref ImageURI
           ReadonlyRootFilesystem: true
           Environment:
+            - Name: TEST_SECRET
+              Value: "{{resolve:secretsmanager:/product-pages/frontend/test-secret}}"
             - Name: PORT
               Value: !Ref ContainerPort
             - Name: SHOW_TEST_BANNER
