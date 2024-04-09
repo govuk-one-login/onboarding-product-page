@@ -23,7 +23,3 @@
 1. Replace the placeholder values in `.env` with appropriate values.
 2. Run `npm install`
 3. Run `npm run local`
-
-# To use Google Analytics locally env variable must be set:
-
-COOKIE_DOMAIN=localhost

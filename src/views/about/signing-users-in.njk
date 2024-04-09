@@ -28,14 +28,3 @@
   <h2 class="govuk-heading-m">See the sign in user journeys</h2>
   <p class="govuk-body"><a class="govuk-link" href="/documentation/user-journeys">View journey maps of the sign in journey.</a></p>
 {% endblock %}
-{% block scripts %}
-  {{ga4OnPageLoad({
-    statusCode:"200",
-    englishPageTitle: pageTitle,
-    taxonomyLevel1: taxonomyLevel1,
-    taxonomyLevel2: taxonomyLevel2About,
-    contentId:"3782d099-096e-403c-91c6-9b13fc6556c7",
-    loggedInStatus:false,
-    dynamic:false
-  })}}
-{% endblock %}
