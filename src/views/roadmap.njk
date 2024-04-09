@@ -115,14 +115,3 @@
   <p class="govuk-body">We’ll keep sharing in blog posts and at our regular cross-government show and tells too.</p>
   <p class="govuk-body"><a class="govuk-link" href="/mailing-list">Join our mailing list</a> to stay up to date.</p>
 {% endblock %}
-{% block scripts %}
-  {{ga4OnPageLoad({
-    statusCode:"200",
-    englishPageTitle: pageTitle,
-    taxonomyLevel1: taxonomyLevel1,
-    taxonomyLevel2: taxonomyLevel2About,
-    contentId:"a618a166-5678-4e29-b640-397d182b98bd",
-    loggedInStatus:false,
-    dynamic:false
-  })}}
-{% endblock %}
