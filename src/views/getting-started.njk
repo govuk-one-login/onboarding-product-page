@@ -31,14 +31,3 @@
   <p class="govuk-body">Use our <a class="govuk-link" href="/support">online form</a> to report problems, ask questions or suggest improvements.</p>
   <p class="govuk-body">You can also get in touch via our <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a></p>
 {% endblock %}
-{% block scripts %}
-  {{ga4OnPageLoad({
-    statusCode:"200",
-    englishPageTitle: pageTitle,
-    taxonomyLevel1: taxonomyLevel1,
-    taxonomyLevel2: taxonomyLevel2Register,
-    contentId:"db7387ba-09cf-402f-90c9-9d651770bf77",
-    loggedInStatus:false,
-    dynamic:false
-  })}}
-{% endblock %}
