@@ -248,14 +248,3 @@
     GDS will take reasonable steps to let you know.
   </p>
 {% endblock %}
-{% block scripts %}
-  {{ga4OnPageLoad({
-    statusCode:"200",
-    englishPageTitle: pageTitle,
-    taxonomyLevel1: taxonomyLevel1,
-    taxonomyLevel2: taxonomyLevel2Policies,
-    contentId:"760a1dae-fe36-46ad-be09-80992eb7c140",
-    loggedInStatus:false,
-    dynamic:false
-  })}}
-{% endblock %}
