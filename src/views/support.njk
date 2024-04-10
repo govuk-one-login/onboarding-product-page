@@ -34,3 +34,14 @@
   <p class="govuk-body">We can only respond to your support queries during office hours. Our office hours are 9:30am to 5:30pm, Monday to Friday.</p>
   <p class="govuk-body">When you get in touch during office hours, we’ll try to reply within 2 working days.</p>
 {% endblock %}
+{% block scripts %}
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2Support,
+    contentId:"94096541-db52-444c-9b02-098e1622e581",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
+{% endblock %}

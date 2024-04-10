@@ -40,3 +40,14 @@
     </p>
   </div>
 {% endblock %}
+{% block scripts %}
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2Documents,
+    contentId:"b6f47d05-5fe6-4d35-a270-602c8a1b4cd0",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
+{% endblock %}

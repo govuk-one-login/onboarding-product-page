@@ -46,3 +46,14 @@
   <h3 class="govuk-heading-s">View design recommendations</h3>
   <p class="govuk-body">See our <a class="govuk-link" href="/documentation/design-recommendations">design recommendations</a> which will help you incorporate the ‘save and complete later’ journey into your service.</p>
 {% endblock %}
+{% block scripts %}
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2Documents,
+    contentId:"030aff50-b6d8-4706-bb00-357cc9012ce9",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
+{% endblock %}

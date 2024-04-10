@@ -64,3 +64,14 @@
   <h2 class="govuk-heading-m">Read our privacy notice</h2>
   <p class="govuk-body">By continuing, you confirm that you agree to our <a class="govuk-link" href="/privacy-policy">privacy notice</a>. It sets out how we use your personal information.</p>
 {% endblock %}
+{% block scripts %}
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2Register,
+    contentId:"4cd82aff-b4c2-47d0-a0c9-caf98ce10c8f",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
+{% endblock %}
