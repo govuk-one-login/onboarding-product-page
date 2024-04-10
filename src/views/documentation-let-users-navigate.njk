@@ -105,4 +105,13 @@
 
 {% block scripts %}
   <script type="module" src="/assets/javascripts/back-to-top.js"></script>
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2Documents,
+    contentId:"7347ba5b-c0b0-40f1-b505-e78b0c721497",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
 {% endblock %}
