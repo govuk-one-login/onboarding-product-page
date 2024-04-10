@@ -93,4 +93,13 @@
 
 {% block scripts %}
   <script type="module" src="/assets/javascripts/back-to-top.js"></script>
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2Documents,
+    contentId:"36ee8d9c-391d-4b2e-95bb-7a8cb4300a45",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
 {% endblock %}

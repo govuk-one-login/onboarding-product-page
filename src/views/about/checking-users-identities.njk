@@ -55,3 +55,14 @@
   <h2 class="govuk-heading-m">Find out more</h2>
   <p class="govuk-body">Read the <a class="govuk-link" href="https://docs.sign-in.service.gov.uk/">technical documentation</a> to see how to integrate with the identity checking part of GOV.UK One Login.</p>
 {% endblock %}
+{% block scripts %}
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2About,
+    contentId:"aaa71e89-73ab-4fe1-a495-ff51df8ccb9c",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
+{% endblock %}
