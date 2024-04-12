@@ -81,10 +81,10 @@ const testFormattedJiraPayload = {
                 }
             ]
         },
-        customfield_11538: {
-            self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/12096",
-            value: "Authentication only",
-            id: "12096"
+        customfield_11224: {
+            self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/11205",
+            value: "Auth Only",
+            id: "11205"
         },
         customfield_11545: "https://test.coffee.gov.uk",
         customfield_11546: "June 2026",

@@ -135,9 +135,9 @@ export default class RealJiraService implements JiraService {
         const accessType = ticketPayload.get("accessAndTest");
 
         if (accessType === "auth only") {
-            return this.formatCustomFieldWithValue("Authentication only", "12096");
+            return this.formatCustomFieldWithValue("Auth Only", "11205");
         } else if (accessType === "auth and identity") {
-            return this.formatCustomFieldWithValue("Authentication and identity checking", "12097");
+            return this.formatCustomFieldWithValue("Auth / Identity", "11204");
         } else {
             return null;
         }
@@ -188,7 +188,7 @@ export default class RealJiraService implements JiraService {
                 customfield_11541: this.ticketOrganisationType(ticketPayload),
                 customfield_11338: ticketPayload.get("serviceName"),
                 customfield_11533: this.ticketServiceDescription(ticketPayload),
-                customfield_11538: this.ticketServiceIntegrationType(ticketPayload),
+                customfield_11224: this.ticketServiceIntegrationType(ticketPayload),
                 customfield_11545: ticketPayload.get("linkToYourService"),
                 customfield_11546: ticketPayload.get("estimatedServiceGoLiveDate"),
                 customfield_11539: ticketPayload.get("id"),
