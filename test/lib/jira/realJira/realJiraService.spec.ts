@@ -70,7 +70,7 @@ const testFormattedJiraPayload = {
             value: "Government department or Ministry",
             id: "12098"
         },
-        customfield_11532: "CoffeeTest",
+        customfield_11338: "CoffeeTest",
         customfield_11533: {
             version: 1,
             type: "doc",
