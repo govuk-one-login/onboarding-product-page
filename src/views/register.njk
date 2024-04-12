@@ -49,16 +49,6 @@
       }
       }
     ]) }}
-  {% set helpOtherHtml %}
-    {{ form.textAreaInput("Could you explain what you’d like help with?", "likeHelpWith") }}
-  {% endset -%}
-  {{ form.checkboxesInput("What would you like help with?", "helpWith", "Tick all that apply - this will help us understand your initial needs", [
-    {text: "Getting access to the integration environment to test GOV.UK One Login", value: "gettingAccess", checked: gettingAccess},
-    {text: "Having a technical discussion", value: "havingTechnicalDiscussion", checked: havingTechnicalDiscussion},
-    {text: "Walking through the onboarding process", value: "walkingThrough", checked: walkingThrough},
-    {text: "Understanding the GOV.UK One Login programme in more detail", value: "understandingProgramme", checked: understandingProgramme},
-    {text: "Other", value: "other", conditional: {html: helpOtherHtml}, checked: other}
-  ], selectedItems) }}
   {{ form.radiosInput("Do you have any other services you’d like to talk to us about?", name = "anyOtherServicesToTalkAbout", hint = "We’ll ask you more about any additional services when we contact you",
     items = [
       {text: "Yes", value: "yes"},

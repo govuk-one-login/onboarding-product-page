@@ -88,38 +88,6 @@ const testFormattedJiraPayload = {
         },
         customfield_11545: "https://test.coffee.gov.uk",
         customfield_11546: "June 2026",
-        customfield_11543: [
-            {
-                self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/12107",
-                value: "Access to the integration environment",
-                id: "12107"
-            },
-            {
-                self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/12108",
-                value: "Technical discussion",
-                id: "12108"
-            },
-            {
-                self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/12109",
-                value: "Walk through of onboarding process",
-                id: "12109"
-            },
-            {
-                self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/12111",
-                value: "Other",
-                id: "12111"
-            }
-        ],
-        customfield_11544: {
-            version: 1,
-            type: "doc",
-            content: [
-                {
-                    type: "paragraph",
-                    content: [{type: "text", text: "I'd like help with some other thing too"}]
-                }
-            ]
-        },
         customfield_11539: "6eae99dc-b728-4a65-add2-1c68271e0e8e",
         customfield_11540: "2024-02-29T10:42:12.830"
     }

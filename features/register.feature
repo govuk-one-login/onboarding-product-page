@@ -69,15 +69,6 @@ Feature: A form so users can register to get started with GOV.UK One Login
       When they try to submit the form without selecting any value from the radio button
       Then the error message with the text "Select one option" must be displayed for the what would you like to access and test field
 
-  Rule: The user tries to select and submit What would you like help with? when registering to get started with GOV.UK One Login
-    Scenario: The user does not select any value from What would you like help with? checkbox list
-      When they try to submit the form without selecting any value from the checkbox list
-      Then the error message with the text "Select one or more options" must be displayed for the what would you like help with field
-
-    Scenario: The user selects Other value from What would you like help with? checkbox list, but does not enter text into the textfield
-      When they select the Other value and do not enter any text into the Could you explain what you’d like help with? textfield and try to submit the form
-      Then the error message with the text "Enter a short description of what you need help with" must be displayed for the explain what you would like help with field
-
   Rule: The user tries to select and submit Do you have any other services you’d like to talk to us about when registering to get started with GOV.UK One Login
     Scenario: The user does not select any value from Do you have any other services you’d like to talk to us about radio button
       When they try to submit the form without selecting any value from the radio button
