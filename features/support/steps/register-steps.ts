@@ -11,7 +11,7 @@ const fields = {
     "organisation type": "organisationType",
     "service name": "serviceName",
     "service description": "serviceDescription",
-    "total annual number of users of your service": "totalAnnualNumberOfUsersOfYourService",
+    "approximate number of users each year": "expectedNumberOfUsersPerAnnum",
     "estimated date for your service to go live": "estimatedServiceGoLiveDate",
     "what would you like to access and test": "accessAndTest",
     "what would you like help with": "helpWith",
@@ -64,7 +64,7 @@ When("they fill in correct data in all the mandatory input fields, select button
     await selectOption(this.page, "organisationType", "governmentDepartmentOrMinistry");
     await this.page.type("#serviceName", "Test Service");
     await this.page.type("#serviceDescription", "Test Service description");
-    await selectOption(this.page, "totalAnnualNumberOfUsersOfYourService", "range1To1000");
+    await selectOption(this.page, "expectedNumberOfUsersPerAnnum", "1000");
     await this.page.type("#estimatedServiceGoLiveDate", "June 2025");
     await selectOption(this.page, "accessAndTest", "authenticationOnly");
     const checkboxInput = await this.page.$("#helpWith");

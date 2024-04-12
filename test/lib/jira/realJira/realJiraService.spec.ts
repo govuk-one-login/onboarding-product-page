@@ -63,11 +63,7 @@ const testFormattedJiraPayload = {
                 }
             ]
         },
-        customfield_11542: {
-            self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/12106",
-            value: "Over 1 million users",
-            id: "12106"
-        },
+        customfield_11278: 100000,
         customfield_11530: "Government Coffee Service",
         customfield_11541: {
             self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/12098",

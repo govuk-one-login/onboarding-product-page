@@ -1,5 +1,5 @@
 export interface JiraService {
-    postJiraTicket: (ticketPayload: Map<string, string>) => Promise<JiraPostResponse>;
+    postJiraTicket: (ticketPayload: Map<string, string | number>) => Promise<JiraPostResponse>;
 }
 
 export type JiraPostResponse = {
@@ -18,7 +18,7 @@ export type JiraCustomFieldPayload = JiraCustomFieldChoice;
 
 export type JiraCustomFieldChoice = {
     self: string;
-    value: string | undefined;
+    value: string | number | undefined;
     id: string;
 };
 
@@ -30,11 +30,11 @@ export type JiraTicketContentSection = {
     content?: JiraTicketContentPayload[];
 };
 
-export type RegisterInterestFormPayload = Map<string, string>;
+export type RegisterInterestFormPayload = Map<string, string | number>;
 
 type JiraTicketContentPayload = {
     type: string;
-    text?: string | undefined;
+    text?: string | undefined | number;
     marks?: JiraTicketContentPayloadMarks[];
 };
 

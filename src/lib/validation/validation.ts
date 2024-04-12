@@ -53,6 +53,13 @@ export default class Validation {
                 return "Enter a government email address";
             }
         }
+
+        if (field == "expectedNumberOfUsersPerAnnum") {
+            const expectedNumberOfUsersPerAnnum = form.get("expectedNumberOfUsersPerAnnum") as string;
+            if (this.invalidNumber(expectedNumberOfUsersPerAnnum)) {
+                return "Enter a valid number";
+            }
+        }
     }
 
     fieldHasNoValue(field: string, form: Map<string, string>): boolean {
@@ -66,6 +73,11 @@ export default class Validation {
     notGovernmentEmail(email: string): boolean {
         const emailDomain = email.trim().split("@")[1];
         return this.validEmailDomains.find(domain => domain == emailDomain) === undefined;
+    }
+
+    invalidNumber(field: string): boolean {
+        const number = Number(field);
+        return isNaN(number);
     }
 
     static getInstance() {

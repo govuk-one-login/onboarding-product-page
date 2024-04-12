@@ -1,4 +1,4 @@
-export const testFormSubmission = new Map<string, string>(
+export const testFormSubmission = new Map<string, string | number>(
     Object.entries({
         firstName: "TestUserFirstName",
         lastName: "TestUserLastName",
@@ -9,7 +9,7 @@ export const testFormSubmission = new Map<string, string>(
         serviceName: "CoffeeTest",
         serviceDescription: "Great coffee sent direct to you",
         linkToYourService: "https://test.coffee.gov.uk",
-        totalAnnualNumberOfUsersOfYourService: "Over 1 million users",
+        expectedNumberOfUsersPerAnnum: 100000,
         estimatedServiceGoLiveDate: "June 2026",
         accessAndTest: "auth only",
         likeHelpWith: "I'd like help with some other thing too",

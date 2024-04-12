@@ -186,6 +186,14 @@ export default class RealJiraService implements JiraService {
         };
     }
 
+    private formatExpectedNumberOfUsersPerAnnum(ticketPayload: RegisterInterestFormPayload): number | null {
+        try {
+            return Number(ticketPayload.get("expectedNumberOfUsersPerAnnum"));
+        } catch {
+            return null;
+        }
+    }
+
     private formatJiraTicket(ticketPayload: RegisterInterestFormPayload): Record<string, unknown> {
         return {
             fields: {
@@ -197,7 +205,7 @@ export default class RealJiraService implements JiraService {
                 },
                 summary: this.ticketSummary(ticketPayload),
                 description: this.ticketDescription(ticketPayload),
-                customfield_11542: this.ticketTotalAnnualNumberOfUsersOfYourService(ticketPayload),
+                customfield_11278: this.formatExpectedNumberOfUsersPerAnnum(ticketPayload),
                 customfield_11530: ticketPayload.get("organisationName"),
                 customfield_11541: this.ticketOrganisationType(ticketPayload),
                 customfield_11532: ticketPayload.get("serviceName"),
