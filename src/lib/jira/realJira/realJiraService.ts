@@ -75,15 +75,6 @@ export default class RealJiraService implements JiraService {
             type: "doc",
             content: [
                 {
-                    type: "paragraph",
-                    content: [
-                        {
-                            type: "text",
-                            text: "A user has registered their interest in GOV.UK One Login"
-                        }
-                    ]
-                },
-                {
                     type: "heading",
                     attrs: {level: 3},
                     content: [{type: "text", text: "Initial Contact Details"}]
