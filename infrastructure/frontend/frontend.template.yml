@@ -87,6 +87,14 @@ Mappings:
   ElasticLoadBalancer:
     eu-west-2:
       AccountID: 652711504416
+  WafArn:
+    Environment:
+      local: "/product-pages/development/waf-web-acl"
+      dev: "/product-pages/development/waf-web-acl"
+      build: "/product-pages/build/waf-web-acl"
+      staging: "/product-pages/staging/waf-web-acl"
+      integration: "/product-pages/integration/waf-web-acl"
+      production: "/product-pages/production/waf-web-acl"
   TxMAAccountARN:
     Environment:
       local: 'arn:aws:iam::494650018671:root'
@@ -459,7 +467,9 @@ Resources:
   LoadBalancerWebACLAssociation:
     Type: AWS::WAFv2::WebACLAssociation
     Properties:
-      WebACLArn: !ImportValue product-pages-waf-acl-arn
+      WebACLArn: !Sub
+        - "{{resolve:ssm:${WafArnParam}}}"
+        - WafArnParam: !FindInMap [ WafArn, Environment, !Ref Environment ]
       ResourceArn: !Ref ApplicationLoadBalancer
 
   TxMASQSProducerAuditEventQueue:
