@@ -1,6 +1,7 @@
 Feature: All product pages must meet the accessibility standards
 
   Below page names have added for reference to relevant page
+
   @accessible
   Scenario Outline: user validating the accessibility of product pages
     Given that the user is on the '<url>' page
@@ -19,6 +20,9 @@ Feature: All product pages must meet the accessibility standards
       | Technical documentation                                                      | /documentation                                           |
       | Sign in user journey maps                                                    | /documentation/user-journeys                             |
       | Proving identity journey maps                                                | /documentation/identity-journeys                         |
+      | GOV.UK One Login prototype                                                   | /documentation/end-to-end-prototype/identity-journeys    |
+      | Enter Email Address                                                          | /documentation/end-to-end-prototype/enter-email-address  |
+      | Email Address sent page                                                      | /documentation/end-to-end-prototype/check-email          |
       | Design recommendations (parent)                                              | /documentation/design-recommendations                    |
       | Let users create a Welcome to GOV.UK  One Login to save progress             | /documentation/design-recommendations/save-progress      |
       | Let users navigate to their Welcome to GOV.UK  One Login and sign out easily | /documentation/design-recommendations/save-progress      |
