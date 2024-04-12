@@ -27,7 +27,7 @@ const requiredFieldsRegister = new Map<string, string>([
     ["organisationType", "Select one option"],
     ["serviceName", "Enter the name of your service"],
     ["serviceDescription", "Enter a short description of your service"],
-    ["totalAnnualNumberOfUsersOfYourService", "Select one option"],
+    ["expectedNumberOfUsersPerAnnum", "Enter the number of users you expect annually"],
     ["estimatedServiceGoLiveDate", "Enter a month and year"],
     ["accessAndTest", "Select one option"],
     ["helpWith", "Select one or more options"],
@@ -79,21 +79,6 @@ export const post = async function (req: Request, res: Response) {
         for (const [key, value] of Object.entries(organisationTypeMappings)) {
             if (req.body.organisationType === key) {
                 values.set("organisationType", value);
-                break;
-            }
-        }
-
-        const totalAnnualNumberMappings = {
-            range1To1000: "1 to 1,000",
-            range1001To50000: "1,001 to 50,000",
-            range50001To250000: "50,001 to 250,000",
-            range250001To1Million: "250,001 to 1 million",
-            rangeOver1Million: "Over 1 million users"
-        };
-
-        for (const [key, value] of Object.entries(totalAnnualNumberMappings)) {
-            if (req.body.totalAnnualNumberOfUsersOfYourService === key) {
-                values.set("totalAnnualNumberOfUsersOfYourService", value);
                 break;
             }
         }
