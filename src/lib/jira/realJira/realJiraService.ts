@@ -172,6 +172,10 @@ export default class RealJiraService implements JiraService {
         }
     }
 
+    private formatAdditionalHelpOrQuestions(ticketPayload: RegisterInterestFormPayload): JiraStructuredContent {
+        return this.formatTicketJiraParagraph(ticketPayload.get("additionalHelpOrQuestions"));
+    }
+
     private formatJiraTicket(ticketPayload: RegisterInterestFormPayload): Record<string, unknown> {
         return {
             fields: {
@@ -189,6 +193,7 @@ export default class RealJiraService implements JiraService {
                 customfield_11338: ticketPayload.get("serviceName"),
                 customfield_11533: this.ticketServiceDescription(ticketPayload),
                 customfield_11224: this.ticketServiceIntegrationType(ticketPayload),
+                customfield_11544: this.formatAdditionalHelpOrQuestions(ticketPayload),
                 customfield_11545: ticketPayload.get("linkToYourService"),
                 customfield_11546: ticketPayload.get("estimatedServiceGoLiveDate"),
                 customfield_11539: ticketPayload.get("id"),
