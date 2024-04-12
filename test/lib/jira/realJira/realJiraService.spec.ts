@@ -86,6 +86,21 @@ const testFormattedJiraPayload = {
             value: "Auth Only",
             id: "11205"
         },
+        customfield_11544: {
+            version: 1,
+            type: "doc",
+            content: [
+                {
+                    type: "paragraph",
+                    content: [
+                        {
+                            type: "text",
+                            text: "I'd like some additional help with selecting the right coffee to test"
+                        }
+                    ]
+                }
+            ]
+        },
         customfield_11545: "https://test.coffee.gov.uk",
         customfield_11546: "June 2026",
         customfield_11539: "6eae99dc-b728-4a65-add2-1c68271e0e8e",
