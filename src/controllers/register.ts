@@ -30,7 +30,6 @@ const requiredFieldsRegister = new Map<string, string>([
     ["expectedNumberOfUsersPerAnnum", "Enter the number of users you expect annually"],
     ["estimatedServiceGoLiveDate", "Enter a month and year"],
     ["accessAndTest", "Select one option"],
-    ["helpWith", "Select one or more options"],
     ["anyOtherServicesToTalkAbout", "Select one option"],
     ["getUpdatesAboutOneLogin", "Select one option"]
 ]);
@@ -38,37 +37,11 @@ const requiredFieldsRegister = new Map<string, string>([
 export const post = async function (req: Request, res: Response) {
     const values = new Map<string, string>(Object.entries(req.body));
 
-    if (req.body.helpWith) {
-        values.delete("helpWith");
-        values.set("helpWith", req.body.helpWith.toString());
-    }
-
     values.forEach((value, key) => values.set(key, value.trim()));
 
     const errorMessages = (req.app.get("validation") as Validation).validate(values, requiredFieldsRegister);
 
-    if (req.body.helpWith && (req.body.helpWith === "other" || req.body.helpWith.includes("other")) && req.body.likeHelpWith === "") {
-        errorMessages.set("likeHelpWith", "Enter a short description of what you need help with");
-    }
-
     if (errorMessages.size == 0) {
-        const helpWithMappings = {
-            gettingAccess: "Access to integration",
-            havingTechnicalDiscussion: "Technical discussion",
-            walkingThrough: "Onboarding walkthrough",
-            understandingProgramme: "Programme detail"
-        };
-
-        for (const [key, value] of Object.entries(helpWithMappings)) {
-            if (req.body.helpWith.includes(key)) {
-                values.set(key, value);
-            }
-        }
-
-        if (req.body.helpWith.includes("other")) {
-            values.set("likeHelpWith", req.body.likeHelpWith);
-        }
-
         const organisationTypeMappings = {
             governmentDepartmentOrMinistry: "Government department or Ministry",
             executiveAgency: "Executive Agency",
@@ -132,8 +105,7 @@ export const post = async function (req: Request, res: Response) {
     } else {
         res.render("register.njk", {
             errorMessages: errorMessages,
-            values: values,
-            selectedItems: req.body.helpWith
+            values: values
         });
     }
 };

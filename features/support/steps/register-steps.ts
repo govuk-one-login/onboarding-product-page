@@ -14,8 +14,6 @@ const fields = {
     "approximate number of users each year": "expectedNumberOfUsersPerAnnum",
     "estimated date for your service to go live": "estimatedServiceGoLiveDate",
     "what would you like to access and test": "accessAndTest",
-    "what would you like help with": "helpWith",
-    "explain what you would like help with": "likeHelpWith",
     "any other services you would like to talk to us about": "anyOtherServicesToTalkAbout",
     "would you like to get updates": "getUpdatesAboutOneLogin"
 };
@@ -38,18 +36,6 @@ Then("the error message with the text {string} must be displayed for the {} fiel
     await checkErrorMessageDisplayedForField(this.page, errorLink, errorMessage, fields[fieldName as keyof typeof fields]);
 });
 
-When(
-    "they select the Other value and do not enter any text into the Could you explain what you’d like help with? textfield and try to submit the form",
-    async function () {
-        const otherCheckboxInput = await this.page.$("#helpWith-5");
-        if (!otherCheckboxInput) {
-            throw new Error(`Could not find element with id helpWith-5`);
-        }
-        await otherCheckboxInput.click();
-        await clickSubmitButton(this.page);
-    }
-);
-
 async function selectOption(page: Page, option: string, value: string) {
     const radio = await page.$x(`//div[@id="${option}-options"]//input[@value="${value}"]`);
     await radio[0].click();
@@ -67,11 +53,6 @@ When("they fill in correct data in all the mandatory input fields, select button
     await selectOption(this.page, "expectedNumberOfUsersPerAnnum", "1000");
     await this.page.type("#estimatedServiceGoLiveDate", "June 2025");
     await selectOption(this.page, "accessAndTest", "authenticationOnly");
-    const checkboxInput = await this.page.$("#helpWith");
-    if (!checkboxInput) {
-        throw new Error(`Could not find element with id helpWith`);
-    }
-    await checkboxInput.click();
     await selectOption(this.page, "anyOtherServicesToTalkAbout", "yes");
     await selectOption(this.page, "getUpdatesAboutOneLogin", "YES");
 });
