@@ -1,5 +1,5 @@
 import {randomUUID} from "crypto";
-import {JiraPostResponse, JiraService} from "../interface";
+import {JiraPostResponse, JiraService, RegisterInterestFormPayload} from "../interface";
 
 export default class StubJiraService implements JiraService {
     private readonly jiraBoardUrl: string;
@@ -10,7 +10,7 @@ export default class StubJiraService implements JiraService {
         this.projectKey = projectKey;
     }
 
-    async postJiraTicket(ticketPayload: Map<string, string>): Promise<JiraPostResponse> {
+    async postJiraTicket(ticketPayload: RegisterInterestFormPayload): Promise<JiraPostResponse> {
         console.log(`Pretending to post Jira ticket to boardUrl: '${this.jiraBoardUrl}'`);
         console.log("Ticket payload: ", ticketPayload);
         const ticketId = randomUUID();
