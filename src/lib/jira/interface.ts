@@ -30,6 +30,8 @@ export type JiraTicketContentSection = {
     content?: JiraTicketContentPayload[];
 };
 
+export type RegisterInterestFormPayload = Map<string, string>;
+
 type JiraTicketContentPayload = {
     type: string;
     text?: string | undefined;

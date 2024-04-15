@@ -7,7 +7,8 @@ import {
     JiraStructuredContent,
     JiraTicketContentSection,
     JiraCustomFieldPayload,
-    JiraCustomFieldChoice
+    JiraCustomFieldChoice,
+    RegisterInterestFormPayload
 } from "../interface";
 
 export default class RealJiraService implements JiraService {
@@ -25,11 +26,11 @@ export default class RealJiraService implements JiraService {
         this.jiraApiKey = getRequiredEnv("JIRA_API_KEY");
     }
 
-    private ticketSummary(ticketPayload: Map<string, string>): string {
+    private ticketSummary(ticketPayload: RegisterInterestFormPayload): string {
         return `${ticketPayload.get("organisationName")}: ${ticketPayload.get("serviceName")}`;
     }
 
-    private ticketContactPreferences(ticketPayload: Map<string, string>): JiraTicketContentSection[] {
+    private ticketContactPreferences(ticketPayload: RegisterInterestFormPayload): JiraTicketContentSection[] {
         const anyOtherServicesToTalkAbout = ticketPayload.get("anyOtherServicesToTalkAbout");
         const getUpdatesAboutOneLogin = ticketPayload.get("getUpdatesAboutOneLogin");
         const otherServicesToDiscuss = anyOtherServicesToTalkAbout === "Yes" ? "Has other services to discuss: Yes ✅" : undefined;
@@ -62,7 +63,7 @@ export default class RealJiraService implements JiraService {
         ];
     }
 
-    private ticketDescription(ticketPayload: Map<string, string>): JiraStructuredContent {
+    private ticketDescription(ticketPayload: RegisterInterestFormPayload): JiraStructuredContent {
         const contactFirstName = ticketPayload.get("firstName");
         const contactLastName = ticketPayload.get("lastName");
         const contactEmail = ticketPayload.get("email");
@@ -109,26 +110,7 @@ export default class RealJiraService implements JiraService {
         };
     }
 
-    private ticketTotalAnnualNumberOfUsersOfYourService(ticketPayload: Map<string, string>): JiraCustomFieldPayload | null {
-        const totalAnnualNumberOfUsersOfYourService = ticketPayload.get("totalAnnualNumberOfUsersOfYourService");
-
-        switch (totalAnnualNumberOfUsersOfYourService) {
-            case "1 to 1,000":
-                return this.formatCustomFieldWithValue("1 to 1,000", "12102");
-            case "1,001 to 50,000":
-                return this.formatCustomFieldWithValue("1,001 to 50,000", "12103");
-            case "50,001 to 250,000":
-                return this.formatCustomFieldWithValue("50,001 to 250,000", "12104");
-            case "250,001 to 1 million":
-                return this.formatCustomFieldWithValue("250,001 to 1 million", "12105");
-            case "Over 1 million users":
-                return this.formatCustomFieldWithValue("Over 1 million users", "12106");
-            default:
-                return null;
-        }
-    }
-
-    private ticketOrganisationType(ticketPayload: Map<string, string>): JiraCustomFieldPayload | null {
+    private ticketOrganisationType(ticketPayload: RegisterInterestFormPayload): JiraCustomFieldPayload | null {
         const organisationType = ticketPayload.get("organisationType");
 
         switch (organisationType) {
@@ -145,15 +127,15 @@ export default class RealJiraService implements JiraService {
         }
     }
 
-    private ticketServiceDescription(ticketPayload: Map<string, string>): JiraStructuredContent {
+    private ticketServiceDescription(ticketPayload: RegisterInterestFormPayload): JiraStructuredContent {
         return this.formatTicketJiraParagraph(ticketPayload.get("serviceDescription"));
     }
 
-    private tickerHelpRequestedWithOther(ticketPayload: Map<string, string>): JiraStructuredContent {
+    private tickerHelpRequestedWithOther(ticketPayload: RegisterInterestFormPayload): JiraStructuredContent {
         return this.formatTicketJiraParagraph(ticketPayload.get("likeHelpWith"));
     }
 
-    private ticketHelpRequestedWith(ticketPayload: Map<string, string>): JiraCustomFieldChoice[] {
+    private ticketHelpRequestedWith(ticketPayload: RegisterInterestFormPayload): JiraCustomFieldChoice[] {
         const gettingAccess = ticketPayload.get("gettingAccess");
         const havingTechnicalDiscussion = ticketPayload.get("havingTechnicalDiscussion");
         const walkingThrough = ticketPayload.get("walkingThrough");
@@ -171,7 +153,7 @@ export default class RealJiraService implements JiraService {
         ];
     }
 
-    private ticketServiceIntegrationType(ticketPayload: Map<string, string>): JiraCustomFieldChoice | null {
+    private ticketServiceIntegrationType(ticketPayload: RegisterInterestFormPayload): JiraCustomFieldChoice | null {
         const accessType = ticketPayload.get("accessAndTest");
 
         if (accessType === "auth only") {
@@ -183,7 +165,7 @@ export default class RealJiraService implements JiraService {
         }
     }
 
-    private formatTicketJiraParagraph(value: string | undefined): JiraStructuredContent {
+    private formatTicketJiraParagraph(value: string | number | undefined): JiraStructuredContent {
         return {
             version: 1,
             type: "doc",
@@ -196,7 +178,7 @@ export default class RealJiraService implements JiraService {
         };
     }
 
-    private formatCustomFieldWithValue(value: string | undefined, customFieldID: string): JiraCustomFieldChoice {
+    private formatCustomFieldWithValue(value: string | number | undefined, customFieldID: string): JiraCustomFieldChoice {
         return {
             self: `https://govukverify.atlassian.net/rest/api/3/customFieldOption/${customFieldID}`,
             value: value,
@@ -204,7 +186,7 @@ export default class RealJiraService implements JiraService {
         };
     }
 
-    private formatJiraTicket(ticketPayload: Map<string, string>): Record<string, unknown> {
+    private formatJiraTicket(ticketPayload: RegisterInterestFormPayload): Record<string, unknown> {
         return {
             fields: {
                 issuetype: {
@@ -231,7 +213,7 @@ export default class RealJiraService implements JiraService {
         };
     }
 
-    async postJiraTicket(ticketPayload: Map<string, string>): Promise<JiraPostResponse> {
+    async postJiraTicket(ticketPayload: RegisterInterestFormPayload): Promise<JiraPostResponse> {
         const formattedTicketPayload = this.formatJiraTicket(ticketPayload);
         const jiraResponse = await axios.post(this.jiraBoardUrl, JSON.stringify(formattedTicketPayload), {
             headers: {

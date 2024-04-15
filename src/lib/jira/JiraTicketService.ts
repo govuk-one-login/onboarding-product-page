@@ -1,12 +1,12 @@
-import {JiraInterface, JiraService} from "./interface";
+import {JiraInterface, JiraService, RegisterInterestFormPayload} from "./interface";
 import StubJiraService from "./stubJira/stubJiraService";
 import RealJiraService from "./realJira/realJiraService";
 
 export default class JiraTicketService implements JiraInterface {
-    private ticketData: Map<string, string>;
+    private ticketData: RegisterInterestFormPayload;
     public jiraService: JiraService;
 
-    constructor(ticketData: Map<string, string>) {
+    constructor(ticketData: RegisterInterestFormPayload) {
         this.ticketData = ticketData;
         if (process.env.USE_STUB_JIRA === "false") {
             console.log("Using Real Jira Service");
