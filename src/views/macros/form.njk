@@ -4,16 +4,18 @@
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{% macro generate(action, buttonText, buttonId) %}
+{% macro generate(action, buttonText, buttonId, cancelUrl) %}
   <form class="form" method="post"{% if action %} action="{{ action }}"{% endif %} novalidate="novalidate">
     {{ caller() }}
-
-    {{ govukButton({
-      text: buttonText | default("Submit"),
-      attributes: {
-        id: buttonId | default("submit")
-      }
-    }) }}
+    <div class="govuk-button-group">
+      {{ govukButton({
+        text: buttonText | default("Submit"),
+        attributes: {
+          id: buttonId | default("submit")
+        }
+      }) }}
+      {% if cancelUrl %}<a class="govuk-link" href="{{ cancelUrl }}">Cancel</a>{% endif %}
+    </div>
   </form>
 {% endmacro %}
 
@@ -37,10 +39,12 @@
 {% endmacro %}
 
 {% macro emailInput(label = "Email address", hint = "You must enter a government email address",
-  classes = "govuk-!-width-two-thirds", id = "email") %}
+  classes = "govuk-!-width-two-thirds", id = "email", isPageHeading, labelClasses) %}
   {{ govukInput({
     label: {
-      text: label
+      text: label,
+      classes: labelClasses if labelClasses,
+      isPageHeading: isPageHeading if isPageHeading
     },
     hint: {
       text: hint

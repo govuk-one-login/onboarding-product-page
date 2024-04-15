@@ -142,6 +142,10 @@ Resources:
               Value: "{{resolve:ssm:/product-pages/frontend/mailing-list-sheet-data-range}}"
             - Name: MAILING_LIST_SHEET_HEADER_RANGE
               Value: "{{resolve:ssm:/product-pages/frontend/mailing-list-sheet-header-range}}"
+            - Name: HTML_PROTOTYPE_ACCESS_SHEET_DATA_RANGE
+              Value: "{{resolve:ssm:/product-pages/frontend/prototype-access-sheet-data-range}}"
+            - Name: HTML_PROTOTYPE_ACCESS_SHEET_HEADER_RANGE
+              Value: "{{resolve:ssm:/product-pages/frontend/prototype-access-sheet-header-range}}"
             - Name: USE_STUB_ZENDESK
               Value: "{{resolve:ssm:/product-pages/frontend/use-stub-zendesk}}"
             - Name: ZENDESK_API_URL
