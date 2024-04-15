@@ -67,7 +67,6 @@ export default class RealJiraService implements JiraService {
         const contactFirstName = ticketPayload.get("firstName");
         const contactLastName = ticketPayload.get("lastName");
         const contactEmail = ticketPayload.get("email");
-        const contactEmailMailto = contactEmail ? {marks: [{type: "link", attrs: {href: `mailto:${contactEmail}`}}]} : {};
         const contactLastRole = ticketPayload.get("role");
 
         return {
@@ -87,11 +86,6 @@ export default class RealJiraService implements JiraService {
                         {type: "text", text: `Last Name: ${contactLastName}`},
                         {type: "hardBreak"},
                         {type: "text", text: `Email: ${contactEmail}`},
-                        {
-                            type: "text",
-                            text: contactEmail,
-                            ...contactEmailMailto
-                        },
                         {type: "hardBreak"},
                         {type: "text", text: `Role: ${contactLastRole}`}
                     ]

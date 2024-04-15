@@ -30,11 +30,6 @@ const testFormattedJiraPayload = {
                         {type: "text", text: "Last Name: TestUserLastName"},
                         {type: "hardBreak"},
                         {type: "text", text: "Email: some.TestUser@GovCoffee.gov.uk"},
-                        {
-                            type: "text",
-                            text: "some.TestUser@GovCoffee.gov.uk",
-                            marks: [{type: "link", attrs: {href: "mailto:some.TestUser@GovCoffee.gov.uk"}}]
-                        },
                         {type: "hardBreak"},
                         {type: "text", text: "Role: Chief Coffee Tester"}
                     ]
