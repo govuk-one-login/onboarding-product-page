@@ -42,7 +42,7 @@ Then("they should be directed to the following URL: {string}", async function (u
 });
 
 Then("they should be directed to a page with the title {string}", async function (title: string) {
-    const actualTitle = await this.page.title();
+    const actualTitle: string = await this.page.title();
     assert.equal(actualTitle, title, `Page title was ${actualTitle}`);
 });
 

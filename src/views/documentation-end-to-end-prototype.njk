@@ -1,0 +1,19 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitle = "GOV.UK One Login prototype" %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "prototype"} %}
+{% set breadcrumbs = breadcrumbs(currentPageName = "Documentation") %}
+
+{% block mainContent %}
+  <h1 class="govuk-heading-l">GOV.UK One Login prototype</h1>
+  <p class="govuk-body">We've created an HTML prototype for government service teams to use to explore journeys within GOV.UK One Login.</p>
+  <p class="govuk-body">You'll need to have an email address from a UK public body to get access. If you do not have one, email govuk-one-login@digital.cabinet-office.gov.uk, including who you work for and why you want access to the prototype.</p>
+  <div class="govuk-inset-text">We'll update the prototype regularly to reflect live journeys, but it's not an exact copy. It's also not production code.</div>
+  {{ govukButton({
+    text: "Get access",
+    href: "/documentation/end-to-end-prototype/enter-email-address"
+  }) }}
+{% endblock %}

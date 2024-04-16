@@ -1,0 +1,18 @@
+{% extends "base-form.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% set pageTitle = "Register to get started with GOV.UK One Login" %}
+{% set buttonText = "Continue" %}
+{% set backLink = govukBackLink({text: "Back", href: "/documentation/end-to-end-prototype/identity-journeys"}) %}
+{% set formCancelUrl = "/documentation/end-to-end-prototype/identity-journeys" %}
+
+{% block formInputs %}
+  {{ form.emailInput(
+    label = "Enter your work email address",
+    hint = "This should be an email address of a UK public body, for example a government department or organisation, or an arm's length body. ",
+    classes = "govuk-!-width-full",
+    isPageHeading = true,
+    labelClasses = "govuk-label--l"
+  ) }}
+{% endblock %}

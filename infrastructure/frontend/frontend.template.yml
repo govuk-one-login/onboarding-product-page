@@ -87,6 +87,14 @@ Mappings:
   ElasticLoadBalancer:
     eu-west-2:
       AccountID: 652711504416
+  WafArn:
+    Environment:
+      local: "/product-pages/development/waf-web-acl"
+      dev: "/product-pages/development/waf-web-acl"
+      build: "/product-pages/build/waf-web-acl"
+      staging: "/product-pages/staging/waf-web-acl"
+      integration: "/product-pages/integration/waf-web-acl"
+      production: "/product-pages/production/waf-web-acl"
   TxMAAccountARN:
     Environment:
       local: 'arn:aws:iam::494650018671:root'
@@ -103,8 +111,7 @@ Conditions:
   CslsLoggingEnabled: !Equals [ !FindInMap [ EnvironmentConfiguration, !Ref Environment, cslsLoggingEnabled ], true ]
   DynatraceLoggingEnabled: !Equals [ !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceLoggingEnabled ], true ]
   IsLocal: !Equals [ !Ref Environment, "local" ]
-  EnableFullWaf: !Not [ !Equals [ !Ref Environment, "local" ] ]
-
+  IsProd: !Equals [ !Ref Environment, "production" ]
 
 Resources:
 
@@ -133,8 +140,8 @@ Resources:
               Value: !Ref GoogleTagID
             - Name: ADMIN_TOOL_URL
               Value: "{{resolve:ssm:/product-pages/frontend/admin-tool-url}}"
-            - Name: USE_STUB_SHEETS
-              Value: "{{resolve:ssm:/product-pages/frontend/use-stub-sheets}}"
+            - Name: USE_STUB_SHEETS # Variable protection enabled
+              Value: !If [ IsProd, 'false', "{{resolve:ssm:/product-pages/frontend/use-stub-sheets}}" ]
             - Name: REGISTER_SHEET_DATA_RANGE
               Value: "{{resolve:ssm:/product-pages/frontend/register-sheet-data-range}}"
             - Name: REGISTER_SHEET_HEADER_RANGE
@@ -143,6 +150,10 @@ Resources:
               Value: "{{resolve:ssm:/product-pages/frontend/mailing-list-sheet-data-range}}"
             - Name: MAILING_LIST_SHEET_HEADER_RANGE
               Value: "{{resolve:ssm:/product-pages/frontend/mailing-list-sheet-header-range}}"
+            - Name: HTML_PROTOTYPE_ACCESS_SHEET_DATA_RANGE
+              Value: "{{resolve:ssm:/product-pages/frontend/prototype-access-sheet-data-range}}"
+            - Name: HTML_PROTOTYPE_ACCESS_SHEET_HEADER_RANGE
+              Value: "{{resolve:ssm:/product-pages/frontend/prototype-access-sheet-header-range}}"
             - Name: USE_STUB_ZENDESK
               Value: "{{resolve:ssm:/product-pages/frontend/use-stub-zendesk}}"
             - Name: ZENDESK_API_URL
@@ -165,8 +176,8 @@ Resources:
               Value: "{{resolve:secretsmanager:/product-pages/frontend/zendesk-api-token}}"
             - Name: DT_LOGLEVELCON
               Value: INFO
-            - Name: USE_STUB_SERVICENOW
-              Value: "{{resolve:ssm:/product-pages/frontend/use-stub-servicenow}}"
+            - Name: USE_STUB_SERVICENOW # Variable protection enabled
+              Value: !If [ IsProd, 'false', "{{resolve:ssm:/product-pages/frontend/use-stub-servicenow}}" ]
             - Name: SERVICENOW_AUTH_CREDENTIALS
               Value: "{{resolve:secretsmanager:/product-pages/frontend/servicenow-auth-credentials}}"
             - Name: SERVICENOW_URL
@@ -457,173 +468,13 @@ Resources:
             Principal:
               AWS: !FindInMap [ ElasticLoadBalancer, !Ref AWS::Region, AccountID ]
 
-  LoadBalancerWebACL:
-    # checkov:skip=CKV_AWS_192:Ensure WAF prevents message lookup in Log4j2
-    Type: AWS::WAFv2::WebACL
-    Properties:
-      Name: !Sub ${AWS::StackName}-${Environment}-LoadBalancerWebACL
-      Scope: REGIONAL
-      Description: This is WebACL to protect the API and Load Balancers
-      DefaultAction:
-        Allow: { }
-      VisibilityConfig:
-        SampledRequestsEnabled: true
-        CloudWatchMetricsEnabled: true
-        MetricName: !Sub ${AWS::StackName}-${Environment}-FrontendWebACLMetric
-      Rules:
-        - Name: AWS-AWSManagedRulesKnownBadInputsRuleSet
-          Priority: 1
-          Statement:
-            ManagedRuleGroupStatement:
-              VendorName: AWS
-              Name: AWSManagedRulesKnownBadInputsRuleSet
-          OverrideAction:
-            Count: { }
-          VisibilityConfig:
-            SampledRequestsEnabled: true
-            CloudWatchMetricsEnabled: true
-            MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesKnownBadInputsRuleSet
-        - Name: AWS-AWSManagedRulesAmazonIpReputationList
-          Priority: 2
-          Statement:
-            ManagedRuleGroupStatement:
-              VendorName: AWS
-              Name: AWSManagedRulesAmazonIpReputationList
-          OverrideAction:
-            Count: { }
-          VisibilityConfig:
-            SampledRequestsEnabled: true
-            CloudWatchMetricsEnabled: true
-            MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesAmazonIpReputationList
-        - !If
-          - EnableFullWaf
-          - Name: AWS-AWSManagedRulesAnonymousIpList
-            Priority: 3
-            Statement:
-              ManagedRuleGroupStatement:
-                VendorName: AWS
-                Name: AWSManagedRulesAnonymousIpList
-            OverrideAction:
-              Count: { }
-            VisibilityConfig:
-              SampledRequestsEnabled: true
-              CloudWatchMetricsEnabled: true
-              MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesAnonymousIpList
-          - !Ref AWS::NoValue
-        - Name: AWS-AWSManagedRulesCommonRuleSet
-          Priority: 4
-          Statement:
-            ManagedRuleGroupStatement:
-              VendorName: AWS
-              Name: AWSManagedRulesCommonRuleSet
-          OverrideAction:
-            Count: { }
-          VisibilityConfig:
-            SampledRequestsEnabled: true
-            CloudWatchMetricsEnabled: true
-            MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesCommonRuleSet
-        - Name: AWS-AWSManagedRulesAdminProtectionRuleSet
-          Priority: 5
-          Statement:
-            ManagedRuleGroupStatement:
-              VendorName: AWS
-              Name: AWSManagedRulesAdminProtectionRuleSet
-          OverrideAction:
-            Count: { }
-          VisibilityConfig:
-            SampledRequestsEnabled: true
-            CloudWatchMetricsEnabled: true
-            MetricName: !Sub ${AWS::StackName}-${Environment}-AWSManagedRulesAdminProtectionRuleSet
-        - Name: SQLInject-RuleSet
-          Priority: 6
-          Statement:
-            ManagedRuleGroupStatement:
-              VendorName: AWS
-              Name: AWSManagedRulesSQLiRuleSet
-          OverrideAction:
-            Count: { }
-          VisibilityConfig:
-            SampledRequestsEnabled: true
-            CloudWatchMetricsEnabled: true
-            MetricName: !Sub '${AWS::StackName}-${Environment}-SQLinjection-ruleset-metric'
-        - Name: RateBased-CountIpRule
-          Priority: 9
-          Statement:
-            RateBasedStatement:
-              Limit: 100
-              AggregateKeyType: IP
-          Action:
-            Count: { }
-          VisibilityConfig:
-            CloudWatchMetricsEnabled: true
-            MetricName: !Sub "${AWS::StackName}-${Environment}-RateBased-CountIp-ruleset-metric"
-            SampledRequestsEnabled: true
-
   LoadBalancerWebACLAssociation:
     Type: AWS::WAFv2::WebACLAssociation
     Properties:
-      WebACLArn: !GetAtt LoadBalancerWebACL.Arn
+      WebACLArn: !Sub
+        - "{{resolve:ssm:${WafArnParam}}}"
+        - WafArnParam: !FindInMap [ WafArn, Environment, !Ref Environment ]
       ResourceArn: !Ref ApplicationLoadBalancer
-
-  WafLogGroup:
-    # checkov:skip=CKV_AWS_158:Ensure that CloudWatch Log Group is encrypted by KMS
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: !Join
-        - "-"
-        - - 'aws-waf-logs'
-          - 'onboarding-product-pages-frontend'
-          - !If [ IsLocal, !Ref DeploymentName, !Ref AWS::NoValue ]
-      RetentionInDays: 14
-      DataProtectionPolicy:
-        Name: data-protection-policy-product-pages-loadbalancer
-        Description: Data Protection for Cloudwatch Logs
-        Version: '2021-06-01'
-        Statement:
-          - Sid: audit-policy
-            DataIdentifier:
-              - arn:aws:dataprotection::aws:data-identifier/EmailAddress
-              - arn:aws:dataprotection::aws:data-identifier/IpAddress
-              - arn:aws:dataprotection::aws:data-identifier/Address
-              - arn:aws:dataprotection::aws:data-identifier/AwsSecretKey
-              - arn:aws:dataprotection::aws:data-identifier/OpenSshPrivateKey
-              - arn:aws:dataprotection::aws:data-identifier/PgpPrivateKey
-              - arn:aws:dataprotection::aws:data-identifier/PkcsPrivateKey
-              - arn:aws:dataprotection::aws:data-identifier/PuttyPrivateKey
-            Operation:
-              Audit:
-                FindingsDestination:
-                  CloudWatchLogs:
-                    LogGroup: !Ref LogAuditLogGroup
-          - Sid: redact-policy
-            DataIdentifier:
-              - arn:aws:dataprotection::aws:data-identifier/EmailAddress
-              - arn:aws:dataprotection::aws:data-identifier/IpAddress
-              - arn:aws:dataprotection::aws:data-identifier/Address
-              - arn:aws:dataprotection::aws:data-identifier/AwsSecretKey
-              - arn:aws:dataprotection::aws:data-identifier/OpenSshPrivateKey
-              - arn:aws:dataprotection::aws:data-identifier/PgpPrivateKey
-              - arn:aws:dataprotection::aws:data-identifier/PkcsPrivateKey
-              - arn:aws:dataprotection::aws:data-identifier/PuttyPrivateKey
-            Operation:
-              Deidentify:
-                MaskConfig: { }
-
-  WafLoggingConfiguration:
-    Type: AWS::WAFv2::LoggingConfiguration
-    Properties:
-      ResourceArn: !GetAtt LoadBalancerWebACL.Arn
-      LogDestinationConfigs:
-        - !GetAtt WafLogGroup.Arn
-
-  WafLogCslsSubscriptionFilter:
-    Type: AWS::Logs::SubscriptionFilter
-    Condition: CslsLoggingEnabled
-    Properties:
-      LogGroupName: !Ref WafLogGroup
-      FilterName: "Waf logs for Frontend"
-      FilterPattern: ""
-      DestinationArn: !FindInMap [ EnvironmentConfiguration, !Ref Environment, clslSubscriptionFilterArn ]
 
   TxMASQSProducerAuditEventQueue:
     Type: AWS::SQS::Queue
