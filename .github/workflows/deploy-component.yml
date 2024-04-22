@@ -36,7 +36,7 @@ jobs:
 
     steps:
       - name: Get deployment name
-        uses: govuk-one-login/github-actions/beautify-branch-name@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
+        uses: govuk-one-login/github-actions/beautify-branch-name@1fcdedf31dcba8fca25be864d419e4d5e4f1485c # 16/04/2024
         id: get-deployment-name
         with:
           length-limit: 22
@@ -44,7 +44,7 @@ jobs:
           verbose: false
 
       - name: Deploy stack
-        uses: govuk-one-login/github-actions/sam/deploy-stack@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
+        uses: govuk-one-login/github-actions/sam/deploy-stack@1fcdedf31dcba8fca25be864d419e4d5e4f1485c # 16/04/2024
         id: deploy
         with:
           aws-role-arn: ${{ vars.DEPLOYMENT_ROLE_ARN }}

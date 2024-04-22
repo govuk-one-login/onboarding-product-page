@@ -32,7 +32,7 @@ jobs:
           password: ${{ secrets.dynatrace-pass-token }}
       - name: Deploy Product
         id: deploy-product
-        uses: govuk-one-login/github-actions/secure-pipelines/deploy-fargate@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
+        uses: govuk-one-login/github-actions/secure-pipelines/deploy-fargate@1fcdedf31dcba8fca25be864d419e4d5e4f1485c # 16/04/2024
         timeout-minutes: 20
         with:
           aws-role-arn: ${{ vars.PRODUCT_PAGES_FRONTEND_DEPLOYMENT_ROLE_ARN }}
