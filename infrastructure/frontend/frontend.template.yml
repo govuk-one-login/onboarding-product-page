@@ -189,7 +189,7 @@ Resources:
             - Name: USE_STUB_JIRA # Variable protection enabled
               Value: !If [ IsProd, 'false', "{{resolve:ssm:/product-pages/frontend/use-stub-jira}}" ]
             - Name: JIRA_USER_NAME
-              Value: "{{resolve:secretsmanager:/product-pages/frontend/jira-auth-user-name}}"
+              Value: "{{resolve:ssm:/product-pages/frontend/jira-auth-user-name}}"
             - Name: JIRA_API_KEY
               Value: "{{resolve:secretsmanager:/product-pages/frontend/jira-auth-credentials}}"
           Secrets:
