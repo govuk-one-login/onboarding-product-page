@@ -39,6 +39,8 @@ Then("the error message with the text {string} must be displayed for the {} fiel
 
 async function selectOption(page: Page, option: string, value: string) {
     const radio = await page.$x(`//div[@id="${option}-options"]//input[@value="${value}"]`);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     await radio[0].click();
 }
 
