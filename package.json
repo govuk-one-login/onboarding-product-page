@@ -23,6 +23,7 @@
     "accessible-tests": "npm run cucumber -- --tags @accessible",
     "build-docker": "docker build --tag product-pages-frontend --file Dockerfile-dev ..",
     "lint": "prettier . --check ; eslint '*.ts' --quiet --fix",
+    "lint:fix": "prettier . --write ; eslint . --fix"
   },
   "author": "",
   "license": "ISC",
