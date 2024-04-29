@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Run checkov
-        uses: govuk-one-login/github-actions/code-quality/run-checkov@c2f0645e02a6e204dda0d63cbb5ac276c2834ab1 # 01/11/2023
+        uses: govuk-one-login/github-actions/code-quality/run-checkov@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
         with:
           skip-checks: CKV_SECRET_6
 
@@ -30,7 +30,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Run shell checks
-        uses: govuk-one-login/github-actions/code-quality/check-shell-scripts@c2f0645e02a6e204dda0d63cbb5ac276c2834ab1 # 01/11/2023
+        uses: govuk-one-login/github-actions/code-quality/check-shell-scripts@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
 
   check-linting:
     name: Linting
@@ -38,7 +38,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Check linting and formatting
-        uses: govuk-one-login/github-actions/code-quality/check-linting@c2f0645e02a6e204dda0d63cbb5ac276c2834ab1 # 01/11/2023
+        uses: govuk-one-login/github-actions/code-quality/check-linting@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
 
   check-vulnerabilities:
     name: Vulnerabilities
@@ -46,4 +46,4 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Run security audit
-        uses: govuk-one-login/github-actions/code-quality/run-security-audit@c2f0645e02a6e204dda0d63cbb5ac276c2834ab1 # 01/11/2023
+        uses: govuk-one-login/github-actions/code-quality/run-security-audit@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024

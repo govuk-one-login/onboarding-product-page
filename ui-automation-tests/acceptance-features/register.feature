@@ -51,10 +51,13 @@ Feature: A form so users can register to get started with GOV.UK One Login
       When they submit the service description ""
       Then the error message with the text "Enter a short description of your service" must be displayed for the service description field
 
-  Rule: The user tries to select and submit a Total annual number of users when registering to get started with GOV.UK One Login
-    Scenario: The user does not select any value from total annual number of users radio button
-      When they try to submit the form without selecting any value from the radio button
-      Then the error message with the text "Select one option" must be displayed for the total annual number of users of your service field
+  Rule: The user tries to select and submit an approximate number of users each year when registering to get started with GOV.UK One Login
+    Scenario: The user does not enter any value into the approximate number of users each year field
+      When they submit the approximate number of users each year ""
+      Then the error message with the text "Enter the number of users you expect annually" must be displayed for the approximate number of users each year field
+    Scenario: The user enters an invalid number in the approximate number of users each year field
+      When they submit the approximate number of users each year "five"
+      Then the error message with the text "Enter a valid number" must be displayed for the approximate number of users each year field
 
   Rule: The user tries to submit an estimated date for your service to go live when registering to get started with GOV.UK One Login
     Scenario: The user does not enter any value into the estimated date for your service to go live field
@@ -65,15 +68,6 @@ Feature: A form so users can register to get started with GOV.UK One Login
     Scenario: The user does not select any value from what would you like to access and test radio button
       When they try to submit the form without selecting any value from the radio button
       Then the error message with the text "Select one option" must be displayed for the what would you like to access and test field
-
-  Rule: The user tries to select and submit What would you like help with? when registering to get started with GOV.UK One Login
-    Scenario: The user does not select any value from What would you like help with? checkbox list
-      When they try to submit the form without selecting any value from the checkbox list
-      Then the error message with the text "Select one or more options" must be displayed for the what would you like help with field
-
-    Scenario: The user selects Other value from What would you like help with? checkbox list, but does not enter text into the textfield
-      When they select the Other value and do not enter any text into the Could you explain what you’d like help with? textfield and try to submit the form
-      Then the error message with the text "Enter a short description of what you need help with" must be displayed for the explain what you would like help with field
 
   Rule: The user tries to select and submit Do you have any other services you’d like to talk to us about when registering to get started with GOV.UK One Login
     Scenario: The user does not select any value from Do you have any other services you’d like to talk to us about radio button

@@ -2,6 +2,9 @@
   "name": "di-onboarding-product-page",
   "version": "1.0.0",
   "description": "Product and onboarding pages for the Digital Identity Auth (GOV.UK Sign In) product",
+  "workspaces": [
+    "ui-automation-tests"
+  ],
   "main": "index.js",
   "scripts": {
     "start": "node dist/app.js",
@@ -16,8 +19,7 @@
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' nyc mocha --require ts-node/register --ui bdd 'test/**/*.spec.ts'",
     "test:cov": "nyc --reporter=lcov npm run test --reporter mocha-sonarqube-reporter --exit",
     "sonar": "sonar-scanner",
-    "cucumber": "cucumber-js --require-module ts-node/register --require features/support/test-setup.ts --require features/support/steps/**/*.ts --publish-quiet --tags 'not @wip'",
-    "cucumber-report": "npm run cucumber -- --format html:test-report.html",
+    "cucumber": "npm run acceptance-tests -w ui-automation-tests --",
     "accessible-tests": "npm run cucumber -- --tags @accessible",
     "build-docker": "docker build --tag product-pages-frontend --file Dockerfile-dev .."
   },

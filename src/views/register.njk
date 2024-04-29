@@ -30,14 +30,7 @@
   {{ form.textInput("Service name", "serviceName", "govuk-!-width-full", hint = "Enter the name of your service as used on your service start page. If you are working on a new service that has not launched yet, enter its working title") }}
   {{ form.textAreaInput("Service description", "serviceDescription", "Describe your service, what it does, who it helps and why? Also tell us if it’s a new service that has not launched yet") }}
   {{ form.textInput("Link to your service (optional)", "linkToYourService", "govuk-!-width-full", hint = "If you have one, enter the URL to your service start page or a link to a prototype or user journey map - including any passwords") }}
-  {{ form.radiosInput("Total annual number of users of your service", name = "totalAnnualNumberOfUsersOfYourService",
-    items = [
-      {text: "1 to 1,000", value: "range1To1000"},
-      {text: "1,001 to 50,000", value: "range1001To50000"},
-      {text: "50,001 to 250,000", value: "range50001To250000"},
-      {text: "250,001 to 1 million", value: "range250001To1Million"},
-      {text: "Over 1 million users", value: "rangeOver1Million"}
-    ]) }}
+  {{ form.textInput("Approximate number of users each year", "expectedNumberOfUsersPerAnnum", "govuk-!-width-one-third")  }}
   {{ form.textInput("Estimated date for your service to go live with GOV.UK One Login", "estimatedServiceGoLiveDate", "govuk-!-width-one-third", hint = "Give us your proposed month and year - for example June 2025") }}
   {{ form.radiosInput("What would you like to access and test?", name = "accessAndTest",
     items = [
@@ -56,16 +49,7 @@
       }
       }
     ]) }}
-  {% set helpOtherHtml %}
-    {{ form.textAreaInput("Could you explain what you’d like help with?", "likeHelpWith") }}
-  {% endset -%}
-  {{ form.checkboxesInput("What would you like help with?", "helpWith", "Tick all that apply - this will help us understand your initial needs", [
-    {text: "Getting access to the integration environment to test GOV.UK One Login", value: "gettingAccess", checked: gettingAccess},
-    {text: "Having a technical discussion", value: "havingTechnicalDiscussion", checked: havingTechnicalDiscussion},
-    {text: "Walking through the onboarding process", value: "walkingThrough", checked: walkingThrough},
-    {text: "Understanding the GOV.UK One Login programme in more detail", value: "understandingProgramme", checked: understandingProgramme},
-    {text: "Other", value: "other", conditional: {html: helpOtherHtml}, checked: other}
-  ], selectedItems) }}
+  {{ form.textAreaInput("Additional context or specific questions", "additionalHelpOrQuestions") }}
   {{ form.radiosInput("Do you have any other services you’d like to talk to us about?", name = "anyOtherServicesToTalkAbout", hint = "We’ll ask you more about any additional services when we contact you",
     items = [
       {text: "Yes", value: "yes"},
