@@ -115,4 +115,8 @@ router.get("/documentation/end-to-end-prototype/check-email", (req, res) => {
     res.render("documentation-check-email.njk");
 });
 
+router.get("/documentation/design-recommendations/migrating-users", (req, res) => {
+    res.render("documentation-migrating-users.njk");
+});
+
 export default router;
