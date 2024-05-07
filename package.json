@@ -17,7 +17,7 @@
     "buildgovuk": "govuk=$(npm ls -p govuk-frontend)/govuk; cp -vr $govuk/assets/* dist/assets/ && cp -vr $govuk/vendor/polyfills/Function/prototype/bind.js dist/assets/javascripts/ && cp -v $govuk/all.js dist/assets/javascripts/govuk-all.js",
     "build": "npm run buildts && npm run buildsass && npm run buildjs && npm run buildgovuk && npm run minifyjs",
     "test": "mocha --require ts-node/register 'test/**/*.spec.ts'",
-    "test:cov": "nyc --reporter=lcov npm run test",
+    "test:cov": "nyc npm run test",
     "sonar": "sonar-scanner",
     "cucumber": "npm run acceptance-tests -w ui-automation-tests --",
     "accessible-tests": "npm run cucumber -- --tags @accessible",
