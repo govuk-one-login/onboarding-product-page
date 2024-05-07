@@ -1,0 +1,5 @@
+{
+  "require": "ts-node/register, source-map-support/register",
+  "watch-files": ["test/**/*.ts"],
+  "recursive": true
+}
