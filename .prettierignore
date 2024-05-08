@@ -5,3 +5,6 @@ dist
 *.json
 *.yaml
 *.yml
+coverage/*
+node_modules/*
+pacts/*
