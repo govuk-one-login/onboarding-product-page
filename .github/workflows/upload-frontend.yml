@@ -24,6 +24,16 @@ jobs:
       url: ${{ steps.deploy.outputs.pipeline-url }}
 
     steps:
+      - name: Test Image
+        id: push-test-image
+        uses: govuk-one-login/github-actions/aws/ecr/build-docker-image@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 
+        timeout-minutes: 20
+        with:
+          aws-role-arn: ${{ vars.PRODUCT_PAGES_FRONTEND_DEPLOYMENT_ROLE_ARN }}
+          repository: ${{ vars.PRODUCT_PAGES_FRONTEND_ECR_REPOSITORY_NAME }}
+          dockerfile: Dockerfile
+          artifact-name: test-${{ inputs.artifact-name }}
+          artifact-path: express/dist
       - name: Login to GDS Dev Dynatrace Container Registry
         uses: docker/login-action@v3
         with:
