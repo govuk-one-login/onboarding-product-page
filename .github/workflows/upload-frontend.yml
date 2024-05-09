@@ -32,7 +32,7 @@ jobs:
           aws-role-arn: ${{ vars.PRODUCT_PAGES_FRONTEND_DEPLOYMENT_ROLE_ARN }}
           repository: ${{ vars.PRODUCT_PAGES_FRONTEND_ECR_REPOSITORY_NAME }}
           dockerfile: infrastructure/frontend/tests.Dockerfile
-          image-tags: "tests-image-build"
+          # image-tags: "tests-image-build"
           artifact-path: express/dist
       - name: Login to GDS Dev Dynatrace Container Registry
         uses: docker/login-action@v3
