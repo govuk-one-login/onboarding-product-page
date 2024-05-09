@@ -8,10 +8,14 @@ Before any work can be merged to main in must meet the definition of done and be
 ## Checklist
 
 -   [ ] this pull request meets the acceptance criteria of the ticket
-
 -   [ ] this branch is up-to-date with the main branch
 
     `git fetch --all && git rebase origin/main`
+
+-   [ ] these changes are backwards compatible (no breaking changes)
+
+-   all methods signatures and return values are the same
+-   any replaced methods are marked as `@deprecated`
 
 -   [ ] tests have been written to cover any new or updated functionality
 

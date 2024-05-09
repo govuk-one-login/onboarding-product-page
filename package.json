@@ -16,12 +16,14 @@
     "buildjs": "cp -vr assets/javascripts dist/assets/",
     "buildgovuk": "govuk=$(npm ls -p govuk-frontend)/govuk; cp -vr $govuk/assets/* dist/assets/ && cp -vr $govuk/vendor/polyfills/Function/prototype/bind.js dist/assets/javascripts/ && cp -v $govuk/all.js dist/assets/javascripts/govuk-all.js",
     "build": "npm run buildts && npm run buildsass && npm run buildjs && npm run buildgovuk && npm run minifyjs",
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' nyc mocha --require ts-node/register --ui bdd 'test/**/*.spec.ts'",
-    "test:cov": "nyc --reporter=lcov npm run test --reporter mocha-sonarqube-reporter --exit",
+    "test": "mocha 'test/**/*.spec.ts'",
+    "test:cov": "nyc npm run test",
     "sonar": "sonar-scanner",
     "cucumber": "npm run acceptance-tests -w ui-automation-tests --",
     "accessible-tests": "npm run cucumber -- --tags @accessible",
-    "build-docker": "docker build --tag product-pages-frontend --file Dockerfile-dev .."
+    "build-docker": "docker build --tag product-pages-frontend --file Dockerfile-dev ..",
+    "lint": "prettier . --check ; eslint '*.ts' --quiet --fix",
+    "lint:fix": "prettier . --write ; eslint . --fix"
   },
   "author": "",
   "license": "ISC",
@@ -41,6 +43,7 @@
   "devDependencies": {
     "@axe-core/puppeteer": "^4.8.5",
     "@cucumber/cucumber": "^9.3.0",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@types/chai": "^4.3.1",
     "@types/chai-as-promised": "^7.1.8",
     "@types/express": "^4.17.13",
@@ -61,7 +64,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "fs-extra": "^11.2.0",
     "mocha": "^10.3.0",
-    "mocha-sonarqube-reporter": "^1.0.2",
     "nodemon": "^3.0.1",
     "nyc": "^15.1.0",
     "prettier": "^2.7.1",
@@ -69,6 +71,7 @@
     "sass": "^1.55.0",
     "sinon": "^17.0.1",
     "sonar-scanner": "^3.1.0",
+    "source-map-support": "^0.5.21",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4",
     "uglify-js": "^3.17.0"
