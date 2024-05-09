@@ -33,7 +33,6 @@ jobs:
           repository: ${{ vars.PRODUCT_PAGES_FRONTEND_ECR_REPOSITORY_NAME }}
           dockerfile: infrastructure/frontend/tests.Dockerfile
           image-tags: "tests-image-build"
-          immutable-tags: false
           artifact-path: express/dist
       - name: Login to GDS Dev Dynatrace Container Registry
         uses: docker/login-action@v3
