@@ -35,7 +35,6 @@ jobs:
           image-tags: "tests-image-build"
           image-version: ${{ github.sha }}
           artifact-path: express/dist
-          
       - name: Login to GDS Dev Dynatrace Container Registry
         uses: docker/login-action@v3
         with:
