@@ -26,7 +26,7 @@ app.use(Helmet());
 
 app.use("/assets", express.static(distribution.assets));
 app.use("/assets/images", express.static(distribution.images));
-app.use("/ga4-assets", express.static(path.join(__dirname, "../node_modules/@govuk-one-login/one-login-analytics/lib")));
+app.use("/ga4-assets", express.static(path.join(__dirname, "../node_modules/@govuk-one-login/frontend-analytics/lib")));
 
 app.use(express.urlencoded()); // to support URL-encoded bodies
 app.use(
