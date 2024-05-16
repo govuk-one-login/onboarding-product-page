@@ -119,4 +119,8 @@ router.get("/documentation/design-recommendations/migrating-users", (req, res) =
     res.render("documentation-migrating-users.njk");
 });
 
+router.get("/documentation/design-recommendations/start-page", (req, res) => {
+    res.render("documentation-start-page.njk");
+});
+
 export default router;
