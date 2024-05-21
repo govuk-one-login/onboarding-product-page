@@ -36,23 +36,25 @@ jobs:
           image-tags: "tests-image-build"
           image-version: ${{ github.sha }}
           artifact-path: express/dist
+          
       - name: Login to GDS Dev Dynatrace Container Registry
         uses: docker/login-action@v3
         with:
           registry: khw46367.live.dynatrace.com
           username: khw46367
           password: ${{ secrets.dynatrace-pass-token }}
-      # - name: Deploy Product
-      #   id: deploy-product
-      #   uses: govuk-one-login/github-actions/secure-pipelines/deploy-fargate@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
-      #   timeout-minutes: 20
-      #   with:
-      #     aws-role-arn: ${{ vars.PRODUCT_PAGES_FRONTEND_DEPLOYMENT_ROLE_ARN }}
-      #     artifact-bucket-name: ${{ vars.PRODUCT_PAGES_FRONTEND_ARTIFACT_SOURCE_BUCKET_NAME }}
-      #     container-signing-key-arn: ${{ vars.PRODUCT_PAGES_CONTAINER_SIGNING_KEY_ARN }}
-      #     ecr-repository: ${{ vars.PRODUCT_PAGES_FRONTEND_TEST_ECR_REPOSITORY_NAME }}
-      #     pipeline-name: ${{ vars.PRODUCT_PAGES_FRONTEND_PIPELINE_NAME }}
-      #     dockerfile: Dockerfile
-      #     template: infrastructure/frontend/frontend.template.yml
-      #     artifact-name: ${{ inputs.artifact-name }}
-      #     artifact-path: express/dist
+          
+      - name: Deploy Product
+        id: deploy-product
+        uses: govuk-one-login/github-actions/secure-pipelines/deploy-fargate@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
+        timeout-minutes: 20
+        with:
+          aws-role-arn: ${{ vars.PRODUCT_PAGES_FRONTEND_DEPLOYMENT_ROLE_ARN }}
+          artifact-bucket-name: ${{ vars.PRODUCT_PAGES_FRONTEND_ARTIFACT_SOURCE_BUCKET_NAME }}
+          container-signing-key-arn: ${{ vars.PRODUCT_PAGES_CONTAINER_SIGNING_KEY_ARN }}
+          ecr-repository: ${{ vars.PRODUCT_PAGES_FRONTEND_TEST_ECR_REPOSITORY_NAME }}
+          pipeline-name: ${{ vars.PRODUCT_PAGES_FRONTEND_PIPELINE_NAME }}
+          dockerfile: Dockerfile
+          template: infrastructure/frontend/frontend.template.yml
+          artifact-name: ${{ inputs.artifact-name }}
+          artifact-path: express/dist
