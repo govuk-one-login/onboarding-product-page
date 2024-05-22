@@ -12,12 +12,6 @@ EXPOSE $PORT
 # Set the working directory in the container
 WORKDIR /app
 
-run pwd
-# Copy the application code, see .dockerignore for exclusions
-COPY . .
-COPY ../../run-tests.sh ./
-
-
 # Copy the .env.example file to .env @TODO questionable at best
 #COPY .env.example .env
 
@@ -34,4 +28,11 @@ RUN npm install && npm run build
 
 USER $USER
 ENV WORKDIR $WORKDIR
+
+# Copy source code over
+# Copy the application code, see .dockerignore for exclusions
+COPY --chown=$USER ./ $WORKDIR
+COPY ../../run-tests.sh ./
+
+
 ENTRYPOINT ["/run-tests.sh"]
