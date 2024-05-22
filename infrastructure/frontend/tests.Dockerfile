@@ -12,8 +12,10 @@ EXPOSE $PORT
 # Set the working directory in the container
 WORKDIR /app
 
+run pwd
 # Copy the application code, see .dockerignore for exclusions
-COPY run-tests.sh ./
+COPY ../../run-tests.sh ./
+
 
 # Copy the .env.example file to .env @TODO questionable at best
 #COPY .env.example .env
@@ -26,6 +28,7 @@ RUN aws --version
 # Install project dependencies
 ENV PUPPETEER_SKIP_DOWNLOAD true
 RUN apk upgrade && apk add --no-cache chromium
+RUN apk upgrade && apk add --no-cache curl
 RUN npm install && npm run build
 
 USER $USER
