@@ -14,6 +14,7 @@ WORKDIR /app
 
 run pwd
 # Copy the application code, see .dockerignore for exclusions
+COPY . .
 COPY ../../run-tests.sh ./
 
 
