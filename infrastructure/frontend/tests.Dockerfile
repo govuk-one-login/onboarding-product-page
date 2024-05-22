@@ -26,13 +26,11 @@ RUN apk upgrade && apk add --no-cache chromium
 RUN apk upgrade && apk add --no-cache curl
 RUN npm install && npm run build
 
-USER $USER
-ENV WORKDIR $WORKDIR
-
 # Copy source code over
 # Copy the application code, see .dockerignore for exclusions
 COPY --chown=$USER ./ $WORKDIR
 COPY ../../run-tests.sh ./
 
-
+USER $USER
+ENV WORKDIR $WORKDIR
 ENTRYPOINT ["/run-tests.sh"]
