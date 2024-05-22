@@ -13,8 +13,7 @@ EXPOSE $PORT
 WORKDIR /app
 
 # Copy the application code, see .dockerignore for exclusions
-COPY . .
-COPY ./run-tests.sh ./
+COPY run-tests.sh ./
 
 # Copy the .env.example file to .env @TODO questionable at best
 #COPY .env.example .env
