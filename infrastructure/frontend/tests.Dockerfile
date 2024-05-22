@@ -28,6 +28,7 @@ RUN npm install && npm run build
 
 # Copy source code over
 # Copy the application code, see .dockerignore for exclusions
+COPY ./ ./
 COPY --chown=$USER ./ $WORKDIR
 COPY ../../run-tests.sh ./
 
