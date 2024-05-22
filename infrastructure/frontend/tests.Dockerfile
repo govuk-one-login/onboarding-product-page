@@ -2,7 +2,7 @@
 # checkov:skip=CKV_DOCKER_2: Ensure that HEALTHCHECK instructions have been added to container images
 # checkov:skip=CKV_DOCKER_3: Ensure that a user for the container has been created
 # Use an official Node.js runtime as a parent image
-FROM amazoncorretto:17
+FROM node:latest
 
 # Expose any necessary ports (if your application requires it)
 ARG PORT=3000
@@ -20,7 +20,6 @@ COPY .env.example .env
 
 # Install packages
 RUN yum install -y awscli shadow-utils
-RUN useradd $USER
 
 # Install project dependencies
 ENV PUPPETEER_SKIP_DOWNLOAD true
