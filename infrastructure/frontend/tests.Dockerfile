@@ -19,18 +19,16 @@ WORKDIR /app
 RUN apk upgrade && apk update; apk add --no-cache aws-cli bash
 RUN aws --version
 
+# Copy source code over
+# Copy the application code, see .dockerignore for exclusions
+COPY --chown=$USER ./ $WORKDIR
+COPY ../../run-tests.sh ./
 
 # Install project dependencies
 ENV PUPPETEER_SKIP_DOWNLOAD true
 RUN apk upgrade && apk add --no-cache chromium
 RUN apk upgrade && apk add --no-cache curl
 RUN npm install && npm run build
-
-# Copy source code over
-# Copy the application code, see .dockerignore for exclusions
-COPY ./ ./
-COPY --chown=$USER ./ $WORKDIR
-COPY ../../run-tests.sh ./
 
 USER $USER
 ENV WORKDIR $WORKDIR
