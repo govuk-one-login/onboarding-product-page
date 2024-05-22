@@ -21,15 +21,10 @@ RUN aws --version
 
 # Copy source code over
 # Copy the application code, see .dockerignore for exclusions
-COPY --chown=$USER ./ $WORKDIR
-COPY ../../run-tests.sh ./
+# Copy the entrypoint for the test container image, set permissions and switch to the 'test' user
+COPY ../../run-tests.sh /
+RUN chmod 005 /run-tests.sh
 
-# Install project dependencies
-ENV PUPPETEER_SKIP_DOWNLOAD true
-RUN apk upgrade && apk add --no-cache chromium
-RUN apk upgrade && apk add --no-cache curl
-RUN npm install && npm run build
-
-USER $USER
+USER test
 ENV WORKDIR $WORKDIR
 ENTRYPOINT ["/run-tests.sh"]
