@@ -2,7 +2,7 @@
 # checkov:skip=CKV_DOCKER_2: Ensure that HEALTHCHECK instructions have been added to container images
 # checkov:skip=CKV_DOCKER_3: Ensure that a user for the container has been created
 # Use an official Node.js runtime as a parent image
-FROM node:latest
+FROM public.ecr.aws/lambda/nodejs:20
 
 # Expose any necessary ports (if your application requires it)
 ARG PORT=3000
