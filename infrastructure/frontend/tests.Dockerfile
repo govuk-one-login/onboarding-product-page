@@ -19,9 +19,8 @@ WORKDIR /app
 RUN apk upgrade && apk update; apk add --no-cache aws-cli bash
 RUN aws --version
 
-# Copy source code over
-# Copy the application code, see .dockerignore for exclusions
-# Copy the entrypoint for the test container image, set permissions and switch to the 'test' user
+# Copy the entrypoint for the test container image
+# set permissions and switch to the 'test' user
 COPY ../../run-tests.sh /
 RUN chmod 005 /run-tests.sh
 
