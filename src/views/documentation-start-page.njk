@@ -1,0 +1,56 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "What to say about GOV.UK One Login on start pages" %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "start-page"} %}
+{% set breadcrumbs = breadcrumbs([{text: "Documentation", href: "/documentation"}]) %}
+
+{% block mainContent %}
+  <h1 class="govuk-heading-l">What to say about GOV.UK One Login on start pages</h1>
+  <p class="govuk-body">You’ll need to update your service's start page to tell your users to use GOV.UK One Login to sign in to your service and, if your service needs them to, prove their identity.</p>
+  <h2 class="govuk-heading-m">Moving your users to GOV.UK One Login</h2>
+  <p class="govuk-body">If your service already has a sign in or identity capability, you’ll need to tell your users to create, or sign in, using GOV.UK One Login instead.</p>
+  <p class="govuk-body">What you need to tell your users depends on how you decide to use GOV.UK One Login. For example, you may move:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>different groups of users at different times</li>
+    <li>all of your users at the same time</li>
+  </ul>
+  <p class="govuk-body">Any messaging on your start page needs to work for all of your users as, until they sign in, you won’t know which group they fall into.</p>
+  <h2 class="govuk-heading-m">Content on start pages</h2>
+  <p class="govuk-body">Some users find it helpful to know that they’ll either need their GOV.UK One login details, or that they’ll need to create one as part of your service.</p>
+  <p class="govuk-body">It can also help to reiterate what a user may need before they can create a GOV.UK One Login, for example an identity document.</p>
+  <p class="govuk-body">However, bear in mind that:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>you can use other parts of the journey to explain what GOV.UK One Login is - for example within your service at the point where the user has to take action</li>
+    <li>we’ve seen in research that a large proportion of users are drawn straight to the green start button</li>
+    <li>there’s often a lot of information on start pages competing for a user’s attention</li>
+    <li>you risk sending users off trying to find out what GOV.UK One Login is and whether they already have one or not</li>
+  </ul>
+  <p class="govuk-body">We recommend testing to see what approach works best for your users.</p>
+  <h2 class="govuk-heading-m">Messaging throughout the journey</h2>
+  <p class="govuk-body">It can also be useful to include consistent and repeated messaging about GOV.UK One Login throughout the user journey.</p>
+  <p class="govuk-body"> We found that having the same information about GOV.UK One Login in multiple parts of the journey was helpful, for example on the create and sign in page or in a welcome email. For example, you could use the following content:</p>
+  <p class="govuk-body govuk-!-font-weight-bold">About GOV.UK One Login</p>
+  <p class="govuk-body">You need a GOV.UK One Login to access this service.</p>
+  <p class="govuk-body">You can use your GOV.UK One Login to access some other government services.</p>
+  <h2 class="govuk-heading-m">Start page patterns</h2>
+  <h3 class="govuk-heading-s">1. Service with an existing account</h3>
+  <p class="govuk-body">You’ll need a GOV.UK One Login to use this service.</p>
+  <p class="govuk-body">If you haven't used GOV.UK One Login to access this service before, sign in using your existing sign in details. You’ll then be asked to create or sign in to GOV.UK One Login.</p>
+  <p class="govuk-body">In future, you should then always use your GOV.UK One Login to sign in to this service.</p>
+  <p class="govuk-body">Start now button</p>
+  <h3 class="govuk-heading-s">2. Sign in (‘authentication’) service</h3>
+  <p class="govuk-body">You need a GOV.UK One Login to sign in to this service. You can create one if you do not already have one.</p>
+  <p class="govuk-body">Start now button</p>
+  <h3 class="govuk-heading-s">3. Identity service</h3>
+  <p class="govuk-body">You’ll need a GOV.UK One Login to use this service. You’ll be able to create a GOV.UK One Login if you do not already have one.</p>
+  <p class="govuk-body">You’ll be told when you sign in if you need to prove your identity. This is to keep your details safe and normally involves using photo ID like a passport or driving licence.</p>
+  <p class="govuk-body">Start now button</p>
+  <h3 class="govuk-heading-s">4. Identity service with an existing account, where existing users have already proved their identity</h3>
+  <p class="govuk-body">You’ll need a GOV.UK One Login to use this service. You’ll be able to create a GOV.UK One Login if you do not already have one.</p>
+  <p class="govuk-body">You’ll be told when you sign in if you need to prove your identity. This is to keep your details safe and normally involves using photo ID like a passport or driving licence.</p>
+  <p class="govuk-body">Start now button</p>
+  <h2 class="govuk-heading-m">Feedback</h2>
+  <p class="govuk-body">We’re still working on these patterns, so <a class="govuk-link" href="/contact-us">please get in touch</a> to let us know what works for your users.</p>
+{% endblock %}
