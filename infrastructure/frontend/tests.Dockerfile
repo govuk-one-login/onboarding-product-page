@@ -4,6 +4,9 @@
 # Use an official Node.js runtime as a parent image
 FROM amazoncorretto:17
 
+ARG WORKDIR=/app
+ARG USER=testrunner
+
 # Set the working directory in the container
 WORKDIR /app
 
@@ -14,6 +17,5 @@ RUN yum install -y awscli shadow-utils
 COPY ../../run-tests.sh /
 RUN chmod 005 /run-tests.sh
 
-USER test
 ENV WORKDIR $WORKDIR
 ENTRYPOINT ["/run-tests.sh"]
