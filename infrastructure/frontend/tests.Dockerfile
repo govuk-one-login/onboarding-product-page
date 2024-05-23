@@ -21,7 +21,7 @@ RUN curl -sL https://rpm.nodesource.com/setup_lts.x | bash -
 RUN yum install -y nodejs
 RUN npm install yarn -g
 
-# set permissions and switch to the 'test' user
+COPY ../../ui-automation-tests /
 COPY ../../run-tests.sh /
 RUN chmod 005 /run-tests.sh
 
