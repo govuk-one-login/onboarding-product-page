@@ -17,15 +17,15 @@ export default class SheetsService implements ZendeskInterface {
 
     async init() {
         let implementation: string;
-        if (process.env.USE_STUB_ZENDESK == 'true') {
-            implementation = './stubZendesk/stubZendeskService';
-            console.log("Using Stub Zendesk Service")
+        if (process.env.USE_STUB_ZENDESK == "true") {
+            implementation = "./stubZendesk/stubZendeskService";
+            console.log("Using Stub Zendesk Service");
         } else {
-            implementation = './realZendesk/realZendeskService';
-            console.log("Using Real Zendesk Service")
+            implementation = "./realZendesk/realZendeskService";
+            console.log("Using Real Zendesk Service");
         }
-        let module = await import(implementation);
-        let service = module.default;
+        const module = await import(implementation);
+        const service = module.default;
         this.implementation = new service(this.username, this.apiToken, this.tag, this.groupId);
     }
 
