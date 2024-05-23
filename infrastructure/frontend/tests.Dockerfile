@@ -19,3 +19,4 @@ RUN chmod 005 /run-tests.sh
 
 ENV WORKDIR $WORKDIR
 ENTRYPOINT ["/run-tests.sh"]
+
