@@ -13,6 +13,8 @@ permissions:
 
 jobs:
   run-acceptance-tests:
+    # GitHub's status checks should be disabled for merge checks - https://github.com/orgs/community/discussions/103114
+    if: github.event_name != 'merge_group'
     name: Acceptance
     runs-on: ubuntu-latest
     steps:
