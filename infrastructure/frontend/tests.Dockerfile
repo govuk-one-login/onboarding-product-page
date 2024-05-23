@@ -2,7 +2,7 @@
 # checkov:skip=CKV_DOCKER_2: Ensure that HEALTHCHECK instructions have been added to container images
 # checkov:skip=CKV_DOCKER_3: Ensure that a user for the container has been created
 # Use an official Node.js runtime as a parent image
-FROM amazoncorretto:17
+FROM amazonlinux:latest
 
 ARG WORKDIR=/app
 ARG USER=testrunner
@@ -12,6 +12,7 @@ WORKDIR /app
 
 # Install packages
 RUN yum install -y awscli shadow-utils
+RUN yum install npm -y
 
 # set permissions and switch to the 'test' user
 COPY ../../run-tests.sh /
@@ -19,4 +20,3 @@ RUN chmod 005 /run-tests.sh
 
 ENV WORKDIR $WORKDIR
 ENTRYPOINT ["/run-tests.sh"]
-
