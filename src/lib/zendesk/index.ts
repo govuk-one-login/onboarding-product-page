@@ -1,4 +1,3 @@
-import ZendeskService from './interface'
+import ZendeskService from "./interface";
 
 export default ZendeskService;
-

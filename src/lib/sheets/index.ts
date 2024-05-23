@@ -1,3 +1,3 @@
-import SheetsService from './interface'
+import SheetsService from "./interface";
 
-export default SheetsService
+export default SheetsService;

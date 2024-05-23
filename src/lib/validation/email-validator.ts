@@ -1,4 +1,6 @@
-const rfc822Validator = require("rfc822-validate");
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import rfc822Validator from "rfc822-validate";
 
 export default (email: string) => {
     if (!rfc822Validator(email)) {
