@@ -7,6 +7,8 @@ FROM amazoncorretto:17
 # Set the working directory in the container
 WORKDIR /app
 
+USER test
+
 # Install packages
 RUN yum install -y awscli shadow-utils
 RUN useradd $USER
