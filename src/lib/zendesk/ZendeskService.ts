@@ -29,6 +29,7 @@ export default class SheetsService implements ZendeskInterface {
         this.implementation = new service(this.username, this.apiToken, this.tag, this.groupId);
     }
 
+    // eslint-disable-next-line
     async submit(form: Map<string, string>): Promise<any> {
         return this.implementation.submit(form);
     }

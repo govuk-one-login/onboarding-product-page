@@ -8,6 +8,7 @@ export default class StubSheetsService implements SheetsService {
         this.spreadsheetId = spreadsheetId;
     }
 
+    // eslint-disable-next-line
     async appendValues(form: Map<string, string>, dataRange: string, headerRange: string): Promise<void> {
         return new Promise<void>(resolve => {
             console.log(`Pretending to save data to sheet "${this.spreadsheetId}"`);
