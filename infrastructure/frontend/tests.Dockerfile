@@ -7,16 +7,13 @@ FROM amazoncorretto:17
 # Set the working directory in the container
 WORKDIR /app
 
-USER test
-
 # Install packages
 RUN yum install -y awscli shadow-utils
-RUN useradd $USER
 
 # set permissions and switch to the 'test' user
 COPY ../../run-tests.sh /
 RUN chmod 005 /run-tests.sh
 
-USER $USER
+USER test
 ENV WORKDIR $WORKDIR
 ENTRYPOINT ["/run-tests.sh"]
