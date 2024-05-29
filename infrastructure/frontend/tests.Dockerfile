@@ -10,6 +10,7 @@ ARG USER=testrunner
 
 # Set the working directory in the container
 WORKDIR /app
+COPY ../../ /
 
 # Install packages
 RUN yum install -y awscli shadow-utils
@@ -20,8 +21,8 @@ RUN yum install -y gcc-c++ make
 RUN curl -sL https://rpm.nodesource.com/setup_lts.x | bash -
 RUN yum install -y nodejs
 RUN npm install yarn -g
+RUN npm install && npm run build
 
-COPY ../../ /
 RUN chmod 005 /run-tests.sh
 
 ENV WORKDIR $WORKDIR
