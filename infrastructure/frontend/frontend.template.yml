@@ -185,7 +185,7 @@ Resources:
             - Name: SERVICENOW_URL
               Value: "{{resolve:secretsmanager:/product-pages/frontend/servicenow-url}}"
             - Name: JIRA_INTEGRATION_ENABLED # Variable protection enabled
-              Value: !If [ IsProd, 'false', "{{resolve:ssm:/product-pages/frontend/jira-integration-enabled}}" ]
+              Value: "{{resolve:ssm:/product-pages/frontend/jira-integration-enabled}}"
             - Name: USE_STUB_JIRA # Variable protection enabled
               Value: !If [ IsProd, 'false', "{{resolve:ssm:/product-pages/frontend/use-stub-jira}}" ]
             - Name: JIRA_USER_NAME
