@@ -185,7 +185,7 @@ Resources:
             - Name: SERVICENOW_URL
               Value: "{{resolve:secretsmanager:/product-pages/frontend/servicenow-url}}"
             - Name: JIRA_INTEGRATION_ENABLED # Variable protection enabled
-              Value: !If [ IsProd, 'false', "{{resolve:ssm:/product-pages/frontend/jira-integration-enabled}}" ]
+              Value: "{{resolve:ssm:/product-pages/frontend/jira-integration-enabled}}"
             - Name: USE_STUB_JIRA # Variable protection enabled
               Value: !If [ IsProd, 'false', "{{resolve:ssm:/product-pages/frontend/use-stub-jira}}" ]
             - Name: JIRA_USER_NAME
@@ -240,7 +240,7 @@ Resources:
         - - '/onboarding-product-pages/frontend'
           - !If [ IsLocal, !Ref DeploymentName, !Ref AWS::NoValue ]
           - 'audit'
-      RetentionInDays: 14
+      RetentionInDays: 30
 
   FrontendLogsGroup:
     # checkov:skip=CKV_AWS_158:Ensure that CloudWatch Log Group is encrypted by KMS
@@ -251,7 +251,7 @@ Resources:
         - - '/aws/ecs'
           - 'onboarding-product-pages/frontend'
           - !If [ IsLocal, !Ref DeploymentName, !Ref AWS::NoValue ]
-      RetentionInDays: 14
+      RetentionInDays: 30
       DataProtectionPolicy:
         Name: data-protection-policy-frontend
         Description: Data Protection for Cloudwatch Logs
