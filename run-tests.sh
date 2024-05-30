@@ -20,6 +20,6 @@ env | grep TEST_REPORT_
 
 # cd to the working directory in the Docker container - all of our stuff is here...
 cd "$WORKDIR"
-
+ls
 # Run tests...
 npm run test
