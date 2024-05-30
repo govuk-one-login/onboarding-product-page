@@ -30,6 +30,7 @@ jobs:
           registry: khw46367.live.dynatrace.com
           username: khw46367
           password: ${{ secrets.dynatrace-pass-token }}
+
       - name: Deploy Product
         id: deploy-product
         uses: govuk-one-login/github-actions/secure-pipelines/deploy-fargate@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
