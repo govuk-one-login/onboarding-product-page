@@ -10,7 +10,7 @@ ARG USER=testrunner
 
 # Set the working directory in the container
 WORKDIR /app
-COPY ../../ /
+COPY . .
 
 # Install packages
 RUN yum install -y awscli shadow-utils
@@ -22,10 +22,15 @@ RUN curl -sL https://rpm.nodesource.com/setup_lts.x | bash -
 RUN yum install -y nodejs
 RUN npm install yarn -g
 RUN npm install mocha -g
+
+# Install project dependencies
+ENV PUPPETEER_SKIP_DOWNLOAD true
 RUN npm install && npm run build
 
-RUN chmod 005 /run-tests.sh
+RUN pwd
+RUN ls
+RUN chmod 005 ./run-tests.sh
 
 ENV WORKDIR $WORKDIR
-ENTRYPOINT ["/run-tests.sh"]
+ENTRYPOINT ["./run-tests.sh"]
 
