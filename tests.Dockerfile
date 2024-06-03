@@ -11,7 +11,7 @@ ARG USER=testrunner
 # Set the working directory in the container
 WORKDIR /app
 
-COPY . .
+COPY . /
 
 # Install packages
 RUN yum install -y awscli shadow-utils
@@ -30,8 +30,8 @@ RUN npm install && npm run build
 
 RUN pwd
 RUN ls
-RUN chmod 005 ./run-tests.sh
+RUN chmod 005 /run-tests.sh
 
 ENV WORKDIR $WORKDIR
-ENTRYPOINT ["./run-tests.sh"]
+ENTRYPOINT ["/run-tests.sh"]
 
