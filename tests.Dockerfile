@@ -10,6 +10,7 @@ ARG USER=testrunner
 
 # Set the working directory in the container
 WORKDIR /app
+
 COPY . .
 
 # Install packages

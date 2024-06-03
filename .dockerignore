@@ -10,5 +10,5 @@ jspm_packages/
 infrastructure/
 monitoring/
 ci/
-test/
+#test/
 features/
