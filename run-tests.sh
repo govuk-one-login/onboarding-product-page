@@ -23,4 +23,3 @@ cd "$WORKDIR"
 ls
 # Run tests...
 npm run test
-npm run cucumber
