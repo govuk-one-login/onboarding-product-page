@@ -1,14 +1,32 @@
 # Hidden files & directories
 .github
 .idea
+./.*
 
 # Dependencies build as required
 node_modules/
 jspm_packages/
 
-# Test & infrastructure files
+# Infrastructure
 infrastructure/
-monitoring/
+
+# Test files
+express/tests/
 ci/
 test/
+ui-automation-tests/
+coverage/
 features/
+
+# Environment configuration files
+.env.example
+.env
+
+# Utility configuration files
+sonar-project.properties
+.mocharc.json
+.nycrc.json
+.nyc_output
+.prettierignore
+.prettierrc.js
+.eslintrc.js
