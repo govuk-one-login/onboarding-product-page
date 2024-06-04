@@ -16,7 +16,7 @@ COPY . .
 RUN npm install && npm run build
 
 # Add the Dynatrace OneAgent
-COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules:nodejs / /
+COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs / /
 ENV LD_PRELOAD /opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 
 USER node
