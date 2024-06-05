@@ -21,7 +21,7 @@
     "sonar": "sonar-scanner",
     "cucumber": "npm run acceptance-tests -w ui-automation-tests --",
     "accessible-tests": "npm run cucumber -- --tags @accessible",
-    "build-docker": "docker build --tag product-pages-frontend --file Dockerfile-dev ..",
+    "build-docker": "docker build --tag product-pages-frontend --file test.Dockerfile ..",
     "lint": "prettier . --check ; eslint .",
     "lint:fix": "prettier . --write ; eslint . --fix"
   },
