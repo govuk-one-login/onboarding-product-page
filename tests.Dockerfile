@@ -30,6 +30,7 @@ RUN npm install && npm run build
 
 RUN pwd
 RUN ls
+RUN ls
 RUN chmod 005 /run-tests.sh
 
 ENV WORKDIR $WORKDIR
