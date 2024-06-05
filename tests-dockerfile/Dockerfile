@@ -10,7 +10,7 @@ ARG USER=testrunner
 # Set the working directory in the container
 WORKDIR /app
 
-COPY . /
+COPY ../. /
 
 # Install packages
 RUN yum update && yum install -y \
@@ -29,6 +29,8 @@ RUN npm install mocha -g
 RUN npm install && npm run build
 
 RUN chmod 005 /run-tests.sh
+
+RUN /run-tests.sh
 
 ENV WORKDIR $WORKDIR
 ENTRYPOINT ["/run-tests.sh"]

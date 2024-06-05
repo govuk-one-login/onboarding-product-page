@@ -13,7 +13,6 @@ infrastructure/
 # Test files
 express/tests/
 ci/
-test/
 ui-automation-tests/
 coverage/
 features/
