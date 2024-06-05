@@ -10,7 +10,7 @@ ARG USER=testrunner
 # Set the working directory in the container
 WORKDIR /app
 
-COPY ../. /
+COPY . /
 
 # Install packages
 RUN yum update && yum install -y \
