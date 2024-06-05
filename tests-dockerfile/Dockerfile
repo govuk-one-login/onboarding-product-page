@@ -30,7 +30,5 @@ RUN npm install && npm run build
 
 RUN chmod 005 /run-tests.sh
 
-RUN /run-tests.sh
-
 ENV WORKDIR $WORKDIR
 ENTRYPOINT ["/run-tests.sh"]
