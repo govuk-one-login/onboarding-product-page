@@ -12,21 +12,26 @@
   <p class="govuk-body">You can use GOV.UK One Login if you’re from a central government service and need to sign in your users or check their identities.</p>
   <p class="govuk-body"><a class="govuk-link" href="/about">Read more about GOV.UK One Login</a>
   </p>
-  <h2 class="govuk-heading-m">2. Get in touch or try GOV.UK One Login</h2>
-  <p class="govuk-body">If you think GOV.UK One Login is right for your service, register your interest. We’ll contact you within 5 days to find out more about what your service needs.</p>
+  <h2 class="govuk-heading-m govuk-!-padding-top-4">Get in touch or try GOV.UK One Login</h2>
+  <p class="govuk-body">Register your interest if you think GOV.UK One Login is right for your service. We’ll contact you within 5 days to find out more about what your service needs.</p>
   {{ govukButton({
     text: "Register your interest",
     href: "/register"
   }) }}
-  <p class="govuk-body">If you only need to sign in your users, you can also test GOV.UK One Login now in our integration environment. You just need to set up an admin tool account.</p>
-  <p class="govuk-body">You'll need a government email address and a mobile phone number to set up an account.</p>
+  <h2 class="govuk-heading-m govuk-!-padding-top-2">Try GOV.UK One Login</h2>
+  <p class="govuk-body">Set up an admin tool account to try GOV.UK One Login in our integration environment. You'll need a:</p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>government email address</li>
+        <li>mobile phone number</li>
+      </ul>
   {{ govukButton({
     text: "Create admin tool account",
     href: registerButtonLink
   }) }}
-  <span class="govuk-body" id="sign-in-admin-tool-container"> or <a class="govuk-link" href="{{ adminToolUrl }}/sign-in">sign in</a></span>
-  <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-margin-top-7 govuk-!-margin-bottom-4">
-  <h2 class="govuk-heading-m">Contact us</h2>
+    <p class="govuk-body">
+      or <a class="govuk-link" href="{{ adminToolUrl }}/sign-in">sign in</a>
+    </p>
+  <h2 class="govuk-heading-m govuk-!-padding-top-4">Contact us</h2>
   <p class="govuk-body">Use our <a class="govuk-link" href="/support">online form</a> to report problems, ask questions or suggest improvements.</p>
-  <p class="govuk-body">You can also get in touch via our <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a></p>
+  <p class="govuk-body">You can also get in touch using our <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a></p>
 {% endblock %}
