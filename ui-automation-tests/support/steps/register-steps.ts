@@ -16,6 +16,7 @@ const fields = {
     "what would you like to access and test": "accessAndTest",
     "additional context or specific questions": "commentOrQuestions",
     "any other services you would like to talk to us about": "anyOtherServicesToTalkAbout",
+    "existing users that you need to migrate": "migrateExistingUsers",
     "would you like to get updates": "getUpdatesAboutOneLogin"
 };
 
@@ -57,5 +58,6 @@ When("they fill in correct data in all the mandatory input fields, select button
     await this.page.type("#estimatedServiceGoLiveDate", "June 2025");
     await selectOption(this.page, "accessAndTest", "authenticationOnly");
     await selectOption(this.page, "anyOtherServicesToTalkAbout", "yes");
+    await selectOption(this.page, "migrateExistingUsers", "yes");
     await selectOption(this.page, "getUpdatesAboutOneLogin", "YES");
 });
