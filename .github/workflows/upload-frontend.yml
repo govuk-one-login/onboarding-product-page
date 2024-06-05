@@ -32,7 +32,7 @@ jobs:
         with:
           aws-role-arn: ${{ vars.PRODUCT_PAGES_FRONTEND_DEPLOYMENT_ROLE_ARN }}
           repository: ${{ vars.PRODUCT_PAGES_FRONTEND_TEST_ECR_REPOSITORY_NAME }}
-          dockerfile: Dockerfile
+          dockerfile: tests-dockerfile/Dockerfile
           image-tags: "latest"
           image-version: ${{ github.sha }}
           artifact-path: express/dist
