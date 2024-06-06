@@ -128,6 +128,24 @@ export default class RealJiraService implements JiraService {
         }
     }
 
+    private userMigration(ticketPayload: RegisterInterestFormPayload): JiraCustomFieldChoice {
+        const accessType = ticketPayload.get("migrateExistingUsers");
+
+        if (accessType === "Yes") {
+            return {
+                self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/11624",
+                value: "Yes",
+                id: "12280"
+            };
+        } else {
+            return {
+                self: "https://govukverify.atlassian.net/rest/api/3/customFieldOption/11624",
+                value: "No",
+                id: "12281"
+            };
+        }
+    }
+
     private formatTicketJiraParagraph(value: string | number | undefined): JiraStructuredContent {
         return {
             version: 1,
@@ -182,7 +200,8 @@ export default class RealJiraService implements JiraService {
                 customfield_11545: ticketPayload.get("linkToYourService"),
                 customfield_11546: ticketPayload.get("estimatedServiceGoLiveDate"),
                 customfield_11539: ticketPayload.get("id"),
-                customfield_11540: ticketPayload.get("submission-date")
+                customfield_11540: ticketPayload.get("submission-date"),
+                customfield_11624: this.userMigration(ticketPayload)
             }
         };
     }

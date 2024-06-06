@@ -31,7 +31,8 @@ const requiredFieldsRegister = new Map<string, string>([
     ["estimatedServiceGoLiveDate", "Enter a month and year"],
     ["accessAndTest", "Select one option"],
     ["anyOtherServicesToTalkAbout", "Select one option"],
-    ["getUpdatesAboutOneLogin", "Select one option"]
+    ["getUpdatesAboutOneLogin", "Select one option"],
+    ["migrateExistingUsers", "Select one option"]
 ]);
 
 export const post = async function (req: Request, res: Response) {
@@ -66,6 +67,12 @@ export const post = async function (req: Request, res: Response) {
             values.set("anyOtherServicesToTalkAbout", "Yes");
         } else {
             values.set("anyOtherServicesToTalkAbout", "");
+        }
+
+        if (req.body.migrateExistingUsers === "yes") {
+            values.set("migrateExistingUsers", "Yes");
+        } else {
+            values.set("migrateExistingUsers", "No");
         }
 
         values.set("id", uuid());
