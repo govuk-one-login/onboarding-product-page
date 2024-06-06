@@ -26,6 +26,11 @@ RUN curl -sL https://rpm.nodesource.com/setup_lts.x | bash -
 ENV PUPPETEER_SKIP_DOWNLOAD true
 RUN npm install yarn -g
 RUN npm install mocha -g
+RUN npm install npx -g
+RUN npm install puppeteer -g
+RUN npm install browsers -g
+RUN npm install chrome -g
+
 RUN npm install && npm run build
 
 RUN chmod 005 /run-tests.sh
