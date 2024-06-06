@@ -3,7 +3,7 @@ name: Publish Product pages to AWS (Dev)
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ main ,SSE-3441 ]
 
 permissions: read-all
 
