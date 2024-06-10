@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: Tests Image Build
         id: tests-image-build
-        if: ${{ inputs.environment }} == 'development-secure-pipelines' || ${{ inputs.environment }} == 'build-secure-pipelines'
+        if: ${{ inputs.environment }} == 'development-secure-pipelines'
         uses: govuk-one-login/github-actions/aws/ecr/build-docker-image@7d56b09b4d2a9a9c6005843d28f31a2333ad1373
         timeout-minutes: 20
         with:
