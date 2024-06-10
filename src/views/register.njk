@@ -55,6 +55,12 @@
       {text: "Yes", value: "yes"},
       {text: "No", value: "no"}
     ]) }}
+  {{ form.radiosInput("Do you have existing users that you need to migrate to GOV.UK One Login to sign in or prove their identity?", name = "migrateExistingUsers",
+
+    items = [
+      {text: "Yes", value: "yes"},
+      {text: "No", value: "no"}
+    ]) }}
   <h2 class="govuk-heading-m">Updates</h2>
   {{ form.radiosInput("Would you like to get updates about GOV.UK One Login?", name = "getUpdatesAboutOneLogin", hint = "You’ll get occasional email updates about our work and invitations to our cross-government show and tells. You may also be invited to participate in future user research if you’d like to",
     items = [

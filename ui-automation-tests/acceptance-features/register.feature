@@ -73,7 +73,12 @@ Feature: A form so users can register to get started with GOV.UK One Login
     Scenario: The user does not select any value from Do you have any other services you’d like to talk to us about radio button
       When they try to submit the form without selecting any value from the radio button
       Then the error message with the text "Select one option" must be displayed for the any other services you would like to talk to us about field
-
+  
+  Rule: The user tries to select and submit Do you have existing users that you need to migrate to GOV.UK One Login to sign in or prove their identity?
+    Scenario: The user does not select any value from Do you have existing users that you need to migrate radio button
+      When they try to submit the form without selecting any value from the radio button
+      Then the error message with the text "Select one option" must be displayed for the existing users that you need to migrate field 
+      
   Rule: The user tries to select and submit Would you like to get updates about GOV.UK One Login when registering to get started with GOV.UK One Login
     Scenario: The user does not select any value from Would you like to get updates about GOV.UK One Login radio button
       When they try to submit the form without selecting any value from the radio button

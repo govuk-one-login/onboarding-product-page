@@ -24,12 +24,26 @@ jobs:
       url: ${{ steps.deploy.outputs.pipeline-url }}
 
     steps:
+      - name: Tests Image Build
+        id: tests-image-build
+        if: ${{ inputs.environment }} == 'development-secure-pipelines' || ${{ inputs.environment }} == 'build-secure-pipelines'
+        uses: govuk-one-login/github-actions/aws/ecr/build-docker-image@7d56b09b4d2a9a9c6005843d28f31a2333ad1373
+        timeout-minutes: 20
+        with:
+          aws-role-arn: ${{ vars.PRODUCT_PAGES_FRONTEND_DEPLOYMENT_ROLE_ARN }}
+          repository: ${{ vars.PRODUCT_PAGES_FRONTEND_TEST_ECR_REPOSITORY_NAME }}
+          dockerfile: tests-dockerfile/Dockerfile
+          image-tags: "latest"
+          image-version: ${{ github.sha }}
+          artifact-path: express/dist
+
       - name: Login to GDS Dev Dynatrace Container Registry
         uses: docker/login-action@v3
         with:
           registry: khw46367.live.dynatrace.com
           username: khw46367
           password: ${{ secrets.dynatrace-pass-token }}
+
       - name: Deploy Product
         id: deploy-product
         uses: govuk-one-login/github-actions/secure-pipelines/deploy-fargate@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
