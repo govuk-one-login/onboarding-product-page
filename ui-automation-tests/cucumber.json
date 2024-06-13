@@ -5,11 +5,11 @@
       "ts-node/register"
     ],
     "import": [
-      "support/test-setup.ts",
-      "support/steps/**/*.ts"
+      "support/test-setup.mts",
+      "support/steps/**/*.mts"
     ],
     "format":  [
-      "summary",
+      "progress",
       "html:reports/cucumber-report.html",
       "message:reports/cucumber-report.json"
     ]
