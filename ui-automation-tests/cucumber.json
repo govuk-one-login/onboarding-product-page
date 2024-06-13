@@ -1,12 +1,17 @@
 {
   "default": {
     "tags": "not @wip",
-    "requireModule": [
+    "loader": [
       "ts-node/register"
     ],
-    "require": [
+    "import": [
       "support/test-setup.ts",
       "support/steps/**/*.ts"
+    ],
+    "format":  [
+      "summary",
+      "html:reports/cucumber-report.html",
+      "message:reports/cucumber-report.json"
     ]
   }
 }
