@@ -1,6 +1,7 @@
 {
   "default": {
     "tags": "not @wip",
+    "failFast": true,
     "loader": [
       "ts-node/register"
     ],
