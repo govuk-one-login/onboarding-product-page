@@ -2,12 +2,12 @@
   "default": {
     "tags": "not @wip",
     "failFast": true,
-    "loader": [
+    "requireModule": [
       "ts-node/register"
     ],
-    "import": [
-      "support/test-setup.mts",
-      "support/steps/**/*.mts"
+    "require": [
+      "support/test-setup.ts",
+      "support/steps/**/*.ts"
     ],
     "format":  [
       "progress",

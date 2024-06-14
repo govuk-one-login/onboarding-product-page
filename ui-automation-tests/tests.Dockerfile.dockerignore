@@ -1,28 +1,9 @@
-# Hidden files & directories
-../.github
-.idea
-
 # Dependencies build as required
 node_modules/
-jspm_packages/
-
-# Infrastructure
-infrastructure/
-
-# Application files
-express/
-src/
-assets/
 
 # Test files
-express/tests/
-test/
-coverage/
-features/
+accessibility-features
 
 # Environment configuration files
 .env.example
 .env
-
-# Utility configuration files
-.nyc_output
