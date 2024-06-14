@@ -39,7 +39,7 @@ if [[ $ENVIRONMENT =~ dev ]] || [[ $ENVIRONMENT =~ build ]]; then
   npm run acceptance-tests
   error_code=$?
 
-  cp -rf reports/cucumber-report.json $TEST_REPORT_ABSOLUTE_DIR
+  cp -rf reports/cucumber-report.json "$TEST_REPORT_ABSOLUTE_DIR"
 fi
 
 exit $error_code
