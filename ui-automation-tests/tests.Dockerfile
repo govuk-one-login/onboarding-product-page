@@ -61,7 +61,7 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2
 
 ENV PUPPETEER_CACHE_DIR="/app/.cache/puppeteer"
 COPY package.json .
-RUN npm install && chown -R node:node package.json node_modules .cache
+RUN npm install
 
 COPY --chmod=005 run-tests.sh /run-tests.sh
 
