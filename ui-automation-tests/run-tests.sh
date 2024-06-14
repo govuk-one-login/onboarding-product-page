@@ -3,7 +3,7 @@
 set -eu
 set -o pipefail
 
-cat <<EOF
+cat << EOF
 This script runs internal integration tests for the Product Pages application.
 
 Requirements:
