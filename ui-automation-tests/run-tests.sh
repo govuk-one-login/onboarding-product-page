@@ -36,9 +36,10 @@ declare error_code=0
 
 if [[ $ENVIRONMENT =~ dev ]] || [[ $ENVIRONMENT =~ build ]]; then
   export HOST="$ENDPOINT"
-  npm run acceptance-tests
+  (npm run acceptance-tests)
   error_code=$?
 
+  printf "Copying test report to '%s'\n" "$TEST_REPORT_ABSOLUTE_DIR"
   cp -rf reports/cucumber-report.json "$TEST_REPORT_ABSOLUTE_DIR"
 fi
 

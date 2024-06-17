@@ -12,7 +12,7 @@
     "format":  [
       "progress",
       "html:reports/cucumber-report.html",
-      "message:reports/cucumber-report.json"
+      "json:reports/cucumber-report.json"
     ]
   }
 }
