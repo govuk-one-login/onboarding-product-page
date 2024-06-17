@@ -1,9 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import {After, AfterAll, Before, BeforeAll, setWorldConstructor, World} from "@cucumber/cucumber";
+import {AfterAll, Before, BeforeAll, setWorldConstructor, World} from "@cucumber/cucumber";
 import {IWorldOptions} from "@cucumber/cucumber/lib/support_code_library_builder/world";
 import puppeteer, {Browser, Page} from "puppeteer";
-import fse from "fs-extra";
-let browser: Browser, counter: number;
+// import fse from "fs-extra";
+let browser: Browser;
 
 export class TestContext extends World {
     private browserPage: Page | undefined;
@@ -32,17 +32,21 @@ export class TestContext extends World {
 }
 
 BeforeAll(async function () {
-    counter = 0;
-    if (fse.pathExistsSync("output/screenshots")) {
-        console.log("Clear screenshots directory ...");
-        fse.removeSync("output/screenshots/");
-        // recreate directory
-        fse.ensureDirSync("output/screenshots");
-    } else {
-        fse.ensureDirSync("output/screenshots");
-    }
+    // counter = 0;
+    // if (fse.pathExistsSync("output/screenshots")) {
+    //     console.log("Clear screenshots directory ...");
+    //     fse.removeSync("output/screenshots/");
+    //     // recreate directory
+    //     fse.ensureDirSync("output/screenshots");
+    // } else {
+    //     fse.ensureDirSync("output/screenshots");
+    // }
     console.log(`Running tests against ${process.env.HOST || "local"}`);
-    browser = await puppeteer.launch({headless: !process.env.SHOW_BROWSER});
+    browser = await puppeteer.launch({
+        timeout: 5000,
+        headless: !process.env.SHOW_BROWSER,
+        args: ["--no-sandbox"]
+    });
 });
 
 Before(async function () {
@@ -50,20 +54,20 @@ Before(async function () {
     this.page = await browser.newPage();
 });
 
-After(async function (this: TestContext, scenario) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const result = scenario.result.status;
-    const name = scenario.pickle.name.replace(/ /g, "-");
-    if (result === "FAILED") {
-        counter++;
-        const stream = await this.page.screenshot({
-            path: `./output/screenshots/${counter}-${result}-[${name}].jpeg`,
-            fullPage: true
-        });
-        return this.attach(stream, "image/jpeg");
-    }
-});
+// After(async function (this: TestContext, scenario) {
+//     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+//     // @ts-ignore
+//     const result = scenario.result.status;
+//     // const name = scenario.pickle.name.replace(/ /g, "-");
+//     // if (result === "FAILED") {
+//     //     counter++;
+//     //     const stream = await this.page.screenshot({
+//     //         path: `./output/screenshots/${counter}-${result}-[${name}].jpeg`,
+//     //         fullPage: true
+//     //     });
+//     //     return this.attach(stream, "image/jpeg");
+//     // }
+// });
 
 AfterAll(async function () {
     if (!process.env.SHOW_BROWSER) {
