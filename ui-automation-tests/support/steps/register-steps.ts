@@ -34,12 +34,14 @@ When("they try to submit the form without selecting any value from the checkbox 
 });
 
 Then("the error message with the text {string} must be displayed for the {} field", async function (errorMessage, fieldName) {
-    const errorLink = await this.page.$x(`//div[@class="govuk-error-summary"]//a[@href="#${fields[fieldName as keyof typeof fields]}"]`);
+    const errorLink = await this.page.$$(
+        `::-p-xpath(//div[@class="govuk-error-summary"]//a[@href="#${fields[fieldName as keyof typeof fields]}"])`
+    );
     await checkErrorMessageDisplayedForField(this.page, errorLink, errorMessage, fields[fieldName as keyof typeof fields]);
 });
 
 async function selectOption(page: Page, option: string, value: string) {
-    const radio = await page.$x(`//div[@id="${option}-options"]//input[@value="${value}"]`);
+    const radio = await page.$$(`::-p-xpath(//div[@id="${option}-options"]//input[@value="${value}"])`);
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     await radio[0].click();
