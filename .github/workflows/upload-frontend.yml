@@ -34,6 +34,7 @@ jobs:
           dockerfile: ui-automation-tests/tests.Dockerfile
           build-path: ui-automation-tests
           image-tags: "latest"
+          immutable-tags: "false"
           image-version: ${{ github.sha }}
 
       - name: Login to GDS Dev Dynatrace Container Registry
