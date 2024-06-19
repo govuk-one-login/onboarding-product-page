@@ -68,7 +68,7 @@
     "nodemon": "^3.0.1",
     "nyc": "^15.1.0",
     "prettier": "^2.7.1",
-    "puppeteer": "^21.5.0",
+    "puppeteer": "^22.11.2",
     "sass": "^1.55.0",
     "sinon": "^17.0.1",
     "sonar-scanner": "^3.1.0",
