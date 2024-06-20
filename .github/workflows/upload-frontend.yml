@@ -33,7 +33,8 @@ jobs:
           repository: ${{ vars.PRODUCT_PAGES_FRONTEND_TEST_ECR_REPOSITORY_NAME }}
           dockerfile: ui-automation-tests/tests.Dockerfile
           build-path: ui-automation-tests
-          image-tags: "latest"
+          image-tags: latest
+          immutable-tags: false
           image-version: ${{ github.sha }}
 
       - name: Login to GDS Dev Dynatrace Container Registry
