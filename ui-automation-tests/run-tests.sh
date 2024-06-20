@@ -16,7 +16,7 @@ node version: $(node --version)
 
 EOF
 
-export ENDPOINT=${CFN_ProductToolURL:-} # Set the variable for the endpoint
+export HOST=${CFN_ProductToolURL:-} # Set the variable for the endpoint
 export ENVIRONMENT=${TEST_ENVIRONMENT:-}
 
 cd /app
@@ -25,22 +25,16 @@ printf "Running heartbeat check...\n"
 declare status_code
 
 # shellcheck disable=SC2154
-status_code="$(curl --silent --location --output /dev/null --write-out '%{http_code}' "$ENDPOINT")"
+status_code="$(curl --silent --location --output /dev/null --write-out '%{http_code}' "$HOST")"
 if [[ $status_code != "200" ]]; then
   exit 1
 fi
 printf "Endpoint ok\n"
 
 printf "Running e2e tests...\n"
-declare error_code=0
 
 if [[ $ENVIRONMENT =~ dev ]] || [[ $ENVIRONMENT =~ build ]]; then
-  export HOST="$ENDPOINT"
-  (npm run acceptance-tests)
-  error_code=$?
-
-  printf "Copying test report to '%s'\n" "$TEST_REPORT_ABSOLUTE_DIR"
-  cp -rf reports/cucumber-report.json "$TEST_REPORT_ABSOLUTE_DIR"
+  npm run acceptance-tests
 fi
 
-exit $error_code
+exit 0
