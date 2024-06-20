@@ -1,11 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import {AfterAll, Before, BeforeAll, setWorldConstructor, World} from "@cucumber/cucumber";
+import {World, After, AfterAll, Before, BeforeAll, setWorldConstructor} from "@cucumber/cucumber";
 import {IWorldOptions} from "@cucumber/cucumber/lib/support_code_library_builder/world";
 import puppeteer, {Browser, Page} from "puppeteer";
-// import fse from "fs-extra";
-let browser: Browser;
+import fse from "fs-extra";
+
+let browser: Browser, counter: number;
 
 export class TestContext extends World {
+    public host: string | undefined;
     private browserPage: Page | undefined;
 
     constructor(options: IWorldOptions) {
@@ -50,8 +52,8 @@ BeforeAll(async function () {
     });
 });
 
-Before(async function () {
-    this.host = (process.env.HOST as string) || "http://localhost:3000";
+Before(async function (this: TestContext) {
+    this.host = process.env.HOST ?? "http://localhost:3000";
     this.page = await browser.newPage();
 });
 
