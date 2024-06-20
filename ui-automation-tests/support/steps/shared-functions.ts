@@ -4,7 +4,7 @@ import {ElementHandle, Page} from "puppeteer";
 const defaultTimeout = 5000;
 // eslint-disable-next-line
 export async function getLink(page: Page, linkText: string): Promise<any> {
-    const links = await page.$x(`//a[text()="${linkText}"]`);
+    const links = await page.$$(`::-p-xpath(//a[text()="${linkText}"])`);
     assert.equal(links.length, 1, `More than one link matched ${linkText}`);
     return links;
 }
@@ -42,7 +42,7 @@ export async function checkErrorMessageDisplayedForField(page: Page, errorLink: 
     const messageInSummary = await page.evaluate(element => element.textContent, errorLink[0]);
     assert.equal(messageInSummary, errorMessage, `Expected text of the link to be ${errorMessage}`);
 
-    const messagesAboveElement = await page.$x(`//p[@class="govuk-error-message"][@id="${field}-error"]`);
+    const messagesAboveElement = await page.$$(`::-p-xpath(//p[@class="govuk-error-message"][@id="${field}-error"])`);
     assert.notEqual(messagesAboveElement.length, 0, `Expected to find the message ${errorMessage} above the ${field} field.`);
 
     const messageAboveElement = await page.evaluate(element => element.textContent, messagesAboveElement[0]);

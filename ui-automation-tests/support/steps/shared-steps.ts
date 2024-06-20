@@ -13,22 +13,22 @@ Given(/^user navigated to '(.*)' of '(.*)'$/, async function (pageName: string, 
 });
 
 When("they click on the {string} link", async function (text: string) {
-    const links = await this.page.$x(`//a[contains(text(), "${text}")]`);
+    const links = await this.page.$$(`::-p-xpath(//a[contains(text(), "${text}")])`);
     await Promise.all([this.page.waitForNavigation({timeout: 10000}), links[0].click()]);
 });
 
 When("they click on the {string} button-link", async function (text: string) {
-    const links = await this.page.$x(`//a[contains(text(), "${text}")][@class="govuk-button"]`);
+    const links = await this.page.$$(`::-p-xpath(//a[contains(text(), "${text}")][@class="govuk-button"])`);
     await Promise.all([this.page.waitForNavigation({timeout: 10000}), links[0].click()]);
 });
 
 When("they click the {string} button", async function (name: string) {
-    const button = await this.page.$x(`//button[contains(text(), '${name}')]`);
+    const button = await this.page.$$(`::-p-xpath(//button[contains(text(), '${name}')])`);
     await Promise.all([this.page.waitForNavigation({timeout: 10000}), button[0].click()]);
 });
 
 When("they select the Submit button", async function () {
-    const button = await this.page.$x(`//button[contains(text(), 'Submit')]`);
+    const button = await this.page.$$(`::-p-xpath(//button[contains(text(), 'Submit')])`);
     await Promise.all([this.page.waitForNavigation({timeout: 10000}), button[0].click()]);
 });
 
@@ -79,13 +79,13 @@ Then(/^there should be no accessibility violations$/, async function () {
 });
 
 async function checkErrorMessageDisplayedAboveElement(page: Page, errorMessage: string, field: string) {
-    const errorLink = await page.$x(`//div[@class="govuk-error-summary"]//a[@href="#${field}"]`);
+    const errorLink = await page.$$(`::-p-xpath(//div[@class="govuk-error-summary"]//a[@href="#${field}"])`);
     assert.notEqual(errorLink.length, 0, `Expected to find the message "${errorMessage}" in the error summary.`);
     // eslint-disable-next-line
     const actualMessageInSummary = await page.evaluate((el: {textContent: any}) => el.textContent, errorLink[0]);
     assert.equal(actualMessageInSummary, errorMessage, `Expected text of the link to be "${errorMessage}"`);
 
-    const messageAboveElement = await page.$x(`//p[@class="govuk-error-message"][@id="${field}-error"]`);
+    const messageAboveElement = await page.$$(`::-p-xpath(//p[@class="govuk-error-message"][@id="${field}-error"])`);
     assert.notEqual(messageAboveElement.length, 0, `Expected to find the message "${errorMessage}" above the ${field} field.`);
     // eslint-disable-next-line
     const actualMessageAboveSummary = await page.evaluate((el: {textContent: any}) => el.textContent, messageAboveElement[0]);

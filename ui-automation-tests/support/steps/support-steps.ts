@@ -5,6 +5,6 @@ When("they select the {string} button", async function (id) {
 });
 
 When("the user selects the {string} radio button", async function (labelText) {
-    const el = await this.page.$x(`//label[contains(text(), "${labelText}")]`);
+    const el = await this.page.$$(`::-p-xpath(//label[contains(text(), "${labelText}")])`);
     await el[0].click();
 });
