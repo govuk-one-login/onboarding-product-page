@@ -7,7 +7,8 @@
   ],
   "main": "index.js",
   "scripts": {
-    "start": "node dist/app.js",
+    "start": "COOKIE_DOMAIN=localhost node dist/app.js",
+    "start:ga4": "GOOGLE_ANALYTICS_4_GTM_CONTAINER_ID=GTM-KD86CMZ UNIVERSAL_ANALYTICS_GTM_CONTAINER_ID=GTM-TK92W68 GA4_DISABLED=false UA_DISABLED=false COOKIE_DOMAIN=localhost  node dist/app.js",
     "local": "npm run build && node --inspect -r 'dotenv/config' dist/app.js",
     "dev": "nodemon --inspect -r 'dotenv/config' src/app.ts",
     "minifyjs": "for script in dist/assets/javascripts/*.js; do uglifyjs $script -cmo $script $(${CI:-false} || echo --source-map includeSources,url=${script##*/}.map); done",
