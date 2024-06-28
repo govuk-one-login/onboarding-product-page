@@ -20,3 +20,14 @@
     <a class="govuk-link" href="https://docs.sign-in.service.gov.uk" rel="noreferrer noopener" target="_blank">Read our technical documentation (opens in new tab)</a>
   </p>
 {% endblock %}
+{% block scripts %}
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2Documents,
+    contentId:"58cbd170-1aa4-49f7-a86e-871751315ae8",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
+{% endblock %}

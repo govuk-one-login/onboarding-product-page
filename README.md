@@ -8,7 +8,7 @@
 
 1. Replace the placeholder values in `.env` with appropriate values from development environment. Mapping between env variables and SSM Params / Secrets can be found in `infrastructure/frontend/frontend.template.yml`.
     - ### Sheets
-        - Make sure a `googleCredentials.json` file is in the root of the project. These are the credentials for a service account which has been granted access to the spreadsheet identified by `SPREADSHEET_ID`
+        - Make sure a `googleCredentials.json` file is in the root of the project, these are the credentials for a service account which has been granted access to the spreadsheet identified by `SPREADSHEET_ID`
 
 ```
 {
@@ -31,3 +31,7 @@
 1. Replace the placeholder values in `.env` with appropriate values.
 2. Run `npm install`
 3. Run `npm run local`
+
+# To use Google Analytics locally env variable must be set:
+
+COOKIE_DOMAIN=localhost

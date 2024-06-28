@@ -22,3 +22,14 @@
   {{ form.textInput("Service name", "service-name") }}
   {{ form.textAreaInput("How can we help?", "how-can-we-help") }}
 {% endblock %}
+{% block scripts %}
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: pageTitle,
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: taxonomyLevel2Support,
+    contentId:"6b478675-aca1-424b-83b7-2ab6deed795a",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
+{% endblock %}

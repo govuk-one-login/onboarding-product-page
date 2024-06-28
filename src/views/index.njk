@@ -153,4 +153,13 @@
 
 {% block scripts %}
   <script type="module" src="/assets/javascripts/easter-egg.js"></script>
+  {{ga4OnPageLoad({
+    statusCode:"200",
+    englishPageTitle: "GOV.UK One Login",
+    taxonomyLevel1: taxonomyLevel1,
+    taxonomyLevel2: "home",
+    contentId:"ee306476-7392-4f6c-97bb-2a743906eb33",
+    loggedInStatus:false,
+    dynamic:false
+  })}}
 {% endblock %}
