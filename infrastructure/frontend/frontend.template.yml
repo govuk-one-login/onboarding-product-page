@@ -20,9 +20,6 @@ Parameters:
     AllowedPattern: ^.*[^-]$
     Default: self-service
     Description: A unique prefix to identify the deployment; used to distinguish variation between ephemeral stacks
-  ImageURI:
-    Type: String
-    Description: The URI of the ECR image to use for the container
   ContainerPort:
     Type: Number
     Default: 3000
@@ -129,7 +126,7 @@ Resources:
       NetworkMode: awsvpc
       ContainerDefinitions:
         - Name: productpage-frontend
-          Image: !Ref ImageURI
+          Image: CONTAINER-IMAGE-PLACEHOLDER
           ReadonlyRootFilesystem: true
           Environment:
             - Name: PORT
