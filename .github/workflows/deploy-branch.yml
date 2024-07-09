@@ -3,6 +3,10 @@ run-name: Deploy preview [${{ github.head_ref || github.ref_name }}]
 
 on:
   workflow_dispatch:
+  workflow_call:
+    outputs:
+      ProductToolURL:
+        value: ${{ jobs.deploy-frontend.outputs.ProductToolURL}}
   #pull_request:
   push:
     branches: [ main ]
