@@ -1,13 +1,13 @@
 {% extends "base-side-nav.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
 
-{% set pageTitle = "Moving to GOV.UK Login if your service already proves users identities" %}
+{% set pageTitle = "Moving to GOV.UK One Login if your service already proves users identities" %}
 {% set headerNavigationActiveItem = "documentation" %}
 {% set sideNav = {name: "documentation", active: "migrating-users"} %}
 {% set breadcrumbs = breadcrumbs([{text: "Documentation", href: "/documentation"}]) %}
 
 {% block mainContent %}
-  <h1 class="govuk-heading-l">Moving to GOV.UK Login if your service already proves users identities</h1>
+  <h1 class="govuk-heading-l">Moving to GOV.UK One Login if your service already proves users identities</h1>
   <p class="govuk-body">We’ve created this design pattern to help your service migrate (or move) your users to GOV.UK One Login to prove their identity. This pattern assumes your service already proves users' identities using an existing identity service.</p>
   <p class="govuk-body">All of these migrations are initiated by the user when they sign in to your service. GOV.UK One Login does not currently migrate users in bulk uploads.</p>
   <p class="govuk-body">These design patterns are diagrams that set out the steps GOV.UK One Login, or your service should take. The design pattern you need to use depends on the specific circumstances for your users or service.</p>
