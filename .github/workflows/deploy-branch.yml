@@ -38,7 +38,7 @@ jobs:
     outputs:
       image-uri: ${{ steps.push-image.outputs.image-uri }}
     environment:
-      name: development
+      name: demo
       url: ${{ steps.push-image.outputs.image-url }}
     steps:
       - name: Login to GDS Dev Dynatrace Container Registry
@@ -53,8 +53,8 @@ jobs:
         id: push-image
         with:
           image-version: ${{ github.sha }}
-          aws-role-arn: ${{ vars.DEPLOY_BRANCH_ROLE_ARN }}
-          repository: ${{ vars.FRONTEND_DEMO_IMAGE_REPOSITORY }}
+          aws-role-arn: ${{ vars.DEPLOYMENT_ROLE_ARN }}
+          repository: ${{ vars.FRONTEND_CONTAINER_REPOSITORY_NAME }}
           image-tags: "${{ github.head_ref || github.ref_name }}"
           dockerfile: Dockerfile
           artifact-name: frontend-build-demo
@@ -103,7 +103,7 @@ jobs:
       stack-name: ${{ steps.deploy.outputs.stack-name }}
       deployment-url: ${{ steps.get-deployment-url.outputs.url }}
     environment:
-      name: development
+      name: demo
       url: ${{ steps.get-deployment-url.outputs.url || steps.deploy.outputs.stack-url }}
     steps:
       - name: Get deployment name

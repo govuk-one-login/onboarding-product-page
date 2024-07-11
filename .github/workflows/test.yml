@@ -70,7 +70,6 @@ jobs:
         uses: ./.github/actions/build
         with:
           artifact-name: frontend-build-sonar
-          test-secret: ${{ secrets.TEST_SECRET }}
 
       - name: Generate coverage report
         run: npm run test:cov

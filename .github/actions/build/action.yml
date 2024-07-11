@@ -5,9 +5,6 @@ inputs:
     description: "The artifact name to store the build cache under"
     required: true
     default: frontend-build
-  test-secret:
-    description: "A test secret to confirm secret masking"
-    required: true
 outputs:
   artifact-id:
     description: "The artifact id for the artifact that was just uploaded or empty if the artifact upload failed."
