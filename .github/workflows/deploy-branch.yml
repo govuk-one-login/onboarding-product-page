@@ -2,9 +2,14 @@ name: Deploy demo (branch)
 run-name: Deploy demo [${{ github.head_ref || github.ref_name }}]
 
 on:
-  merge_group:
+  pull_request:
+    branches:
+      - main
     types:
-      - checks_requested
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
 
 concurrency: deploy-demo-${{ github.head_ref || github.ref_name }}
 
@@ -14,7 +19,7 @@ permissions:
 
 jobs:
   build-dependencies:
-    if: startsWith(github.event.head_commit.message, '[DEPLOY]') == true
+#    if: startsWith(github.event.head_commit.message, '[DEPLOY]') == true
     name: Build frontend
     runs-on: ubuntu-latest
     outputs:
@@ -31,7 +36,7 @@ jobs:
           artifact-name: frontend-build-demo
 
   push-image:
-    if: startsWith(github.event.head_commit.message, '[DEPLOY]') == true
+#    if: startsWith(github.event.head_commit.message, '[DEPLOY]') == true
     name: Push image
     needs: build-dependencies
     runs-on: ubuntu-latest
@@ -61,7 +66,7 @@ jobs:
           artifact-path: dist
 
   build-infrastructure:
-    if: startsWith(github.event.head_commit.message, '[DEPLOY]') == true
+#    if: startsWith(github.event.head_commit.message, '[DEPLOY]') == true
     name: Build infrastructure
     needs: push-image
     runs-on: ubuntu-latest
@@ -96,8 +101,9 @@ jobs:
           path: .aws-sam/build#
 
   deploy:
-    if: startsWith(github.event.head_commit.message, '[DEPLOY]') == true
+#    if: startsWith(github.event.head_commit.message, '[DEPLOY]') == true
     name: Deploy
+    needs: build-infrastructure
     runs-on: ubuntu-latest
     outputs:
       stack-name: ${{ steps.deploy.outputs.stack-name }}
