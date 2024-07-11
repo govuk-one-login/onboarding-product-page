@@ -20,6 +20,10 @@ jobs:
     outputs:
       artifact-name: ${{ steps.build.outputs.artifact-id }}
     steps:
+      - name: Pull repository
+        id: checkout
+        uses: actions/checkout@v4
+
       - name: Build
         id: build
         uses: ./.github/actions/build

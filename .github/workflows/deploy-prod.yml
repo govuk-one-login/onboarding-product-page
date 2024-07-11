@@ -16,6 +16,10 @@ jobs:
     outputs:
       artifact-name: ${{ steps.build.outputs.artifact-id }}
     steps:
+      - name: Pull repository
+        id: checkout
+        uses: actions/checkout@v4
+
       - name: Build
         id: build
         uses: ./.github/actions/build
@@ -29,6 +33,10 @@ jobs:
     outputs:
       pipeline-url: ${{ steps.push.outputs.pipeline-url }}
     steps:
+      - name: Pull repository
+        id: checkout
+        uses: actions/checkout@v4
+
       - name: Push
         id: push
         uses: ./.github/actions/push
