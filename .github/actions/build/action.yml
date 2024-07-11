@@ -1,4 +1,4 @@
-name: "Build the application"
+name: "Build application"
 description: "Build and compile all the assets required to run the application in the container"
 inputs:
   artifact-name:

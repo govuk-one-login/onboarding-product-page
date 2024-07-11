@@ -1,4 +1,4 @@
-name: "Build and push the application"
+name: "Build and push application"
 description: "Build the container and push the application through secure pipelines"
 inputs:
   artifact-name:
