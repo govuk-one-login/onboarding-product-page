@@ -1,0 +1,99 @@
+name: Test the application
+
+on:
+  merge_group:
+    types:
+      - checks_requested
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+      - synchronize
+
+permissions:
+  id-token: write
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  run-checkov:
+    name: Checkov checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Run checkov
+        uses: govuk-one-login/github-actions/code-quality/run-checkov@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
+        with:
+          skip-checks: CKV_SECRET_6
+
+  check-shell-scripts:
+    name: Shell script checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Run shell checks
+        uses: govuk-one-login/github-actions/code-quality/check-shell-scripts@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
+
+  check-linting:
+    name: Linting checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check linting and formatting
+        uses: govuk-one-login/github-actions/code-quality/check-linting@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
+
+  check-vulnerabilities:
+    name: Vulnerabilities scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Run security audit
+        uses: govuk-one-login/github-actions/code-quality/run-security-audit@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
+
+  sonarcloud:
+    if: startsWith(github.head_ref, 'dependabot') != true
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build
+        id: build
+        uses: ./.github/actions/build
+        with:
+          artifact-name: frontend-build-sonar
+
+      - name: Generate coverage report
+        run: npm run test:cov
+
+      - name: Fix Code Coverage Paths
+        working-directory: ./coverage
+        run: sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' lcov.info
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  run-unit-tests:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull repository
+        uses: actions/checkout@v4
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm install
+
+      - name: Run mocha tests
+        run: npm run test

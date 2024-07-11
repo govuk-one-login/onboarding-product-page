@@ -1,0 +1,37 @@
+name: Deploy to production
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    name: Build frontend
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-name: ${{ steps.build.outputs.artifact-id }}
+    steps:
+      - name: Build
+        id: build
+        uses: ./.github/actions/build
+        with:
+          artifact-name: frontend-build-build
+
+  push:
+    name: Deploy
+    needs: [ build ]
+    runs-on: ubuntu-latest
+    outputs:
+      pipeline-url: ${{ steps.push.outputs.pipeline-url }}
+    steps:
+      - name: Push
+        id: push
+        uses: ./.github/actions/push
+        with:
+          environment: build
+          dynatrace-pass-token: ${{ secrets.DYNATRACE_PAAS_TOKEN }}

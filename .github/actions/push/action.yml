@@ -1,0 +1,54 @@
+name: "Build and push the application"
+description: "Build the container and push the application through secure pipelines"
+inputs:
+  environment:
+    description: "The environment to push to"
+    required: true
+  artifact-name:
+    description: "The artifact name where the build cache is stored"
+    required: true
+    default: frontend-build
+  dynatrace-pass-token:
+    description: "The dynatrace paas token to download the OneAgent image"
+    required: true
+outputs:
+  pipeline-url:
+    description: "The url the secure pipeline that deploys the application."
+    value: ${{ steps.deploy-application.outputs.pipeline-url }}
+runs:
+  using: composite
+  steps:
+    - name: Push test image
+      id: push-tests-image
+      uses: govuk-one-login/github-actions/aws/ecr/build-docker-image@7e9f6ee1a1f7b30ca9cba4d3893d3ee6313decef # 9/07/2024
+      timeout-minutes: 20
+      with:
+        aws-role-arn: ${{ vars.PRODUCT_PAGES_FRONTEND_DEPLOYMENT_ROLE_ARN }}
+        repository: ${{ vars.PRODUCT_PAGES_FRONTEND_TEST_ECR_REPOSITORY_NAME }}
+        dockerfile: ui-automation-tests/tests.Dockerfile
+        build-path: ui-automation-tests
+        image-tags: latest
+        immutable-tags: false
+        image-version: ${{ github.sha }}
+
+    - name: Login to GDS Dev Dynatrace Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: khw46367.live.dynatrace.com
+        username: khw46367
+        password: ${{ secrets.dynatrace-pass-token }}
+
+    - name: Deploy application
+      id: deploy-application
+      uses: govuk-one-login/github-actions/secure-pipelines/deploy-fargate@7e9f6ee1a1f7b30ca9cba4d3893d3ee6313decef # 9/07/2024
+      timeout-minutes: 20
+      with:
+        aws-role-arn: ${{ vars.PRODUCT_PAGES_FRONTEND_DEPLOYMENT_ROLE_ARN }}
+        artifact-bucket-name: ${{ vars.PRODUCT_PAGES_FRONTEND_ARTIFACT_SOURCE_BUCKET_NAME }}
+        container-signing-key-arn: ${{ vars.PRODUCT_PAGES_CONTAINER_SIGNING_KEY_ARN }}
+        ecr-repository: ${{ vars.PRODUCT_PAGES_FRONTEND_ECR_REPOSITORY_NAME }}
+        pipeline-name: ${{ vars.PRODUCT_PAGES_FRONTEND_PIPELINE_NAME }}
+        dockerfile: Dockerfile
+        template: infrastructure/frontend/frontend.template.yml
+        artifact-name: ${{ inputs.artifact-name }}
+        artifact-path: dist
