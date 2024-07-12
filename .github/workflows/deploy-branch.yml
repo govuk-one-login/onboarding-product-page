@@ -51,7 +51,7 @@ jobs:
         with:
           registry: khw46367.live.dynatrace.com
           username: khw46367
-          password: ${{ secrets.dynatrace-pass-token }}
+          password: ${{ secrets.DYNATRACE_PAAS_TOKEN }}
 
       - name: Push Docker image
         uses: govuk-one-login/github-actions/aws/ecr/build-docker-image@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
@@ -71,17 +71,21 @@ jobs:
     needs: push-image
     runs-on: ubuntu-latest
     outputs:
-      image-uri: ${{ steps.push-image.outputs.image-uri }}
+      template: ${{ steps.replace-placeholders.outputs.template }}
     environment:
       name: development
       url: ${{ steps.push-image.outputs.image-url }}
     steps:
+      - name: Pull repository
+        id: checkout
+        uses: actions/checkout@v4
+
       - name: Replace placeholders
         if: ${{ github.actor != 'dependabot[bot]' }}
         id: replace-placeholders
         env:
-          TEMPLATE_FILE: ${{ inputs.template }}
-          IMAGE_URI: ${{ inputs.image_uri }}
+          TEMPLATE_FILE: infrastructure/frontend/frontend.template.yml
+          IMAGE_URI: ${{ needs.push-image.outputs.image-uri }}
         run: |
           sam build ${TEMPLATE_FILE:+--template $TEMPLATE_FILE}
           echo "template=.aws-sam/build/template.yaml" >> "$GITHUB_OUTPUT"
@@ -96,9 +100,9 @@ jobs:
       - name: Archive distribution artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.artifact-name }}
+          name: frontend-infrastructure
           retention-days: 7
-          path: .aws-sam/build#
+          path: .aws-sam/build
 
   deploy:
 #    if: startsWith(github.event.head_commit.message, '[DEPLOY]') == true
@@ -112,6 +116,12 @@ jobs:
       name: demo
       url: ${{ steps.get-deployment-url.outputs.url || steps.deploy.outputs.stack-url }}
     steps:
+      - name: Get distribution artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-infrastructure
+          path: .aws-sam/build
+
       - name: Get deployment name
         uses: govuk-one-login/github-actions/beautify-branch-name@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
         id: get-deployment-name
@@ -126,27 +136,26 @@ jobs:
         with:
           aws-role-arn: ${{ vars.DEPLOYMENT_ROLE_ARN }}
           sam-deployment-bucket: ${{ vars.DEPLOYMENT_ARTIFACTS_BUCKET }}
-          delete-failed-stack: ${{ !inputs.disable-rollback }}
-          disable-rollback: ${{ inputs.disable-rollback }}
-          stack-name-prefix: preview-${{ inputs.name }}-pp
-          artifact-name: ${{ inputs.artifact }}
-          template: ${{ inputs.template }}
+          delete-failed-stack: true
+          disable-rollback: false
+          stack-name-prefix: preview-product-pages
+          artifact-name: frontend-infrastructure
+          template: ${{ needs.build-infrastructure.outputs.template }}
           s3-prefix: sse-preview
           tags: |-
-            sse:component=${{ inputs.name }}
+            sse:component=product-pages
             sse:stack-type=preview-pp
             sse:application=self-service
             sse:deployment-source=github-actions
             sse:lifecycle=temporary
           parameters: |-
+            Environment=dev
             DeploymentName=${{ steps.get-deployment-name.outputs.pretty-branch-name }}
-            ${{ inputs.parameters }}
 
       - name: Get deployment URL
         id: get-deployment-url
-        if: ${{ inputs.deployment-url-output != null }}
         env:
-          NAME: ${{ inputs.deployment-url-output }}
+          NAME: ProductToolURL
           OUTPUTS: ${{ steps.deploy.outputs.stack-outputs }}
         run: |
           url=$(jq --raw-output ".$NAME" <<< "$OUTPUTS")
