@@ -25,9 +25,9 @@ jobs:
         uses: govuk-one-login/github-actions/beautify-branch-name@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
         id: get-stack-name
         with:
-          usage: Stack name
-          prefix: preview-Frontend-pp
-          length-limit: 128
+          length-limit: 22
+          prefix: preview-pp
+          verbose: false
 
       - name: Delete stack
         uses: govuk-one-login/github-actions/sam/delete-stacks@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024

@@ -121,7 +121,7 @@ jobs:
         id: get-deployment-name
         with:
           length-limit: 22
-          prefix: preview
+          prefix: preview-pp
           verbose: false
 
       - name: Deploy stack
@@ -132,7 +132,7 @@ jobs:
           sam-deployment-bucket: ${{ vars.DEPLOYMENT_ARTIFACTS_BUCKET }}
           delete-failed-stack: true
           disable-rollback: false
-          stack-name-prefix: preview-product-pages
+          stack-name-prefix: preview-frontend-pp
           artifact-name: frontend-infrastructure
           artifact-path: .aws-sam/build
           template: ${{ needs.build-infrastructure.outputs.template }}
@@ -144,7 +144,7 @@ jobs:
             sse:deployment-source=github-actions
             sse:lifecycle=temporary
           parameters: |-
-            Environment=dev
+            Environment=demo
             DeploymentName=${{ steps.get-deployment-name.outputs.pretty-branch-name }}
 
       - name: Get deployment URL
