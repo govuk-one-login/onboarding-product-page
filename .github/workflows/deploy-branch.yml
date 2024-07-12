@@ -116,12 +116,6 @@ jobs:
       name: demo
       url: ${{ steps.get-deployment-url.outputs.url || steps.deploy.outputs.stack-url }}
     steps:
-      - name: Get distribution artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: frontend-infrastructure
-          path: .aws-sam/build
-
       - name: Get deployment name
         uses: govuk-one-login/github-actions/beautify-branch-name@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
         id: get-deployment-name
@@ -140,6 +134,7 @@ jobs:
           disable-rollback: false
           stack-name-prefix: preview-product-pages
           artifact-name: frontend-infrastructure
+          artifact-path: .aws-sam/build
           template: ${{ needs.build-infrastructure.outputs.template }}
           s3-prefix: sse-preview
           tags: |-
