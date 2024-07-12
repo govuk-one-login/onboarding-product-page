@@ -1,3 +1,5 @@
+@TODO documentation needs an update
+
 # To run the application locally with stub services for S3 and Google Sheets:
 
 1. Copy `.env.example` to `.env`
