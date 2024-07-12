@@ -9,6 +9,7 @@ Parameters:
     Default: local
     AllowedValues:
       - "local"
+      - "demo"
       - "dev"
       - "build"
       - "staging"
@@ -36,24 +37,29 @@ Parameters:
 
 Rules:
   DeploymentNameRequired:
-    RuleCondition: !Equals [ !Ref Environment, "local" ]
+    RuleCondition: !Or [ !Equals [ !Ref Environment, "local" ], !Equals [ !Ref Environment, "demo" ] ]
     Assertions:
       - Assert: !Not [ !Equals [ !Ref DeploymentName, "" ] ]
         AssertDescription: >
           Must specify DeploymentName parameter when Environment is "local"
   DeploymentNameMustBeEmpty:
-    RuleCondition: !Not [ !Equals [ !Ref Environment, "local" ] ]
+    RuleCondition: !And [ !Not [ !Equals [ !Ref Environment, "local" ] ], !Not [ !Equals [ !Ref Environment, "demo" ] ] ]
     Assertions:
       - Assert: !Equals [ !Ref DeploymentName, "self-service" ] # Confirm the default value is used.
         AssertDescription: >
           Must not specify DeploymentName parameter when Environment is not "local"
 
 Mappings:
-  EnvironmentConfiguration:
+  LoggingConfiguration:
     local:
       cslsLoggingEnabled: false
       clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
       dynatraceLoggingEnabled: false # Local builds do not support dynatrace
+      dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
+    demo:
+      cslsLoggingEnabled: true
+      clslSubscriptionFilterArn: arn:aws:logs:eu-west-2:885513274347:destination:csls_cw_logs_destination_prodpython-2
+      dynatraceLoggingEnabled: true
       dynatraceSecretArn: arn:aws:secretsmanager:eu-west-2:216552277552:secret:DynatraceNonProductionVariables
     dev:
       cslsLoggingEnabled: true
@@ -90,6 +96,7 @@ Mappings:
   WafArn:
     Environment:
       local: "/product-pages/development/waf-web-acl"
+      demo: "/product-pages/development/waf-web-acl"
       dev: "/product-pages/development/waf-web-acl"
       build: "/product-pages/build/waf-web-acl"
       staging: "/product-pages/staging/waf-web-acl"
@@ -98,6 +105,7 @@ Mappings:
   TxMAAccountARN:
     Environment:
       local: 'arn:aws:iam::494650018671:root'
+      demo: 'arn:aws:iam::494650018671:root'
       dev: 'arn:aws:iam::494650018671:root'
       build: 'arn:aws:iam::399055180839:root'
       staging: 'arn:aws:iam::178023842775:root'
@@ -108,9 +116,21 @@ Conditions:
   Subdomain: !Not [ !Equals [ !Ref DeploymentName, self-service ] ]
   NonDevEnv: !Equals [ !Ref DeploymentName, self-service ]
   UsePermissionsBoundary: !Not [ !Equals [ !Ref PermissionsBoundary, "" ] ]
-  CslsLoggingEnabled: !Equals [ true, !FindInMap [ EnvironmentConfiguration, !Ref Environment, cslsLoggingEnabled ] ]
-  DynatraceLoggingEnabled: !Equals [ true, !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceLoggingEnabled ] ]
-  IsLocal: !Equals [ !Ref Environment, "local" ]
+  CslsLoggingEnabled: !Equals
+    - true
+    - !FindInMap
+      - LoggingConfiguration
+      - !Ref Environment
+      - cslsLoggingEnabled
+      - DefaultValue: !FindInMap [ LoggingConfiguration, default, cslsLoggingEnabled ]
+  DynatraceLoggingEnabled: !Equals
+    - true
+    - !FindInMap
+      - LoggingConfiguration
+      - !Ref Environment
+      - dynatraceLoggingEnabled
+      - DefaultValue: !FindInMap [ LoggingConfiguration, default, dynatraceLoggingEnabled ]
+  IsEphemeral: !Or [ !Equals [ !Ref Environment, "local" ], !Equals [ !Ref Environment, "demo" ] ]
   IsProd: !Equals [ !Ref Environment, "production" ]
 
 Resources:
@@ -198,7 +218,7 @@ Resources:
               - Name: DT_TENANT
                 ValueFrom: !Join
                   - ''
-                  - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
+                  - - !FindInMap [ LoggingConfiguration, !Ref Environment, dynatraceSecretArn, DefaultValue: "" ]
                     - ':DT_TENANT::'
               - !Ref AWS::NoValue
             - !If
@@ -206,7 +226,7 @@ Resources:
               - Name: DT_TENANTTOKEN
                 ValueFrom: !Join
                   - ''
-                  - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
+                  - - !FindInMap [ LoggingConfiguration, !Ref Environment, dynatraceSecretArn, DefaultValue: "" ]
                     - ':DT_TENANTTOKEN::'
               - !Ref AWS::NoValue
             - !If
@@ -214,7 +234,7 @@ Resources:
               - Name: DT_CONNECTION_POINT
                 ValueFrom: !Join
                   - ''
-                  - - !FindInMap [ EnvironmentConfiguration, !Ref Environment, dynatraceSecretArn ]
+                  - - !FindInMap [ LoggingConfiguration, !Ref Environment, dynatraceSecretArn, DefaultValue: "" ]
                     - ':DT_CONNECTION_POINT::'
               - !Ref AWS::NoValue
           PortMappings:
@@ -238,7 +258,7 @@ Resources:
       LogGroupName: !Join
         - "/"
         - - '/onboarding-product-pages/frontend'
-          - !If [ IsLocal, !Ref DeploymentName, !Ref AWS::NoValue ]
+          - !If [ IsEphemeral, !Ref DeploymentName, !Ref AWS::NoValue ]
           - 'audit'
       RetentionInDays: 30
 
@@ -250,7 +270,7 @@ Resources:
         - "/"
         - - '/aws/ecs'
           - 'onboarding-product-pages/frontend'
-          - !If [ IsLocal, !Ref DeploymentName, !Ref AWS::NoValue ]
+          - !If [ IsEphemeral, !Ref DeploymentName, !Ref AWS::NoValue ]
       RetentionInDays: 30
       DataProtectionPolicy:
         Name: data-protection-policy-frontend
@@ -293,7 +313,7 @@ Resources:
       LogGroupName: !Ref FrontendLogsGroup
       FilterName: "ECS logs for Frontend Service"
       FilterPattern: ""
-      DestinationArn: !FindInMap [ EnvironmentConfiguration, !Ref Environment, clslSubscriptionFilterArn ]
+      DestinationArn: !FindInMap [ LoggingConfiguration, !Ref Environment, clslSubscriptionFilterArn, DefaultValue: "" ]
 
   ExecutionRole:
     Type: AWS::IAM::Role
@@ -513,7 +533,7 @@ Resources:
           - Sid: 'AllowReadByTxMAAccount'
             Effect: Allow
             Principal:
-              AWS: !FindInMap [ TxMAAccountARN, Environment, !Ref 'Environment' ]
+              AWS: !FindInMap [ TxMAAccountARN, Environment, !Ref Environment ]
             Action:
               - 'sqs:ChangeMessageVisibility'
               - 'sqs:ReceiveMessage'
@@ -582,7 +602,7 @@ Resources:
           - Sid: 'Allow decryption of events by TxMA'
             Effect: Allow
             Principal:
-              AWS: !FindInMap [ TxMAAccountARN, Environment, !Ref 'Environment' ]
+              AWS: !FindInMap [ TxMAAccountARN, Environment, !Ref Environment ]
             Action:
               - 'kms:decrypt'
             Resource: '*'

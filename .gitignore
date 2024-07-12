@@ -113,7 +113,6 @@ deploy
 public
 .DS_Store
 dump.rdb
-build
 test/coverage
 functional-output
 output
