@@ -1,12 +1,12 @@
 name: Deploy to development
 
 on:
-  push:
-    branches:
-      - main
   merge_group:
     types:
       - checks_requested
+  pull_request:
+    branches:
+      - main
 
 permissions:
   id-token: write
@@ -15,6 +15,7 @@ permissions:
 jobs:
   build:
     name: Build frontend
+    if: github.event_name == 'merge_group'
     runs-on: ubuntu-latest
     outputs:
       artifact-name: ${{ steps.build.outputs.artifact-id }}
@@ -31,6 +32,7 @@ jobs:
 
   push:
     name: Deploy
+    if: github.event_name == 'merge_group'
     needs: [ build ]
     runs-on: ubuntu-latest
     environment:
