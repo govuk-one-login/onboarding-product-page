@@ -17,6 +17,7 @@ jobs:
     name: Build frontend
     if: github.event_name == 'merge_group'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     outputs:
       artifact-name: ${{ steps.build.outputs.artifact-id }}
     steps:
@@ -35,6 +36,7 @@ jobs:
     if: github.event_name == 'merge_group'
     needs: [ build ]
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     environment:
       name: development
       url: ${{ steps.push.outputs.pipeline-url }}
