@@ -1,4 +1,5 @@
 name: Deploy to development
+run-name: Deploy to development [${{ github.head_ref || github.ref_name }}]
 
 on:
   merge_group:
@@ -32,7 +33,7 @@ jobs:
           artifact-name: frontend-build-development
 
   push:
-    name: Deploy
+    name: Push dev
     if: github.event_name == 'merge_group'
     needs: [ build ]
     runs-on: ubuntu-latest
