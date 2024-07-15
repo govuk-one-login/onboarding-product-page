@@ -13,6 +13,7 @@ jobs:
   build:
     name: Build frontend
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     outputs:
       artifact-name: ${{ steps.build.outputs.artifact-id }}
     steps:
@@ -30,6 +31,7 @@ jobs:
     name: Deploy
     needs: [ build ]
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     environment:
       name: build
       url: ${{ steps.push.outputs.pipeline-url }}
