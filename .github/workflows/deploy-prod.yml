@@ -28,7 +28,7 @@ jobs:
           artifact-name: frontend-build-prod
 
   push:
-    name: Deploy
+    name: Push prod
     needs: [ build ]
     runs-on: ubuntu-latest
     timeout-minutes: 20

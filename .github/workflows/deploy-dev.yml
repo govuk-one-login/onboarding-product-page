@@ -32,7 +32,7 @@ jobs:
           artifact-name: frontend-build-development
 
   push:
-    name: Deploy
+    name: Push dev
     if: github.event_name == 'merge_group'
     needs: [ build ]
     runs-on: ubuntu-latest
