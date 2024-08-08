@@ -1,12 +1,14 @@
-@TODO documentation needs an update
+# Product Pages
 
-# To run the application locally with stub services for S3 and Google Sheets:
+This application provides the front facing pages for the Self-Service Experience tool, as well as contact forms and feedback forms.
+
+## To run the application locally with stub services for S3 and Google Sheets:
 
 1. Copy `.env.example` to `.env`
 2. Run `npm install`
 3. Run `npm run local`
 
-# To run the application using the actual Google Sheets services:
+## To run the application using the actual Google Sheets services:
 
 1. Replace the placeholder values in `.env` with appropriate values from development environment. Mapping between env variables and SSM Params / Secrets can be found in `infrastructure/frontend/frontend.template.yml`.
     - ### Sheets
@@ -22,13 +24,13 @@
 2. Run `npm install`
 3. Run `npm run local`
 
-# To run the application locally with stub services for ServiceNow and Zendesk:
+## To run the application locally with stub services for ServiceNow and Zendesk:
 
 1. Copy `.env.example` to `.env`
 2. Run `npm install`
 3. Run `npm run local`
 
-# To run the application locally with the actual services for ServiceNow and Zendesk:
+## To run the application locally with the actual services for ServiceNow and Zendesk:
 
 1. Replace the placeholder values in `.env` with appropriate values.
 2. Run `npm install`
