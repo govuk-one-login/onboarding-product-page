@@ -1,6 +1,5 @@
 import {Request, Response} from "express";
 import Validation from "../lib/validation/validation";
-import ZendeskService from "../lib/zendesk/ZendeskService";
 import crypto from "crypto";
 import ServicenowService from "../lib/servicenow/ServicenowService";
 
@@ -24,31 +23,19 @@ export const submitForm = async function (req: Request, res: Response) {
     const errorMessages = (req.app.get("validation") as Validation).validate(values, requiredFields);
 
     if (errorMessages.size == 0) {
-        let zendeskTag;
         const ticketIdentifier = crypto.randomBytes(27).toString("base64url");
 
         if (req.originalUrl === "/contact-us?adminTool") {
-            zendeskTag = process.env.ZENDESK_TAG_ONE_LOGIN_ADMIN_TOOL as string;
             values.set("contact-form-support", "Self Service Admin Tool");
             values.set("ticket-identifier", ticketIdentifier);
         } else {
-            zendeskTag = process.env.ZENDESK_TAG as string;
             values.set("contact-form-support", "Government service team that is setting up or already using GOV.UK One Login");
         }
 
-        const zendesk = new ZendeskService(
-            process.env.ZENDESK_USERNAME as string,
-            process.env.ZENDESK_API_TOKEN as string,
-            zendeskTag,
-            process.env.ZENDESK_GROUP_ID as string
-        );
-
         const servicenow = new ServicenowService();
         await servicenow.init();
-        await zendesk.init();
-        const zendeskSubmit = await zendesk.submit(values);
         const servicenowSubmit = await servicenow.submit(values);
-        if (zendeskSubmit && servicenowSubmit) {
+        if (servicenowSubmit) {
             res.redirect("contact-us-submitted");
         } else {
             res.redirect("service-unavailable");

@@ -24,13 +24,13 @@ This application provides the front facing pages for the Self-Service Experience
 2. Run `npm install`
 3. Run `npm run local`
 
-## To run the application locally with stub services for ServiceNow and Zendesk:
+## To run the application locally with stub services for ServiceNow:
 
 1. Copy `.env.example` to `.env`
 2. Run `npm install`
 3. Run `npm run local`
 
-## To run the application locally with the actual services for ServiceNow and Zendesk:
+## To run the application locally with the actual services for ServiceNow:
 
 1. Replace the placeholder values in `.env` with appropriate values.
 2. Run `npm install`

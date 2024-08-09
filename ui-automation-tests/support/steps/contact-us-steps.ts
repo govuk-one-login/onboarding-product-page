@@ -88,7 +88,7 @@ Given("that the user enters a non-government email address into the email field 
     await this.page.type("#email", "bill@microsoft.com");
 });
 
-Then("their data is sent to Zendesk", async function () {
+Then("their data is sent to ServiceNow", async function () {
     // We can't really test this unless we just run a unit test or something
     return true;
 });
