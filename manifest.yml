@@ -13,13 +13,6 @@ applications:
       MAILING_LIST_SHEET_DATA_RANGE: "'user who have requested to join the mailing list '!A1"
       MAILING_LIST_SHEET_HEADER_RANGE: "'user who have requested to join the mailing list '!A1:D1"
       MAILING_LIST_SPREADSHEET_ID: ((mailing-list-spreadsheet-id))
-      ZENDESK_API_URL: https://govuk.zendesk.com/api/v2
-      ZENDESK_TAG: sign_in_service_teams
-      ZENDESK_TAG_ONE_LOGIN_ADMIN_TOOL: self_service_admin
-      USE_STUB_ZENDESK: ((use-stub-zendesk))
-      ZENDESK_GROUP_ID: ((zendesk-group-id))
-      ZENDESK_USERNAME: ((zendesk-username))
-      ZENDESK_API_TOKEN: ((zendesk-api-token))
       GOOGLE_TAG_ID: ((google-tag-id))
       SHOW_TEST_BANNER: ((show-test-banner))
       SERVICENOW_URL: ((servicenow-url))
