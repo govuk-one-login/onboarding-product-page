@@ -1,0 +1,62 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
+    labels:
+      - common
+      - dependabot
+    commit-message:
+      prefix: "BAU"
+    versioning-strategy: increase
+    groups:
+      prod-dependencies:
+        applies-to: version-updates
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+  - package-ecosystem: npm
+    directory: /ui-automation-tests
+    schedule:
+      interval: daily
+    labels:
+      - ui-tests
+      - dependabot
+    commit-message:
+      prefix: "BAU"
+    versioning-strategy: increase
+    groups:
+      test-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "*"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    labels:
+      - actions
+      - dependabot
+    commit-message:
+      prefix: "BAU"
+    groups:
+      gha-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "*"
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: daily
+    labels:
+      - docker
+      - dependabot
+    commit-message:
+      prefix: "BAU"
+    groups:
+      docker-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "*"
