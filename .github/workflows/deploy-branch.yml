@@ -18,9 +18,28 @@ permissions:
   contents: read
 
 jobs:
+  get-head-commit:
+    name: Get head commit
+    runs-on: ubuntu-latest
+    outputs:
+      commit-message: ${{ steps.get-head-commit.outputs.commit-message }}
+    steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Get Head Commit Message
+        id: get-head-commit
+        run: echo "commit-message=$(git show -s --format=%s)" >> "$GITHUB_OUTPUT"
+
+      - name: Show commit message
+        run: echo "Git commit message \`$(git show -s --format=%s)\`" >> $GITHUB_STEP_SUMMARY
+
   build-dependencies:
-    if: contains(github.event.head_commit.message, '[deploy]') == true
+    if: contains(needs.get-head-commit.outputs.commit-message, '[deploy]') == true
     name: Build frontend
+    needs: get-head-commit
     runs-on: ubuntu-latest
     outputs:
       artifact-name: ${{ steps.build.outputs.artifact-id }}
@@ -36,9 +55,11 @@ jobs:
           artifact-name: frontend-build-demo
 
   push-image:
-    if: contains(github.event.head_commit.message, '[deploy]') == true
+    if: contains(needs.get-head-commit.outputs.commit-message, '[deploy]') == true
     name: Push image
-    needs: build-dependencies
+    needs:
+      - get-head-commit
+      - build-dependencies
     runs-on: ubuntu-latest
     outputs:
       image-uri: ${{ steps.push-image.outputs.image-uri }}
@@ -66,9 +87,11 @@ jobs:
           artifact-path: dist
 
   build-infrastructure:
-    if: contains(github.event.head_commit.message, '[deploy]') == true
+    if: contains(needs.get-head-commit.outputs.commit-message, '[deploy]') == true
     name: Build infrastructure
-    needs: push-image
+    needs:
+      - get-head-commit
+      - push-image
     runs-on: ubuntu-latest
     outputs:
       template: ${{ steps.replace-placeholders.outputs.template }}
@@ -105,9 +128,11 @@ jobs:
           path: .aws-sam/build
 
   deploy:
-    if: contains(github.event.head_commit.message, '[deploy]') == true
+    if: contains(needs.get-head-commit.outputs.commit-message, '[deploy]') == true
     name: Deploy
-    needs: build-infrastructure
+    needs:
+      - get-head-commit
+      - build-infrastructure
     runs-on: ubuntu-latest
     outputs:
       stack-name: ${{ steps.deploy.outputs.stack-name }}
