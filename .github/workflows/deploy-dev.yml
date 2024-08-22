@@ -37,6 +37,8 @@ jobs:
     if: github.event_name == 'merge_group'
     needs: [ build ]
     runs-on: ubuntu-latest
+    concurrency:
+      group: dev-deploy
     timeout-minutes: 20
     environment:
       name: development
