@@ -69,7 +69,7 @@ After(async function (this: TestContext, scenario) {
             path: `${screenshotsDir}/${counter}-${result}-[${name}].jpeg`,
             fullPage: true
         });
-        return this.attach(stream, "image/jpeg");
+        return this.attach(Buffer.from(stream), "image/jpeg");
     }
 });
 
