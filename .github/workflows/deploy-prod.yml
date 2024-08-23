@@ -32,6 +32,8 @@ jobs:
     name: Push prod
     needs: [ build ]
     runs-on: ubuntu-latest
+    concurrency:
+      group: prod-deploy
     timeout-minutes: 20
     environment:
       name: build
