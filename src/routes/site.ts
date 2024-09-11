@@ -119,6 +119,10 @@ router.get("/documentation/design-recommendations/migrating-users", (req, res) =
     res.render("documentation-migrating-users.njk");
 });
 
+router.get("/documentation/design-recommendations/how-to-talk-about", (req, res) => {
+    res.render("documentation-how-to-talk-about.njk");
+});
+
 router.get("/documentation/design-recommendations/start-page", (req, res) => {
     res.render("documentation-start-page.njk");
 });
