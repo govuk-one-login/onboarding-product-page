@@ -123,6 +123,10 @@ router.get("/documentation/design-recommendations/how-to-talk-about", (req, res)
     res.render("documentation-how-to-talk-about.njk");
 });
 
+router.get("/documentation/design-recommendations/prepare-move-content", (req, res) => {
+    res.render("documentation-prepare-move-content.njk");
+});
+
 router.get("/documentation/design-recommendations/start-page", (req, res) => {
     res.render("documentation-start-page.njk");
 });
