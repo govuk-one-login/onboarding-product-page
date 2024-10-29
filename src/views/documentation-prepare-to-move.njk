@@ -1,0 +1,58 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "Prepare your users to move to GOV.UK One Login" %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "prepare-to-move"} %}
+{% set breadcrumbs = breadcrumbs([{text: "Documentation", href: "/documentation"}]) %}
+
+{% block mainContent %}
+  <h1 class="govuk-heading-l">Prepare your users to move to GOV.UK One Login</h1>
+
+  <p class="govuk-body">Before your service starts using GOV.UK One Login, you may want to tell your users this is happening. </p>
+  <p class="govuk-body">The wording you use on your start page depends on how you’re using GOV.UK One Login, for instance authentication and identity or only authentication, and how you’re currently handling sign in and identity proving.</p>
+
+  <h2 class="govuk-heading-m">1. Existing service account, migrating users to GOV.UK One Login</h2>
+  <p class="govuk-body">How you sign in to [Name of service] is changing</p>
+  <p class="govuk-body">From [Date] you'll sign in using GOV.UK One Login. You'll be able to create a GOV.UK One Login if you do not already have one.</p>
+  <p class="govuk-body">You should use the same email address to create your GOV.UK One Login that you use for your [Name of account]. This is so you keep the existing information in your account.</p>
+
+  <h2 class="govuk-heading-m">2. Existing service account, not migrating users</h2>
+  <p class="govuk-body">How you sign in to [Name of service] is changing</p>
+  <p class="govuk-body">From [Date] you'll sign in using GOV.UK One Login. You'll be able to create a GOV.UK One Login if you do not already have one.</p>
+  <p class="govuk-body">You can also use your GOV.UK One Login to <a class="govuk-link" href="https://www.gov.uk/using-your-gov-uk-one-login/services">access other government services</a>.</p>
+  <br/>
+  <p class="govuk-body">Depending on the service, your users may also want to know what happened to their old account, or at least the information in it.</p>
+
+  <h2 class="govuk-heading-m">3. No sign in currently on service</h2>
+  <p class="govuk-body">How you access [Name of service] is changing</p>
+  <p class="govuk-body">You’ll need to sign in using GOV.UK One Login to use [Name of service].</p>
+  <p class="govuk-body">You'll be able to create a GOV.UK One Login if you do not already have one.</p>
+  <p class="govuk-body">You can also use your GOV.UK One Login to  <a class="govuk-link" href="https://www.gov.uk/using-your-gov-uk-one-login/services">access other government services</a>.</p>
+
+  <h2 class="govuk-heading-m">4. Existing service account, migrating users and suggesting users change their email address before going live</h2>
+  <p class="govuk-body">How you sign in to [Name of service] is changing</p>
+  <p class="govuk-body">From [Date] you'll sign in using GOV.UK One Login. You'll be able to create a GOV.UK One Login if you do not already have one.</p>
+  <p class="govuk-body">You should use the same email address to create your GOV.UK One Login that you use for your [Name of account]. This is so you keep the existing information in your account.</p>
+  <p class="govuk-body">You can change your email address you use with [Name of account] by signing in to your account. You must do this before [Insert date].</p>
+
+  <h2 class="govuk-heading-m">5. Identity service (where a service wants to mention that users may need to prove their identity again)</h2>
+  <p class="govuk-body">How you sign in to [Name of service] is changing</p>
+  <p class="govuk-body">From [Date] you'll sign in using GOV.UK One Login. You'll be able to create a GOV.UK One Login if you do not already have one.</p>
+  <p class="govuk-body">You should use the same email address to create your GOV.UK One Login that you use for your [Name of account]. This is so you keep the existing information in your account.</p>
+  <p class="govuk-body">You may need to prove your identity with GOV.UK One Login. You'll be told if you need to do this when you sign in. This is to keep your details safe and usually involves using photo ID like a passport or driving licence.</p>
+
+  <h2 class="govuk-heading-m">6. Services with multiple ways to sign in</h2>
+  <p class="govuk-body">Some services may offer multiple ways to sign in for a period. This may be because:</p>
+  <ul class="govuk-list govuk-list--bullet">
+        <li>different user groups, for example individuals or business, may use separate sign in options</li> 
+        <li>you want to phase in the introduction of GOV.UK One Login alongside your existing sign in solution</li>
+  </ul>
+  <p class="govuk-body">If that’s the case, and all your users are accessing the service through the same start page, a general call to action may not apply to all of the possible use cases.</p>
+  <p class="govuk-body">Instead, you may want to change how you talk about signing in on your start page to make it more generic, and not to talk about a specific solution.</p>
+  <p class="govuk-body">For example:</p>
+  <div class="govuk-inset-text">You’ll need to sign in to use this service. If you do not already have sign in details, you’ll be able to create them.</div>
+  <p class="govuk-body">When a user signs in, and you know more about them, you can ensure they use the correct sign in option for them.</p>
+
+
+{% endblock %}
