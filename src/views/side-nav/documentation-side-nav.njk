@@ -3,7 +3,7 @@
 {% macro nav(active) %}
   {{ sideNavigation([
     {
-      name: "Technical documentation",
+      name: "Documentation",
       description: "documentation",
       href: "/documentation"
     },
@@ -52,6 +52,13 @@
       isChild: true
     },
     {
+      name: "Moving to GOV.UK One Login if you need to sign in your users",
+      description: "migrating-sign-in-pattern",
+      href: "/documentation/design-recommendations/migrating-sign-in-pattern",
+      isChild: true
+    },
+
+    {
       name: "What to say about GOV.UK One Login on start pages",
       description: "start-page",
       href: "/documentation/design-recommendations/start-page",
@@ -68,6 +75,11 @@
       description: "prepare-to-move",
       href: "/documentation/design-recommendations/prepare-to-move",
       isChild: true
+    },
+    {
+      name: "Technical documentation",
+      description: "technical",
+      href: "/documentation/technical"
     }
   ], active) }}
 {% endmacro %}

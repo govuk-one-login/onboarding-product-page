@@ -73,6 +73,11 @@ router.get("/documentation/design-recommendations/change-credentials", (req, res
     res.render("documentation-change-credentials.njk");
 });
 
+router.get("/documentation/design-recommendations/migrating-sign-in-pattern", (req, res) => {
+    res.render("documentation-migrating-sign-in-pattern.njk");
+});
+
+
 router.get("/about", (req, res) => {
     res.render("about.njk");
 });
@@ -129,6 +134,10 @@ router.get("/documentation/design-recommendations/prepare-to-move", (req, res) =
 
 router.get("/documentation/design-recommendations/start-page", (req, res) => {
     res.render("documentation-start-page.njk");
+});
+
+router.get("/documentation/technical", (req, res) => {
+    res.render("documentation-technical.njk");
 });
 
 export default router;
