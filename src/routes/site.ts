@@ -77,7 +77,6 @@ router.get("/documentation/design-recommendations/migrating-sign-in-pattern", (r
     res.render("documentation-migrating-sign-in-pattern.njk");
 });
 
-
 router.get("/about", (req, res) => {
     res.render("about.njk");
 });
