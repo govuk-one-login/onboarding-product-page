@@ -135,8 +135,4 @@ router.get("/documentation/design-recommendations/start-page", (req, res) => {
     res.render("documentation-start-page.njk");
 });
 
-router.get("/documentation/technical", (req, res) => {
-    res.render("documentation-technical.njk");
-});
-
 export default router;
