@@ -1,0 +1,94 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "Moving to GOV.UK One Login if you need to sign in your users" %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "migrating-sign-in-pattern"} %}
+{% set breadcrumbs = breadcrumbs([{text: "Documentation", href: "/documentation"}]) %}
+
+{% block mainContent %}
+
+<h1 class="govuk-heading-l">Moving to GOV.UK One Login if you need to sign in your users</h1>
+
+<p class="govuk-body">These design patterns will help your service migrate your users so they can sign in using GOV.UK One Login. Using these patterns means existing users will retain access to all of the information in their account.</p> 
+
+<p class="govuk-body">These patterns work on the basis that ideally the same email address is used for both your service and GOV.UK One Login. You can find out more in our <a class="govuk-link" href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#retrieve-user-information">technical documentation.</a> If this is not possible for the majority of your users, these patterns may not be right for your service. <a class="govuk-link" href="/support">Contact us</a> to talk about other possible approaches for your service.</p> 
+
+<p class="govuk-body">These design patterns set out the steps GOV.UK One Login, or your service, should take. The design pattern you need to use depends on the specific circumstances of your users and service.</p>
+
+<p class="govuk-body"><a class="govuk-link" href="/support">Contact us</a> if:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+<li>the following design patterns do not cover your circumstances</li>
+<li>you need the patterns in a different format (they’re Figma files)</li>
+<li>you need more help</li>
+</ul>
+
+<h2 class="govuk-heading-m">Design pattern 1: when new users come to your service</h2>
+
+<div class="govuk-inset-text">We’re working on making our documentation more accessible. If you have any problems accessing these Figma files please <a class="govuk-link" href="/support">contact us</a>.</div>
+
+<p class="govuk-body"><a class="govuk-link" href="https://www.figma.com/design/JkZaqVMn7YdlVlKaBZDLoC/GOV.UK-One-Login-Migration-Patterns?node-id=34-1225&t=PiyTimwTKPZNxe2K-4">Pattern to use when new users come to your service</a></p>
+
+<ol class="govuk-list govuk-list--number">
+<li>Your service sends the user to GOV.UK One Login.</li>
+<li>The user signs in or creates a GOV.UK One Login.</li>
+<li>When the user has signed in to GOV.UK One Login, we’ll send your service the user’s unique Subject ID and email address. Then you can check if the user is new to your service. You may also wish to do other checks to confirm that they are a new user.</li>
+<li>You’ll use the unique Subject ID to connect (‘bind’) GOV.UK One Login access to your service for that user. Do not use the user’s email address as the user can change the email they use with GOV.UK One Login.</li>
+<li>If they are a new user, you may want to do eligibility checks before you provide access to your service.</li>
+</ol>
+
+<h2 class="govuk-heading-m">Design pattern 2: when existing users of your service access your service online<h2>
+<p class="govuk-body"><a class="govuk-link" href="https://www.figma.com/design/JkZaqVMn7YdlVlKaBZDLoC/GOV.UK-One-Login-Migration-Patterns?node-id=34-1226&t=PiyTimwTKPZNxe2K-4">Pattern to use when existing users have already accessed your service online</a></p>
+
+<ol class="govuk-list govuk-list--number">
+<li>Your service sends the user to GOV.UK One Login.</li> 
+<li>The user signs in or creates a GOV.UK One Login.</li> 
+<li>The user will, ideally, have used the same email address for your service and GOV.UK One Login when they migrate to simplify the journey.</li>  
+<li>When the user has signed in to GOV.UK One Login, we’ll send your service a unique identifier code and the email address. Then you can check if the user has an existing account with you.</li> 
+<li>You may want to do further checks to confirm this is an existing user who matches a record in your service. You could, for example, ask single or multiple security questions that only the user will be able to answer or get the user to sign in using their existing sign in credentials.</li> 
+<li>If you are happy with the match to a record in your service, then you can connect (‘bind’) them to your service using the unique Subject ID. Do not use their email address as that can change. </li> 
+<li>Your user will now be able to access your service and their account information using GOV.UK One Login.</li> 
+</ol>
+
+<h2 class="govuk-heading-m" id="how-help-users-match">How to help users that you cannot match on email address</h2>
+<p class="govuk-body"><a class="govuk-link" href="https://www.figma.com/design/JkZaqVMn7YdlVlKaBZDLoC/GOV.UK-One-Login-Migration-Patterns?node-id=34-1227&t=PiyTimwTKPZNxe2K-4">Example options for matching a user</a></p>
+
+<p class="govuk-body">If an existing user returns to your service, but has not used the same email address with their GOV.UK One Login, you can try to match them by asking:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+<li>if they’ve used your service before – if they have, send a one time passcode to the email address they used with your service</li>
+<li>a security question(s) about their account that only they should know the answer(s) to</li>
+<li>them to sign in using their existing sign in details</li>
+</ul>
+
+<h2 class="govuk-heading-m">Design pattern 3: when users return to your service with a GOV.UK One Login<h2>
+<p class="govuk-body"><a class="govuk-link" href="https://www.figma.com/design/JkZaqVMn7YdlVlKaBZDLoC/GOV.UK-One-Login-Migration-Patterns?node-id=34-1228&t=PiyTimwTKPZNxe2K-4">Pattern to use when users return to your service</a></p>
+
+<ol class="govuk-list govuk-list--number">
+<li>Your service sends the user to GOV.UK One Login.</li>
+<li>The user signs in to GOV.UK One Login.</li>
+<li>When the user has signed in to GOV.UK One Login, we’ll send your service the user’s unique Subject ID. Then you can check if the user is a returning user.</li>
+<li>If they are a returning user, you can provide access to your service.</li>
+</ol>
+
+<h3 class="govuk-heading-s">When to use this design pattern</h3>
+<p class="govuk-body">Use this design pattern if all of the following circumstances apply:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+<li>your service uses an email address as the user ID</li>
+<li>you want your users to retain access to all of the existing information they hold in your service</li>
+<li>you only need to sign in your users but do not need to prove their identity</li>
+</ul>
+
+<h3 class="govuk-heading-m">What to consider when using this design pattern</h3>
+<p class="govuk-body">If using this pattern, you’ll need to consider:</p>
+
+<ul class="govuk-list govuk-list--bullet">
+<li>when, how and where you tell your users they should use the same email with GOV.UK One Login – this could be handled by sending users an email to say they need to change their existing email address with you if it’s different from the one they want to use, or already use, with GOV.UK One Login.
+<li><a class="govuk-link" href="#how-help-users-match">how you’ll handle any exception cases</a> and bind accounts where the email addresses do not match
+<li>if you want an additional layer of security when a user signs in to your service for the first time – for example by asking them about the information you hold about them</li>
+<li>how your current access model may affect this pattern –  for example if you currently allow multiple users access to the same account, or one user to access multiple accounts, or if you allow users to share email addresses</li> 
+<li>how you might stop users signing in to your service using their old sign in details</li>
+
+{% endblock %}

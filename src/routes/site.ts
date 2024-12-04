@@ -73,6 +73,10 @@ router.get("/documentation/design-recommendations/change-credentials", (req, res
     res.render("documentation-change-credentials.njk");
 });
 
+router.get("/documentation/design-recommendations/migrating-sign-in-pattern", (req, res) => {
+    res.render("documentation-migrating-sign-in-pattern.njk");
+});
+
 router.get("/about", (req, res) => {
     res.render("about.njk");
 });
