@@ -43,7 +43,7 @@ jobs:
 
   check-linting:
     name: Linting checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     timeout-minutes: 5
     steps:
       - name: Check linting and formatting
