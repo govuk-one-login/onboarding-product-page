@@ -1,0 +1,56 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "Business users and GOV.UK One Login" %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "business-users"} %}
+{% set breadcrumbs = breadcrumbs([{text: "Documentation", href: "/documentation"}]) %}
+
+{% block mainContent %}
+  <h1 class="govuk-heading-l">Business users and GOV.UK One Login</h1>
+  <p class="govuk-body">GOV.UK One Login lets your users sign in and prove their identity so they can access your service easily. It was designed for citizens, but can also work for business users.</p>
+
+  <h2 class="govuk-heading-m">What we mean by business users</h2>
+  <p class="govuk-body">When we talk about business users, we mean services that have:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>users who need GOV.UK One Login to carry out tasks in their work life, for example Companies House users</li>
+    <li>internal users, for example civil servants</li>
+  </ul>
+
+  <h2 class="govuk-heading-m">What GOV.UK One Login offers</h2>
+  <p class="govuk-body">GOV.UK One Login will help you sign in your users, and prove their identity so you know they are who they claim to be. </p>
+  <p class="govuk-body">GOV.UK One Login does not tie that user to a particular role or organisation.</p>
+
+  <h2 class="govuk-heading-m">What GOV.UK One Login does not offer for business users</h2>
+  <p class="govuk-body">GOV.UK One Login will not:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>prove whether a user belongs to a particular organisation - or perform a certain role - that would still need to be done by the service (this is sometimes called ‘eligibility’)
+</li>
+    <li>separate a user’s business uses for GOV.UK One Login from their personal ones unless the user chooses to create a separate GOV.UK One Login for work purposes, using a different email address</li>
+  </ul>
+
+  <h2 class="govuk-heading-m">Email address as username</h2>
+  <p class="govuk-body">A user’s GOV.UK One Login username is always an email address. The only time we use this email address to communicate with the user is if they want to make changes to their GOV.UK One Login. For example, if a user wants to change the phone number they use for 2-factor authentication.</p>
+  <p class="govuk-body">When choosing an email address for GOV.UK One Login it’s important that it’s an email the user is likely to have long term access to. Or, at least, for as long as the user will need to access the service associated with that GOV.UK One Login.</p>
+  <p class="govuk-body">The same applies for choosing a mobile phone number to use with GOV.UK One Login. It can be a personal phone number or a work one, but the user will need long-term access to it. If a user leaves an organisation and loses access to their work phone, they will not be able to receive security codes to sign in to their GOV.UK One Login. </p>
+
+
+  <h2 class="govuk-heading-m">What you need to consider</h2>
+  <p class="govuk-body">If users do use a personal email address for your service, you need to consider:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>your service’s preference may be for users to access your service using a work or organisation email address</li>
+    <li>whether your service is dependant on users coming from a professional domain, for example to help establish eligibility to use your service</li>
+    <li>users may not be comfortable using a personal email address for work purposes</li>
+  </ul>
+  <p class="govuk-body">Also, users may not want to use their personal mobile phone for 2-factor authentication. This will be needed when a user sets up their GOV.UK One Login, and depending on how you choose to implement GOV.UK One Login, potentially every time they sign in.</p>
+
+  <h2 class="govuk-heading-m">Contacting your users</h2>
+  <p class="govuk-body">As email address is essentially just a username for GOV.UK One Login, we will not know if the user still has access to that address unless they tell us. 
+</p>
+  <p class="govuk-body">If you want to use that email address for correspondence, you may want to confirm with the users that’s the best way to contact them.
+</p>
+
+  <h2 class="govuk-heading-m">Find out more</h2>
+  <p class="govuk-body">If you’re interested in knowing more about GOV.UK One Login and business users, <a class="govuk-link" href="https://www.sign-in.service.gov.uk/support">get in touch.</a></p>
+
+{% endblock %}
