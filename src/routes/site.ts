@@ -69,6 +69,10 @@ router.get("/documentation/design-recommendations/save-progress", (req, res) => 
     res.render("documentation-save-progress.njk");
 });
 
+router.get("/documentation/design-recommendations/business-users", (req, res) => {
+    res.render("documentation-business-users.njk");
+});
+
 router.get("/documentation/design-recommendations/change-credentials", (req, res) => {
     res.render("documentation-change-credentials.njk");
 });
