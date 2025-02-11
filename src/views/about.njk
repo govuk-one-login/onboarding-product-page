@@ -8,40 +8,56 @@
 
 {% block mainContent %}
   <h1 class="govuk-heading-l">About GOV.UK One Login</h1>
-  <p class="govuk-body">GOV.UK One Login lets your users sign in and prove their identity so they can access your service quickly and easily.</p>
-  <p class="govuk-body">It will ultimately allow users to access any government service using the same email address and password.</p>
-  <p class="govuk-body">By using GOV.UK One Login:</p>
+  <p class="govuk-body">GOV.UK One Login lets your users sign in and prove their identity so they can access your service quickly and easily. </p>
+  <p class="govuk-body">It will ultimately allow users to access any government service using the same email address and password, and also only need to prove their identity once.</p>
+
+  <h2 class="govuk-heading-m">Why use GOV.UK One Login</h2>
+  <p class="govuk-body">Using GOV.UK One Login means:</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>your service will not need to build and maintain your own sign in and identity checking systems</li>
-    <li>your users will not need to manage multiple sets of sign in details, or go through lengthy identity checks for every government service they use</li>
+    <li>you will not need to build and maintain your own sign in and identity checking systems </li>
+    <li>you save money as GOV.UK One Login is centrally funded and free for government services to use</li>
+    <li>a reduction in fraud thanks to our dedicated fraud prevention team and the built in protection provided by our <a class="govuk-link" href="https://www.gov.uk/government/publications/identity-proofing-and-verification-of-an-individual">GPG45 </a>compliant systems</li>
+    <li>improved accessibility, as GOV.UK One Login is based on common, accessible components from the GOV.UK Design System
+</li>
   </ul>
-  <h2 class="govuk-heading-m">The user-facing parts of GOV.UK One Login</h2>
+
+  <h2 class="govuk-heading-m">Who can use GOV.UK One Login</h2>
+  <p class="govuk-body">GOV.UK One Login is currently available to all central government departments and agencies. </p>
+
+  <p class="govuk-body">Other organisations may also be able to use GOV.UK One Login. <a class="govuk-link" href="https://www.sign-in.service.gov.uk/support">Get in touch</a> and we’ll have a chat to find out more about your service.</p>
+
+  <h2 class="govuk-heading-m">What GOV.UK One Login offers</h2>
+
   <h3 class="govuk-heading-s">Users can sign in</h3>
   <p class="govuk-body">Users can sign in to your service using GOV.UK One Login, with their username, password and two-factor authentication.</p>
   <p class="govuk-body">You can add this sign in functionality into your service on its own. You do not have to use the identity checks functionality if you do not need it.</p>
   <p class="govuk-body"><a class="govuk-link" href="/about/signing-users-in">Find out more about signing users in</a>.</p>
+
   <h3 class="govuk-heading-s">Users can prove their identity</h3>
-  <p class="govuk-body">Users can prove their identity so you know they are who they say they are.</p>
-  <p class="govuk-body">If you want to add identity checks, you must also have the ‘sign in’ functionality.</p>
-  <p class="govuk-body"><a class="govuk-link" href="/about/checking-users-identities">Find out more about checking users’ identities</a>.</p>
-  <h3 class="govuk-heading-s">Users create a reusable GOV.UK One Login</h3>
-  <p class="govuk-body">Users have a space where they can manage their GOV.UK One Login, among other things.</p>
-  <p class="govuk-body">This is generated automatically when a user first creates a GOV.UK One Login to access a service.</p>
-  <p class="govuk-body"><a class="govuk-link" href="/about/signed-in-experience">Find out more about a user’s signed in experience</a>.</p>
-  <h3 class="govuk-heading-s">User support</h3>
-  <p class="govuk-body">Support for your users is available during office hours via a support form. We aim to reply within 2 working days.</p>
-  <h2 class="govuk-heading-m">Features for your service team</h2>
-  <h3 class="govuk-heading-s">Free to use</h3>
-  <p class="govuk-body">GOV.UK One Login is centrally funded. This means it’s free for government services to use for the duration of this spending review period (up to 2025).</p>
-  <h3 class="govuk-heading-s">Documentation</h3>
-  <p class="govuk-body">You can follow our <a class="govuk-link" href="/documentation">technical and design documentation</a> to:</p>
+
+  <p class="govuk-body">Users can prove their identity so you know they are who they say they are.</p> 
+  <p class="govuk-body">If you want to add identity checks, you must also use GOV.UK One Login to sign in your users.</p> 
+  <p class="govuk-body"><a class="govuk-link" href="/about/checking-users-identities">Find out more about checking users’ identities</a></p> 
+  
+  
+  <h2 class="govuk-heading-s">Try GOV.UK One Login</h3>
+   <p class="govuk-body">You can:</p>
+
   <ul class="govuk-list govuk-list--bullet">
-    <li>understand the OpenID Connect (OIDC) authentication protocol we’re using</li>
-    <li>see how user data is shared</li>
-    <li>test GOV.UK One Login with your service in our integration environment</li>
-    <li>see how to integrate the GOV.UK One Login user journey with your service</li>
+    <li><a class="govuk-link" href="https://www.sign-in.service.gov.uk/getting-started">set up our integration environment</a> to see how GOV.UK One Login works in your service</li>
+    <li><a class="govuk-link" href="https://www.sign-in.service.gov.uk/documentation/end-to-end-prototype/identity-journeys">request access to our HTML prototype</a> to explore journeys within GOV.UK One Login</li>
   </ul>
-  <h3 class="govuk-heading-s">Support</h3>
-  <p class="govuk-body">Support for your service is available during office hours via a <a class="govuk-link" href="/contact-us ">support form</a> and <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a>. We aim to reply within 2 working days.</p>
-  <p class="govuk-body">If you go live with GOV.UK One Login, our technical team is available 24/7 for urgent incidents.</p>
+  <p class="govuk-body">Also, read our <a class="govuk-link" href="https://docs.sign-in.service.gov.uk/how-gov-uk-one-login-works/#how-gov-uk-one-login-works">technical documentation</a> and <a class="govuk-link" href="https://www.sign-in.service.gov.uk/documentation/design-recommendations">design recommendations</a> to find out more about how GOV.UK One Login works.
+</p>
+
+
+  <h2 class="govuk-heading-m">Support</h2>
+
+  <p class="govuk-body">Support for your service is available during office hours using our <a class="govuk-link" href="https://www.sign-in.service.gov.uk/support">support form</a> or <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a>. Our technical team is also available 24/7 for urgent incidents.</p>
+
+  <h2 class="govuk-heading-m">How to start using GOV.UK One Login</h2>
+
+  <p class="govuk-body">If you think GOV.UK One Login might be right for your service, <a class="govuk-link" href="https://www.sign-in.service.gov.uk/getting-started">register your interest.</a>.</p>
+  <p class="govuk-body">We’ll contact you within 5 days to find out more about what your service needs.</p>
+
 {% endblock %}
