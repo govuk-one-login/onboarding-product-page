@@ -1,0 +1,85 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "User groups who may find it harder to prove their identity with GOV.UK One Login" %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "barriers-to-proving-identity"} %}
+{% set breadcrumbs = breadcrumbs([{text: "Documentation", href: "/documentation"}]) %}
+
+{% block mainContent %}
+<h1 class="govuk-heading-l">User groups who may find it harder to prove their identity with GOV.UK One Login</h1>
+<p class="govuk-body">GOV.UK One Login lets your users sign in and prove their identity so they can access your service easily. 
+    
+<h2 class="govuk-heading-m">Sign in</h2>
+<p class="govuk-body">To allow your users to sign in with GOV.UK One Login, they’ll need:</p>
+<ul class="govuk-list govuk-list--bullet">
+    <li>an email address</li>
+    <li>access to a mobile phone or an authenticator app (mobile or browser based)</li>
+</ul>
+
+<h2 class="govuk-heading-m">Identity proving</h2>
+<p class="govuk-body">There are 3 routes for users to prove their identity using GOV.UK One Login:</p>
+<ul class="govuk-list govuk-list--bullet">
+    <li>with the GOV.UK ID Check app</li>
+    <li>by answering security questions in the browser</li>
+    <li>a combination of online and at a Post Office</li>
+</ul>
+<p class="govuk-body">Users will be guided to the best route for them to use to prove their identity. </p>
+
+<h2 class="govuk-heading-m">Users who may struggle to prove their identity</h2>
+<p class="govuk-body">Currently, GOV.UK One Login only lets users prove their identity using certain documents or information. There are also certain sections of the user journey that can only be completed online. This means it does not work for everyone yet. There are certain user groups that this will impact more heavily.</p>
+
+<p class="govuk-body">
+You can look at the results of the <a class="govuk-link" href="https://www.gov.uk/government/publications/govuk-one-login-user-segmentation-survey-summary">user segmentation survey</a> we ran to understand more about what barriers could affect people when trying to prove their identity with GOV.UK One Login.</p>
+
+<h3 class="govuk-heading-s">Children under the age of 17</h3>
+
+<p class="govuk-body">Children under the age of 17 are likely to struggle as they will not have a credit history or digital footprint with government, which means they will not be able to answer any security questions. This will make it harder for them to prove their identity.</p>
+
+<p class="govuk-body">In future, we plan to introduce new product features to make it
+easier for them to prove their identity.</p> 
+
+<h3 class="govuk-heading-s">UK citizens living abroad</h3>
+<p class="govuk-body">This group may struggle to prove their identity if they do not have a UK
+address, bank account or digital footprint with government.</p>
+
+<p class="govuk-body">In early 2025 we plan to also accept international addresses.</p> 
+
+<h3 class="govuk-heading-s">Non-UK citizens living in the UK</h3>
+
+<p class="govuk-body">This group’s likelihood of successfully proving their identity depends on:</p>
+<ul class="govuk-list govuk-list--bullet">
+    <li>how long they’ve been in the UK</li>
+    <li>what identity documents they have available to them</li>
+    <li>if they have a permanent UK address</li> 
+</ul>
+
+<h3 class="govuk-heading-s">Non-UK citizens living overseas</h3>
+
+<p class="govuk-body">At the moment, this user group would find it
+difficult to prove their identity. However, in early 2025 we’ll also
+accept international addresses. Then, a non-UK citizen living overseas
+will be able to prove their identity with a chipped passport, through
+the app.</p> 
+
+<h3 class="govuk-heading-s">Users with a small digital or financial footprint</h3>
+
+<p class="govuk-body">Users with a limited credit history or digital footprint with government could
+struggle to prove their identity, especially if trying to answer security questions.</p>
+
+<p class="govuk-body">If your service has a large number of users in any of these groups,
+<a class="govuk-link" href="https://www.sign-in.service.gov.uk/support">get in touch</a>.</p>
+
+<p class="govuk-body">We can advise:</p>
+<ul class="govuk-list govuk-list--bullet">
+    <li>about other ways you can help those users prove their identity, for
+example by you providing a paper-based route or offering more contact
+centre support</li>
+    <li>if now is the right time for you to start using GOV.UK One Login</li>
+</ul>
+
+<p class="govuk-body">If a large number of your users are likely to struggle to prove their
+identity, you’ll need to provide another way for those users to access your service. If you do not have this, <a class="govuk-link" 
+href="https://www.sign-in.service.gov.uk/support">get in touch</a> so we can discuss if GOV.UK One Login is right for your service.</p>
+
+{% endblock %}
