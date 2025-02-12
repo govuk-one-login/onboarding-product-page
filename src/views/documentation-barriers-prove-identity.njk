@@ -1,13 +1,13 @@
 {% extends "base-side-nav.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
 
-{% set pageTitle = "User groups who may find it harder to prove their identity with GOV.UK One Login" %}
+{% set pageTitle = "User groups who may find it harder to prove their identity" %}
 {% set headerNavigationActiveItem = "documentation" %}
 {% set sideNav = {name: "documentation", active: "barriers-to-proving-identity"} %}
 {% set breadcrumbs = breadcrumbs([{text: "Documentation", href: "/documentation"}]) %}
 
 {% block mainContent %}
-<h1 class="govuk-heading-l">User groups who may find it harder to prove their identity with GOV.UK One Login</h1>
+<h1 class="govuk-heading-l">User groups who may find it harder to prove their identity</h1>
 <p class="govuk-body">GOV.UK One Login lets your users sign in and prove their identity so they can access your service easily. 
     
 <h2 class="govuk-heading-m">Sign in</h2>
@@ -40,10 +40,8 @@ You can look at the results of the <a class="govuk-link" href="https://www.gov.u
 easier for them to prove their identity.</p> 
 
 <h3 class="govuk-heading-s">UK citizens living abroad</h3>
-<p class="govuk-body">This group may struggle to prove their identity if they do not have a UK
-address, bank account or digital footprint with government.</p>
-
-<p class="govuk-body">In early 2025 we plan to also accept international addresses.</p> 
+<p class="govuk-body">This group can prove their identity using the GOV.UK ID Check app and a chipped passport.</p>
+<p class="govuk-body">They will not be able to prove their identity using other routes, unless they can visit a UK Post Office.</p> 
 
 <h3 class="govuk-heading-s">Non-UK citizens living in the UK</h3>
 
@@ -56,11 +54,9 @@ address, bank account or digital footprint with government.</p>
 
 <h3 class="govuk-heading-s">Non-UK citizens living overseas</h3>
 
-<p class="govuk-body">At the moment, this user group would find it
-difficult to prove their identity. However, in early 2025 we’ll also
-accept international addresses. Then, a non-UK citizen living overseas
-will be able to prove their identity with a chipped passport, through
-the app.</p> 
+<p class="govuk-body">This group can only use the GOV.UK ID Check app to prove their identity. They’ll also need a chipped passport.
+
+</p> 
 
 <h3 class="govuk-heading-s">Users with a small digital or financial footprint</h3>
 
