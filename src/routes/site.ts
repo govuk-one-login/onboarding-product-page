@@ -81,6 +81,10 @@ router.get("/documentation/design-recommendations/migrating-sign-in-pattern", (r
     res.render("documentation-migrating-sign-in-pattern.njk");
 });
 
+router.get("/documentation/design-recommendations/barriers-to-proving-identity", (req, res) => {
+    res.render("documentation-barriers-prove-identity.njk");
+});
+
 router.get("/about", (req, res) => {
     res.render("about.njk");
 });
