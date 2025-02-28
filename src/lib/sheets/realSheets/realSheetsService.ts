@@ -78,7 +78,7 @@ export default class RealSheetsService implements SheetsService {
             range: range,
             valueInputOption: "USER_ENTERED",
             insertDataOption: "INSERT_ROWS",
-            resource: {
+            requestBody: {
                 values: [row]
             }
         };
