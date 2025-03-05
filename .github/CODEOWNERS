@@ -3,3 +3,4 @@
 src/views/*.njk @govuk-one-login/adoption-architects @govuk-one-login/orchestration-team
 src/views/side-nav/*.njk @govuk-one-login/adoption-architects @govuk-one-login/orchestration-team
 src/routes/site.ts @govuk-one-login/adoption-architects @govuk-one-login/orchestration-team
+resources/allowed-email-domains.txt @govuk-one-login/adoption-architects @govuk-one-login/orchestration-team
