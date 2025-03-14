@@ -132,6 +132,7 @@ Conditions:
       - DefaultValue: !FindInMap [ LoggingConfiguration, default, dynatraceLoggingEnabled ]
   IsEphemeral: !Or [ !Equals [ !Ref Environment, "local" ], !Equals [ !Ref Environment, "demo" ] ]
   IsProd: !Equals [ !Ref Environment, "production" ]
+  WebAclAssociated: !Not [ !Equals [ !Ref Environment, "dev" ] ]
 
 Resources:
 
@@ -490,6 +491,7 @@ Resources:
               AWS: !FindInMap [ ElasticLoadBalancer, !Ref AWS::Region, AccountID ]
 
   LoadBalancerWebACLAssociation:
+    Condition: WebAclAssociated
     Type: AWS::WAFv2::WebACLAssociation
     Properties:
       WebACLArn: !Sub
