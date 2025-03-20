@@ -132,7 +132,13 @@ Conditions:
       - DefaultValue: !FindInMap [ LoggingConfiguration, default, dynatraceLoggingEnabled ]
   IsEphemeral: !Or [ !Equals [ !Ref Environment, "local" ], !Equals [ !Ref Environment, "demo" ] ]
   IsProd: !Equals [ !Ref Environment, "production" ]
-  WebAclAssociated: !Not [ !Equals [ !Ref Environment, "dev" ] ]
+  WebAclAssociated:
+    !Not [
+      !Or [
+        !Equals [dev, !Ref Environment],
+        !Equals [build, !Ref Environment],
+      ],
+    ]
 
 Resources:
 
