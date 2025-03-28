@@ -1,5 +1,5 @@
 # Use a slim lts-supported version.
-FROM node:20.16.0-alpine3.20@sha256:eb8101caae9ac02229bd64c024919fe3d4504ff7f329da79ca60a04db08cef52 AS production
+FROM node:23.10.0-alpine3.20@sha256:16185f3ca169814fbd3af0d31acc0e27a6e737a7a948709f6788439476733654 AS production
 
 # Expose any necessary ports (if your application requires it)
 ARG PORT=3000
