@@ -68,7 +68,7 @@ jobs:
       url: ${{ steps.push-image.outputs.image-url }}
     steps:
       - name: Login to GDS Dev Dynatrace Container Registry
-        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.3.0
+        uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
         with:
           registry: khw46367.live.dynatrace.com
           username: khw46367
@@ -128,7 +128,7 @@ jobs:
           fi
 
       - name: Archive distribution artifact
-        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: frontend-infrastructure
           retention-days: 7
