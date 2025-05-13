@@ -15,7 +15,6 @@ updates:
         applies-to: version-updates
         dependency-type: "production"
         update-types:
-          - "minor"
           - "patch"
   - package-ecosystem: npm
     directory: /ui-automation-tests
@@ -30,8 +29,9 @@ updates:
     groups:
       test-dependencies:
         applies-to: version-updates
-        patterns:
-          - "*"
+        update-types:
+          - "minor"
+          - "patch"
   - package-ecosystem: github-actions
     directory: /
     schedule:
@@ -44,8 +44,9 @@ updates:
     groups:
       gha-dependencies:
         applies-to: version-updates
-        patterns:
-          - "*"
+        update-types:
+          - "minor"
+          - "patch"
   - package-ecosystem: docker
     directory: /
     schedule:
@@ -58,5 +59,6 @@ updates:
     groups:
       docker-dependencies:
         applies-to: version-updates
-        patterns:
-          - "*"
+        update-types:
+          - "minor"
+          - "patch"
