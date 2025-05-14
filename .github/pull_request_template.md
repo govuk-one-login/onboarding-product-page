@@ -7,21 +7,21 @@ Before any work can be merged to main in must meet the definition of done and be
 
 ## Checklist
 
--   [ ] this pull request meets the acceptance criteria of the ticket
--   [ ] this branch is up-to-date with the main branch
+- [ ] this pull request meets the acceptance criteria of the ticket
+- [ ] this branch is up-to-date with the main branch
 
     `git fetch --all && git rebase origin/main`
 
--   [ ] these changes are backwards compatible (no breaking changes)
+- [ ] these changes are backwards compatible (no breaking changes)
 
--   all methods signatures and return values are the same
--   any replaced methods are marked as `@deprecated`
+- all methods signatures and return values are the same
+- any replaced methods are marked as `@deprecated`
 
--   [ ] tests have been written to cover any new or updated functionality
+- [ ] tests have been written to cover any new or updated functionality
 
--   [ ] new configuration parameters have been deployed to all environments, see [configuration management](https://govukverify.atlassian.net/l/cp/N7q3Vh3r).
+- [ ] new configuration parameters have been deployed to all environments, see [configuration management](https://govukverify.atlassian.net/l/cp/N7q3Vh3r).
 
--   [ ] all external infrastructure dependencies have been updated in all environments
+- [ ] all external infrastructure dependencies have been updated in all environments
 
 ## Changes
 
