@@ -33,7 +33,7 @@
     "email-validator": "^2.0.4",
     "express": "^4.21.2",
     "google-auth-library": "^8.5.2",
-    "googleapis": "^91.0.0",
+    "googleapis": "^149.0.0",
     "govuk-frontend": "^4.8.0",
     "helmet": "^7.0.0",
     "nunjucks": "^3.2.3",
