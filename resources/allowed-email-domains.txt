@@ -55,7 +55,6 @@ arundeltowncouncil.gov.uk
 asa.hslt.academy
 asadunstable.org
 aschc.com
-aschc.com
 ashbournetowncouncil.gov.uk
 ashcrofthighschool.co.uk
 ashfield-dc.gov.uk
@@ -803,7 +802,6 @@ highhaldenparishcouncil.co.uk
 highland.gov.uk
 highpeak.gov.uk
 highwaysengland.co.uk
-highwaysengland.co.uk
 highworthtowncouncil.gov.uk
 hillingdon.gov.uk
 hinckley-bosworth.gov.uk
@@ -1210,7 +1208,6 @@ nhslanarkshire.scot.nhs.uk
 nhslothian.scot
 nhstayside.scot.nhs.uk
 nhsx.nhs.uk
-nice.org.uk
 nice.org.uk
 nifrs.org
 nihe.gov.uk
@@ -1837,7 +1834,6 @@ uhs.nhs.uk
 ukaea.uk
 ukexportfinance.gov.uk
 ukho.gov.uk
-ukri.org
 ukri.org
 uksbs.co.uk
 unifiedgov.co.uk
