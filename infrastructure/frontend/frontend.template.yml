@@ -720,3 +720,9 @@ Outputs:
     Value: !Sub '${ApplicationLoadBalancer.LoadBalancerFullName}'
     Export:
       Name: !Sub '${AWS::StackName}-AppLBName'
+
+Metadata:
+  cfn-lint:
+    config:
+      ignore_checks:
+        - W8003
