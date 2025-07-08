@@ -1,5 +1,5 @@
-{% extends "govuk/template.njk" %}
-{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% extends "dist/govuk/template.njk" %}
+{% from "dist/govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
 {% set assetPath = "/assets" %}
 {% set documentationUrl = "/documentation" %}
@@ -15,6 +15,10 @@
     This is a new service – your
     <a href="/contact-us" class="govuk-link" rel="noreferrer noopener" target="_blank">feedback (opens in a new tab)</a> will help us to improve it.
   {% endset %}
+{% endif %}
+
+{% if MAY_2025_REBRAND_ENABLED %}
+  {% set htmlClasses = 'govuk-template--rebranded'%}
 {% endif %}
 
 {% block pageTitle %}{{ pageTitle }} - GOV.UK One Login{% endblock %}
