@@ -208,6 +208,11 @@ Resources:
               Value: "{{resolve:ssm:/product-pages/frontend/jira-auth-user-name}}"
             - Name: JIRA_API_KEY
               Value: "{{resolve:secretsmanager:/product-pages/frontend/jira-auth-credentials}}"
+            - Name: MAY_2025_REBRAND_ENABLED
+              Value: !If
+                - IsProd
+                - false
+                - true
           Secrets:
             - !If
               - DynatraceLoggingEnabled
