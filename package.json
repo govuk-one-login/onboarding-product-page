@@ -28,7 +28,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@googleapis/sheets": "^9.4.0",
+    "@googleapis/sheets": "^11.1.0",
     "axios": "^1.11.0",
     "email-validator": "^2.0.4",
     "express": "^4.21.2",
