@@ -9,12 +9,11 @@ export default function (app: Express) {
         throw "Couldn't load govuk-frontend module";
     }
 
-    const nunjucksEnv = configure([views, govukViews], {
+    configure([views, govukViews], {
         autoescape: true,
         noCache: true,
         express: app
     });
 
-    nunjucksEnv.addGlobal("MAY_2025_REBRAND_ENABLED", process.env.MAY_2025_REBRAND_ENABLED == "true");
     app.engine("njk", render);
 }
