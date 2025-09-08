@@ -12,7 +12,7 @@
     "@types/chai-as-promised": "^7.1.8",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^18.19.123",
-    "chai": "^4.3.6",
+    "chai": "^6.0.1",
     "chai-as-promised": "^7.1.1",
     "fs-extra": "^11.3.1",
     "nodemon": "^3.1.10",
