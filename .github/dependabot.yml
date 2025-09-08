@@ -62,14 +62,15 @@ updates:
     directory: /
     schedule:
       interval: daily
+      time: "03:00"
+    target-branch: main
     labels:
-      - docker
       - dependabot
+      - dependencies
+      - docker
     commit-message:
-      prefix: "BAU"
-    groups:
-      docker-dependencies:
-        applies-to: version-updates
+      prefix: BAU
+    ignore:
+      - dependency-name: "node"
         update-types:
-          - "minor"
-          - "patch"
+          - "version-update:semver-major"
