@@ -62,7 +62,7 @@ updates:
     directory: /
     schedule:
       interval: daily
-      time: "03:00"
+      time: "12:00"
     target-branch: main
     labels:
       - dependabot
