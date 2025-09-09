@@ -13,7 +13,8 @@ WORKDIR /app
 COPY . .
 
 # Install project dependencies
-RUN npm ci --omit=dev && npm run build
+RUN npm ci && npm run build && npm ci --omit=dev
+
 
 # Add the Dynatrace OneAgent
 COPY --from=khw46367.live.dynatrace.com/linux/oneagent-codemodules-musl:nodejs / /
