@@ -98,7 +98,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Node dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run mocha tests
         run: npm run test

@@ -25,7 +25,7 @@ runs:
     - name: Install Node dependencies
       id: install
       shell: bash
-      run: npm install
+      run: npm ci
 
     - name: Build app
       id: build
