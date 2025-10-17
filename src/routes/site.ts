@@ -17,10 +17,6 @@ router.get("/accessibility", (req, res) => {
     res.render("accessibility.njk");
 });
 
-router.get("/privacy-policy", (req, res) => {
-    res.render("privacy-policy.njk");
-});
-
 router.get("/cookies", (req, res) => {
     res.render("cookies.njk");
 });
