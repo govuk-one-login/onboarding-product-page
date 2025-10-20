@@ -132,6 +132,16 @@ Conditions:
       - DefaultValue: !FindInMap [ LoggingConfiguration, default, dynatraceLoggingEnabled ]
   IsEphemeral: !Or [ !Equals [ !Ref Environment, "local" ], !Equals [ !Ref Environment, "demo" ] ]
   IsProd: !Equals [ !Ref Environment, "production" ]
+  WebAclAssociated:
+    !Not [
+      !Or [
+        !Equals [dev, !Ref Environment],
+        !Equals [build, !Ref Environment],
+        !Equals [staging, !Ref Environment],
+        !Equals [integration, !Ref Environment],
+        !Equals [production, !Ref Environment],
+      ],
+    ]
 
 Resources:
 
@@ -405,6 +415,11 @@ Resources:
           Value: true
         - Key: access_logs.s3.bucket
           Value: !ImportValue ELB-AccessLogsBucket
+      Tags:
+        - Key: FMSRegionalPolicy
+          Value: false
+        - Key: CustomPolicy
+          Value: true
 
   ApplicationLoadBalancerListener:
     Type: AWS::ElasticLoadBalancingV2::Listener
@@ -485,6 +500,7 @@ Resources:
               AWS: !FindInMap [ ElasticLoadBalancer, !Ref AWS::Region, AccountID ]
 
   LoadBalancerWebACLAssociation:
+    Condition: WebAclAssociated
     Type: AWS::WAFv2::WebACLAssociation
     Properties:
       WebACLArn: !Sub
@@ -582,7 +598,7 @@ Resources:
             Action:
               - kms:Encrypt
               - kms:Decrypt
-              - kms:ReEncrypt
+              - kms:ReEncrypt*
               - kms:GenerateDataKey
             Resource: '*'
           - Sid: 'Allow decryption of events by TxMA'
@@ -704,3 +720,9 @@ Outputs:
     Value: !Sub '${ApplicationLoadBalancer.LoadBalancerFullName}'
     Export:
       Name: !Sub '${AWS::StackName}-AppLBName'
+
+Metadata:
+  cfn-lint:
+    config:
+      ignore_checks:
+        - W8003

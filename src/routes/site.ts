@@ -17,10 +17,6 @@ router.get("/accessibility", (req, res) => {
     res.render("accessibility.njk");
 });
 
-router.get("/privacy-policy", (req, res) => {
-    res.render("privacy-policy.njk");
-});
-
 router.get("/cookies", (req, res) => {
     res.render("cookies.njk");
 });
@@ -69,8 +65,20 @@ router.get("/documentation/design-recommendations/save-progress", (req, res) => 
     res.render("documentation-save-progress.njk");
 });
 
+router.get("/documentation/design-recommendations/business-users", (req, res) => {
+    res.render("documentation-business-users.njk");
+});
+
 router.get("/documentation/design-recommendations/change-credentials", (req, res) => {
     res.render("documentation-change-credentials.njk");
+});
+
+router.get("/documentation/design-recommendations/migrating-sign-in-pattern", (req, res) => {
+    res.render("documentation-migrating-sign-in-pattern.njk");
+});
+
+router.get("/documentation/design-recommendations/barriers-to-proving-identity", (req, res) => {
+    res.render("documentation-barriers-prove-identity.njk");
 });
 
 router.get("/about", (req, res) => {

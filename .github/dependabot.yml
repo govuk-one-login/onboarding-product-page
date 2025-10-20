@@ -15,8 +15,18 @@ updates:
         applies-to: version-updates
         dependency-type: "production"
         update-types:
+          - "patch"
+      dev-dependencies:
+        applies-to: version-updates
+        dependency-type: "development"
+        update-types:
           - "minor"
           - "patch"
+    ignore:
+      - dependency-name: "@types/node"
+        update-types: [ "version-update:semver-major" ]
+      - dependency-name: "@govuk-frontend"
+        update-types: [ "version-update:semver-major" ]
   - package-ecosystem: npm
     directory: /ui-automation-tests
     schedule:
@@ -30,8 +40,9 @@ updates:
     groups:
       test-dependencies:
         applies-to: version-updates
-        patterns:
-          - "*"
+        update-types:
+          - "minor"
+          - "patch"
   - package-ecosystem: github-actions
     directory: /
     schedule:
@@ -44,19 +55,22 @@ updates:
     groups:
       gha-dependencies:
         applies-to: version-updates
-        patterns:
-          - "*"
+        update-types:
+          - "minor"
+          - "patch"
   - package-ecosystem: docker
     directory: /
     schedule:
       interval: daily
+      time: "12:00"
+    target-branch: main
     labels:
-      - docker
       - dependabot
+      - dependencies
+      - docker
     commit-message:
-      prefix: "BAU"
-    groups:
-      docker-dependencies:
-        applies-to: version-updates
-        patterns:
-          - "*"
+      prefix: BAU
+    ignore:
+      - dependency-name: "node"
+        update-types:
+          - "version-update:semver-major"
