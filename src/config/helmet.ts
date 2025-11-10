@@ -19,7 +19,11 @@ export default function Helmet() {
                 imgSrc: ["'self'", "data:", "https://www.googletagmanager.com", "https://www.google-analytics.com"],
                 objectSrc: ["'none'"],
                 connectSrc: ["'self'", "https://www.google-analytics.com"],
-                formAction: ["'self'", "https://signin.account.gov.uk/contact-us"]
+                formAction: [
+                    "'self'",
+                    "https://signin.account.gov.uk/contact-us",
+                    "https://onelogingovuk.service-now.com/csm?id=csm_sc_cat_item&sys_id=83902cb51b4822900a549978b04bcbed"
+                ]
             }
         },
         dnsPrefetchControl: {
