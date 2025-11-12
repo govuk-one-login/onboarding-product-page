@@ -7,21 +7,20 @@
 {% set breadcrumbs = breadcrumbs(currentPageName = "Documentation") %}
 
 {% block mainContent %}
-  <h1 class="govuk-heading-l">Technical documentation</h1>
+  <h1 class="govuk-heading-l">Connecting to GOV.UK One Login</h1>
   <p class="govuk-body">Our technical documentation will help you:</p>
   <ul class="govuk-list govuk-list--bullet">
     <li>understand how GOV.UK One Login works</li>
-    <li>test GOV.UK One Login in our integration environment</li>
+    <li>plan your integration with GOV..UK One Login</li>
+    <li>build your integration with GOV.UK One Login</li>
+    <li>test your integration with GOV.UK One Login</li>
+    <li>configure your service for production</li>
   </ul>
   <p class="govuk-body">
     The documentation covers both the authentication and identity checking parts of GOV.UK One Login.
   </p>
 
-    <p class="govuk-body">
-    <a class="govuk-link" href="https://docs.sign-in.service.gov.uk" rel="noreferrer noopener" target="_blank">Read our technical documentation (opens in new tab)</a>
-  </p>
-
-  <h2 class="govuk-heading-m">Understand the flow GOV.UK One Login uses</h2>
+  <h2 class="govuk-heading-m">High level view</h2>
 
   <p class="govuk-body">
     <img width="100%" src="assets/images/top-level-technical-diagram.svg" />  
@@ -38,7 +37,7 @@
 
 </p>
 
-  <h2 class="govuk-heading-m">Understand the technical flow GOV.UK One Login uses</h2>
+  <h2 class="govuk-heading-m">Conceptual view</h2>
 
   <p class="govuk-body">
     <img width="100%" src="assets/images/technical-flow-diagram.svg" />  
@@ -53,13 +52,17 @@
   <li>Your service receives an <a href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#receive-response-for-make-a-token-request">ID token and access token</a> in the response.</li>
   <li>Your service makes a request to the <code>/userinfo</code> endpoint to <a href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#retrieve-user-information">retrieve user information</a>. You can read more about <a href="https://docs.sign-in.service.gov.uk/before-integrating/choose-which-user-attributes-your-service-can-request">choosing which user attributes your service can request</a>.</li>
   <li>Your service receives a response <a href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#receive-response-for-retrieve-user-information">containing user attributes</a>.</li>
-  <li>Your service makes a <a href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/managing-your-users-sessions/#log-your-user-out-of-gov-uk-one-login">"log out request"</a> to the <code>/logout</code> endpoint.</li>
+  <li>Your service makes a <a href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/managing-your-users-sessions/#log-your-user-out-of-gov-uk-one-login  ">log out request</a> to the <code>/logout</code> endpoint.</li>
   <li>Your service receives an `HTTP 302` response redirecting the user to the <code>post_logout_redirect_uri</code>.</li>
   </ul>
-
 </p>
 
+<h2 class="govuk-heading-m">Technical documentation</h2>
 
+  <p class="govuk-body">To understand the detailed technical flow, for example the endpoints, requests, tokens and keys read <a href="https://docs.sign-in.service.gov.uk//how-gov-uk-one-login-works/#gov-uk-one-login-oidc-authorization-code-flow">"GOV.UK One Login OIDC Authorization Code Flow"</a> in the technical documentation.</p>
 
-  <p class="govuk-body">To understand the technical flow, for example the endpoints, requests, tokens and keys read <a href="https://docs.sign-in.service.gov.uk//how-gov-uk-one-login-works/#gov-uk-one-login-oidc-authorization-code-flow">"GOV.UK One Login OIDC Authorization Code Flow"</a>.</p
+  <p class="govuk-body">
+    <a class="govuk-link" href="https://docs.sign-in.service.gov.uk" rel="noreferrer noopener" target="_blank">Read our technical documentation (opens in new tab)</a>
+  </p>
+
 {% endblock %}
