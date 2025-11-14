@@ -1,68 +1,24 @@
 {% extends "base-side-nav.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
 
-{% set pageTitle = "Technical documentation" %}
+{% set pageTitle = "Documentation" %}
 {% set headerNavigationActiveItem = "documentation" %}
 {% set sideNav = {name: "documentation", active: "documentation"} %}
 {% set breadcrumbs = breadcrumbs(currentPageName = "Documentation") %}
 
 {% block mainContent %}
-  <h1 class="govuk-heading-l">Connecting to GOV.UK One Login</h1>
-  <p class="govuk-body">Our technical documentation will help you:</p>
+  <h1 class="govuk-heading-l">Documentation</h1>
+  <p class="govuk-body">Our documentation helps you:</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>understand how GOV.UK One Login works</li>
-    <li>plan your integration with GOV..UK One Login</li>
-    <li>build your integration with GOV.UK One Login</li>
-    <li>test your integration with GOV.UK One Login</li>
-    <li>configure your service for production</li>
+    <li>understand the authentication and identity user journeys with the journey maps</li>
+    <li>understand the user experience with the prototype</li>
+    <li>follow our design recommendations for integrating with your service</li>
+    <li>connect your service</li>
   </ul>
   <p class="govuk-body">
-    The documentation covers both the authentication and identity checking parts of GOV.UK One Login.
+    
   </p>
-
-  <h2 class="govuk-heading-m">High level view</h2>
-
-  <p class="govuk-body">
-    <img width="100%" src="assets/images/top-level-technical-diagram.svg" />  
-  </p>
-
- <p class="govuk-body">
-
-  <ul class="govuk-list govuk-list--number">
-    <li>Your service asks the user to sign in or create an account.</li>
-    <li>If your service needs confidence your user is who they say they are, GOV.UK One Login will request proof of identity.</li>
-    <li>GOV.UK One Login collects evidence of the user’s identity.</li>
-    <li>GOV.UK One Login provides information about your user.</li>
-  </ul>
-
-</p>
-
-  <h2 class="govuk-heading-m">Conceptual view</h2>
-
-  <p class="govuk-body">
-    <img width="100%" src="assets/images/technical-flow-diagram.svg" />  
-  </p>
-
- <p class="govuk-body">
-  <ul class="govuk-list govuk-list--number">
-  <li>Your service makes an <a href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#make-a-request-to-the-authorize-endpoint">authorisation request</a> to the <code>/authorize</code> endpoint.</li>
-  <li>The user logs in (or creates an account if they do not have one) and proves their identity if your service needs them to. GOV.UK One Login lets your user know how their data will be shared with your service.</li>
-  <li>GOV.UK One Login returns an <a href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#generate-an-authorisation-code">authorisation code</a> to your service.</li>
-  <li>Your service makes a <a href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#make-a-token-request">token request</a> to the <code>/token</code> endpoint and includes the authorisation code in the request.</li>
-  <li>Your service receives an <a href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#receive-response-for-make-a-token-request">ID token and access token</a> in the response.</li>
-  <li>Your service makes a request to the <code>/userinfo</code> endpoint to <a href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#retrieve-user-information">retrieve user information</a>. You can read more about <a href="https://docs.sign-in.service.gov.uk/before-integrating/choose-which-user-attributes-your-service-can-request">choosing which user attributes your service can request</a>.</li>
-  <li>Your service receives a response <a href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/authenticate-your-user/#receive-response-for-retrieve-user-information">containing user attributes</a>.</li>
-  <li>Your service makes a <a href="https://docs.sign-in.service.gov.uk/integrate-with-integration-environment/managing-your-users-sessions/#log-your-user-out-of-gov-uk-one-login  ">log out request</a> to the <code>/logout</code> endpoint.</li>
-  <li>Your service receives an `HTTP 302` response redirecting the user to the <code>post_logout_redirect_uri</code>.</li>
-  </ul>
-</p>
-
-<h2 class="govuk-heading-m">Technical documentation</h2>
-
-  <p class="govuk-body">To understand the detailed technical flow, for example the endpoints, requests, tokens and keys read <a href="https://docs.sign-in.service.gov.uk//how-gov-uk-one-login-works/#gov-uk-one-login-oidc-authorization-code-flow">"GOV.UK One Login OIDC Authorization Code Flow"</a> in the technical documentation.</p>
-
   <p class="govuk-body">
     <a class="govuk-link" href="https://docs.sign-in.service.gov.uk" rel="noreferrer noopener" target="_blank">Read our technical documentation (opens in new tab)</a>
   </p>
-
 {% endblock %}

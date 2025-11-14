@@ -3,6 +3,11 @@
 {% macro nav(active) %}
   {{ sideNavigation([
     {
+      name: "Documentation",
+      description: "documentation",
+      href: "/documentation"
+    },
+    {
       name: "Sign in user journey maps",
       description: "journey-maps",
       href: "/documentation/user-journeys"
@@ -84,9 +89,9 @@
       isChild: true
     },
     {
-      name: "Connecting to GOV.UK One Login",
-      description: "documentation",
-      href: "/documentation"
+      name: "Connect to GOV.UK One Login",
+      description: "connect-to-govuk-onelogin",
+      href: "/documentation/connect-to-govuk-onelogin"
     }
 
   ], active) }}
