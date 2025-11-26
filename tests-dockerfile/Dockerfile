@@ -24,8 +24,6 @@ RUN curl -sL https://rpm.nodesource.com/setup_lts.x | bash -
 
 # Install project dependencies
 ENV PUPPETEER_SKIP_DOWNLOAD true
-RUN npm install yarn -g
-RUN npm install mocha -g
 RUN npm ci && npm run build
 
 RUN chmod 005 /run-tests.sh
