@@ -4,6 +4,8 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
     labels:
       - common
       - dependabot
@@ -31,6 +33,8 @@ updates:
     directory: /ui-automation-tests
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
     labels:
       - ui-tests
       - dependabot
@@ -47,6 +51,8 @@ updates:
     directory: /
     schedule:
       interval: daily
+    cooldown:
+      default-days: 7
     labels:
       - actions
       - dependabot
@@ -63,6 +69,8 @@ updates:
     schedule:
       interval: daily
       time: "12:00"
+    cooldown:
+      default-days: 7
     target-branch: main
     labels:
       - dependabot
