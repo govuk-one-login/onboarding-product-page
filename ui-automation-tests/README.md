@@ -42,7 +42,7 @@ If possible test success scenarios in the error scenarios for the steps that com
 
 ## How to run the Tests
 
-First install the packages `npm install`
+First install the packages `npm ci`
 
 ### To Run all the
 

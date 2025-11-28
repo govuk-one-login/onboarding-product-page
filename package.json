@@ -2,9 +2,6 @@
   "name": "di-onboarding-product-page",
   "version": "1.0.0",
   "description": "Product and onboarding pages for the Digital Identity Auth (GOV.UK Sign In) product",
-  "workspaces": [
-    "ui-automation-tests"
-  ],
   "main": "index.js",
   "scripts": {
     "start": "node dist/app.js",
