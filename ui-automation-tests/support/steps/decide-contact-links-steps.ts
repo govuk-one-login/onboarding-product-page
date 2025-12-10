@@ -11,7 +11,7 @@ Then("the Slack link will contain the correct URL", async function () {
 
 Then("the support form link on the main decide page will contain the correct URL", async function () {
     const contactUsText = "support form";
-    const contactUsUrl = "/contact-us";
+    const contactUsUrl = "/support";
 
     const link = await getLink(this.page, contactUsText);
     await checkUrl(this.page, link, contactUsUrl);
