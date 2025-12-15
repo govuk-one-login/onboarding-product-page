@@ -3,7 +3,7 @@
 {% macro nav(active) %}
   {{ sideNavigation([
     {
-      name: "Technical documentation",
+      name: "Documentation",
       description: "documentation",
       href: "/documentation"
     },
@@ -87,6 +87,12 @@
       description: "barriers-to-proving-identity",
       href: "/documentation/design-recommendations/barriers-to-proving-identity",
       isChild: true
+    },
+    {
+      name: "Connect to GOV.UK One Login",
+      description: "connect-to-govuk-onelogin",
+      href: "/documentation/connect-to-govuk-onelogin"
     }
+
   ], active) }}
 {% endmacro %}
