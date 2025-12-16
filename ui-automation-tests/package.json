@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "@axe-core/puppeteer": "^4.10.2",
-    "@cucumber/cucumber": "^9.3.0",
+    "@cucumber/cucumber": "^12.3.0",
     "@types/chai": "^4.3.1",
     "@types/chai-as-promised": "^7.1.8",
     "@types/fs-extra": "^11.0.4",
