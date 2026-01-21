@@ -179,7 +179,7 @@ jobs:
             Environment=demo
             DeploymentName=${{ steps.get-deployment-name.outputs.pretty-branch-name }}
 
-      - name: Get deployment URL
+      - name: Get deployment URL2
         id: get-deployment-url
         env:
           NAME: ProductToolURL
