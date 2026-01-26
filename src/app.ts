@@ -4,7 +4,6 @@ import Helmet from "./config/helmet";
 import configureViews from "./config/configureViews";
 import {distribution} from "./config/resources";
 import Validation from "./lib/validation/validation";
-import contactUs from "./routes/contact-us";
 import mailingList from "./routes/mailing-list";
 import redirects from "./routes/redirects";
 import register from "./routes/register";
@@ -37,7 +36,6 @@ app.use(
 configureViews(app);
 
 app.use("/", register);
-app.use("/", contactUs);
 app.use("/", site);
 app.use("/", redirects);
 app.use("/", support);
@@ -55,7 +53,7 @@ app.use((req: Request, res: Response) => {
 app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
     console.log(err);
     res.status(500);
-    res.render("there-is-a-problem.njk", {showLinkToContactForm: req.path !== "/contact-us"});
+    res.render("there-is-a-problem.njk");
 });
 
 const port = process.env.PORT || 3000;
