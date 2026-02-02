@@ -1,11 +1,10 @@
 import bodyParser from "body-parser";
 import express, {NextFunction, Request, Response} from "express";
-import pinoHttp from "pino-http";
 import Helmet from "./config/helmet";
 import configureViews from "./config/configureViews";
 import {distribution} from "./config/resources";
 import Validation from "./lib/validation/validation";
-import logger from "./lib/logger";
+import {requestLoggingMiddleware} from "./lib/requestLogging";
 import contactUs from "./routes/contact-us";
 import mailingList from "./routes/mailing-list";
 import redirects from "./routes/redirects";
@@ -25,7 +24,7 @@ app.use((req, res, next) => {
 
 app.use(Helmet());
 
-app.use(pinoHttp({logger}));
+app.use(requestLoggingMiddleware);
 
 app.use("/assets", express.static(distribution.assets));
 app.use("/assets/images", express.static(distribution.images));
