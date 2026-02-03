@@ -1,7 +1,14 @@
 import pinoHttp from "pino-http";
 import logger from "./logger";
 
-export const responseSerializer = (res: any) => ({
+interface ResponseWithRaw {
+    statusCode: number;
+    raw?: {
+        getHeader: (name: string) => string | number | string[] | undefined;
+    };
+}
+
+export const responseSerializer = (res: ResponseWithRaw) => ({
     statusCode: res.statusCode,
     headers: {
         "cache-control": res.raw?.getHeader("cache-control"),

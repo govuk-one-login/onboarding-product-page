@@ -7,9 +7,16 @@ import helmet from "helmet";
 import pinoHttp from "pino-http";
 import {responseSerializer} from "../../src/lib/requestLogging";
 
+interface LogEntry {
+    req: unknown;
+    res: {
+        headers: Record<string, string | number | undefined>;
+    };
+}
+
 describe("Request Logging Middleware", () => {
     it("should filter response headers correctly", async () => {
-        const logs: any[] = [];
+        const logs: Record<string, unknown>[] = [];
         const stream = new Writable({
             write(chunk, encoding, callback) {
                 logs.push(JSON.parse(chunk.toString()));
@@ -31,10 +38,12 @@ describe("Request Logging Middleware", () => {
 
         await request(app).get("/test").set("User-Agent", "test-agent");
 
-        const requestLog = logs.find(log => log.req && log.res);
+        const requestLog = logs.find(log => log.req && log.res) as LogEntry | undefined;
         expect(requestLog).to.exist;
-        expect(requestLog.res.headers["content-type"]).to.exist;
-        expect(requestLog.res.headers["content-length"]).to.exist;
-        expect(requestLog.res.headers["content-security-policy"]).to.be.undefined;
+        if (requestLog) {
+            expect(requestLog.res.headers["content-type"]).to.exist;
+            expect(requestLog.res.headers["content-length"]).to.exist;
+            expect(requestLog.res.headers["content-security-policy"]).to.be.undefined;
+        }
     });
 });

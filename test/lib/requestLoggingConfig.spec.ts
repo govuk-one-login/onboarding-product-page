@@ -23,6 +23,6 @@ describe("Request Logging Middleware Configuration", () => {
         expect(serialized.headers["content-type"]).to.equal("text/html");
         expect(serialized.headers["content-length"]).to.equal("123");
         expect(serialized.headers["etag"]).to.equal('W/"123"');
-        expect((serialized.headers as any)["content-security-policy"]).to.be.undefined;
+        expect((serialized.headers as Record<string, string>)["content-security-policy"]).to.be.undefined;
     });
 });
