@@ -8,6 +8,25 @@ interface ResponseWithRaw {
     };
 }
 
+interface RequestWithRaw {
+    method: string;
+    id: string;
+    url: string;
+    raw?: {
+        headers?: Record<string, string | string[] | undefined>;
+    };
+}
+
+export const requestSerializer = (req: RequestWithRaw) => ({
+    id: req.id,
+    method: req.method,
+    url: req.url,
+    headers: {
+        "user-agent": req.raw?.headers?.["user-agent"],
+        referer: req.raw?.headers?.["referer"]
+    }
+});
+
 export const responseSerializer = (res: ResponseWithRaw) => ({
     statusCode: res.statusCode,
     headers: {
@@ -23,6 +42,7 @@ export const requestLoggingMiddleware = pinoHttp({
     logger,
     customProps: () => ({}),
     serializers: {
+        req: requestSerializer,
         res: responseSerializer
     }
 });

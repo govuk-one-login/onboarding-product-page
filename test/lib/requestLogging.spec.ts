@@ -5,10 +5,12 @@ import pino from "pino";
 import {Writable} from "stream";
 import helmet from "helmet";
 import pinoHttp from "pino-http";
-import {responseSerializer} from "../../src/lib/requestLogging";
+import {requestSerializer, responseSerializer} from "../../src/lib/requestLogging";
 
 interface LogEntry {
-    req: unknown;
+    req: {
+        headers: Record<string, string | undefined>;
+    };
     res: {
         headers: Record<string, string | number | undefined>;
     };
@@ -28,7 +30,7 @@ describe("Request Logging Middleware", () => {
         const middleware = pinoHttp({
             logger: testLogger,
             customProps: () => ({}),
-            serializers: {res: responseSerializer}
+            serializers: {req: requestSerializer, res: responseSerializer}
         });
 
         const app = express();
@@ -36,11 +38,13 @@ describe("Request Logging Middleware", () => {
         app.use(middleware);
         app.get("/test", (req, res) => res.status(200).send("OK"));
 
-        await request(app).get("/test").set("User-Agent", "test-agent");
+        await request(app).get("/test").set("User-Agent", "test-agent").set("Referer", "http://example.com");
 
         const requestLog = logs.find(log => log.req && log.res) as LogEntry | undefined;
         expect(requestLog).to.exist;
         if (requestLog) {
+            expect(requestLog.req.headers["user-agent"]).to.equal("test-agent");
+            expect(requestLog.req.headers.referer).to.equal("http://example.com");
             expect(requestLog.res.headers["content-type"]).to.exist;
             expect(requestLog.res.headers["content-length"]).to.exist;
             expect(requestLog.res.headers["content-security-policy"]).to.be.undefined;
