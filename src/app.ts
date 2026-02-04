@@ -24,6 +24,10 @@ app.use((req, res, next) => {
 
 app.use(Helmet());
 
+app.get("/healthcheck", (req, res) => {
+    return res.status(200).send("OK");
+});
+
 app.use(requestLoggingMiddleware);
 
 app.use("/assets", express.static(distribution.assets));
@@ -62,4 +66,11 @@ app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Server running; listening on port ${port}`));
+const server = app.listen(port, () => console.log(`Server running; listening on port ${port}`));
+
+process.on("SIGTERM", () => {
+    console.debug("Server shut down signal received");
+    server.close(() => {
+        console.debug("Server shut down");
+    });
+});
