@@ -30,9 +30,7 @@ Feature: All product pages must meet the accessibility standards
       | Get started with Welcome to GOV.UK  One Login                                | https://www.sign-in.service.gov.uk/getting-started       |
       | Support                                                                      | /support                                                 |
       | Contact us (get started)                                                     | /contact-us-details                                      |
-      | Contact us form                                                              | /contact-us                                              |
       | Accessibility                                                                | /accessibility                                           |
       | Privacy                                                                      | privacy-policy                                           |
       | Cookies                                                                      | /cookies                                                 |
       | Register to get started with GOV.UK One Login                                | /register                                                |
-      | Contact us                                                                   | /contact-us                                              |

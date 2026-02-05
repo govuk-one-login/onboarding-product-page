@@ -14,7 +14,7 @@ Feature: A support page which directs users to the correct type of support
     Then they should be directed to the following page: "/contact-us-details"
 
   Scenario: the user is from a service team having issues
-    When the user selects the "I work in a government service team that is setting up or already using GOV.UK One Login" radio button
+    When the user selects the "I work in a government service team that is already using GOV.UK One Login" radio button
     And they click the "Continue" button
     Then they should be directed to the following URL: "https://onelogingovuk.service-now.com/csm?id=csm_sc_cat_item&sys_id=83902cb51b4822900a549978b04bcbed"
 
