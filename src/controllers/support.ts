@@ -13,7 +13,7 @@ export const submitForm = function (req: Request, res: Response) {
 
     if (errorMessages.size > 0) {
         res.render("support.njk", {errorMessages: errorMessages});
-        return; 
+        return;
     }
 
     switch (values.get("support")) {
