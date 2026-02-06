@@ -23,7 +23,7 @@ export default function Helmet() {
                     "'self'",
                     "https://signin.account.gov.uk/contact-us",
                     "https://onelogingovuk.service-now.com/csm?id=csm_sc_cat_item&sys_id=83902cb51b4822900a549978b04bcbed",
-                    "https://home.account.gov.uk/contact-gov-uk-one-login",
+                    "https://home.account.gov.uk/contact-gov-uk-one-login"
                 ]
             }
         },
