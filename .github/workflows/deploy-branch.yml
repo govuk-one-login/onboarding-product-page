@@ -25,7 +25,7 @@ jobs:
       commit-message: ${{ steps.get-head-commit.outputs.commit-message }}
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Pull repository
         id: checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Build
         id: build
@@ -68,7 +68,7 @@ jobs:
       url: ${{ steps.push-image.outputs.image-url }}
     steps:
       - name: Login to GDS Dev Dynatrace Container Registry
-        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef # v3.6.0
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
         with:
           registry: khw46367.live.dynatrace.com
           username: khw46367
@@ -108,7 +108,7 @@ jobs:
     steps:
       - name: Pull repository
         id: checkout
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Replace placeholders
         if: ${{ github.actor != 'dependabot[bot]' }}
