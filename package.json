@@ -28,7 +28,7 @@
     "@googleapis/sheets": "^9.4.0",
     "axios": "^1.13.5",
     "email-validator": "^2.0.4",
-    "express": "^4.21.2",
+    "express": "^4.22.1",
     "google-auth-library": "^8.5.2",
     "googleapis": "^91.0.0",
     "govuk-frontend": "^5.11.0",
