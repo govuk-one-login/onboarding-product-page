@@ -24,7 +24,7 @@ export const submitForm = function (req: Request, res: Response) {
             res.redirect("https://onelogingovuk.service-now.com/csm?id=csm_sc_cat_item&sys_id=83902cb51b4822900a549978b04bcbed");
             return;
         case "gov-service-is-public":
-            res.redirect("https://signin.account.gov.uk/contact-us?supportType=PUBLIC");
+            res.redirect("https://home.account.gov.uk/contact-gov-uk-one-login");
             return;
     }
 };
