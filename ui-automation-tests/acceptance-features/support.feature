@@ -6,7 +6,7 @@ Feature: A support page which directs users to the correct type of support
   Scenario: the user is an end-user
     When the user selects the "I’m a member of the public" radio button
     And they click the "Continue" button
-    Then they should be directed to the following URL: "https://home.account.gov.uk/contact-gov-uk-one-login "
+    Then they should be directed to the following URL: "https://home.account.gov.uk/contact-gov-uk-one-login"
 
   Scenario: the user is from a new service team
     When the user selects the "I work in a government service team and we want to start using GOV.UK One Login" radio button
