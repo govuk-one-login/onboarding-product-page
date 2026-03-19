@@ -63,7 +63,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.5.4",
     "fs-extra": "^11.3.1",
-    "mocha": "^10.7.3",
+    "mocha": "^11.3.0",
     "nodemon": "^3.0.1",
     "nyc": "^17.1.0",
     "prettier": "^3.6.2",
@@ -87,6 +87,7 @@
   },
   "homepage": "https://www.sign-in.service.gov.uk/",
   "overrides": {
-    "qs": ">=6.14.1"
+    "qs": ">=6.14.1",
+    "serialize-javascript": ">=7.0.3"
   }
 }
