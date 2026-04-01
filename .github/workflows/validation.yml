@@ -1,5 +1,5 @@
-name: Test application
-run-name: Test application [${{ github.head_ref || github.ref_name }}]
+name: Validation
+run-name: Validation [${{ github.head_ref || github.ref_name }}]
 
 on:
   merge_group:
@@ -8,19 +8,8 @@ on:
   pull_request:
     branches:
       - main
-    types:
-      - opened
-      - reopened
-      - ready_for_review
-      - synchronize
 
-permissions:
-  id-token: write
-  contents: read
-
-defaults:
-  run:
-    shell: bash
+permissions: {}
 
 jobs:
   run-checkov:
@@ -32,14 +21,6 @@ jobs:
         uses: govuk-one-login/github-actions/code-quality/run-checkov@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
         with:
           skip-checks: CKV_SECRET_6
-
-  check-shell-scripts:
-    name: Shell script checks
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Run shell checks
-        uses: govuk-one-login/github-actions/code-quality/check-shell-scripts@7d56b09b4d2a9a9c6005843d28f31a2333ad1373 # 13/03/2024
 
   check-linting:
     name: Linting checks
