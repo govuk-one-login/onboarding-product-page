@@ -46,7 +46,7 @@ BeforeAll(async function () {
     }
     console.log(`Running tests against ${process.env.HOST || "local"}`);
     browser = await puppeteer.launch({
-        timeout: 5000,
+        timeout: 10000,
         headless: !process.env.SHOW_BROWSER,
         args: ["--no-sandbox"]
     });
