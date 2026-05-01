@@ -111,6 +111,15 @@ Mappings:
       staging: 'arn:aws:iam::178023842775:root'
       integration: 'arn:aws:iam::729485541398:root'
       production: 'arn:aws:iam::451773080033:root'
+  JiraCredentialsSecretArn:
+    Environment:
+      local: "arn:aws:secretsmanager:eu-west-2:494650018671:secret:/product-pages/frontend/jira-auth-credentials-COXkjR"
+      demo: "arn:aws:secretsmanager:eu-west-2:494650018671:secret:/product-pages/frontend/jira-auth-credentials-COXkjR"
+      dev: "arn:aws:secretsmanager:eu-west-2:494650018671:secret:/product-pages/frontend/jira-auth-credentials-COXkjR"
+      build: "arn:aws:secretsmanager:eu-west-2:399055180839:secret:/product-pages/frontend/jira-auth-credentials-A72U8r"
+      staging: "arn:aws:secretsmanager:eu-west-2:325730373996:secret:/product-pages/frontend/jira-auth-credentials-FeVa4X"
+      integration: "arn:aws:secretsmanager:eu-west-2:663985455444:secret:/product-pages/frontend/jira-auth-credentials-zxY9L1"
+      production: "arn:aws:secretsmanager:eu-west-2:389946456390:secret:/product-pages/frontend/jira-auth-credentials-H3lV1z"
 
 Conditions:
   Subdomain: !Not [ !Equals [ !Ref DeploymentName, self-service ] ]
@@ -142,6 +151,11 @@ Conditions:
         !Equals [production, !Ref Environment],
       ],
     ]
+  IsDevelopmentAccount: !Or [
+    !Equals [dev, !Ref Environment],
+    !Equals [demo, !Ref Environment],
+    !Equals [local, !Ref Environment],
+  ]
 
 Resources:
 
@@ -206,8 +220,6 @@ Resources:
               Value: !If [ IsProd, 'false', "{{resolve:ssm:/product-pages/frontend/use-stub-jira}}" ]
             - Name: JIRA_USER_NAME
               Value: "{{resolve:ssm:/product-pages/frontend/jira-auth-user-name}}"
-            - Name: JIRA_API_KEY
-              Value: "{{resolve:secretsmanager:/product-pages/frontend/jira-auth-credentials}}"
             - Name: ENVIRONMENT
               Value: !Ref Environment
           Secrets:
@@ -235,6 +247,8 @@ Resources:
                   - - !FindInMap [ LoggingConfiguration, !Ref Environment, dynatraceSecretArn, DefaultValue: "" ]
                     - ':DT_CONNECTION_POINT::'
               - !Ref AWS::NoValue
+            - Name: JIRA_API_KEY
+              ValueFrom: !FindInMap [ JiraCredentialsSecretArn, Environment, !Ref Environment ]
           PortMappings:
             - ContainerPort: !Ref ContainerPort
           HealthCheck:
@@ -340,6 +354,21 @@ Resources:
               - Effect: Allow
                 Action: kms:Decrypt
                 Resource: arn:aws:kms:eu-west-2:216552277552:key/*
+        - PolicyName: GetJiraCredentialsSecret
+          PolicyDocument:
+            Statement:
+              - Effect: Allow
+                Action: secretsmanager:GetSecretValue
+                Resource: !FindInMap [ JiraCredentialsSecretArn, Environment, !Ref Environment ]
+              - Effect: Allow
+                Action: kms:Decrypt
+                Resource:
+                  Fn::ImportValue:
+                    !If
+                      - IsDevelopmentAccount
+                      - onboarding-infrastructure-secrets-key-product-pages-development-secrets-kms-key
+                      - !Sub onboarding-infrastructure-secrets-key-product-pages-${Environment}-secrets-kms-key
+
 
 
 
