@@ -33,7 +33,7 @@ export class TestContext extends World {
     }
 }
 
-BeforeAll(async function () {
+BeforeAll({timeout: 10000}, async function () {
     counter = 0;
     const screenshotsDir = `${process.env.TEST_REPORT_ABSOLUTE_DIR ?? "reports"}/screenshots`;
     if (fse.pathExistsSync(screenshotsDir)) {
