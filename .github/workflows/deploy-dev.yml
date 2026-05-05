@@ -2,9 +2,6 @@ name: Deploy to development
 run-name: Deploy to development [${{ github.head_ref || github.ref_name }}]
 
 on:
-  merge_group:
-    types:
-      - checks_requested
   pull_request:
     branches:
       - main
