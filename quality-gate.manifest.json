@@ -9,7 +9,7 @@
             "provider": "GitHub",
             "phase": "pre-merge",
             "config": {
-              "file": ".github/workflows/test.yml",
+              "file": ".github/workflows/validation.yml",
               "path": "jobs.run-checkov"
             }
           },
@@ -18,16 +18,7 @@
             "provider": "GitHub",
             "phase": "pre-merge",
             "config": {
-              "file": ".github/workflows/test.yml",
-              "path": "jobs.check-shell-scripts"
-            }
-          },
-          {
-            "check-types": ["code style and linting"],
-            "provider": "GitHub",
-            "phase": "pre-merge",
-            "config": {
-              "file": ".github/workflows/test.yml",
+              "file": ".github/workflows/validation.yml",
               "path": "jobs.check-linting"
             }
           },
@@ -36,7 +27,7 @@
             "provider": "GitHub",
             "phase": "pre-merge",
             "config": {
-              "file": ".github/workflows/test.yml",
+              "file": ".github/workflows/validation.yml",
               "path": "jobs.check-vulnerabilities"
             }
           },
@@ -45,7 +36,7 @@
             "provider": "GitHub",
             "phase": "pre-merge",
             "config": {
-              "file": ".github/workflows/test.yml",
+              "file": ".github/workflows/validation.yml",
               "path": "jobs.sonarcloud"
             }
           },
@@ -54,26 +45,8 @@
             "provider": "GitHub",
             "phase": "pre-merge",
             "config": {
-              "file": ".github/workflows/test.yml",
+              "file": ".github/workflows/validation.yml",
               "path": "jobs.run-unit-tests"
-            }
-          },
-          {
-            "check-types": ["contract"],
-            "provider": "GitHub",
-            "phase": "pre-merge",
-            "config": {
-              "file": ".github/workflows/deploy-contract.yml",
-              "path": "jobs.contract-testing"
-            }
-          },
-          {
-            "check-types": ["contract"],
-            "provider": "GitHub",
-            "phase": "pre-upload",
-            "config": {
-              "file": ".github/workflows/deploy-contract.yml",
-              "path": "jobs.contract-testing"
             }
           }
         ]
