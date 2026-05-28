@@ -2,8 +2,8 @@
   "name": "gds-di-product-page-ui-automation-tests",
   "description": "DI Product pages UI Automations tests",
   "scripts": {
-    "acceptance-tests": "npx puppeteer browsers install chrome && cucumber-js acceptance-features",
-    "accessibility-tests": "npx puppeteer browsers install chrome && cucumber-js accessibility-features"
+    "acceptance-tests": "cucumber-js acceptance-features",
+    "accessibility-tests": "cucumber-js accessibility-features"
   },
   "devDependencies": {
     "@axe-core/puppeteer": "^4.10.2",
