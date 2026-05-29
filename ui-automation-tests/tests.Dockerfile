@@ -63,7 +63,6 @@ ENV PUPPETEER_CACHE_DIR="/app/.cache/puppeteer"
 COPY package.json .
 COPY package-lock.json .
 RUN npm ci
-RUN npx puppeteer install chrome
 
 COPY --chmod=005 run-tests.sh /run-tests.sh
 
