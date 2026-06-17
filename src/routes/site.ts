@@ -139,4 +139,8 @@ router.get("/documentation/design-recommendations/start-page", (req, res) => {
     res.render("documentation-start-page.njk");
 });
 
+router.get("/documentation/connect-to-govuk-onelogin", (req, res) => {
+    res.render("documentation-connect-to-govuk-onelogin.njk");
+});
+
 export default router;

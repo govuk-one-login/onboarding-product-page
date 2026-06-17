@@ -1,20 +1,22 @@
 {% extends "base-side-nav.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
 
-{% set pageTitle = "Technical documentation" %}
+{% set pageTitle = "Documentation" %}
 {% set headerNavigationActiveItem = "documentation" %}
 {% set sideNav = {name: "documentation", active: "documentation"} %}
 {% set breadcrumbs = breadcrumbs(currentPageName = "Documentation") %}
 
 {% block mainContent %}
-  <h1 class="govuk-heading-l">Technical documentation</h1>
-  <p class="govuk-body">Our technical documentation will help you:</p>
+  <h1 class="govuk-heading-l">Documentation</h1>
+  <p class="govuk-body">Our documentation helps you:</p>
   <ul class="govuk-list govuk-list--bullet">
-    <li>understand how GOV.UK One Login works</li>
-    <li>test GOV.UK One Login in our integration environment</li>
+    <li>understand the authentication and identity user journeys with the journey maps</li>
+    <li>understand the user experience with the prototype</li>
+    <li>follow our design recommendations for integrating with your service</li>
+    <li>connect your service</li>
   </ul>
   <p class="govuk-body">
-    The documentation covers both the authentication and identity checking parts of GOV.UK One Login.
+    
   </p>
   <p class="govuk-body">
     <a class="govuk-link" href="https://docs.sign-in.service.gov.uk" rel="noreferrer noopener" target="_blank">Read our technical documentation (opens in new tab)</a>
