@@ -33,7 +33,7 @@ export default class RealSheetsService implements SheetsService {
         return new Promise(async (resolve, reject) => {
             try {
                 const creds = JSON.parse(data);
-                this.jwt = new JWT(creds.client_email, undefined, creds.private_key, this.SCOPES, undefined);
+                this.jwt = new JWT({email: creds.client_email, key: creds.private_key, scopes: this.SCOPES});
                 resolve(this.jwt);
             } catch (error) {
                 reject(error);
