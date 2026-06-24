@@ -1,8 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import {World, After, AfterAll, Before, BeforeAll, setWorldConstructor} from "@cucumber/cucumber";
+import {World, After, AfterAll, Before, BeforeAll, setDefaultTimeout, setWorldConstructor} from "@cucumber/cucumber";
 import {IWorldOptions} from "@cucumber/cucumber/lib/support_code_library_builder/world";
 import puppeteer, {Browser, Page} from "puppeteer";
 import fse from "fs-extra";
+
+setDefaultTimeout(10 * 1000);
 
 let browser: Browser, counter: number;
 

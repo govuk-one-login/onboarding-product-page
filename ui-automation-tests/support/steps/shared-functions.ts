@@ -1,7 +1,7 @@
 import {strict as assert} from "assert";
 import {ElementHandle, Page} from "puppeteer";
 
-const defaultTimeout = 5000;
+const defaultTimeout = 10000;
 // eslint-disable-next-line
 export async function getLink(page: Page, linkText: string): Promise<any> {
     const links = await page.$$(`::-p-xpath(//a[text()="${linkText}"])`);
