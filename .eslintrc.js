@@ -10,5 +10,14 @@ module.exports = {
     },
     plugins: ["@typescript-eslint"],
     extends: ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
-    ignorePatterns: ["node_modules", "dist"]
+    ignorePatterns: ["node_modules", "dist"],
+    overrides: [
+        {
+            files: ["**/*.spec.ts"],
+            rules: {
+                // Some chai assertions trigger this rule (e.g `expect(x).to.be.true`)
+                "@typescript-eslint/no-unused-expressions": "off"
+            }
+        }
+    ]
 };
