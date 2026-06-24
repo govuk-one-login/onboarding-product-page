@@ -71,6 +71,8 @@ After(async function (this: TestContext, scenario) {
         });
         return this.attach(Buffer.from(stream), "image/jpeg");
     }
+
+    await this.page.close();
 });
 
 AfterAll(async function () {
