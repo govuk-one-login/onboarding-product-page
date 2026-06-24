@@ -29,6 +29,8 @@ updates:
         update-types: [ "version-update:semver-major" ]
       - dependency-name: "@govuk-frontend"
         update-types: [ "version-update:semver-major" ]
+      - dependency-name: "mocha"
+        update-types: "^11.3.0"
   - package-ecosystem: npm
     directory: /ui-automation-tests
     schedule:
