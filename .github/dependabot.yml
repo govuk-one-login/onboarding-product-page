@@ -50,7 +50,9 @@ updates:
           - "minor"
           - "patch"
   - package-ecosystem: github-actions
-    directory: /
+    directories: 
+      - /
+      - /.github/**
     schedule:
       interval: daily
     cooldown:
