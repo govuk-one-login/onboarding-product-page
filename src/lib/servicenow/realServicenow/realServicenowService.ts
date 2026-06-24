@@ -16,7 +16,7 @@ export default class RealServicenowService implements ServicenowInterface {
             function parseServiceNowCredentials(credentials: string): ServiceNowCredentials | undefined {
                 try {
                     return JSON.parse(credentials) as ServiceNowCredentials;
-                } catch (error) {
+                } catch {
                     console.error("Failed to parse SERVICENOW_AUTH_CREDENTIALS");
                     return undefined;
                 }
@@ -29,7 +29,7 @@ export default class RealServicenowService implements ServicenowInterface {
                 try {
                     const tokenResponse = await fetchOAuth2Token(accessTokenUrl, clientId, clientSecret, username, password);
                     return tokenResponse.access_token;
-                } catch (error) {
+                } catch {
                     console.error("Failed to fetch token");
                 }
             } else {
