@@ -48,7 +48,12 @@ BeforeAll({timeout: 10000}, async function () {
     browser = await puppeteer.launch({
         timeout: 10000,
         headless: !process.env.SHOW_BROWSER,
-        args: ["--no-sandbox"]
+        args: [
+            "--no-sandbox",
+            "--disable-setuid-sandbox", // Companion flag for --no-sandbox
+            "--disable-dev-shm-usage", // Use /tmp instead of /dev/shm due to limited /dev/shm in docker environment
+            "--disable-gpu" // Disables hardware acceleration since Docker has no GPU
+        ]
     });
 });
 
@@ -71,6 +76,8 @@ After(async function (this: TestContext, scenario) {
         });
         return this.attach(Buffer.from(stream), "image/jpeg");
     }
+
+    await this.page.close();
 });
 
 AfterAll(async function () {
