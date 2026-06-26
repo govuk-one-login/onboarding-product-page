@@ -2,30 +2,23 @@
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
 
 {% set pageTitle = "Accessibility statement" %}
-{% set breadcrumbs = breadcrumbs(currentPageName = "Accessibility statement for the GOV.UK One Login website") %}
+{% set breadcrumbs = breadcrumbs(currentPageName = "Accessibility statement for the GOV.UK One Login product website") %}
 
 {% block mainContent %}
-  <h1 class="govuk-heading-l">Accessibility statement for the GOV.UK One Login website</h1>
+  <h1 class="govuk-heading-l">Accessibility statement for the GOV.UK One Login product website</h1>
 
-  <p class="govuk-body">GOV.UK One Login and the GOV.UK One Login admin tool are part of the wider GOV.UK website. There’s a separate accessibility statement for the main GOV.UK website.</p>
-  <p class="govuk-body">This accessibility statement only contains information about the <a href="/" class="govuk-link"> GOV.UK One Login website</a> and the <a href="{{ adminToolUrl }}">GOV.UK One Login admin tool</a>.</p>
+  <p class="govuk-body">GOV.UK One Login and the GOV.UK One Login admin tool are part of the wider GOV.UK website. There’s a separate accessibility statement for the main GOV.UK website and an <a class="govuk-link" href="https://signin.account.gov.uk/accessibility-statement">accessibility statement for the GOV.UK One Login service</a>.</p>
+
+  <p class="govuk-body">This accessibility statement only contains information about the <a href="/" class="govuk-link"> GOV.UK One Login product website</a> and the <a href="{{ adminToolUrl }}" class="govuk-link">GOV.UK One Login admin tool</a>.</p>
   <p class="govuk-body">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    This accessibility statement explains:
-=======
     This accessibility statement explains:</p>
->>>>>>> Stashed changes
-=======
-    This accessibility statement explains:</p>
->>>>>>> Stashed changes
   <ul class="govuk-list govuk-list--bullet">
     <li>how accessible the website is</li>
     <li>what work we’re planning to do</li>
     <li>what to do if you have difficulty using it</li>
     <li>how to report any accessibility problems</li>
   </ul>
-  </p>
+
 
   <h2 class="govuk-heading-m">
     What this website should do
@@ -41,29 +34,21 @@
   </p>
 
   <p class="govuk-body">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    You should be able to:
-=======
     You should be able to:</p>
->>>>>>> Stashed changes
-=======
-    You should be able to:</p>
->>>>>>> Stashed changes
   <ul class="govuk-list govuk-list--bullet">
     <li>zoom in up to 300% without problems</li>
     <li>navigate most of the website using just a keyboard</li>
     <li>navigate most of the website using speech recognition software</li>
     <li>use most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)</li>
   </ul>
-  </p>
+
 
   <h2 class="govuk-heading-m">
     How we tested this website
   </h2>
 
   <p class="govuk-body">
-    The GOV.UK One Login website was last tested in July 2022. The test was carried out by the Digital Accessibility Centre (DAC), who produced an accessibility audit report on 13 October 2021.
+    The GOV.UK One Login website was first tested in July 2022. The test was carried out by the Digital Accessibility Centre (DAC), who produced an accessibility audit report on 13 October 2021.
   </p>
 
   <p class="govuk-body">
@@ -83,22 +68,17 @@
   </p>
 
   <p class="govuk-body">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    This included:
-=======
     This included:</p>
->>>>>>> Stashed changes
-=======
-    This included:</p>
->>>>>>> Stashed changes
   <ul class="govuk-list govuk-list--bullet">
     <li>making link text more descriptive</li>
     <li>labelling form fields correctly</li>
     <li>fixing some ‘skip’ links that did not take users to the correct destination</li>
   </ul>
-  </p>
 
+  <p class="govuk-body">In further testing against WCAG 2.2 Level A and AA in June 2025, we found the following issue:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>If you use the back button after completing the first page of the support form the continue button remains disabled until you refresh the page. This is a failure of WCAG 2.2 success criterion 3.3.7 Redundant Entry.</li>
+  </ul>
 
   <p class="govuk-body">On the GOV.UK One Login admin tool, following our own internal testing, we have fixed outstanding A and AA issues.</p>
 
@@ -110,10 +90,10 @@
 
 
   <p class="govuk-body">
-    We are continuing to look at fixing the accessibility issues on the 
-    <a href="https://status.account.gov.uk/" class="govuk-link">GOV.UK One Login's status page</a> which 
+    We are continuing to look at fixing the accessibility issues on the
+    <a href="https://status.account.gov.uk/" class="govuk-link">GOV.UK One Login's status page</a> which
     was added in May 2023. You can <a href="#non-compliances-section" class="govuk-link">
-    find out more about the non-compliances on the GOV.UK One Login status page</a>.
+      find out more about the non-compliances on the GOV.UK One Login status page</a>.
   </p>
 
   <h2 class="govuk-heading-m">
@@ -122,7 +102,7 @@
 
 
   <p class="govuk-body">
-    If you have difficulty using this website, you can get in touch using our<a href="/support" class="govuk-link">
+    If you have difficulty using this website, you can get in touch using our <a href="/support" class="govuk-link">
       support form</a>.
   </p>
 
@@ -137,7 +117,6 @@
   <p class="govuk-body">
     If you find any problems, or think we’re not meeting accessibility requirements, you can get in touch using our<a href="/support" class="govuk-link">
       support form</a>.
-    </a>
   </p>
 
   <h2 class="govuk-heading-m">
@@ -145,9 +124,7 @@
   </h2>
 
   <p class="govuk-body">
-    The Equality and Human Rights Commission (EHRC) is responsible for enforcing the
-    Public Sector Bodies (Websites and Mobile Applications) (No. 2)
-    Accessibility Regulations 2018 (the ‘accessibility regulations’).
+    The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’).
   </p>
 
 
@@ -165,53 +142,42 @@
     The Government Digital Service is committed to making its websites accessible,
     in accordance with the Public Sector Bodies (Websites and Mobile Applications)
     (No. 2) Accessibility Regulations 2018.
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    <br><br>
-=======
   </p>
   <p class="govuk-body">
->>>>>>> Stashed changes
-=======
-  </p>
-  <p class="govuk-body">
->>>>>>> Stashed changes
-    This website is partially compliant with the WCAG version 
-    2.1 AA standard, due to the non-compliances listed below.
-  </p>
+  This website is partially compliant with the WCAG version
+  2.2 Level AA standard, due to the non-compliances listed below.
+</p>
 
   <h3 class="govuk-heading-m" id="non-compliances-section">
-    Non-compliance with the accessibility regulations
+    Non-compliance with the accessibility regulations for the One Login status page
   </h3>
-  
+
   <p class="govuk-body">
-    The following content on <a href="https://status.account.gov.uk/" class="govuk-link">GOV.UK One Login's status page</a> 
-    is not compliant with the WCAG version 2.1 AA standard. 
+    The following content on <a href="https://status.account.gov.uk/" class="govuk-link">GOV.UK One Login's status page</a>
+    is not compliant with the WCAG version 2.2 Level AA standard.
   </p>
 
   <h4 class="govuk-heading-s">
     Level A failures
   </h4>
 
-  <p class="govuk-body">
-    <ul class="govuk-list govuk-list--bullet">
-      <li>Text presentation uses incorrect semantics - for example headers and other elements of the visual structure are not accessible to people who cannot see this visual presentation (WCAG success criterion 1.3.1)</li>
-      <li>Some links are implemented in a way that is not consistent with HTML nesting rules - links may not work or may behave in unexpected ways across different assistive technologies (WCAG success criterion 4.1.1)</li>
-    </ul>
-  </p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>Text presentation uses incorrect semantics - for example headers and other elements of the visual structure are not accessible to people who cannot see this visual presentation (WCAG 2.2 success criterion 1.3.1)</li>
+    <li>Some links are implemented in a way that is not consistent with HTML nesting rules – links may not work or may behave in unexpected ways across different assistive technologies (WCAG 2.2 success criterion 4.1.1)</li>
+  </ul>
+
 
   <h4 class="govuk-heading-s">
     Level AA failures
   </h4>
 
-  <p class="govuk-body">
-    <ul class="govuk-list govuk-list--bullet">
-      <li>Multiple text elements use poor contrast with their backgrounds making some text elements not perceivable to people with moderately low vision (WCAG success criterion 1.4.3)</li>
-      <li>Text size cannot be increased to 200% without negative effects such as text overlapping or text being cut off (WCAG success criterion 1.4.4)</li>
-      <li>Content cannot be presented without loss of information when using browser zoom at 400% (WCAG success criterion 1.4.10)</li>
-      <li>‘Subscribe to updates’ forms, when submitted with incorrect data, do not inform screen reader users of the error message when it becomes available (WCAG success criterion 4.1.3)</li>
-    </ul>
-  </p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>Multiple text elements use poor contrast with their backgrounds making some text elements not perceivable to people with moderately low vision (WCAG 2.2 success criterion 1.4.3)</li>
+    <li>Text size cannot be increased to 200% without negative effects such as text overlapping or text being cut off (WCAG success criterion 1.4.4)</li>
+    <li>Content cannot be presented without loss of information when using browser zoom at 400% (WCAG 2.2 success criterion 1.4.10)</li>
+    <li>‘Subscribe to updates’ forms, when submitted with incorrect data, do not inform screen reader users of the error message when it becomes available (WCAG 2.2 success criterion 4.1.3)</li>
+  </ul>
+
 
   <p class="govuk-body">
     Together with the supplier of the GOV.UK One Login status page, we intend to make this service fully accessible. We are continuously improving and reviewing the service.
@@ -222,6 +188,6 @@
   </h2>
 
   <p class="govuk-body">
-    This statement was prepared on 16 May 2023. It was last reviewed on 18 October 2023.
+    This statement was prepared on 16 May 2023. It was last reviewed and updated on 25 June 2025.
   </p>
 {% endblock %}
