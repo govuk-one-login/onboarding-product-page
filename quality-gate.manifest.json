@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.16.0/schemas/schema.json",
+  "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.17.0/schemas/schema.json",
   "services": [
     {
       "product": "Orchestration",
@@ -12,49 +12,39 @@
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/validation.yml",
-            "path": "$.jobs.run-checkov"
-          },
           "checks": [
             {
               "name": "code style and linting"
             }
-          ]
+          ],
+          "file": ".github/workflows/validation.yml",
+          "path": "$.jobs.run-checkov"
         },
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/validation.yml",
-            "path": "$.jobs.check-linting"
-          },
           "checks": [
             {
               "name": "code style and linting"
             }
-          ]
+          ],
+          "file": ".github/workflows/validation.yml",
+          "path": "$.jobs.check-linting"
         },
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/validation.yml",
-            "path": "$.jobs.check-vulnerabilities"
-          },
           "checks": [
             {
               "name": "vulnerability detection"
             }
-          ]
+          ],
+          "file": ".github/workflows/validation.yml",
+          "path": "$.jobs.check-vulnerabilities"
         },
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/validation.yml",
-            "path": "$.jobs.sonarcloud"
-          },
           "checks": [
             {
               "name": "code quality"
@@ -62,20 +52,20 @@
             {
               "name": "unit test coverage"
             }
-          ]
+          ],
+          "file": ".github/workflows/validation.yml",
+          "path": "$.jobs.sonarcloud"
         },
         {
           "phase": "pre-merge",
           "provider": "GitHub",
-          "config": {
-            "file": ".github/workflows/validation.yml",
-            "path": "$.jobs.run-unit-tests"
-          },
           "checks": [
             {
               "name": "unit"
             }
-          ]
+          ],
+          "file": ".github/workflows/validation.yml",
+          "path": "$.jobs.run-unit-tests"
         }
       ]
     }
