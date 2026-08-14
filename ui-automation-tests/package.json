@@ -6,7 +6,7 @@
     "accessibility-tests": "cucumber-js accessibility-features"
   },
   "devDependencies": {
-    "@axe-core/puppeteer": "^4.11.3",
+    "@axe-core/puppeteer": "^4.12.1",
     "@cucumber/cucumber": "^12.8.1",
     "@types/chai": "^4.3.1",
     "@types/chai-as-promised": "^7.1.8",
@@ -14,9 +14,9 @@
     "@types/node": "^25.9.3",
     "chai": "^4.3.6",
     "chai-as-promised": "^7.1.1",
-    "fs-extra": "^11.3.5",
+    "fs-extra": "^11.4.0",
     "nodemon": "^3.1.14",
-    "puppeteer": "^25.1.0",
+    "puppeteer": "^25.5.0",
     "ts-node": "^10.9.1",
     "typescript": "^6.0.3"
   }
