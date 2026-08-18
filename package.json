@@ -28,7 +28,7 @@
     "axios": "^1.18.0",
     "email-validator": "^2.0.4",
     "express": "^5.2.1",
-    "googleapis": "^173.0.0",
+    "googleapis": "^174.0.1",
     "govuk-frontend": "^5.11.0",
     "helmet": "^7.0.0",
     "nunjucks": "^3.2.3",
