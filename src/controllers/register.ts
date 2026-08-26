@@ -5,6 +5,7 @@ import SheetsService from "../lib/sheets/SheetsService";
 import Validation from "../lib/validation/validation";
 import JiraTicketService from "../lib/jira/JiraTicketService";
 import axios from "axios";
+import logger from "../lib/logger";
 
 export const confirm = function (req: Request, res: Response) {
     res.render("register-confirm.njk");
@@ -99,11 +100,14 @@ export const post = async function (req: Request, res: Response) {
                 await jiraService.sendJiraTicket();
             } catch (error) {
                 if (axios.isAxiosError(error)) {
-                    console.error("Jira Post request failed with status code: ", error.status);
-                    console.error("Axios Error, errorMessages Object: ", error.response?.data?.errorMessages);
-                    console.error("Axios Error, errors Object: ", error.response?.data?.errors);
+                    logger.error("Jira Post request failed with status code: " + (error.status ?? "No status code"));
+                    logger.error("Jira Post request failed with status text: " + (error.response?.statusText ?? "No status text"));
+                    logger.error("Jira Post request failed with data: " + JSON.stringify(error.response?.data ?? ""));
+                    logger.error("Axios Error, errorMessages Object: " + error.response?.data?.errorMessages);
+                    logger.error("Axios Error, errors Object: " + error.response?.data?.errors);
+                    logger.error("Jira Integration error: " + error.message);
                 } else {
-                    console.error("Jira Integration error: ", error);
+                    logger.error("Jira Integration error: " + error);
                 }
                 redirectTo = "/register-error";
             }

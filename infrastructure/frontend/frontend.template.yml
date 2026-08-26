@@ -247,7 +247,7 @@ Resources:
                   - - !FindInMap [ LoggingConfiguration, !Ref Environment, dynatraceSecretArn, DefaultValue: "" ]
                     - ':DT_CONNECTION_POINT::'
               - !Ref AWS::NoValue
-            - Name: JIRA_API_KEY
+            - Name: JIRA_SCOPED_TOKEN
               ValueFrom: !FindInMap [ JiraCredentialsSecretArn, Environment, !Ref Environment ]
           PortMappings:
             - ContainerPort: !Ref ContainerPort
