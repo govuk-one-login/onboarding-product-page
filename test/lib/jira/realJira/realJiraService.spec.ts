@@ -2,7 +2,7 @@ import axios from "axios";
 import sinon from "sinon";
 import {JIRA_BOARD_URL, JIRA_ISSUE_TYPE, JIRA_PROJECT_KEY} from "../../../../src/config/jiraConfig";
 import RealJiraService from "../../../../src/lib/jira/realJira/realJiraService";
-import {testApiKey, testFormSubmission, testUserName} from "../testConstants";
+import {testApiKey as testScopedToken, testFormSubmission, testUserName} from "../testConstants";
 
 const testFormattedJiraPayload = {
     fields: {
@@ -114,13 +114,13 @@ describe("realJiraService tests", () => {
         });
 
         process.env.JIRA_USER_NAME = testUserName;
-        process.env.JIRA_API_KEY = testApiKey;
+        process.env.JIRA_SCOPED_TOKEN = testScopedToken;
     });
 
     afterEach(() => {
         sinon.restore();
         delete process.env.JIRA_USER_NAME;
-        delete process.env.JIRA_API_KEY;
+        delete process.env.JIRA_SCOPED_TOKEN;
     });
 
     it("posts a ticket to the board url when postJiraTicket is called", async () => {
@@ -129,11 +129,8 @@ describe("realJiraService tests", () => {
         sinon.assert.calledWith(axiosStub, JIRA_BOARD_URL, JSON.stringify(testFormattedJiraPayload), {
             headers: {
                 "Content-Type": "application/json",
-                Accept: "application/json"
-            },
-            auth: {
-                username: testUserName,
-                password: testApiKey
+                Accept: "application/json",
+                Authorization: `Basic ${Buffer.from(`${testUserName}:${testScopedToken}`).toString("base64")}`
             }
         });
     });

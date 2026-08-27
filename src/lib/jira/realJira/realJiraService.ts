@@ -16,14 +16,14 @@ export default class RealJiraService implements JiraService {
     private readonly projectKey: string;
     private readonly issueType: string;
     private readonly jiraUsername: string;
-    private readonly jiraApiKey: string;
+    private readonly jiraScopedToken: string;
 
     constructor() {
         this.jiraBoardUrl = JIRA_BOARD_URL;
         this.projectKey = JIRA_PROJECT_KEY;
         this.issueType = JIRA_ISSUE_TYPE;
         this.jiraUsername = getRequiredEnv("JIRA_USER_NAME");
-        this.jiraApiKey = getRequiredEnv("JIRA_API_KEY");
+        this.jiraScopedToken = getRequiredEnv("JIRA_SCOPED_TOKEN");
     }
 
     private ticketSummary(ticketPayload: RegisterInterestFormPayload): string {
@@ -211,11 +211,8 @@ export default class RealJiraService implements JiraService {
         const jiraResponse = await axios.post(this.jiraBoardUrl, JSON.stringify(formattedTicketPayload), {
             headers: {
                 "Content-Type": "application/json",
-                Accept: "application/json"
-            },
-            auth: {
-                username: this.jiraUsername,
-                password: this.jiraApiKey
+                Accept: "application/json",
+                Authorization: `Basic ${Buffer.from(`${this.jiraUsername}:${this.jiraScopedToken}`).toString("base64")}`
             }
         });
         return jiraResponse.data as JiraPostResponse;

@@ -41,7 +41,7 @@ describe("JiraService tests", () => {
     it("uses the real service when USE_STUB_JIRA is set to false", async () => {
         process.env.USE_STUB_JIRA = "false";
         process.env.JIRA_USER_NAME = testUserName;
-        process.env.JIRA_API_KEY = testApiKey;
+        process.env.JIRA_SCOPED_TOKEN = testApiKey;
         const realJiraService = new JiraTicketService(testFormSubmission);
         sinon.assert.calledWith(consoleSpy, "Using Real Jira Service");
         await realJiraService.sendJiraTicket();
