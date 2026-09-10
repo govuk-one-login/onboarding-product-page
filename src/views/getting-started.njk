@@ -2,7 +2,8 @@
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
 {% from "dist/govuk/components/button/macro.njk" import govukButton %}
 
-{% set pageTitle = "Get started" %}
+{% set pageTitle = "How to get started" %}
+{% set metaDescription = "Register your interest to see if GOV.UK One Login is suitable for your government service" %}
 {% set headerNavigationActiveItem = "get-started" %}
 {% set breadcrumbs = breadcrumbs(currentPageName = pageTitle) %}
 {% set registerButtonLink %}{{ adminToolUrl }}/register{% endset %}

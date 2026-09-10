@@ -1,7 +1,8 @@
 {% extends "base-form.njk" %}
 {% from "macros/breadcrumbs.njk" import breadcrumbs %}
 
-{% set pageTitle = "Support" %}
+{% set pageTitle = "Support for teams" %}
+{% set metaDescription = "Get help with GOV.UK One Login if you're a government service team or report a problem" %}
 {% set headerNavigationActiveItem = "support" %}
 {% set breadcrumbs = breadcrumbs(currentPageName = pageTitle) %}
 {% set formAction = "/support" %}
@@ -9,6 +10,8 @@
 
 {% block beforeForm %}
   <h1 class="govuk-heading-l">Support</h1>
+  <p class="govuk-body">Support and advice for government services using GOV.UK One Login.</p>
+  <p class="govuk-body">If you're a member of the public, see <a class="govuk-link" href="https://www.gov.uk/using-your-gov-uk-one-login">Using your GOV.UK One Login</a>.</p>
 {% endblock %}
 
 {% block formInputs %}
