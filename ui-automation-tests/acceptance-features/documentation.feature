@@ -6,4 +6,4 @@ Feature: Documentation page
   Scenario: Read the technical documentation
 
     When they click on the "Technical documentation" link
-    Then they should be directed to a page with the title "Technical documentation - GOV.UK One Login"
+    Then they should be directed to a page with the title "Technical documentation - GOV.UK One Login product information"

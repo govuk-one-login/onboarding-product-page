@@ -5,7 +5,7 @@ Feature: One login prototype Documentation page
     When they click on the "GOV.UK One Login prototype" link
 
   Scenario: Read the GOV.UK One Login prototype documentation
-    Then they should be directed to a page with the title "GOV.UK One Login prototype - GOV.UK One Login"
+    Then they should be directed to a page with the title "GOV.UK One Login prototype - GOV.UK One Login product information"
 
   Scenario: Get Access to prototype
     When they click on the 'Get access' button-link
@@ -42,4 +42,4 @@ Feature: One login prototype Documentation page
       When they submit the email 'test@gov.uk'
       Then they should see the text 'Email address sent'
       When they click on the 'Go back to documentation' link
-      Then they should be directed to a page with the title "GOV.UK One Login prototype - GOV.UK One Login"
+      Then they should be directed to a page with the title "GOV.UK One Login prototype - GOV.UK One Login product information"
