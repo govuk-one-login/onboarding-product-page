@@ -16,8 +16,8 @@
     "test": "mocha 'test/**/*.spec.ts'",
     "test:cov": "c8 npm run test",
     "sonar": "sonar-scanner",
-    "cucumber": "npm run acceptance-tests -w ui-automation-tests --",
-    "accessible-tests": "npm run cucumber -- --tags @accessible",
+    "acceptance-tests": "cd ui-automation-tests && npm run acceptance-tests",
+    "accessibility-tests": "cd ui-automation-tests && npm run accessibility-tests",
     "build-docker": "docker build --tag product-pages-frontend --file Dockerfile ..",
     "lint": "prettier . --check ; eslint .",
     "lint:fix": "prettier . --write ; eslint . --fix"
