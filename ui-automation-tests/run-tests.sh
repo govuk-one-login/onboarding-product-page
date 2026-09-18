@@ -34,7 +34,7 @@ printf "Endpoint ok\n"
 printf "Running e2e tests...\n"
 
 if [[ $ENVIRONMENT =~ dev ]] || [[ $ENVIRONMENT =~ build ]]; then
-  npm run acceptance-tests
+  npm run tests
 fi
 
 exit 0
