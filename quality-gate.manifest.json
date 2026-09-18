@@ -4,7 +4,7 @@
     {
       "product": "Orchestration - Onboarding",
       "component": "GOV.UK One Login product-page",
-      "promotionType": "other",
+      "promotionType": "securePipelines",
       "promotionTypeDetails": [
         "Only dev and production environments"
       ],
