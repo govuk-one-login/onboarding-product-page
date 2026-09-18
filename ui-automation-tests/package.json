@@ -3,7 +3,8 @@
   "description": "DI Product pages UI Automations tests",
   "scripts": {
     "acceptance-tests": "cucumber-js acceptance-features",
-    "accessibility-tests": "cucumber-js accessibility-features"
+    "accessibility-tests": "cucumber-js accessibility-features",
+    "tests": "cucumber-js accessibility-features acceptance-features"
   },
   "devDependencies": {
     "@axe-core/puppeteer": "^4.12.1",
