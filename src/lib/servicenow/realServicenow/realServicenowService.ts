@@ -66,7 +66,7 @@ export default class RealServicenowService implements ServicenowInterface {
                 "Content-Type": "application/json"
             }
         });
-        // eslint-disable-next-line
+
         let sent: boolean = true;
         await instance
             .post(postUrl, data)
