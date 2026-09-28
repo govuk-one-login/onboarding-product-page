@@ -29,7 +29,7 @@
     "email-validator": "^2.0.4",
     "express": "^5.2.1",
     "googleapis": "^174.0.1",
-    "govuk-frontend": "^5.11.0",
+    "govuk-frontend": "^6.5.1",
     "helmet": "^7.0.0",
     "nunjucks": "^3.2.3",
     "pino": "^10.3.1",
