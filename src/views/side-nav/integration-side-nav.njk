@@ -1,0 +1,35 @@
+{% from "../macros/side-navigation.njk" import sideNavigation %}
+
+{% macro nav(active) %}
+  {{ sideNavigation([
+    {
+      name: "Integrate with GOV.UK One Login",
+      description: "onboarding-journey",
+      href: "/onboarding-journey"
+    },
+    {
+      name: "1. Plan your integration",
+      description: "phase-1",
+      href: "/onboarding-journey/phase-1",
+      isChild: true
+    },
+    {
+      name: "2. Build your integration",
+      description: "phase-2",
+      href: "/onboarding-journey/phase-2",
+      isChild: true
+    },
+    {
+      name: "3. Request to go live",
+      description: "phase-3",
+      href: "/onboarding-journey/phase-3",
+      isChild: true
+    },
+    {
+      name: "4. Manage your live service",
+      description: "phase-4",
+      href: "/onboarding-journey/phase-4",
+      isChild: true
+    }
+  ], active) }}
+{% endmacro %}

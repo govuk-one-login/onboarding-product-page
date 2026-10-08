@@ -1,0 +1,44 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "Stage 2: Build your integration" %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "phase-2"} %}
+{% set breadcrumbs = breadcrumbs(
+  intermediateCrumbs = [{ text: "Integrate with GOV.UK One Login", href: "/onboarding-journey" }],
+  currentPageName = "Stage 2: Build your integration"
+) %}
+
+{% block mainContent %}
+  <span class="govuk-caption-l">Integrate with GOV.UK One Login</span>
+  <h1 class="govuk-heading-l">Stage 2: Build your integration</h1>
+
+  <p class="govuk-body">Connect your service to GOV.UK One Login in the integration environment and test all your user journeys before requesting production access.</p>
+
+  <h2 class="govuk-heading-m">Set up your access</h2>
+  <ul class="govuk-list govuk-list--bullet">
+    <li><a class="govuk-link" href="/getting-started">Sign in or create an admin account</a> using a government email address</li>
+    <li>Register your service to get your client credentials</li>
+  </ul>
+
+  <h2 class="govuk-heading-m">Build the integration</h2>
+  <p class="govuk-body">Follow the <a class="govuk-link" href="https://docs.sign-in.service.gov.uk" rel="noreferrer noopener" target="_blank">technical documentation (opens in new tab)</a>. Things to get right:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>only request the user data your service actually needs</li>
+    <li>make sure users are fully signed out of both your service and GOV.UK One Login when they sign out</li>
+    <li>handle errors gracefully — for example, when a user cancels or their session expires</li>
+  </ul>
+
+  <h2 class="govuk-heading-m">Test your integration</h2>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>Test the full sign-in and sign-out journeys end to end</li>
+    <li>Test identity checking flows if your service uses them</li>
+    <li>Test on mobile and with assistive technologies</li>
+    <li>Test your user support process — can your team handle a sign-in query from start to finish?</li>
+  </ul>
+
+  <nav class="govuk-body govuk-!-margin-top-6" aria-label="Stage navigation">
+    <p><a class="govuk-link" href="/onboarding-journey/phase-1">Previous: Stage 1 — Plan your integration</a></p>
+    <p><a class="govuk-link" href="/onboarding-journey/phase-3">Next: Stage 3 — Request to go live</a></p>
+  </nav>
+{% endblock %}

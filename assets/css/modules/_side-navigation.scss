@@ -10,10 +10,9 @@
 
   &__item {
     @include govuk-font($size: 19);
-
-    border-bottom: 1px $govuk-border-colour solid;
     display: block;
-    padding: govuk-spacing(2) 0;
+    padding: govuk-spacing(2) 0 govuk-spacing(2) govuk-spacing(3);
+    border-left: 4px solid transparent;
 
     a:link {
       text-decoration: none;
@@ -23,14 +22,11 @@
     a:active {
       text-decoration: underline;
     }
-
-    &:last-child {
-      border-bottom: 0;
-    }
   }
 
   &__item--active {
     @include govuk-font($size: 19, $weight: bold);
+    border-left-color: govuk-colour("blue");
 
     a:link,
     a:visited {
@@ -40,5 +36,5 @@
 }
 
 #main-content.side-nav-wrapper .side-navigation .side-navigation__list .side-navigation__item--child {
-  padding-left: 20px;
+  padding-left: govuk-spacing(6);
 }

@@ -29,6 +29,26 @@ router.get("/about/roadmap", (req, res) => {
     res.render("roadmap.njk");
 });
 
+router.get("/onboarding-journey", (req, res) => {
+    res.render("onboarding-journey.njk");
+});
+
+router.get("/onboarding-journey/phase-1", (req, res) => {
+    res.render("onboarding-phase-1.njk");
+});
+
+router.get("/onboarding-journey/phase-2", (req, res) => {
+    res.render("onboarding-phase-2.njk");
+});
+
+router.get("/onboarding-journey/phase-3", (req, res) => {
+    res.render("onboarding-phase-3.njk");
+});
+
+router.get("/onboarding-journey/phase-4", (req, res) => {
+    res.render("onboarding-phase-4.njk");
+});
+
 router.get("/documentation", (req, res) => {
     res.render("documentation.njk");
 });

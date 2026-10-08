@@ -1,0 +1,42 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "Stage 4: Manage your live service" %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "phase-4"} %}
+{% set breadcrumbs = breadcrumbs(
+  intermediateCrumbs = [{ text: "Integrate with GOV.UK One Login", href: "/onboarding-journey" }],
+  currentPageName = "Stage 4: Manage your live service"
+) %}
+
+{% block mainContent %}
+  <span class="govuk-caption-l">Integrate with GOV.UK One Login</span>
+  <h1 class="govuk-heading-l">Stage 4: Manage your live service</h1>
+
+  <p class="govuk-body">Once you are live, keep your integration working well and stay up to date with changes to GOV.UK One Login.</p>
+
+  <h2 class="govuk-heading-m">Monitor your service</h2>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>Subscribe to the <a class="govuk-link" href="https://status.account.gov.uk">status page</a> so you know about any incidents that may affect your users</li>
+    <li>Use the data analytics dashboard to track sign-in volumes and success rates for your service</li>
+  </ul>
+
+  <h2 class="govuk-heading-m">Stay up to date with changes</h2>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>Subscribe to release notes — when GOV.UK One Login makes changes that affect your service, you will need to act before the deadline</li>
+    <li>Join monthly meetings for live services — you will get updates on upcoming changes and can ask questions</li>
+    <li>Use the Live Services Hub for guidance and support contacts</li>
+  </ul>
+
+  <h2 class="govuk-heading-m">Support your users</h2>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>If users have problems with their GOV.UK One Login account, direct them to the <a class="govuk-link" href="https://home.account.gov.uk/contact-gov-uk-one-login" rel="noreferrer noopener" target="_blank">GOV.UK One Login help centre (opens in new tab)</a></li>
+    <li>Keep your service credentials up to date in the admin tool</li>
+  </ul>
+
+  <p class="govuk-body">Have a question or spotted a problem? Use the <a class="govuk-link" href="/support">support form</a> or find us on <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack</a>.</p>
+
+  <nav class="govuk-body govuk-!-margin-top-6" aria-label="Stage navigation">
+    <a class="govuk-link" href="/onboarding-journey/phase-3">Previous: Stage 3 — Request to go live</a>
+  </nav>
+{% endblock %}

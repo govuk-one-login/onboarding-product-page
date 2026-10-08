@@ -1,0 +1,39 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "Phase 5: Live operations" %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "phase-5"} %}
+{% set breadcrumbs = breadcrumbs(
+  intermediateCrumbs = [{ text: "Onboarding journey", href: "/onboarding-journey" }],
+  currentPageName = "Phase 5: Live operations"
+) %}
+
+{% block mainContent %}
+  <span class="govuk-caption-l">Onboarding journey</span>
+  <h1 class="govuk-heading-l">Phase 5: Live operations</h1>
+
+  <p class="govuk-body">
+    Once you are live, you have access to data and a community of other services using GOV.UK One Login.
+  </p>
+
+  <h2 class="govuk-heading-m">What you get access to</h2>
+
+  <p class="govuk-body"><strong>Data analytics dashboard</strong> — see sign-in volumes, success rates, and identity checking outcomes for your service. Use this to monitor performance and spot issues early.</p>
+
+  <p class="govuk-body"><strong>Live Services Hub</strong> — guidance, updates, and support contacts for live services. Your first stop for anything related to running your integration.</p>
+
+  <h2 class="govuk-heading-m">Staying connected</h2>
+
+  <p class="govuk-body">You will be invited to:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li><strong>Monthly live RP meetings</strong> — hear about upcoming changes, incidents, and roadmap items that may affect your service</li>
+    <li><strong>Show-and-tells</strong> — share what you have learned and hear from other relying parties</li>
+  </ul>
+
+  <p class="govuk-body">Have a question or spotted an issue? Use the <a class="govuk-link" href="/support">support form</a> or find us on <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack</a>.</p>
+
+  <nav class="govuk-body govuk-!-margin-top-6" aria-label="Phase navigation">
+    <a class="govuk-link" href="/onboarding-journey/phase-4">← Phase 4 — Test and launch</a>
+  </nav>
+{% endblock %}

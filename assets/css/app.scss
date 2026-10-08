@@ -124,13 +124,6 @@ div.feature-panel {
     padding-bottom: 5px;
   }
 
-  .side-navigation__item:last-child {
-    border-bottom: 1px $govuk-border-colour solid;
-  }
-
-  .side-navigation__list .side-navigation__item {
-    padding: 4px 0 7px 0;
-  }
 
   .govuk-grid-column-one-third {
     padding: 0 15px;
@@ -353,4 +346,62 @@ div.feature-panel {
 
 .white-space-nowrap {
   white-space: nowrap;
+}
+
+// Onboarding timeline
+.onboarding-timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    left: 19px;
+    width: 2px;
+    background: govuk-colour("mid-grey");
+  }
+
+  &__phase {
+    display: flex;
+    gap: govuk-spacing(4);
+    margin-bottom: govuk-spacing(6);
+    position: relative;
+
+    &--last {
+      margin-bottom: 0;
+    }
+  }
+
+  &__marker {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: govuk-colour("blue");
+    color: govuk-colour("white");
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  &__content {
+    flex: 1;
+    padding-top: govuk-spacing(1);
+  }
+
+  &__heading {
+    margin-bottom: 0;
+  }
+
+  &__duration {
+    color: #505a5f;
+    margin-bottom: govuk-spacing(2);
+  }
 }

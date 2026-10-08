@@ -1,0 +1,53 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "Stage 3: Request to go live" %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "phase-3"} %}
+{% set breadcrumbs = breadcrumbs(
+  intermediateCrumbs = [{ text: "Integrate with GOV.UK One Login", href: "/onboarding-journey" }],
+  currentPageName = "Stage 3: Request to go live"
+) %}
+
+{% block mainContent %}
+  <span class="govuk-caption-l">Integrate with GOV.UK One Login</span>
+  <h1 class="govuk-heading-l">Stage 3: Request to go live</h1>
+
+  <div class="govuk-inset-text">
+    Start this stage at least 4 weeks before your planned go-live date. Some steps have longer lead times — see below.
+  </div>
+
+  <p class="govuk-body">To get production access you need to sign a formal agreement, give us information about your service, and run final tests.</p>
+
+  <h2 class="govuk-heading-m">Sign the Memorandum of Understanding</h2>
+  <p class="govuk-body">The Memorandum of Understanding (MoU) sets out the terms under which your service uses GOV.UK One Login. Your service owner needs to sign it.</p>
+  <div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+      <span class="govuk-visually-hidden">Warning</span>
+      Allow at least 25 business days to get the Memorandum of Understanding signed. Delays here will push back your go-live date.
+    </strong>
+  </div>
+
+  <h2 class="govuk-heading-m">Tell us about your service</h2>
+  <p class="govuk-body">You will need to complete an onboarding form covering:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li><strong>Service information</strong> — what your service does and who it is for</li>
+    <li><strong>Fraud</strong> — how your service will detect and report fraud</li>
+    <li><strong>User support</strong> — how users can get help with sign-in problems and how your team will handle escalations</li>
+    <li><strong>Analytics</strong> — how you will use sign-in data to monitor your service</li>
+    <li><strong>User migration</strong> — if you have existing users, how you will move them and tell them about the change. See <a class="govuk-link" href="/documentation/design-recommendations/migrating-users">migrating users</a></li>
+  </ul>
+
+  <h2 class="govuk-heading-m">Get production access</h2>
+  <p class="govuk-body">Once you have submitted the form, we will set up your production environment. Allow at least 2 weeks from submission to your go-live date.</p>
+  <p class="govuk-body">If your service expects 250,000 or more users, you also need to submit traffic estimates at least 12 weeks before go-live.</p>
+
+  <h2 class="govuk-heading-m">Test in production and go live</h2>
+  <p class="govuk-body">Run your end-to-end tests in the production environment before you launch. You can go live in stages — you do not need to launch to all users at once.</p>
+
+  <nav class="govuk-body govuk-!-margin-top-6" aria-label="Stage navigation">
+    <p><a class="govuk-link" href="/onboarding-journey/phase-2">Previous: Stage 2 — Build your integration</a></p>
+    <p><a class="govuk-link" href="/onboarding-journey/phase-4">Next: Stage 4 — Manage your live service</a></p>
+  </nav>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% from "../macros/side-navigation.njk" import sideNavigation %}
+
+{% macro nav(active) %}
+  {{ sideNavigation([
+    {
+      name: "Design recommendations",
+      description: "recommendations",
+      href: "/documentation/design-recommendations"
+    },
+    {
+      name: "Let users create a GOV.UK One Login to save progress",
+      description: "save-progress",
+      href: "/documentation/design-recommendations/save-progress",
+      isChild: true
+    },
+    {
+      name: "Let users navigate to their GOV.UK One Login and sign out easily",
+      description: "let-users-navigate",
+      href: "/documentation/design-recommendations/let-users-navigate-sign-out",
+      isChild: true
+    },
+    {
+      name: "Show users where to change their GOV.UK One Login credentials",
+      description: "change-credentials",
+      href: "/documentation/design-recommendations/change-credentials",
+      isChild: true
+    },
+    {
+      name: "Moving to GOV.UK One Login if your service already proves users identities",
+      description: "migrating-users",
+      href: "/documentation/design-recommendations/migrating-users",
+      isChild: true
+    },
+    {
+      name: "Moving to GOV.UK One Login if you need to sign in your users",
+      description: "migrating-sign-in-pattern",
+      href: "/documentation/design-recommendations/migrating-sign-in-pattern",
+      isChild: true
+    },
+    {
+      name: "What to say about GOV.UK One Login on start pages",
+      description: "start-page",
+      href: "/documentation/design-recommendations/start-page",
+      isChild: true
+    },
+    {
+      name: "How to talk about GOV.UK One Login",
+      description: "how-to-talk-about",
+      href: "/documentation/design-recommendations/how-to-talk-about",
+      isChild: true
+    },
+    {
+      name: "Prepare your users to move to GOV.UK One Login",
+      description: "prepare-to-move",
+      href: "/documentation/design-recommendations/prepare-to-move",
+      isChild: true
+    },
+    {
+      name: "Business users and GOV.UK One Login",
+      description: "business-users",
+      href: "/documentation/design-recommendations/business-users",
+      isChild: true
+    },
+    {
+      name: "User groups who may find it harder to prove their identity",
+      description: "barriers-to-proving-identity",
+      href: "/documentation/design-recommendations/barriers-to-proving-identity",
+      isChild: true
+    }
+  ], active) }}
+{% endmacro %}

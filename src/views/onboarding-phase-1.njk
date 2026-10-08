@@ -1,0 +1,49 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "Stage 1: Plan your integration" %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "phase-1"} %}
+{% set breadcrumbs = breadcrumbs(
+  intermediateCrumbs = [{ text: "Integrate with GOV.UK One Login", href: "/onboarding-journey" }],
+  currentPageName = "Stage 1: Plan your integration"
+) %}
+
+{% block mainContent %}
+  <span class="govuk-caption-l">Integrate with GOV.UK One Login</span>
+  <h1 class="govuk-heading-l">Stage 1: Plan your integration</h1>
+
+  <p class="govuk-body">Before you build anything, make sure you have the right people involved and the important decisions made.</p>
+
+  <h2 class="govuk-heading-m">Decide what you need</h2>
+  <p class="govuk-body">GOV.UK One Login offers two capabilities — you may need one or both:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li><strong>Authentication</strong> — let users sign in to your service with a single GOV.UK account</li>
+    <li><strong>Identity checking</strong> — verify who a user is before they access your service</li>
+  </ul>
+  <p class="govuk-body"><a class="govuk-link" href="/getting-started">Sign in or create an admin account</a> to create a configuration for testing and integration, and to explore the prototype.</p>
+
+  <h2 class="govuk-heading-m">Get the right people involved early</h2>
+  <ul class="govuk-list govuk-list--bullet">
+    <li><strong>Service owner</strong> — accountable for decisions and sign-offs</li>
+    <li><strong>Technical lead</strong> — will build the integration</li>
+    <li><strong>Security and data protection</strong> — needed before you can go live, so involve them now to avoid delays</li>
+    <li><strong>User support team</strong> — needs to know how to handle sign-in queries from users</li>
+    <li><strong>Communications team</strong> — if you have existing users who will need to move to GOV.UK One Login</li>
+  </ul>
+
+  <h2 class="govuk-heading-m">Make your design decisions</h2>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>Will users sign in upfront, or partway through to save progress? <a class="govuk-link" href="/getting-started">Sign in or create an admin account</a> to explore the prototype</li>
+    <li>Do you have existing users who will need to move to GOV.UK One Login? See <a class="govuk-link" href="/documentation/design-recommendations/migrating-users">migrating users</a></li>
+    <li>Review the <a class="govuk-link" href="/documentation/design-recommendations">design recommendations</a> so your team can plan the work</li>
+  </ul>
+
+  <h2 class="govuk-heading-m">Register your interest</h2>
+  <p class="govuk-body">When you are ready, <a class="govuk-link" href="/register">register your interest</a>. You will have an introductory call to confirm what your service needs and get matched to the right technical support.</p>
+  <p class="govuk-body">You can also <a class="govuk-link" href="/getting-started">sign in or create an admin account</a> and explore the integration environment at any point — no agreements needed.</p>
+
+  <nav class="govuk-body govuk-!-margin-top-6" aria-label="Stage navigation">
+    <a class="govuk-link" href="/onboarding-journey/phase-2">Next: Stage 2 — Build your integration</a>
+  </nav>
+{% endblock %}

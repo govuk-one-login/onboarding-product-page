@@ -1,0 +1,56 @@
+{% extends "base-side-nav.njk" %}
+{% from "macros/breadcrumbs.njk" import breadcrumbs %}
+
+{% set pageTitle = "How to integrate with GOV.UK One Login" %}
+{% set metaDescription = "A step-by-step guide to integrating your government service with GOV.UK One Login, including what to do, who to involve, and how long each stage takes." %}
+{% set headerNavigationActiveItem = "documentation" %}
+{% set sideNav = {name: "documentation", active: "onboarding-journey"} %}
+{% set breadcrumbs = breadcrumbs(currentPageName = "Integrate with GOV.UK One Login") %}
+
+{% block mainContent %}
+  <h1 class="govuk-heading-l">Integrate with GOV.UK One Login</h1>
+
+  <p class="govuk-body">
+    There are four stages to integrating your service with GOV.UK One Login. Select a stage to see what you need to do, who to involve, and what to prepare.
+  </p>
+
+  <ol class="govuk-list onboarding-timeline">
+
+    <li class="onboarding-timeline__phase">
+      <div class="onboarding-timeline__marker" aria-hidden="true">1</div>
+      <div class="onboarding-timeline__content">
+        <h2 class="govuk-heading-s onboarding-timeline__heading"><a class="govuk-link govuk-link--no-visited-state" href="/onboarding-journey/phase-1">Plan your integration</a></h2>
+        <p class="govuk-body">Decide if GOV.UK One Login is right for your service, who needs to be involved, and what decisions to make before you build.</p>
+      </div>
+    </li>
+
+    <li class="onboarding-timeline__phase">
+      <div class="onboarding-timeline__marker" aria-hidden="true">2</div>
+      <div class="onboarding-timeline__content">
+        <h2 class="govuk-heading-s onboarding-timeline__heading"><a class="govuk-link govuk-link--no-visited-state" href="/onboarding-journey/phase-2">Build your integration</a></h2>
+        <p class="govuk-body">Connect your service to GOV.UK One Login in the integration environment and test your user journeys.</p>
+      </div>
+    </li>
+
+    <li class="onboarding-timeline__phase">
+      <div class="onboarding-timeline__marker" aria-hidden="true">3</div>
+      <div class="onboarding-timeline__content">
+        <h2 class="govuk-heading-s onboarding-timeline__heading"><a class="govuk-link govuk-link--no-visited-state" href="/onboarding-journey/phase-3">Request to go live</a></h2>
+        <p class="govuk-body">Complete the required sign-offs, get production access, and confirm your launch date.</p>
+      </div>
+    </li>
+
+    <li class="onboarding-timeline__phase onboarding-timeline__phase--last">
+      <div class="onboarding-timeline__marker" aria-hidden="true">4</div>
+      <div class="onboarding-timeline__content">
+        <h2 class="govuk-heading-s onboarding-timeline__heading"><a class="govuk-link govuk-link--no-visited-state" href="/onboarding-journey/phase-4">Manage your live service</a></h2>
+        <p class="govuk-body">Monitor your integration, stay up to date with changes, and support your users.</p>
+      </div>
+    </li>
+
+  </ol>
+
+  <p class="govuk-body govuk-!-margin-top-6">
+    Ready to start? <a class="govuk-link" href="/register">Register your interest</a> or <a class="govuk-link" href="/support">contact us</a> if you have questions.
+  </p>
+{% endblock %}
