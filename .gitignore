@@ -107,6 +107,10 @@ deploy
 # TernJS port file
 .tern-port
 
+# AI context
+.amazonq/
+.q/
+
 # Additional ignores
 .idea
 public
