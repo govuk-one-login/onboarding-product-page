@@ -192,10 +192,6 @@ Resources:
               Value: "{{resolve:ssm:/product-pages/frontend/register-sheet-data-range}}"
             - Name: REGISTER_SHEET_HEADER_RANGE
               Value: "{{resolve:ssm:/product-pages/frontend/register-sheet-header-range}}"
-            - Name: MAILING_LIST_SHEET_DATA_RANGE
-              Value: "{{resolve:ssm:/product-pages/frontend/mailing-list-sheet-data-range}}"
-            - Name: MAILING_LIST_SHEET_HEADER_RANGE
-              Value: "{{resolve:ssm:/product-pages/frontend/mailing-list-sheet-header-range}}"
             - Name: HTML_PROTOTYPE_ACCESS_SHEET_DATA_RANGE
               Value: "{{resolve:ssm:/product-pages/frontend/prototype-access-sheet-data-range}}"
             - Name: HTML_PROTOTYPE_ACCESS_SHEET_HEADER_RANGE
@@ -204,8 +200,6 @@ Resources:
               Value: "{{resolve:secretsmanager:/product-pages/frontend/vcap-services}}"
             - Name: REGISTER_SPREADSHEET_ID
               Value: "{{resolve:secretsmanager:/product-pages/frontend/register-spreadsheet-id}}"
-            - Name: MAILING_LIST_SPREADSHEET_ID
-              Value: "{{resolve:secretsmanager:/product-pages/frontend/mailing-list-spreadsheet-id}}"
             - Name: DT_LOGLEVELCON
               Value: INFO
             - Name: USE_STUB_SERVICENOW # Variable protection enabled

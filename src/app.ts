@@ -5,7 +5,6 @@ import configureViews from "./config/configureViews";
 import {distribution} from "./config/resources";
 import Validation from "./lib/validation/validation";
 import {requestLoggingMiddleware} from "./lib/requestLogging";
-import mailingList from "./routes/mailing-list";
 import redirects from "./routes/redirects";
 import register from "./routes/register";
 import site from "./routes/site";
@@ -46,7 +45,6 @@ app.use("/", register);
 app.use("/", site);
 app.use("/", redirects);
 app.use("/", support);
-app.use("/", mailingList);
 
 app.locals.googleTagId = process.env.GOOGLE_TAG_ID;
 app.locals.showTestBanner = process.env.SHOW_TEST_BANNER === "true";
