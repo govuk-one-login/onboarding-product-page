@@ -79,11 +79,6 @@ Feature: A form so users can register to get started with GOV.UK One Login
       When they try to submit the form without selecting any value from the radio button
       Then the error message with the text "Select one option" must be displayed for the existing users that you need to migrate field 
       
-  Rule: The user tries to select and submit Would you like to get updates about GOV.UK One Login when registering to get started with GOV.UK One Login
-    Scenario: The user does not select any value from Would you like to get updates about GOV.UK One Login radio button
-      When they try to submit the form without selecting any value from the radio button
-      Then the error message with the text "Select one option" must be displayed for the would you like to get updates field
-
   Rule: The user tries to submit the form when registering to get started with GOV.UK One Login
     Scenario: The user successfully submits the form
       When they fill in correct data in all the mandatory input fields, select buttons, and check lists

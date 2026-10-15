@@ -82,8 +82,7 @@ describe("POST /register", () => {
                 expectedNumberOfUsersPerAnnum: "1000",
                 estimatedServiceGoLiveDate: "2023-12",
                 accessAndTest: "authenticationOnly",
-                anyOtherServicesToTalkAbout: "no",
-                getUpdatesAboutOneLogin: "yes"
+                anyOtherServicesToTalkAbout: "no"
             })
             .expect("Location", "/register-confirm")
             .expect(302, done);
@@ -107,8 +106,7 @@ describe("POST /register", () => {
                 expectedNumberOfUsersPerAnnum: "500",
                 estimatedServiceGoLiveDate: "2023-11",
                 accessAndTest: "authAndIdentity",
-                anyOtherServicesToTalkAbout: "yes",
-                getUpdatesAboutOneLogin: "no"
+                anyOtherServicesToTalkAbout: "yes"
             })
             .expect("Location", "/register-confirm")
             .expect(302)
@@ -139,8 +137,7 @@ describe("POST /register", () => {
                 expectedNumberOfUsersPerAnnum: "2000",
                 estimatedServiceGoLiveDate: "2024-01",
                 accessAndTest: "authAndIdentity",
-                anyOtherServicesToTalkAbout: "yes",
-                getUpdatesAboutOneLogin: "no"
+                anyOtherServicesToTalkAbout: "yes"
             })
             .expect("Location", "/register-error")
             .expect(302, done);
@@ -164,8 +161,7 @@ describe("POST /register", () => {
                 expectedNumberOfUsersPerAnnum: "2000",
                 estimatedServiceGoLiveDate: "2024-01",
                 accessAndTest: "authAndIdentity",
-                anyOtherServicesToTalkAbout: "yes",
-                getUpdatesAboutOneLogin: "no"
+                anyOtherServicesToTalkAbout: "yes"
             })
             .expect("Location", "/register-error")
             .expect(302, done);
@@ -190,8 +186,7 @@ describe("POST /register", () => {
                 expectedNumberOfUsersPerAnnum: "2000",
                 estimatedServiceGoLiveDate: "2024-01",
                 accessAndTest: "authAndIdentity",
-                anyOtherServicesToTalkAbout: "yes",
-                getUpdatesAboutOneLogin: "no"
+                anyOtherServicesToTalkAbout: "yes"
             })
             .expect("Location", "/register-error")
             .expect(302, done);
@@ -228,8 +223,7 @@ describe("POST /register", () => {
                 expectedNumberOfUsersPerAnnum: "2000",
                 estimatedServiceGoLiveDate: "2024-01",
                 accessAndTest: "authAndIdentity",
-                anyOtherServicesToTalkAbout: "yes",
-                getUpdatesAboutOneLogin: "no"
+                anyOtherServicesToTalkAbout: "yes"
             })
             .expect("Location", "/register-error")
             .expect(302, done);
@@ -252,8 +246,7 @@ describe("POST /register", () => {
                 expectedNumberOfUsersPerAnnum: "1000",
                 estimatedServiceGoLiveDate: "2023-12",
                 accessAndTest: "authenticationOnly",
-                anyOtherServicesToTalkAbout: "no",
-                getUpdatesAboutOneLogin: "yes"
+                anyOtherServicesToTalkAbout: "no"
             })
             .expect("Content-Type", /html/)
             .expect(200)

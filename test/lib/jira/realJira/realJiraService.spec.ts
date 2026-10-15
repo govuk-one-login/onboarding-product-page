@@ -41,11 +41,7 @@ const testFormattedJiraPayload = {
                 },
                 {
                     type: "paragraph",
-                    content: [
-                        {type: "text", text: "Add to mailing list: Yes ✅"},
-                        {type: "hardBreak"},
-                        {type: "text", text: "Has other services to discuss: Yes ✅"}
-                    ]
+                    content: [{type: "text", text: "Has other services to discuss: Yes ✅"}]
                 }
             ]
         },

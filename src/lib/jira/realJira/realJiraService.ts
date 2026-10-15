@@ -32,9 +32,7 @@ export default class RealJiraService implements JiraService {
 
     private ticketContactPreferences(ticketPayload: RegisterInterestFormPayload): JiraTicketContentSection[] {
         const anyOtherServicesToTalkAbout = ticketPayload.get("anyOtherServicesToTalkAbout");
-        const getUpdatesAboutOneLogin = ticketPayload.get("getUpdatesAboutOneLogin");
         const otherServicesToDiscuss = anyOtherServicesToTalkAbout === "Yes" ? "Has other services to discuss: Yes ✅" : undefined;
-        const addToMailingList = getUpdatesAboutOneLogin === "YES" ? "Add to mailing list: Yes ✅" : undefined;
 
         const headingPayload = [
             {
@@ -44,11 +42,7 @@ export default class RealJiraService implements JiraService {
             }
         ];
 
-        const contentPayload = [
-            ...(addToMailingList ? [{type: "text", text: addToMailingList}] : []),
-            ...(otherServicesToDiscuss && addToMailingList ? [{type: "hardBreak"}] : []),
-            ...(otherServicesToDiscuss ? [{type: "text", text: otherServicesToDiscuss}] : [])
-        ];
+        const contentPayload = [...(otherServicesToDiscuss ? [{type: "text", text: otherServicesToDiscuss}] : [])];
 
         const bodyPayload = [
             {
@@ -57,10 +51,7 @@ export default class RealJiraService implements JiraService {
             }
         ];
 
-        return [
-            ...(otherServicesToDiscuss || addToMailingList ? headingPayload : []),
-            ...(addToMailingList || otherServicesToDiscuss ? bodyPayload : [])
-        ];
+        return [...(otherServicesToDiscuss ? headingPayload : []), ...(otherServicesToDiscuss ? bodyPayload : [])];
     }
 
     private ticketDescription(ticketPayload: RegisterInterestFormPayload): JiraStructuredContent {
