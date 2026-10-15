@@ -112,11 +112,6 @@ router.get("/documentation/end-to-end-prototype/identity-journeys", (req, res) =
     res.render("documentation-end-to-end-prototype.njk");
 });
 
-
-router.get("/documentation/end-to-end-prototype/check-email", (req, res) => {
-    res.render("documentation-check-email.njk");
-});
-
 router.get("/documentation/design-recommendations/migrating-users", (req, res) => {
     res.render("documentation-migrating-users.njk");
 });
