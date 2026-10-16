@@ -32,7 +32,6 @@ const requiredFieldsRegister = new Map<string, string>([
     ["estimatedServiceGoLiveDate", "Enter a month and year"],
     ["accessAndTest", "Select one option"],
     ["anyOtherServicesToTalkAbout", "Select one option"],
-    ["getUpdatesAboutOneLogin", "Select one option"],
     ["migrateExistingUsers", "Select one option"]
 ]);
 

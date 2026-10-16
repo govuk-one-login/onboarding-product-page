@@ -13,7 +13,6 @@ export const testFormSubmission = new Map<string, string | number>(
         estimatedServiceGoLiveDate: "June 2026",
         accessAndTest: "auth only",
         anyOtherServicesToTalkAbout: "Yes",
-        getUpdatesAboutOneLogin: "YES",
         additionalHelpOrQuestions: "I'd like some additional help with selecting the right coffee to test",
         id: "6eae99dc-b728-4a65-add2-1c68271e0e8e",
         "submission-date": "2024-02-29T10:42:12.830",
