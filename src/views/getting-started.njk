@@ -3,37 +3,46 @@
 {% from "dist/govuk/components/button/macro.njk" import govukButton %}
 
 {% set pageTitle = "How to get started" %}
-{% set metaDescription = "Register your interest to see if GOV.UK One Login is suitable for your government service" %}
+{% set metaDescription = "Register your interest or create a One Login Admin account to get started with GOV.UK One Login" %}
 {% set headerNavigationActiveItem = "get-started" %}
 {% set breadcrumbs = breadcrumbs(currentPageName = pageTitle) %}
 {% set registerButtonLink %}{{ adminToolUrl }}/register{% endset %}
 
 {% block mainContent %}
   <h1 class="govuk-heading-l">Get started with GOV.UK One Login</h1>
-  <p class="govuk-body">You can use GOV.UK One Login if you’re from a central government service and need to sign in your users or check their identities.</p>
-  <p class="govuk-body"><a class="govuk-link" href="/about">Read more about GOV.UK One Login</a>
-  </p>
-  <h2 class="govuk-heading-m govuk-!-padding-top-4">Get in touch or try GOV.UK One Login</h2>
-  <p class="govuk-body">Register your interest if you think GOV.UK One Login is right for your service. We’ll contact you within 5 days to find out more about what your service needs.</p>
+  <p class="govuk-body">You can use GOV.UK One Login if you're from a central government service and need to sign in your users or check their identities.</p>
+  <p class="govuk-body"><a class="govuk-link" href="/about">Read more about GOV.UK One Login</a></p>
+  <p class="govuk-body">To get started, you need to register your interest and create a One Login Admin account.</p>
+
+  <h2 class="govuk-heading-m govuk-!-padding-top-4">Register your interest</h2>
+  <p class="govuk-body">Register your interest if you want to talk to the team about whether GOV.UK One Login is right for your service.</p>
+  <p class="govuk-body">We will contact you within 5 days to arrange a call.</p>
   {{ govukButton({
     text: "Register your interest",
     href: "/register"
   }) }}
-  <h2 class="govuk-heading-m govuk-!-padding-top-2">Try GOV.UK One Login</h2>
-  <p class="govuk-body">Set up an admin tool account to try GOV.UK One Login in our integration environment. You'll need a:</p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>government email address</li>
-        <li>mobile phone number</li>
-      </ul>
+
+  <h2 class="govuk-heading-m govuk-!-padding-top-2">Create a One Login Admin account</h2>
+  <p class="govuk-body">Create a One Login Admin account to access the integration environment. You can use it to:</p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>register your service and get a unique client ID</li>
+    <li>configure your integration settings, such as redirect URLs, scopes and token authentication</li>
+  </ul>
+  <p class="govuk-body">You'll need a government email address and a mobile phone number to register.</p>
   {{ govukButton({
-    text: "Create admin tool account",
+    text: "Create a One Login Admin account",
     href: registerButtonLink
   }) }}
-    <p class="govuk-body">
-      or <a class="govuk-link" href="{{ adminToolUrl }}/sign-in">sign in</a>
-    </p>
+  <p class="govuk-body">
+    or <a class="govuk-link" href="{{ adminToolUrl }}/sign-in">sign in</a>
+  </p>
+
+  <h2 class="govuk-heading-m govuk-!-padding-top-4">Going live</h2>
+  <p class="govuk-body">Every service goes live through the GOV.UK One Login team. You can start building and testing in the integration environment before this step.</p>
+  <p class="govuk-body">When you are ready to go live, get in touch with your Engagement Manager and they will guide you through the process. If you do not have an Engagement Manager, <a class="govuk-link" href="/register">register your interest</a> and we will support you with integrating to the production environment.</p>
+
   <h2 class="govuk-heading-m govuk-!-padding-top-4">Contact us</h2>
   <p class="govuk-body">Use our <a class="govuk-link" href="/support">online form</a> to report problems, ask questions or suggest improvements.</p>
   <p class="govuk-body">You can also get in touch using our <a class="govuk-link" href="https://ukgovernmentdigital.slack.com/archives/C02AQUJ6WTC">Slack channel</a></p>
-  <p class="govuk-body">Also, find out more about <a class="govuk-link" href="https://www.gov.uk/guidance/using-govuk-wallet-in-government">GOV.UK Wallet</a> or email <a class="govuk-link" href="mailto:gov.uk.wallet-queries@digital.cabinet-office.gov.uk">gov.uk.wallet-queries@digital.cabinet-office.gov.uk</a> if you’re interested in using it.</p>
+
 {% endblock %}
