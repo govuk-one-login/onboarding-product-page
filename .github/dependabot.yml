@@ -84,4 +84,4 @@ updates:
     ignore:
       - dependency-name: "node"
         versions:
-          - ">24"
+          - ">=25"
