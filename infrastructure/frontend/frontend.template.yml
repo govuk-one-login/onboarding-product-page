@@ -93,15 +93,6 @@ Mappings:
   ElasticLoadBalancer:
     eu-west-2:
       AccountID: 652711504416
-  WafArn:
-    Environment:
-      local: "/product-pages/development/waf-web-acl"
-      demo: "/product-pages/development/waf-web-acl"
-      dev: "/product-pages/development/waf-web-acl"
-      build: "/product-pages/build/waf-web-acl"
-      staging: "/product-pages/staging/waf-web-acl"
-      integration: "/product-pages/integration/waf-web-acl"
-      production: "/product-pages/production/waf-web-acl"
   TxMAAccountARN:
     Environment:
       local: 'arn:aws:iam::494650018671:root'
@@ -141,16 +132,6 @@ Conditions:
       - DefaultValue: !FindInMap [ LoggingConfiguration, default, dynatraceLoggingEnabled ]
   IsEphemeral: !Or [ !Equals [ !Ref Environment, "local" ], !Equals [ !Ref Environment, "demo" ] ]
   IsProd: !Equals [ !Ref Environment, "production" ]
-  WebAclAssociated:
-    !Not [
-      !Or [
-        !Equals [dev, !Ref Environment],
-        !Equals [build, !Ref Environment],
-        !Equals [staging, !Ref Environment],
-        !Equals [integration, !Ref Environment],
-        !Equals [production, !Ref Environment],
-      ],
-    ]
   IsDevelopmentAccount: !Or [
     !Equals [dev, !Ref Environment],
     !Equals [demo, !Ref Environment],
@@ -529,15 +510,6 @@ Resources:
             Resource: !Sub ${AccessLogsBucket.Arn}/AWSLogs/${AWS::AccountId}/*
             Principal:
               AWS: !FindInMap [ ElasticLoadBalancer, !Ref AWS::Region, AccountID ]
-
-  LoadBalancerWebACLAssociation:
-    Condition: WebAclAssociated
-    Type: AWS::WAFv2::WebACLAssociation
-    Properties:
-      WebACLArn: !Sub
-        - "{{resolve:ssm:${WafArnParam}}}"
-        - WafArnParam: !FindInMap [ WafArn, Environment, !Ref Environment ]
-      ResourceArn: !Ref ApplicationLoadBalancer
 
   TxMASQSProducerAuditEventQueue:
     Type: AWS::SQS::Queue
