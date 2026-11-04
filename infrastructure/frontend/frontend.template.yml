@@ -162,7 +162,7 @@ Resources:
             - Name: SHOW_TEST_BANNER
               Value: !Ref ShowTestBanner
             - Name: GOOGLE_SHEETS_INTEGRATION_ENABLED
-              Value: !If [ IsProd, 'true', "{{resolve:ssm:/product-pages/frontend/google-sheets-integration-enabled}}" ]
+              Value: "false"
             - Name: GOOGLE_TAG_ID
               Value: !Ref GoogleTagID
             - Name: ADMIN_TOOL_URL
