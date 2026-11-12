@@ -1,6 +1,6 @@
 # Use an lts-supported version similar to the application image.
 # checkov:skip=CKV_DOCKER_2: Ensure that HEALTHCHECK instructions have been added to container images
-FROM node:lts-slim as test
+FROM node:lts-bookworm-slim@sha256:5df79989ed685e09f0a98019db4cebfb22fb9df1a53c0161664a011f7ff6b0f1 as test
 
 ENV DEBIAN_FRONTEND=noninteractive
 
