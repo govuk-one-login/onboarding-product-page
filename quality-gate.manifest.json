@@ -2,8 +2,8 @@
   "$schema": "https://raw.githubusercontent.com/govuk-one-login/quality-gates/refs/tags/v0.19.0/schemas/schema.json",
   "services": [
     {
-      "product": "Orchestration - Onboarding",
-      "component": "GOV.UK One Login product-page",
+      "product": "Orchestration - Onboarding Product Page",
+      "component": "onboarding-product-page",
       "promotionType": "securePipelines",
       "promotionTypeDetails": [
         "Only dev and production environments"
